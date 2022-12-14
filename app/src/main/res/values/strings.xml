@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Binge Tv</string>
-    <string name="title_home">Home</string>
+    <string name="title_discover">Discover</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_on_boarding">On Boarding</string>
 </resources>
