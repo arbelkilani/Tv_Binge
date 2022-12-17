@@ -14,5 +14,7 @@
     <color name="space_cadet">#1F3354</color>
     <color name="yankees_blue">#122038</color>
 
-    <color name="background_splash_color">@color/vista_blue</color>
+    <color name="background_color_splash">@color/vista_blue</color>
+    <color name="background_start_color">@color/anti_flash_white</color>
+    <color name="background_end_color">@color/white</color>
 </resources>

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background_splash_color">@color/space_cadet</color>
+    <color name="background_color_splash">@color/space_cadet</color>
+    <color name="background_start_color">@color/yankees_blue</color>
+    <color name="background_end_color">@color/space_cadet</color>
 </resources>
