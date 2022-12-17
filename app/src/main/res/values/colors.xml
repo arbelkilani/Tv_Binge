@@ -9,7 +9,10 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="anti_flash_white">#F0F6F7</color>
+    <color name="pale_cornflower_blue">#A9C8F6</color>
     <color name="vista_blue">#778BD9</color>
     <color name="space_cadet">#1F3354</color>
     <color name="yankees_blue">#122038</color>
+
+    <color name="background_splash_color">@color/vista_blue</color>
 </resources>

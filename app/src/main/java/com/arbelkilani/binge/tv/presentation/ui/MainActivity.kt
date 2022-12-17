@@ -42,13 +42,13 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        //startLoadingContent()
-        //setupSplashScreen()
+        startLoadingContent()
+        setupSplashScreen()
     }
 
     private fun startLoadingContent() {
         // For this example, the Timer delay represents awaiting a response from a network call
-        Timer().schedule(3000) {
+        Timer().schedule(10000) {
             contentHasLoaded = true
         }
     }
