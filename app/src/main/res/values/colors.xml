@@ -7,14 +7,24 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparent">@android:color/transparent</color>
 
     <color name="anti_flash_white">#F0F6F7</color>
     <color name="pale_cornflower_blue">#A9C8F6</color>
     <color name="vista_blue">#778BD9</color>
     <color name="space_cadet">#1F3354</color>
     <color name="yankees_blue">#122038</color>
+    <color name="chinese_silver">#CCCCCC</color>
+    <color name="independence">#525965</color>
 
     <color name="background_color_splash">@color/vista_blue</color>
     <color name="background_start_color">@color/anti_flash_white</color>
     <color name="background_end_color">@color/white</color>
+
+    <!-- On Boarding -->
+    <color name="indicator_enabled_color">@color/vista_blue</color>
+    <color name="indicator_disabled_color">@color/chinese_silver</color>
+
+    <color name="button_background_color">@color/vista_blue</color>
+    <color name="button_text_color">@color/anti_flash_white</color>
 </resources>

@@ -2,6 +2,7 @@ package com.arbelkilani.binge.tv.presentation.di
 
 import com.arbelkilani.binge.tv.BuildConfig
 import com.arbelkilani.binge.tv.data.source.remote.ApiService
+import com.arbelkilani.binge.tv.data.source.remote.EndpointInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,6 +41,7 @@ class NetworkModule {
             .connectTimeout(60L, TimeUnit.SECONDS)
             .readTimeout(60L, TimeUnit.SECONDS)
             .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(EndpointInterceptor())
             .build()
     }
 
