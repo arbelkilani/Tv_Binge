@@ -10,4 +10,8 @@
     <!-- On Boarding -->
     <color name="indicator_enabled_color">@color/anti_flash_white</color>
     <color name="indicator_disabled_color">@color/independence</color>
+
+    <color name="details_network_text_color">@android:color/white</color>
+    <color name="details_network_border_color">@android:color/white</color>
+
 </resources>

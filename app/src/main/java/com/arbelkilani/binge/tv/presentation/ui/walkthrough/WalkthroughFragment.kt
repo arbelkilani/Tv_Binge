@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.arbelkilani.binge.tv.databinding.FragmentWalkthroughBinding
 import com.arbelkilani.binge.tv.presentation.ui.walkthrough.adapter.WalkthroughAdapter
@@ -38,6 +39,9 @@ class WalkthroughFragment : Fragment(), OnPageChangeListener {
         binding.viewPager.adapter = walkthroughAdapter
         binding.tabLayout.setupWithViewPager(binding.viewPager)
 
+        binding.start.setOnClickListener {
+            findNavController().navigate(WalkthroughFragmentDirections.actionFragmentWalkthroughToFragmentOnBoarding())
+        }
         return binding.root
     }
 
