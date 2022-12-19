@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.presentation.ui.onboarding
+package com.arbelkilani.binge.tv.presentation.ui.walkthrough
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,34 +8,34 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
-import com.arbelkilani.binge.tv.databinding.FragmentOnBoardingBinding
-import com.arbelkilani.binge.tv.presentation.ui.onboarding.adapter.OnBoardingAdapter
+import com.arbelkilani.binge.tv.databinding.FragmentWalkthroughBinding
+import com.arbelkilani.binge.tv.presentation.ui.walkthrough.adapter.WalkthroughAdapter
 import com.arbelkilani.binge.tv.presentation.viewmodel.onboarding.OnBoardingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class OnBoardingFragment : Fragment(), OnPageChangeListener {
+class WalkthroughFragment : Fragment(), OnPageChangeListener {
 
-    private var _binding: FragmentOnBoardingBinding? = null
+    private var _binding: FragmentWalkthroughBinding? = null
     private val binding get() = _binding!!
 
     val viewModel: OnBoardingViewModel by viewModels()
 
     @Inject
-    lateinit var onBoardingAdapter: OnBoardingAdapter
+    lateinit var walkthroughAdapter: WalkthroughAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentOnBoardingBinding.inflate(inflater, container, false)
+        _binding = FragmentWalkthroughBinding.inflate(inflater, container, false)
         binding.viewPager.apply {
-            adapter = onBoardingAdapter
-            addOnPageChangeListener(this@OnBoardingFragment)
+            adapter = walkthroughAdapter
+            addOnPageChangeListener(this@WalkthroughFragment)
             onPageSelected(0)
         }
-        binding.viewPager.adapter = onBoardingAdapter
+        binding.viewPager.adapter = walkthroughAdapter
         binding.tabLayout.setupWithViewPager(binding.viewPager)
 
         return binding.root
@@ -45,7 +45,7 @@ class OnBoardingFragment : Fragment(), OnPageChangeListener {
     }
 
     override fun onPageSelected(position: Int) {
-        binding.start.isVisible = position == onBoardingAdapter.count - 1
+        binding.start.isVisible = position == walkthroughAdapter.count - 1
     }
 
     override fun onPageScrollStateChanged(state: Int) {

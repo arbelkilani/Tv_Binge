@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launchWhenResumed {
             viewModel.isFirstRun.collectLatest {
                 if (it) {
-                    navController.setGraph(R.navigation.on_boarding_navigation)
+                    navController.setGraph(R.navigation.walkthrough_navigation)
                 } else {
                     navController.setGraph(R.navigation.dashboard_navigation)
                 }

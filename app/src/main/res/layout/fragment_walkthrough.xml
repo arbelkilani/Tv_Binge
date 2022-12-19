@@ -4,12 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_app"
     tools:context=".presentation.ui.dashboard.DashboardFragment">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
-        android:background="@color/transparent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never" />

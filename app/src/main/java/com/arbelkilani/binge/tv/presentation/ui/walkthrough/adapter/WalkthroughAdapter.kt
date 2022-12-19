@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.presentation.ui.onboarding.adapter
+package com.arbelkilani.binge.tv.presentation.ui.walkthrough.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,12 +9,12 @@ import com.arbelkilani.binge.tv.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class OnBoardingAdapter @Inject constructor(
+class WalkthroughAdapter @Inject constructor(
     @ApplicationContext private val context: Context
 ) : PagerAdapter() {
 
     private val layouts: List<Int> =
-        listOf(R.layout.layout_on_boarding_1, R.layout.layout_on_boarding_2)
+        listOf(R.layout.layout_walkthrough_1, R.layout.layout_walkthrough_2)
 
     override fun getCount() = layouts.size
 
