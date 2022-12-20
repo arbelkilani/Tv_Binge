@@ -1,7 +1,6 @@
 package com.arbelkilani.binge.tv.presentation.ui.onboarding
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import com.arbelkilani.binge.tv.databinding.FragmentOnBoardingBinding
 import com.arbelkilani.binge.tv.presentation.ui.onboarding.adapter.ProvidersAdapter
 import com.arbelkilani.binge.tv.presentation.viewmodel.onboarding.OnBoardingViewModel
-import com.google.android.flexbox.FlexDirection
-import com.google.android.flexbox.FlexWrap
-import com.google.android.flexbox.FlexboxLayoutManager
-import com.google.android.flexbox.JustifyContent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -24,7 +19,9 @@ class OnBoardingFragment : Fragment() {
     private var _binding: FragmentOnBoardingBinding? = null
     val viewModel: OnBoardingViewModel by viewModels()
 
-    private val providersAdapter by lazy { ProvidersAdapter() }
+    private val selectedProvidersAdapter by lazy { ProvidersAdapter() }
+    private val unselectedProvidersAdapter by lazy { ProvidersAdapter() }
+
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -32,21 +29,15 @@ class OnBoardingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentOnBoardingBinding.inflate(inflater, container, false)
-        binding.rvNetworks.apply {
-            layoutManager = FlexboxLayoutManager(context).apply {
-                flexWrap = FlexWrap.WRAP
-                flexDirection = FlexDirection.ROW
-                justifyContent = JustifyContent.SPACE_BETWEEN
-            }
-            adapter = providersAdapter
-        }
+        binding.rvSelectedProviders.adapter = selectedProvidersAdapter
+        binding.rvUnselectedProviders.adapter = unselectedProvidersAdapter
 
-        lifecycleScope.launchWhenResumed {
-            viewModel.provider.collectLatest {
-                it.map {
-                    Log.i("TAG**", "provider : $it")
-                }
-                providersAdapter.submitList(it)
+        lifecycleScope.launchWhenStarted {
+            viewModel.provider.collectLatest { list ->
+                val selectedProviders = list.filter { it.isFavorite }
+                val unselectedProviders = list.filter { !it.isFavorite }
+                selectedProvidersAdapter.submitList(selectedProviders)
+                unselectedProvidersAdapter.submitList(unselectedProviders)
             }
         }
 

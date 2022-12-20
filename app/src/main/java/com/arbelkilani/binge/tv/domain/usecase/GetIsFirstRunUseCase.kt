@@ -9,7 +9,7 @@ class GetIsFirstRunUseCase @Inject constructor() {
     @Inject
     lateinit var configurationRepository: ConfigurationRepository
 
-    fun execute(): Flow<Boolean> {
+    suspend fun execute(): Flow<Boolean> {
         return configurationRepository.isFirstRun()
     }
 }

@@ -11,10 +11,9 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ConfigurationDao {
 
-    @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(configurationEntity: ConfigurationEntity)
+    suspend fun insert(configurationEntity: ConfigurationEntity)
 
     @Query("SELECT * FROM configuration_table")
-    fun get(): Flow<ConfigurationEntity>
+    suspend fun get(): ConfigurationEntity?
 }

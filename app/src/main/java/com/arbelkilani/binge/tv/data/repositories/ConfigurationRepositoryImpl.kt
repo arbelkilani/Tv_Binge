@@ -12,35 +12,26 @@ import javax.inject.Inject
 
 class ConfigurationRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
-    private val database: AppDatabase
+    private val appDatabase: AppDatabase
 ) : ConfigurationRepository {
 
     @Inject
     lateinit var prefsStore: PrefsStore
 
     @Inject
-    lateinit var application: Application
-
-    @Inject
     lateinit var configurationMapper: ConfigurationMapper
 
-    override fun isFirstRun(): Flow<Boolean> {
+    override suspend fun isFirstRun(): Flow<Boolean> {
         return prefsStore.isFirstRun()
     }
 
-    override suspend fun execute() {
-        apiService.getGenres().list.map {
-            Log.i("TAG**", "Genre : $it")
-        }
-    }
-
     override suspend fun saveConfiguration() {
-        try {
-            database.configurationDao().insert(
+        val dao = appDatabase.configurationDao()
+        val localConfiguration = dao.get()
+        if (localConfiguration == null) {
+            dao.insert(
                 configurationMapper.map(apiService.getConfiguration())
             )
-        } catch (ex: Exception) {
-            ex.printStackTrace()
         }
     }
 }

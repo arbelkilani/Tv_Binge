@@ -10,9 +10,9 @@ data class ConfigurationResponse(
 data class ImageConfiguration(
     @SerializedName("base_url") val baseUrl: String,
     @SerializedName("secure_base_url") val secureBaseUrl: String,
-    @SerializedName("backdrop_sizes") val backdropSize: List<Int>,
-    @SerializedName("logo_sizes") val logoSize: List<Int>,
-    @SerializedName("poster_sizes") val posterSize: List<Int>,
-    @SerializedName("profile_sizes") val profileSize: List<Int>,
-    @SerializedName("still_sizes") val stillSize: List<Int>
+    @SerializedName("backdrop_sizes") val backdropSize: List<String>,
+    @SerializedName("logo_sizes") val logoSize: List<String>,
+    @SerializedName("poster_sizes") val posterSize: List<String>,
+    @SerializedName("profile_sizes") val profileSize: List<String>,
+    @SerializedName("still_sizes") val stillSize: List<String>
 )

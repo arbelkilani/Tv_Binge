@@ -1,18 +1,19 @@
 package com.arbelkilani.binge.tv.data.source.local.room.converters
 
 import androidx.room.TypeConverter
+import com.arbelkilani.binge.tv.domain.entities.Image
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class IntConverter {
+class ImageConverter {
     @TypeConverter
-    fun fromString(string: String): List<Int> {
-        val type = object : TypeToken<List<Int>>() {}.type
+    fun from(string: String): Image {
+        val type = object : TypeToken<Image>() {}.type
         return Gson().fromJson(string, type)
     }
 
     @TypeConverter
-    fun fromList(types: List<Int>): String {
+    fun to(types: Image): String {
         return Gson().toJson(types)
     }
 }

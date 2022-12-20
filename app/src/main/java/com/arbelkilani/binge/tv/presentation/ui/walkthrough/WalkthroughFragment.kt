@@ -40,7 +40,8 @@ class WalkthroughFragment : Fragment(), OnPageChangeListener {
         binding.tabLayout.setupWithViewPager(binding.viewPager)
 
         binding.start.setOnClickListener {
-            findNavController().navigate(WalkthroughFragmentDirections.actionFragmentWalkthroughToFragmentOnBoarding())
+            findNavController()
+                .navigate(WalkthroughFragmentDirections.actionFragmentWalkthroughToFragmentOnBoarding())
         }
         return binding.root
     }

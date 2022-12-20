@@ -13,8 +13,6 @@ import com.arbelkilani.binge.tv.databinding.ActivityMainBinding
 import com.arbelkilani.binge.tv.presentation.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import java.util.*
-import kotlin.concurrent.schedule
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -30,9 +28,13 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        loadContent()
+    }
 
+    private fun loadContent() {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        lifecycleScope.launchWhenResumed {
+        lifecycleScope.launchWhenStarted {
+            viewModel.execute()
             viewModel.isFirstRun.collectLatest {
                 if (it) {
                     navController.setGraph(R.navigation.walkthrough_navigation)
@@ -41,15 +43,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        //startLoadingContent()
-        //setupSplashScreen()
-    }
-
-    private fun startLoadingContent() {
-        // For this example, the Timer delay represents awaiting a response from a network call
-        Timer().schedule(1000) {
-            contentHasLoaded = true
-        }
+        contentHasLoaded = true
+        setupSplashScreen()
     }
 
     private fun setupSplashScreen() {

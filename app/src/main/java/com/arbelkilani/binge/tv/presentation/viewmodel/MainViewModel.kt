@@ -20,12 +20,10 @@ class MainViewModel @Inject constructor(
     private val _isFirstRun = MutableStateFlow(false)
     val isFirstRun: StateFlow<Boolean> = _isFirstRun
 
-    init {
+    fun execute() {
         viewModelScope.launch {
             saveConfigurationUseCase.execute()
-            getIsFirstRunUseCase.execute().collectLatest {
-                _isFirstRun.value = it
-            }
+            getIsFirstRunUseCase.execute().collectLatest { _isFirstRun.value = it }
         }
     }
 
