@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.presentation.ui.walkthrough
+package com.arbelkilani.binge.tv.presentation.walkthrough
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.arbelkilani.binge.tv.databinding.FragmentWalkthroughBinding
-import com.arbelkilani.binge.tv.presentation.ui.walkthrough.adapter.WalkthroughAdapter
+import com.arbelkilani.binge.tv.presentation.walkthrough.adapter.WalkthroughAdapter
 import com.arbelkilani.binge.tv.presentation.viewmodel.onboarding.OnBoardingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

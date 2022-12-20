@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.presentation.ui
+package com.arbelkilani.binge.tv.presentation.main
 
 import android.os.Bundle
 import android.view.View
@@ -10,22 +10,20 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.databinding.ActivityMainBinding
-import com.arbelkilani.binge.tv.presentation.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    var contentHasLoaded = false
-
     private lateinit var binding: ActivityMainBinding
     val viewModel: MainViewModel by viewModels()
+    var contentHasLoaded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         loadContent()
@@ -33,8 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadContent() {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        lifecycleScope.launchWhenStarted {
-            viewModel.execute()
+        lifecycleScope.launch {
             viewModel.isFirstRun.collectLatest {
                 if (it) {
                     navController.setGraph(R.navigation.walkthrough_navigation)
@@ -42,13 +39,14 @@ class MainActivity : AppCompatActivity() {
                     navController.setGraph(R.navigation.dashboard_navigation)
                 }
             }
+        }.apply {
+            contentHasLoaded = true
+            setupSplashScreen()
         }
-        contentHasLoaded = true
-        setupSplashScreen()
     }
 
     private fun setupSplashScreen() {
-        val content: View = findViewById(android.R.id.content)
+        val content: View = binding.root
         content.viewTreeObserver.addOnPreDrawListener(
             object : ViewTreeObserver.OnPreDrawListener {
                 override fun onPreDraw(): Boolean {

@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.presentation.ui.walkthrough.adapter
+package com.arbelkilani.binge.tv.presentation.walkthrough.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
