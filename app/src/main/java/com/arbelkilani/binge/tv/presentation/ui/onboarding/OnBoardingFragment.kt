@@ -8,19 +8,20 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.arbelkilani.binge.tv.databinding.FragmentOnBoardingBinding
+import com.arbelkilani.binge.tv.domain.entities.WatchProviderEntity
 import com.arbelkilani.binge.tv.presentation.ui.onboarding.adapter.ProvidersAdapter
+import com.arbelkilani.binge.tv.presentation.ui.onboarding.listener.WatchProviderListener
 import com.arbelkilani.binge.tv.presentation.viewmodel.onboarding.OnBoardingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
-class OnBoardingFragment : Fragment() {
+class OnBoardingFragment : Fragment(), WatchProviderListener {
 
     private var _binding: FragmentOnBoardingBinding? = null
     val viewModel: OnBoardingViewModel by viewModels()
 
-    private val selectedProvidersAdapter by lazy { ProvidersAdapter() }
-    private val unselectedProvidersAdapter by lazy { ProvidersAdapter() }
+    private val providersAdapter by lazy { ProvidersAdapter(this) }
 
     private val binding get() = _binding!!
 
@@ -29,16 +30,18 @@ class OnBoardingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentOnBoardingBinding.inflate(inflater, container, false)
-        binding.rvSelectedProviders.adapter = selectedProvidersAdapter
-        binding.rvUnselectedProviders.adapter = unselectedProvidersAdapter
+        binding.rvProviders.apply {
+            adapter = providersAdapter
+        }
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launchWhenCreated {
             viewModel.provider.collectLatest { list ->
-                val selectedProviders = list.filter { it.isFavorite }
-                val unselectedProviders = list.filter { !it.isFavorite }
-                selectedProvidersAdapter.submitList(selectedProviders)
-                unselectedProvidersAdapter.submitList(unselectedProviders)
+                providersAdapter.submitList(list)
             }
+        }
+
+        binding.next.setOnClickListener {
+            viewModel.next()
         }
 
         return binding.root
@@ -47,5 +50,9 @@ class OnBoardingFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onWatchProviderClicked(provider: WatchProviderEntity, isSelected: Boolean) {
+        viewModel.onProviderClicked(provider, isSelected)
     }
 }

@@ -14,7 +14,7 @@ class GetWatchProvidersUseCase @Inject constructor() {
     @Inject
     lateinit var configurationRepository: ConfigurationRepository
 
-    fun execute(): Flow<List<WatchProviderEntity>> {
+    suspend fun execute(): Flow<List<WatchProviderEntity>> {
         return watchProvidersRepository.getProviders()
     }
 }

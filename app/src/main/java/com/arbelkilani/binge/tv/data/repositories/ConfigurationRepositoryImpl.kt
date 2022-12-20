@@ -1,7 +1,5 @@
 package com.arbelkilani.binge.tv.data.repositories
 
-import android.app.Application
-import android.util.Log
 import com.arbelkilani.binge.tv.data.mapper.ConfigurationMapper
 import com.arbelkilani.binge.tv.data.source.local.prefsstore.PrefsStore
 import com.arbelkilani.binge.tv.data.source.local.room.AppDatabase

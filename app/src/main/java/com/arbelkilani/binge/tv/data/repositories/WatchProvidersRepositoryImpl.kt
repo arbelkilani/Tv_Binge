@@ -1,8 +1,6 @@
 package com.arbelkilani.binge.tv.data.repositories
 
-import android.annotation.SuppressLint
-import android.app.Application
-import android.content.pm.PackageManager
+import android.util.Log
 import com.arbelkilani.binge.tv.data.mapper.WatchProviderMapper
 import com.arbelkilani.binge.tv.data.source.local.room.AppDatabase
 import com.arbelkilani.binge.tv.data.source.remote.ApiService
@@ -19,34 +17,18 @@ class WatchProvidersRepositoryImpl @Inject constructor(
 ) : WatchProvidersRepository {
 
     @Inject
-    lateinit var application: Application
+    lateinit var mapper: WatchProviderMapper
 
-    @Inject
-    lateinit var watchProviderMapper: WatchProviderMapper
-
-    override fun getProviders(): Flow<List<WatchProviderEntity>> {
-        val installedPackages = getInstalledPackages()
+    override suspend fun getProviders(): Flow<List<WatchProviderEntity>> {
+        val baseLogoUrl = database.configurationDao().get()?.logo?.medium
         return flow {
-            emit(
-                service.getProviders(Locale.getDefault().country).providers.map { provider ->
-                    installedPackages.map { installed ->
-                        watchProviderMapper.map(
-                            provider,
-                            installed.contains(provider.providerName, true)
-                        )
-                    }.distinct()
-                }.flatten()
-            )
+            emit(service.getProviders(Locale.getDefault().country).providers.map {
+                mapper.map(it.copy(logoPath = baseLogoUrl + it.logoPath), false)
+            })
         }
     }
 
-    @SuppressLint("QueryPermissionsNeeded")
-    private fun getInstalledPackages(): List<String> {
-        val packageManager = application.packageManager
-        return packageManager.getInstalledPackages(PackageManager.GET_META_DATA).filter {
-            packageManager.getLaunchIntentForPackage(it.packageName) != null
-        }.map {
-            it.packageName
-        }
+    override fun saveSelectedWatchProviders(providersId: MutableList<WatchProviderEntity>) {
+        Log.i("TAG**", "selected providers = $providersId")
     }
 }

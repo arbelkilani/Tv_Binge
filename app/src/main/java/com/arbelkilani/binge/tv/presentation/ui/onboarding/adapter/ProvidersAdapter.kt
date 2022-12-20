@@ -2,6 +2,8 @@ package com.arbelkilani.binge.tv.presentation.ui.onboarding.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -9,9 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.databinding.ItemProviderBinding
 import com.arbelkilani.binge.tv.domain.entities.WatchProviderEntity
+import com.arbelkilani.binge.tv.presentation.ui.onboarding.listener.WatchProviderListener
 import javax.inject.Inject
 
-class ProvidersAdapter @Inject constructor() :
+class ProvidersAdapter @Inject constructor(
+    private val watchProviderListener: WatchProviderListener
+) :
     ListAdapter<WatchProviderEntity, ProvidersAdapter.ProvidersHolder>(WatchProviderComparator) {
 
     class ProvidersHolder(val binding: ItemProviderBinding) : RecyclerView.ViewHolder(binding.root)
@@ -23,7 +28,19 @@ class ProvidersAdapter @Inject constructor() :
     )
 
     override fun onBindViewHolder(holder: ProvidersHolder, position: Int) {
-        holder.binding.provider = getItem(position)
+        val current = getItem(position)
+        with(holder.binding) {
+            this.rbSelect.isSelected = true
+            provider = current
+            root.setOnClickListener {
+                mask.isVisible = !mask.isVisible
+                watchProviderListener.onWatchProviderClicked(
+                    getItem(position).copy(
+                        isFavorite = mask.isVisible
+                    ), mask.isVisible
+                )
+            }
+        }
     }
 
     companion object {
