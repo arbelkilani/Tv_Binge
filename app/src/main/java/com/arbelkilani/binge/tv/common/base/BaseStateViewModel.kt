@@ -1,15 +1,15 @@
 package com.arbelkilani.binge.tv.common.base
 
-import kotlinx.coroutines.flow.MutableStateFlow
+import androidx.lifecycle.MutableLiveData
 
 abstract class BaseStateViewModel<T>(initialState: T) : StateViewModel<T>,
     BaseViewModel() {
 
-    override val viewState = MutableStateFlow(initialState)
+    override val viewState = MutableLiveData(initialState)
 
     override fun updateState(handler: (T) -> T) {
-        val currentState = viewState.value
+        val currentState = viewState.value!!
         val newState = handler.invoke(currentState)
-        viewState.value = newState
+        viewState.postValue(newState)
     }
 }

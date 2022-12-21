@@ -1,8 +1,8 @@
 package com.arbelkilani.binge.tv.common.base
 
-import kotlinx.coroutines.flow.StateFlow
+import androidx.lifecycle.LiveData
 
 interface StateViewModel<T> {
-    val viewState: StateFlow<T>
+    val viewState: LiveData<T>
     fun updateState(handler: (T) -> (T))
 }
