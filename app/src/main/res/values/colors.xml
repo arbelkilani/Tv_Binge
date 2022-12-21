@@ -22,7 +22,7 @@
     <color name="background_end_color">@color/white</color>
 
     <!-- On Boarding -->
-    <color name="indicator_enabled_color">@color/vista_blue</color>
+    <color name="indicator_enabled_color">@color/anti_flash_white</color>
     <color name="indicator_disabled_color">@color/chinese_silver</color>
 
     <color name="button_background_color">@color/vista_blue</color>
