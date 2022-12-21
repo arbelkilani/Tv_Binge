@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.presentation.viewmodel.onboarding
+package com.arbelkilani.binge.tv.presentation.onboarding
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -37,9 +37,5 @@ class OnBoardingViewModel @Inject constructor(
 
     fun onProviderClicked(provider: WatchProviderEntity, isSelected: Boolean) {
         if(isSelected) selectedProviders.add(provider) else selectedProviders.remove(provider)
-    }
-
-    companion object {
-        private val TAG = OnBoardingViewModel::class.java.simpleName
     }
 }

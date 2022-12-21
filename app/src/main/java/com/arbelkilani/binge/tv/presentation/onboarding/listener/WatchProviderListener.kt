@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.presentation.ui.onboarding.listener
+package com.arbelkilani.binge.tv.presentation.onboarding.listener
 
 import com.arbelkilani.binge.tv.domain.entities.WatchProviderEntity
 

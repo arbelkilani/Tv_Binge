@@ -7,19 +7,20 @@
 
     <fragment
         android:id="@+id/fragment_walkthrough"
-        android:name="com.arbelkilani.binge.tv.presentation.walkthrough.WalkthroughFragment"
+        android:name="com.arbelkilani.binge.tv.presentation.walkthrough.presentation.WalkthroughFragment"
         android:label="@string/title_walkthrough"
         tools:layout="@layout/fragment_walkthrough">
         <action
             android:id="@+id/action_fragment_walkthrough_to_fragment_on_boarding"
             app:destination="@id/fragment_on_boarding"
+            app:popUpTo="@id/fragment_walkthrough"
             app:launchSingleTop="true"
             app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
         android:id="@+id/fragment_on_boarding"
-        android:name="com.arbelkilani.binge.tv.presentation.ui.onboarding.OnBoardingFragment"
+        android:name="com.arbelkilani.binge.tv.presentation.onboarding.OnBoardingFragment"
         android:label="@string/title_on_boarding"
         tools:layout="@layout/fragment_on_boarding" />
 </navigation>

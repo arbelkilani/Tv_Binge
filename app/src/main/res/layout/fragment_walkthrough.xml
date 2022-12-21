@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color_splash"
     tools:context=".presentation.ui.dashboard.DashboardFragment">
+
+    <include layout="@layout/layout_circle_shape" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
@@ -23,8 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:tabBackground="@drawable/selector_boarding_indicator"
         app:tabGravity="center"
-        app:tabIndicatorHeight="0dp"
-        tools:background="@color/black" />
+        app:tabIndicatorHeight="0dp" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@id/start"

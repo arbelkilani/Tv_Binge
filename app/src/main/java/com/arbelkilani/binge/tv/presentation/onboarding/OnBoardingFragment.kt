@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.presentation.ui.onboarding
+package com.arbelkilani.binge.tv.presentation.onboarding
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,9 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.arbelkilani.binge.tv.databinding.FragmentOnBoardingBinding
 import com.arbelkilani.binge.tv.domain.entities.WatchProviderEntity
-import com.arbelkilani.binge.tv.presentation.ui.onboarding.adapter.ProvidersAdapter
-import com.arbelkilani.binge.tv.presentation.ui.onboarding.listener.WatchProviderListener
-import com.arbelkilani.binge.tv.presentation.viewmodel.onboarding.OnBoardingViewModel
+import com.arbelkilani.binge.tv.presentation.onboarding.adapter.ProvidersAdapter
+import com.arbelkilani.binge.tv.presentation.onboarding.listener.WatchProviderListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 

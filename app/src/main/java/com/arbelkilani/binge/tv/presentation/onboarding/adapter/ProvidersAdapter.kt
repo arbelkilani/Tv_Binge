@@ -1,8 +1,7 @@
-package com.arbelkilani.binge.tv.presentation.ui.onboarding.adapter
+package com.arbelkilani.binge.tv.presentation.onboarding.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
@@ -11,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.databinding.ItemProviderBinding
 import com.arbelkilani.binge.tv.domain.entities.WatchProviderEntity
-import com.arbelkilani.binge.tv.presentation.ui.onboarding.listener.WatchProviderListener
+import com.arbelkilani.binge.tv.presentation.onboarding.listener.WatchProviderListener
 import javax.inject.Inject
 
 class ProvidersAdapter @Inject constructor(
