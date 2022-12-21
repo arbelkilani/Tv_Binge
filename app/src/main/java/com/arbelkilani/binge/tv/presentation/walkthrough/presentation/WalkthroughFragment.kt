@@ -4,28 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.arbelkilani.binge.tv.common.base.BaseFragment
 import com.arbelkilani.binge.tv.databinding.FragmentWalkthroughBinding
 import com.arbelkilani.binge.tv.presentation.walkthrough.WalkthroughContract
-import com.arbelkilani.binge.tv.presentation.walkthrough.adapter.WalkthroughAdapter
 import com.arbelkilani.binge.tv.presentation.walkthrough.model.WalkThroughNavEvent
+import com.arbelkilani.binge.tv.presentation.walkthrough.presentation.adapter.WalkthroughPagerAdapter
+import com.arbelkilani.binge.tv.presentation.walkthrough.presentation.screens.FirstWalkthroughFragment
+import com.arbelkilani.binge.tv.presentation.walkthrough.presentation.screens.SecondWalkthroughFragment
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-
-class WalkthroughFragment : BaseFragment<FragmentWalkthroughBinding>(), OnPageChangeListener {
+class WalkthroughFragment : BaseFragment<FragmentWalkthroughBinding>() {
 
     val viewModel: WalkthroughViewModel by viewModels()
 
     @Inject
     lateinit var navigator: WalkthroughContract.ViewNavigation
-
-    @Inject
-    lateinit var walkthroughAdapter: WalkthroughAdapter
 
     override fun bindView(
         inflater: LayoutInflater,
@@ -58,22 +55,17 @@ class WalkthroughFragment : BaseFragment<FragmentWalkthroughBinding>(), OnPageCh
         }
     }
 
-    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-    }
-
-    override fun onPageSelected(position: Int) {
-        binding.start.isVisible = position == walkthroughAdapter.count - 1
-    }
-
-    override fun onPageScrollStateChanged(state: Int) {
-    }
-
     private fun initView() {
+        // TODO: create a custom item to replace circle in xml file
         binding.viewPager.apply {
-            adapter = walkthroughAdapter
-            addOnPageChangeListener(this@WalkthroughFragment)
-            onPageSelected(0)
+            adapter = WalkthroughPagerAdapter(
+                listOf(
+                    FirstWalkthroughFragment(),
+                    SecondWalkthroughFragment()
+                ), parentFragmentManager, lifecycle
+            )
         }
-        binding.tabLayout.setupWithViewPager(binding.viewPager)
+        TabLayoutMediator(binding.tabLayout, binding.viewPager)
+        { _, _ -> }.attach()
     }
 }

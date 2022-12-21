@@ -25,8 +25,8 @@
     <color name="indicator_enabled_color">@color/anti_flash_white</color>
     <color name="indicator_disabled_color">@color/chinese_silver</color>
 
-    <color name="button_background_color">@color/vista_blue</color>
-    <color name="button_text_color">@color/anti_flash_white</color>
+    <color name="button_background_color">@color/anti_flash_white</color>
+    <color name="button_text_color">@color/vista_blue</color>
 
     <color name="details_network_text_color">#444444</color>
     <color name="details_network_border_color">#778bd9</color>
