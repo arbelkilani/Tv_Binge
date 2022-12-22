@@ -31,10 +31,7 @@ class WalkthroughFragment : BaseFragment<FragmentWalkthroughBinding>() {
 
     private val pageChangeCallback = object : OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
-            when (position) {
-                0 -> binding.ibPrevious.isVisible = false
-                else -> binding.ibPrevious.isVisible = true
-            }
+            binding.start.isVisible = position == fragments.size - 1
             super.onPageSelected(position)
         }
     }
@@ -61,18 +58,8 @@ class WalkthroughFragment : BaseFragment<FragmentWalkthroughBinding>() {
     }
 
     override fun initEvents() {
-        binding.ibNext.setOnClickListener {
-            val currentItem = binding.viewPager.currentItem
-            if (currentItem < fragments.size - 1) {
-                binding.viewPager.currentItem = binding.viewPager.currentItem + 1
-            } else {
-                navigator.navigateToOnBoarding(this)
-            }
-        }
-
-        binding.ibPrevious.setOnClickListener {
-            val currentItem = binding.viewPager.currentItem
-            if (currentItem > 0) binding.viewPager.currentItem = currentItem - 1
+        binding.start.setOnClickListener {
+            navigator.navigateToOnBoarding(this)
         }
     }
 
@@ -88,7 +75,6 @@ class WalkthroughFragment : BaseFragment<FragmentWalkthroughBinding>() {
         binding.viewPager.apply {
             adapter = WalkthroughPagerAdapter(fragments, childFragmentManager, lifecycle)
             removeOverScroll()
-            //isUserInputEnabled = false
             registerOnPageChangeCallback(pageChangeCallback)
         }
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { _, _ -> }.attach()
