@@ -1,10 +1,10 @@
 package com.arbelkilani.binge.tv.presentation.walkthrough.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.arbelkilani.binge.tv.common.base.BaseFragment
@@ -24,9 +24,20 @@ import javax.inject.Inject
 class WalkthroughFragment : BaseFragment<FragmentWalkthroughBinding>() {
 
     val viewModel: WalkthroughViewModel by viewModels()
+    private val fragments = listOf(FirstWalkthroughFragment(), SecondWalkthroughFragment())
 
     @Inject
     lateinit var navigator: WalkthroughContract.ViewNavigation
+
+    private val pageChangeCallback = object : OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            when (position) {
+                0 -> binding.ibPrevious.isVisible = false
+                else -> binding.ibPrevious.isVisible = true
+            }
+            super.onPageSelected(position)
+        }
+    }
 
     override fun bindView(
         inflater: LayoutInflater,
@@ -41,18 +52,29 @@ class WalkthroughFragment : BaseFragment<FragmentWalkthroughBinding>() {
         initView()
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.viewPager.registerOnPageChangeCallback(pageChangeCallback)
+    }
+
     override fun initViewModelObservation() {
         viewModel.navEvent.observe(viewLifecycleOwner, this::handleNavEvent)
     }
 
     override fun initEvents() {
-        binding.ibAction.setOnClickListener {
+        binding.ibNext.setOnClickListener {
             val currentItem = binding.viewPager.currentItem
-            if (currentItem < 1) {
+            if (currentItem < fragments.size - 1) {
                 binding.viewPager.currentItem = binding.viewPager.currentItem + 1
             } else {
                 navigator.navigateToOnBoarding(this)
             }
+        }
+
+        binding.ibPrevious.setOnClickListener {
+            val currentItem = binding.viewPager.currentItem
+            if (currentItem > 0)
+                binding.viewPager.currentItem = currentItem - 1
         }
     }
 
@@ -65,32 +87,18 @@ class WalkthroughFragment : BaseFragment<FragmentWalkthroughBinding>() {
     }
 
     private fun initView() {
-        // TODO: create a custom item to replace circle in xml file
         binding.viewPager.apply {
-            adapter = WalkthroughPagerAdapter(
-                listOf(
-                    FirstWalkthroughFragment(),
-                    SecondWalkthroughFragment()
-                ), parentFragmentManager, lifecycle
-            )
+            adapter = WalkthroughPagerAdapter(fragments, childFragmentManager, lifecycle)
             removeOverScroll()
             isUserInputEnabled = false
-            object : OnPageChangeCallback() {
-                override fun onPageScrolled(
-                    position: Int,
-                    positionOffset: Float,
-                    positionOffsetPixels: Int
-                ) {
-                    super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                    Log.i("TAG**", "onPageScrolled : $position")
-                }
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    Log.i("TAG**", "onPageSelected : $position")
-                }
-            }
+            registerOnPageChangeCallback(pageChangeCallback)
         }
         TabLayoutMediator(binding.tabLayout, binding.viewPager)
         { _, _ -> }.attach()
+    }
+
+    override fun onPause() {
+        binding.viewPager.unregisterOnPageChangeCallback(pageChangeCallback)
+        super.onPause()
     }
 }
