@@ -19,11 +19,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="10dp"
         android:background="@color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/start"
         app:tabBackground="@drawable/selector_boarding_indicator"
         app:tabGravity="center"
         app:tabIndicatorHeight="0dp" />
@@ -33,9 +33,9 @@
         style="@style/BingeTV.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="Start"
+        android:layout_marginEnd="@dimen/walkthrough_edge_mid_margin"
+        android:layout_marginBottom="@dimen/walkthrough_edge_mid_margin"
+        android:text="@string/walkthrough_start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

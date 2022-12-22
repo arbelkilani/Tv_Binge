@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:background="@drawable/ic_launcher_background"
-    tools:context=".presentation.walkthrough.presentation.screens.SecondWalkthroughFragment">
+    tools:context=".feature.walkthrough.presentation.screens.SecondWalkthroughFragment">
 
     <ImageView
         android:id="@+id/iv_description"
@@ -22,11 +22,11 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="@dimen/walkthrough_separator_large_margin"
         android:fontFamily="@font/avenir_next_demi_bold"
-        android:text="Title 2"
+        android:text="@string/walkthrough_title_2"
         android:textColor="@color/anti_flash_white"
-        android:textSize="24sp"
+        android:textSize="@dimen/walkthrough_title_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_description" />
@@ -35,13 +35,13 @@
         android:id="@+id/tv_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginHorizontal="@dimen/walkthrough_separator_large_margin"
+        android:layout_marginTop="@dimen/walkthrough_separator_large_margin"
         android:fontFamily="@font/avenir_next_regular"
         android:gravity="center"
-        android:text="Description 2 : consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        android:text="@string/walkthrough_description_2"
         android:textColor="@color/anti_flash_white"
-        android:textSize="16sp"
+        android:textSize="@dimen/walkthrough_description_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title"

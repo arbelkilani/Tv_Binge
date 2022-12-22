@@ -1,7 +1,7 @@
 package com.arbelkilani.binge.tv.data.source.local.room.converters
 
 import androidx.room.TypeConverter
-import com.arbelkilani.binge.tv.domain.entities.Image
+import com.arbelkilani.binge.tv.common.domain.model.Image
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

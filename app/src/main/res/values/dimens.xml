@@ -5,4 +5,10 @@
 
     <!-- Splash Screen -->
     <dimen name="bottom_padding_ic_branding">60dp</dimen>
+
+    <!-- walkthrough -->
+    <dimen name="walkthrough_title_text_size">24sp</dimen>
+    <dimen name="walkthrough_description_text_size">16sp</dimen>
+    <dimen name="walkthrough_edge_mid_margin">20dp</dimen>
+    <dimen name="walkthrough_separator_large_margin">40dp</dimen>
 </resources>

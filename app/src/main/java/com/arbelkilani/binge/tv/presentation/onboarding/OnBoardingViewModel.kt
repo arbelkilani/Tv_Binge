@@ -2,7 +2,7 @@ package com.arbelkilani.binge.tv.presentation.onboarding
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.arbelkilani.binge.tv.domain.entities.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
 import com.arbelkilani.binge.tv.domain.usecase.GetWatchProvidersUseCase
 import com.arbelkilani.binge.tv.domain.usecase.SaveWatchProvidersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

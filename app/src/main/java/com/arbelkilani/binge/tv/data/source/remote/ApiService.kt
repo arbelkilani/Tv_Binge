@@ -1,9 +1,9 @@
 package com.arbelkilani.binge.tv.data.source.remote
 
-import com.arbelkilani.binge.tv.data.entities.ConfigurationResponse
-import com.arbelkilani.binge.tv.data.entities.GenreResponse
-import com.arbelkilani.binge.tv.data.entities.ProvidersResponse
-import com.arbelkilani.binge.tv.data.entities.RegionsResponse
+import com.arbelkilani.binge.tv.common.data.model.CertificationsResponse
+import com.arbelkilani.binge.tv.common.data.model.ConfigurationResponse
+import com.arbelkilani.binge.tv.common.data.model.ProvidersResponse
+import com.arbelkilani.binge.tv.common.data.model.GenreResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -13,16 +13,19 @@ interface ApiService {
         private const val WATCH_REGION = "watch_region"
     }
 
-    // Configuration
+    // Get API Configuration
     @GET("configuration")
     suspend fun getConfiguration(): ConfigurationResponse
 
-    @GET("genre/tv/list")
-    suspend fun getGenres(): GenreResponse
-
-    @GET("watch/providers/regions")
-    suspend fun getProviderRegions(): RegionsResponse
-
+    // Get Tv Providers
     @GET("watch/providers/tv")
     suspend fun getProviders(@Query(WATCH_REGION) watchRegion: String): ProvidersResponse
+
+    // Get Tv Certifications
+    @GET("certification/tv/list")
+    suspend fun getCertifications(): CertificationsResponse
+
+    // Get Tv List Genre
+    @GET("genre/tv/list")
+    suspend fun getGenres(): GenreResponse
 }

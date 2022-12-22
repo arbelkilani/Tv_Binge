@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.arbelkilani.binge.tv.databinding.FragmentOnBoardingBinding
-import com.arbelkilani.binge.tv.domain.entities.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
 import com.arbelkilani.binge.tv.presentation.onboarding.adapter.ProvidersAdapter
 import com.arbelkilani.binge.tv.presentation.onboarding.listener.WatchProviderListener
 import dagger.hilt.android.AndroidEntryPoint

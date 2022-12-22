@@ -1,6 +1,6 @@
 package com.arbelkilani.binge.tv.domain.usecase
 
-import com.arbelkilani.binge.tv.domain.entities.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
 import com.arbelkilani.binge.tv.domain.repositories.ConfigurationRepository
 import com.arbelkilani.binge.tv.domain.repositories.WatchProvidersRepository
 import kotlinx.coroutines.flow.Flow

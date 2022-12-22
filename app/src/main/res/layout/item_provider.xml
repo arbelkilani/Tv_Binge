@@ -7,7 +7,7 @@
 
         <variable
             name="provider"
-            type="com.arbelkilani.binge.tv.domain.entities.WatchProviderEntity" />
+            type="com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -27,6 +27,7 @@
                 android:id="@+id/iv_provider"
                 android:layout_width="80dp"
                 android:layout_height="0dp"
+                android:contentDescription="@{provider.name}"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1:1"
@@ -54,6 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:contentDescription="@null"
                     android:src="@drawable/selector_radio_button" />
 
             </FrameLayout>

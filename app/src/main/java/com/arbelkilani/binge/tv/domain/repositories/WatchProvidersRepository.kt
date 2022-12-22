@@ -1,6 +1,6 @@
 package com.arbelkilani.binge.tv.domain.repositories
 
-import com.arbelkilani.binge.tv.domain.entities.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
 import kotlinx.coroutines.flow.Flow
 
 interface WatchProvidersRepository {
