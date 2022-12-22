@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@drawable/ic_launcher_background"
+    tools:context=".feature.onboarding.presentation.screens.watchprovidersselection.WatchProvidersSelectionFragment">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/on_boarding_edge_mid_margin"
+        android:fontFamily="@font/avenir_next_demi_bold"
+        android:text="@string/on_boarding_provider_selection_title"
+        android:textColor="@color/anti_flash_white"
+        android:textSize="@dimen/on_boarding_title_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/on_boarding_edge_mid_margin"
+        android:fontFamily="@font/avenir_next_regular"
+        android:text="@string/on_boarding_provider_selection_description"
+        android:textColor="@color/anti_flash_white"
+        android:textSize="@dimen/on_boarding_description_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

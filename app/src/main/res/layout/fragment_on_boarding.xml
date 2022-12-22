@@ -5,10 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color_splash"
-    tools:context=".presentation.onboarding.OnBoardingFragment">
+    tools:context=".feature.onboarding.presentation.OnBoardingFragment">
 
     <include layout="@layout/layout_circle_shape" />
 
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/start"
+        style="@style/BingeTV.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/walkthrough_edge_mid_margin"
+        android:layout_marginBottom="@dimen/walkthrough_edge_mid_margin"
+        android:text="@string/walkthrough_start"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!--
     <ImageView
         android:id="@+id/iv_back"
         android:layout_width="wrap_content"
@@ -72,5 +89,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:enabled="true" />
-
+    -->
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.presentation.onboarding
+package com.arbelkilani.binge.tv.feature.onboarding.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

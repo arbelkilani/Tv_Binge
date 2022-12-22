@@ -6,9 +6,15 @@
     <!-- Splash Screen -->
     <dimen name="bottom_padding_ic_branding">60dp</dimen>
 
-    <!-- walkthrough -->
+    <!-- Walkthrough -->
     <dimen name="walkthrough_title_text_size">24sp</dimen>
     <dimen name="walkthrough_description_text_size">16sp</dimen>
     <dimen name="walkthrough_edge_mid_margin">20dp</dimen>
     <dimen name="walkthrough_separator_large_margin">40dp</dimen>
+
+    <!-- On boarding -->
+    <dimen name="on_boarding_title_text_size">20sp</dimen>
+    <dimen name="on_boarding_description_text_size">14sp</dimen>
+    <dimen name="on_boarding_edge_mid_margin">20dp</dimen>
+
 </resources>

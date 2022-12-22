@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/fragment_on_boarding"
-        android:name="com.arbelkilani.binge.tv.presentation.onboarding.OnBoardingFragment"
+        android:name="com.arbelkilani.binge.tv.feature.onboarding.presentation.OnBoardingFragment"
         android:label="@string/title_on_boarding"
         tools:layout="@layout/fragment_on_boarding" />
 </navigation>
