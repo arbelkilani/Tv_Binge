@@ -40,8 +40,7 @@ class WalkthroughFragment : BaseFragment<FragmentWalkthroughBinding>() {
     }
 
     override fun bindView(
-        inflater: LayoutInflater,
-        container: ViewGroup?
+        inflater: LayoutInflater, container: ViewGroup?
     ): FragmentWalkthroughBinding {
         return FragmentWalkthroughBinding.inflate(inflater, container, false)
     }
@@ -73,8 +72,7 @@ class WalkthroughFragment : BaseFragment<FragmentWalkthroughBinding>() {
 
         binding.ibPrevious.setOnClickListener {
             val currentItem = binding.viewPager.currentItem
-            if (currentItem > 0)
-                binding.viewPager.currentItem = currentItem - 1
+            if (currentItem > 0) binding.viewPager.currentItem = currentItem - 1
         }
     }
 
@@ -90,11 +88,10 @@ class WalkthroughFragment : BaseFragment<FragmentWalkthroughBinding>() {
         binding.viewPager.apply {
             adapter = WalkthroughPagerAdapter(fragments, childFragmentManager, lifecycle)
             removeOverScroll()
-            isUserInputEnabled = false
+            //isUserInputEnabled = false
             registerOnPageChangeCallback(pageChangeCallback)
         }
-        TabLayoutMediator(binding.tabLayout, binding.viewPager)
-        { _, _ -> }.attach()
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { _, _ -> }.attach()
     }
 
     override fun onPause() {
