@@ -1,5 +1,8 @@
 package com.arbelkilani.binge.tv.feature.onboarding
 
+import com.arbelkilani.binge.tv.feature.onboarding.data.repository.ProviderSelectionRepositoryImpl
+import com.arbelkilani.binge.tv.feature.onboarding.domain.repository.ProviderSelectionRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -7,7 +10,7 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
-@Module
+@Module(includes = [BindModule::class])
 object OnBoardingModule {
 
     @Singleton
@@ -15,4 +18,13 @@ object OnBoardingModule {
     fun provideNavigator(): OnBoardingContract.ViewNavigation {
         return OnBoardingNavigator()
     }
+}
+
+@InstallIn(SingletonComponent::class)
+@Module
+abstract class BindModule {
+    @Binds
+    abstract fun bindProviderSelectionRepository(
+        providerSelectionRepository: ProviderSelectionRepositoryImpl
+    ): ProviderSelectionRepository
 }

@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:background="@drawable/ic_launcher_background"
-    tools:context=".feature.onboarding.presentation.screens.watchprovidersselection.WatchProvidersSelectionFragment">
+    tools:context=".feature.onboarding.presentation.screens.providerselection.ProvidersSelectionFragment">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/on_boarding_edge_mid_margin"
+        android:layout_marginHorizontal="@dimen/on_boarding_edge_mid_margin"
+        android:layout_marginTop="?attr/actionBarSize"
         android:fontFamily="@font/avenir_next_demi_bold"
         android:text="@string/on_boarding_provider_selection_title"
         android:textColor="@color/anti_flash_white"
@@ -31,5 +32,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_watch_providers"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/on_boarding_edge_large_margin"
+        android:orientation="horizontal"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_description"
+        tools:itemCount="40"
+        tools:listitem="@layout/item_provider"
+        tools:spanCount="3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

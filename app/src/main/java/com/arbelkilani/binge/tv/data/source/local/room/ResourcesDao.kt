@@ -19,6 +19,8 @@ interface ResourcesDao {
     @Query("SELECT * FROM watch_provider_table")
     suspend fun getWatchLocalProviders(): List<WatchProviderEntity>?
 
+    @Query("UPDATE watch_provider_table SET isFavorite=:state WHERE id=:id")
+    suspend fun updateProviderState(id: Int, state: Boolean)
 
     // Api Configuration
     @Insert(onConflict = OnConflictStrategy.REPLACE)

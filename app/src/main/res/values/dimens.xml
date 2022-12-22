@@ -16,5 +16,6 @@
     <dimen name="on_boarding_title_text_size">20sp</dimen>
     <dimen name="on_boarding_description_text_size">14sp</dimen>
     <dimen name="on_boarding_edge_mid_margin">20dp</dimen>
+    <dimen name="on_boarding_edge_large_margin">40dp</dimen>
 
 </resources>

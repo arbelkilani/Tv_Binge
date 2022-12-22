@@ -14,80 +14,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/start"
-        style="@style/BingeTV.Button"
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ib_next"
+        style="@style/BingeTV.ImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/walkthrough_edge_mid_margin"
         android:layout_marginBottom="@dimen/walkthrough_edge_mid_margin"
-        android:text="@string/walkthrough_start"
+        android:rotation="180"
+        android:src="@drawable/ic_arrow_left"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!--
-    <ImageView
-        android:id="@+id/iv_back"
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ib_previous"
+        style="@style/BingeTV.ImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="30dp"
-        android:background="?attr/actionBarItemBackground"
+        android:layout_marginStart="@dimen/walkthrough_edge_mid_margin"
+        android:layout_marginBottom="@dimen/walkthrough_edge_mid_margin"
         android:src="@drawable/ic_arrow_left"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/anti_flash_white" />
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/avenir_next_demi_bold"
-        android:text="Network"
-        android:textColor="@color/anti_flash_white"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_back" />
-
-    <TextView
-        android:id="@+id/tv_description"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/avenir_next_regular"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        android:textColor="@color/anti_flash_white"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_providers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_description"
-        app:spanCount="4"
-        tools:itemCount="40"
-        tools:listitem="@layout/item_provider" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/next"
-        style="@style/BingeTV.Button"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Next"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:enabled="true" />
-    -->
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

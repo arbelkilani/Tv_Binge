@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.arbelkilani.binge.tv.common.base.BaseFragment
@@ -12,17 +13,17 @@ import com.arbelkilani.binge.tv.databinding.FragmentOnBoardingBinding
 import com.arbelkilani.binge.tv.feature.onboarding.OnBoardingContract
 import com.arbelkilani.binge.tv.feature.onboarding.presentation.adapter.OnBoardingPagerAdapter
 import com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.genreselection.GenreSelectionFragment
-import com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.watchprovidersselection.WatchProvidersSelectionFragment
+import com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.providerselection.ProvidersSelectionFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnBoardingFragment :
-    OnBoardingContract.ViewCapabilities,
     BaseFragment<FragmentOnBoardingBinding>() {
 
     val viewModel: OnBoardingViewModel by viewModels()
-    private val fragments = listOf(WatchProvidersSelectionFragment(), GenreSelectionFragment())
+    private val fragments =
+        listOf(ProvidersSelectionFragment(), GenreSelectionFragment())
 
     @Inject
     lateinit var navigator: OnBoardingContract.ViewNavigation
@@ -30,7 +31,14 @@ class OnBoardingFragment :
     private val pageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
             when (position) {
-                WATCH_PROVIDERS_INDEX -> Unit
+                WATCH_PROVIDERS_INDEX -> {
+                    binding.ibPrevious.isVisible = false
+                    binding.ibNext.isVisible = true
+                }
+                else -> {
+                    binding.ibPrevious.isVisible = true
+                    binding.ibNext.isVisible = true
+                }
             }
             super.onPageSelected(position)
         }
@@ -53,10 +61,6 @@ class OnBoardingFragment :
         binding.viewPager.registerOnPageChangeCallback(pageChangeCallback)
     }
 
-    override fun initEvents() {
-
-    }
-
     private fun initView() {
         binding.viewPager.apply {
             adapter = OnBoardingPagerAdapter(fragments, childFragmentManager, lifecycle)
@@ -66,39 +70,29 @@ class OnBoardingFragment :
         }
     }
 
+    override fun initEvents() {
+        binding.ibNext.setOnClickListener { scrollToNext() }
+        binding.ibPrevious.setOnClickListener { scrollToPrevious() }
+    }
+
     override fun onPause() {
         binding.viewPager.unregisterOnPageChangeCallback(pageChangeCallback)
         super.onPause()
     }
 
-    /*override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentOnBoardingBinding.inflate(inflater, container, false)
-        binding.rvProviders.apply {
-            adapter = providersAdapter
-        }
-
-        lifecycleScope.launchWhenCreated {
-            viewModel.provider.collectLatest { list ->
-                providersAdapter.submitList(list)
-            }
-        }
-
-        binding.next.setOnClickListener {
-            viewModel.next()
-        }
-
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }*/
-
     companion object {
         private const val WATCH_PROVIDERS_INDEX = 0
+    }
+
+    private fun scrollToNext() {
+        val currentItem = binding.viewPager.currentItem
+        if (currentItem < fragments.size - 1)
+            binding.viewPager.setCurrentItem(currentItem + 1, true)
+    }
+
+    private fun scrollToPrevious() {
+        val currentItem = binding.viewPager.currentItem
+        if (currentItem > 0)
+            binding.viewPager.setCurrentItem(currentItem - 1, true)
     }
 }
