@@ -1,11 +1,14 @@
 package com.arbelkilani.binge.tv.presentation.walkthrough.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.arbelkilani.binge.tv.common.base.BaseFragment
+import com.arbelkilani.binge.tv.common.extension.removeOverScroll
 import com.arbelkilani.binge.tv.databinding.FragmentWalkthroughBinding
 import com.arbelkilani.binge.tv.presentation.walkthrough.WalkthroughContract
 import com.arbelkilani.binge.tv.presentation.walkthrough.model.WalkThroughNavEvent
@@ -15,6 +18,7 @@ import com.arbelkilani.binge.tv.presentation.walkthrough.presentation.screens.Se
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class WalkthroughFragment : BaseFragment<FragmentWalkthroughBinding>() {
@@ -42,8 +46,13 @@ class WalkthroughFragment : BaseFragment<FragmentWalkthroughBinding>() {
     }
 
     override fun initEvents() {
-        binding.start.setOnClickListener {
-            navigator.navigateToOnBoarding(this)
+        binding.ibAction.setOnClickListener {
+            val currentItem = binding.viewPager.currentItem
+            if (currentItem < 1) {
+                binding.viewPager.currentItem = binding.viewPager.currentItem + 1
+            } else {
+                navigator.navigateToOnBoarding(this)
+            }
         }
     }
 
@@ -64,6 +73,22 @@ class WalkthroughFragment : BaseFragment<FragmentWalkthroughBinding>() {
                     SecondWalkthroughFragment()
                 ), parentFragmentManager, lifecycle
             )
+            removeOverScroll()
+            isUserInputEnabled = false
+            object : OnPageChangeCallback() {
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
+                    super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                    Log.i("TAG**", "onPageScrolled : $position")
+                }
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    Log.i("TAG**", "onPageSelected : $position")
+                }
+            }
         }
         TabLayoutMediator(binding.tabLayout, binding.viewPager)
         { _, _ -> }.attach()

@@ -33,8 +33,6 @@
         <item name="autoSizeMaxTextSize">17sp</item>
         <item name="autoSizeStepGranularity">2sp</item>
         <item name="android:background">@drawable/selector_button</item>
-        <item name="android:minWidth">230dp</item>
-        <item name="android:minHeight">55dp</item>
     </style>
 
     <style name="TextView_Network" parent="Widget.AppCompat.TextView">
