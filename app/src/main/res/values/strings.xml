@@ -6,6 +6,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- common -->
+    <string name="label_action_next">next</string>
+    <string name="label_action_previous">previous</string>
+
     <!-- Walkthrough -->
     <string name="walkthrough_title_1">Title</string>
     <string name="walkthrough_description_1">Description : consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</string>
@@ -16,4 +20,6 @@
     <!-- On boarding -->
     <string name="on_boarding_provider_selection_title">Title</string>
     <string name="on_boarding_provider_selection_description">Description : consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</string>
+    <string name="on_boarding_genre_selection_title">Title</string>
+    <string name="on_boarding_genre_selection_description">Description : consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</string>
 </resources>

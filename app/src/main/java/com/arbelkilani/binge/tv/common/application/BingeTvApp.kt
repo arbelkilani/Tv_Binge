@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv
+package com.arbelkilani.binge.tv.common.application
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

@@ -43,16 +43,16 @@
         <item name="android:includeFontPadding">false</item>
     </style>
 
-    <style name="TextView_Network" parent="Widget.AppCompat.TextView">
+    <style name="TextView_Genre" parent="Widget.AppCompat.TextView">
         <item name="fontFamily">@font/avenir_next_demi_bold</item>
         <item name="android:textColor">@color/details_network_text_color</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:paddingStart">10dp</item>
-        <item name="android:paddingEnd">10dp</item>
-        <item name="android:paddingTop">3dp</item>
-        <item name="android:paddingBottom">3dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingStart">15dp</item>
+        <item name="android:paddingEnd">15dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
         <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/details_network_drawable</item>
+        <item name="android:background">@drawable/selector_empty_item</item>
     </style>
 
 </resources>

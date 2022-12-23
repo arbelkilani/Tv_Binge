@@ -1,7 +1,7 @@
 package com.arbelkilani.binge.tv.feature.onboarding
 
-import com.arbelkilani.binge.tv.feature.onboarding.data.repository.ProviderSelectionRepositoryImpl
-import com.arbelkilani.binge.tv.feature.onboarding.domain.repository.ProviderSelectionRepository
+import com.arbelkilani.binge.tv.feature.onboarding.data.repository.OnBoardingRepositoryImpl
+import com.arbelkilani.binge.tv.feature.onboarding.domain.repository.OnBoardingRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -25,6 +25,6 @@ object OnBoardingModule {
 abstract class BindModule {
     @Binds
     abstract fun bindProviderSelectionRepository(
-        providerSelectionRepository: ProviderSelectionRepositoryImpl
-    ): ProviderSelectionRepository
+        providerSelectionRepository: OnBoardingRepositoryImpl
+    ): OnBoardingRepository
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:background="@drawable/ic_launcher_background"
+    tools:background="@color/on_boarding_background_color"
     tools:context=".feature.onboarding.presentation.screens.providerselection.ProvidersSelectionFragment">
 
     <TextView
@@ -14,8 +14,8 @@
         android:layout_marginHorizontal="@dimen/on_boarding_edge_mid_margin"
         android:layout_marginTop="?attr/actionBarSize"
         android:fontFamily="@font/avenir_next_demi_bold"
-        android:text="@string/on_boarding_provider_selection_title"
-        android:textColor="@color/anti_flash_white"
+        android:text="@string/on_boarding_genre_selection_title"
+        android:textColor="@color/title_color"
         android:textSize="@dimen/on_boarding_title_text_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,8 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/on_boarding_edge_mid_margin"
         android:fontFamily="@font/avenir_next_regular"
-        android:text="@string/on_boarding_provider_selection_description"
-        android:textColor="@color/anti_flash_white"
+        android:text="@string/on_boarding_genre_selection_description"
+        android:textColor="@color/description_color"
         android:textSize="@dimen/on_boarding_description_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

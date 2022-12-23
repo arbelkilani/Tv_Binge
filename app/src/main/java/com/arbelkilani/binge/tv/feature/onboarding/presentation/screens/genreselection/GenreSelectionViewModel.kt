@@ -1,9 +1,36 @@
 package com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.genreselection
 
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.arbelkilani.binge.tv.common.base.BaseStateViewModel
+import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
+import com.arbelkilani.binge.tv.feature.onboarding.domain.usecase.GetGenresUseCase
+import com.arbelkilani.binge.tv.feature.onboarding.domain.usecase.UpdateGenreUseCase
+import com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.genreselection.model.GenreSelectionViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GenreSelectionViewModel @Inject constructor(): ViewModel() {
+class GenreSelectionViewModel @Inject constructor(
+    private val getGenresUseCase: GetGenresUseCase,
+    private val updateGenreUseCase: UpdateGenreUseCase
+) :
+    BaseStateViewModel<GenreSelectionViewState>(
+        initialState = GenreSelectionViewState.Start
+    ) {
+
+    fun load() {
+        viewModelScope.launch {
+            getGenresUseCase.getGenres().collectLatest { list ->
+                updateState { GenreSelectionViewState.Loaded(list) }
+            }
+        }
+    }
+
+    fun updateGenre(genre: GenreEntity) {
+        viewModelScope.launch {
+            updateGenreUseCase.invoke(genre)
+        }
+    }
 }

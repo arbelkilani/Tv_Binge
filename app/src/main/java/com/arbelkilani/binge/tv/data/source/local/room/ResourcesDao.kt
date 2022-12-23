@@ -42,4 +42,7 @@ interface ResourcesDao {
 
     @Query("SELECT * FROM genre_table")
     suspend fun getGenres(): List<GenreEntity>?
+
+    @Query("UPDATE genre_table SET isFavorite=:favorite WHERE id=:id")
+    suspend fun updateGenreState(id: Int, favorite: Boolean)
 }

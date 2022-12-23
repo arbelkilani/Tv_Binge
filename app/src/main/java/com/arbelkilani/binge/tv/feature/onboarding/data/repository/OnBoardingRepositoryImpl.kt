@@ -1,15 +1,16 @@
 package com.arbelkilani.binge.tv.feature.onboarding.data.repository
 
+import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
 import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
 import com.arbelkilani.binge.tv.data.source.local.room.AppDatabase
-import com.arbelkilani.binge.tv.feature.onboarding.domain.repository.ProviderSelectionRepository
+import com.arbelkilani.binge.tv.feature.onboarding.domain.repository.OnBoardingRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class ProviderSelectionRepositoryImpl @Inject constructor(
+class OnBoardingRepositoryImpl @Inject constructor(
     database: AppDatabase
-) : ProviderSelectionRepository {
+) : OnBoardingRepository {
 
     private val resourcesDao = database.resourcesDao()
 
@@ -28,5 +29,13 @@ class ProviderSelectionRepositoryImpl @Inject constructor(
 
     override suspend fun updateProviderState(provider: WatchProviderEntity) {
         resourcesDao.updateProviderState(provider.id, provider.isFavorite)
+    }
+
+    override suspend fun getGenres() = flow {
+        resourcesDao.getGenres()?.let { emit(it) }
+    }
+
+    override suspend fun updateGenreState(genreEntity: GenreEntity) {
+        resourcesDao.updateGenreState(genreEntity.id, genreEntity.isFavorite)
     }
 }

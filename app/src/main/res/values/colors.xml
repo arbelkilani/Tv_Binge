@@ -31,4 +31,16 @@
     <color name="details_network_text_color">#444444</color>
     <color name="details_network_border_color">#778bd9</color>
 
+    <!-- on boarding -->
+    <color name="on_boarding_background_color">@color/anti_flash_white</color>
+    <color name="title_color">#444444</color>
+    <color name="description_color">#5C5C5C</color>
+
+    <!-- item 1 -->
+    <color name="item1_border_color">@color/vista_blue</color>
+    <color name="item1_background_color">@color/anti_flash_white</color>
+    <color name="item1_background_color_selected">@color/vista_blue</color>
+    <color name="item1_text_color">#5C5C5C</color>
+    <color name="item1_text_color_selected">@color/anti_flash_white</color>
+    <color name="arrow_tint_color">#444444</color>
 </resources>

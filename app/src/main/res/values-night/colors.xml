@@ -14,4 +14,17 @@
     <color name="details_network_text_color">@android:color/white</color>
     <color name="details_network_border_color">@android:color/white</color>
 
+    <!-- on boarding -->
+    <color name="on_boarding_background_color">@color/space_cadet</color>
+    <color name="title_color">#FFFFFF</color>
+    <color name="description_color">#FFFFFF</color>
+
+    <!-- item 1 -->
+    <color name="item1_border_color">@color/white</color>
+    <color name="item1_background_color">@color/space_cadet</color>
+    <color name="item1_background_color_selected">@color/anti_flash_white</color>
+    <color name="item1_text_color">@color/white</color>
+    <color name="item1_text_color_selected">@color/space_cadet</color>
+    <color name="arrow_tint_color">@color/white</color>
+
 </resources>

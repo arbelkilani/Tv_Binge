@@ -7,8 +7,6 @@ import com.arbelkilani.binge.tv.feature.onboarding.domain.usecase.GetProvidersUs
 import com.arbelkilani.binge.tv.feature.onboarding.domain.usecase.UpdateProviderUseCase
 import com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.providerselection.model.ProvidersSelectionViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,12 +20,11 @@ class ProvidersSelectionViewModel @Inject constructor(
         initialState = ProvidersSelectionViewState.Start
     ) {
 
-    private val _providers = MutableStateFlow<List<WatchProviderEntity>>(emptyList())
-    val provider: StateFlow<List<WatchProviderEntity>> = _providers
-
-    private suspend fun getProviders() {
-        getProvidersUseCase.getProviders().collectLatest { providers ->
-            updateState { ProvidersSelectionViewState.Loaded(providers) }
+    fun load() {
+        viewModelScope.launch {
+            getProvidersUseCase.getProviders().collectLatest { providers ->
+                updateState { ProvidersSelectionViewState.Loaded(providers) }
+            }
         }
     }
 
@@ -36,11 +33,4 @@ class ProvidersSelectionViewModel @Inject constructor(
             updateProviderUseCase.invoke(provider)
         }
     }
-
-    fun load() {
-        viewModelScope.launch {
-            getProviders()
-        }
-    }
-
 }

@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class ProvidersSelectionFragment :
-    OnBoardingContract.WatchProviderSelectionViewCapabilities,
+    OnBoardingContract.ProviderSelectionViewCapabilities,
     BaseFragment<FragmentWatchProvidersSelectionBinding>(),
     ProviderSelectionListener {
 
@@ -39,7 +39,7 @@ class ProvidersSelectionFragment :
     override suspend fun initViewModelObservation() {
         viewModel.viewState.collectLatest { viewState ->
             when (viewState) {
-                is ProvidersSelectionViewState.Loaded -> populateWatchProviders(viewState.list)
+                is ProvidersSelectionViewState.Loaded -> populate(viewState.list)
                 else -> {
                     Unit
                 }
@@ -52,7 +52,7 @@ class ProvidersSelectionFragment :
         binding.rvWatchProviders.apply {
             adapter = providersAdapter
             (layoutManager as GridLayoutManager).apply {
-                spanCount = 5
+                spanCount = 4
             }
         }
     }
@@ -63,7 +63,7 @@ class ProvidersSelectionFragment :
         viewModel.updateProvider(provider)
     }
 
-    override fun populateWatchProviders(list: List<WatchProviderEntity>) {
+    override fun populate(list: List<WatchProviderEntity>) {
         providersAdapter.submitList(list)
     }
 

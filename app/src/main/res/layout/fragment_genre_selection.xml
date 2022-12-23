@@ -1,9 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".feature.onboarding.presentation.screens.genreselection.GenreSelectionFragment">
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/on_boarding_edge_mid_margin"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:fontFamily="@font/avenir_next_demi_bold"
+        android:text="@string/on_boarding_provider_selection_title"
+        android:textColor="@color/title_color"
+        android:textSize="@dimen/on_boarding_title_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/on_boarding_edge_mid_margin"
+        android:fontFamily="@font/avenir_next_medium"
+        android:text="@string/on_boarding_provider_selection_description"
+        android:textColor="@color/description_color"
+        android:textSize="@dimen/on_boarding_description_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_networks"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="@dimen/on_boarding_edge_large_margin"
+        android:orientation="horizontal"
+        android:overScrollMode="never"
+        app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_description"
+        app:spanCount="5"
+        tools:itemCount="10"
+        tools:listitem="@layout/item_genre" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

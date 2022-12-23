@@ -3,7 +3,6 @@ package com.arbelkilani.binge.tv.common.ui
 import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.arbelkilani.binge.tv.R
 import com.bumptech.glide.Glide
@@ -17,7 +16,7 @@ fun bindImage(view: ImageView, url: String?) {
         .into(view)
 }
 
-@BindingAdapter(value = ["app:visibility"])
-fun visibility(view: View, isVisible: Boolean) {
-    view.isVisible = isVisible
+@BindingAdapter(value = ["app:activated"])
+fun activated(view: View, isActivated: Boolean) {
+    view.isActivated = isActivated
 }
