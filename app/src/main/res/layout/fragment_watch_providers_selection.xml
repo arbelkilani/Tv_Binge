@@ -38,14 +38,17 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/on_boarding_edge_large_margin"
+        android:clipToPadding="false"
         android:orientation="horizontal"
         android:overScrollMode="never"
+        android:paddingStart="@dimen/on_boarding_edge_small_padding"
+        android:paddingEnd="0dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_description"
-        tools:itemCount="40"
+        tools:itemCount="15"
         tools:listitem="@layout/item_provider"
-        tools:spanCount="3" />
+        tools:spanCount="4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
