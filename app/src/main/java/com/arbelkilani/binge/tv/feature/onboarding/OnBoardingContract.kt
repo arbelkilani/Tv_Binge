@@ -6,7 +6,8 @@ import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
 class OnBoardingContract {
 
     interface ProviderSelectionViewCapabilities {
-        fun populate(list: List<WatchProviderEntity>)
+        fun setFavorites(list: List<WatchProviderEntity>)
+        fun setOthers(list: List<WatchProviderEntity>)
     }
 
     interface GenreSelectionViewCapabilities {

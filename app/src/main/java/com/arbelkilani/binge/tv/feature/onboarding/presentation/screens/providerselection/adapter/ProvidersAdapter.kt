@@ -1,9 +1,7 @@
 package com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.providerselection.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -34,22 +32,16 @@ class ProvidersAdapter @Inject constructor(
                 if (current.isFavorite) {
                     providerSelectionListener.removeFromFavorite(
                         holder.bindingAdapterPosition,
-                        current
+                        current.copy(isFavorite = false)
                     )
                 } else {
-                    providerSelectionListener.addToFavorite(holder.bindingAdapterPosition, current)
+                    providerSelectionListener.addToFavorite(
+                        holder.bindingAdapterPosition,
+                        current.copy(isFavorite = true)
+                    )
                 }
             }
         }
-    }
-
-    override fun onCurrentListChanged(
-        previousList: MutableList<WatchProviderEntity>,
-        currentList: MutableList<WatchProviderEntity>
-    ) {
-        //super.onCurrentListChanged(previousList, currentList)
-        //selectedItems.clear()
-        //selectedItems.addAll(currentList.filter { it.isFavorite })
     }
 
     companion object {

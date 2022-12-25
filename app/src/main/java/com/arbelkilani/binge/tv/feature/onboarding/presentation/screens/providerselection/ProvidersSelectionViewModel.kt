@@ -1,6 +1,5 @@
 package com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.providerselection
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.arbelkilani.binge.tv.common.base.BaseStateViewModel
 import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
@@ -8,7 +7,10 @@ import com.arbelkilani.binge.tv.feature.onboarding.domain.usecase.GetProvidersUs
 import com.arbelkilani.binge.tv.feature.onboarding.domain.usecase.UpdateProviderUseCase
 import com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.providerselection.model.ProvidersSelectionViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -40,17 +42,17 @@ class ProvidersSelectionViewModel @Inject constructor(
 
     fun addToFavorite(provider: WatchProviderEntity) {
         viewModelScope.launch {
-            updateProviderUseCase.invoke(provider.copy(isFavorite = true))
+            updateProviderUseCase.invoke(provider)
         }
-        _selectedList.updateAndGet { it.apply { add(provider.copy(isFavorite = true)) } }
-        _unSelectedList.updateAndGet { it.apply { remove(provider) } }
+        _selectedList.updateAndGet { it.apply { add(0, provider) } }
+        _unSelectedList.updateAndGet { it.apply { remove(provider.copy(isFavorite = false)) } }
     }
 
     fun removeFromFavorite(provider: WatchProviderEntity) {
         viewModelScope.launch {
-            updateProviderUseCase.invoke(provider.copy(isFavorite = false))
+            updateProviderUseCase.invoke(provider)
         }
-        _unSelectedList.updateAndGet { it.apply { add(provider.copy(isFavorite = false)) } }
-        _selectedList.updateAndGet { it.apply { remove(provider) } }
+        _unSelectedList.updateAndGet { it.apply { add(0, provider) } }
+        _selectedList.updateAndGet { it.apply { remove(provider.copy(isFavorite = true)) } }
     }
 }
