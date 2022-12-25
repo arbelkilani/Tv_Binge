@@ -15,14 +15,10 @@ class OnBoardingRepositoryImpl @Inject constructor(
     private val resourcesDao = database.resourcesDao()
 
     override suspend fun getProviders(): Flow<List<WatchProviderEntity>> {
-        val base = resourcesDao.getApiConfiguration()?.logo?.large
+        val base = resourcesDao.getApiConfiguration()?.logo?.medium
         return flow {
             resourcesDao.getWatchLocalProviders()?.let { list ->
-                emit(list.map { entity ->
-                    entity.copy(
-                        logo = base + entity.logo
-                    )
-                })
+                emit(list.map { entity -> entity.copy(logo = base + entity.logo) })
             }
         }
     }

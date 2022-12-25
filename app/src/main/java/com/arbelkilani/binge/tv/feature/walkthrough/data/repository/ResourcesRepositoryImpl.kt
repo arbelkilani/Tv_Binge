@@ -1,8 +1,6 @@
 package com.arbelkilani.binge.tv.feature.walkthrough.data.repository
 
 import android.app.Application
-import android.content.pm.PackageManager
-import android.util.Log
 import com.arbelkilani.binge.tv.common.data.mapper.ApiConfigurationMapper
 import com.arbelkilani.binge.tv.common.data.mapper.CertificationMapper
 import com.arbelkilani.binge.tv.common.data.mapper.GenreMapper
@@ -44,8 +42,7 @@ class ResourcesRepositoryImpl @Inject constructor(
 
     private suspend fun saveWatchProviders() {
         if (resourcesDao.getWatchLocalProviders().isNullOrEmpty()) {
-            service.getProviders("").providers
-                .filter { it.displayPriorities.size > MIN_DISPLAY_PRIORITIES_SIZE }
+            service.getProviders(country).providers
                 .map { provider ->
                     resourcesDao.saveWatchProvider(
                         watchProviderMapper.map(
@@ -101,7 +98,5 @@ class ResourcesRepositoryImpl @Inject constructor(
             "com.disney.disneyplus" to "Disney Plus",
             "com.amazon.avod.thirdpartyclient" to "Amazon Prime Video"
         )
-
-        const val MIN_DISPLAY_PRIORITIES_SIZE = 10
     }
 }
