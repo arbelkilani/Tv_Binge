@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.data.source.remote
+package com.arbelkilani.binge.tv.common.source.remote
 
 import com.arbelkilani.binge.tv.common.data.model.CertificationsResponse
 import com.arbelkilani.binge.tv.common.data.model.ConfigurationResponse

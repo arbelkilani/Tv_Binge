@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.data.source.local.prefsstore
+package com.arbelkilani.binge.tv.common.source.local.prefsstore
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -19,7 +19,6 @@ class PrefsStoreImpl @Inject constructor(
 ) : PrefsStore {
 
     companion object {
-        private val TAG = PrefsStoreImpl::class.java.simpleName
         private const val STORE_NAME = "com.arbelkilani.binge.tv.data.store"
     }
 

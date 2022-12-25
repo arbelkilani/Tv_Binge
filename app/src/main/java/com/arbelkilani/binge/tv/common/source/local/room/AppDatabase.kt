@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.data.source.local.room
+package com.arbelkilani.binge.tv.common.source.local.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
@@ -7,7 +7,7 @@ import com.arbelkilani.binge.tv.common.domain.model.ApiConfigurationEntity
 import com.arbelkilani.binge.tv.common.domain.model.CertificationEntity
 import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
 import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
-import com.arbelkilani.binge.tv.data.source.local.room.converters.ImageConverter
+import com.arbelkilani.binge.tv.common.source.local.room.converters.ImageConverter
 
 @Database(
     entities = [

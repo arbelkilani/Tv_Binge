@@ -1,8 +1,8 @@
 package com.arbelkilani.binge.tv.common.di
 
 import com.arbelkilani.binge.tv.BuildConfig
-import com.arbelkilani.binge.tv.data.source.remote.ApiService
-import com.arbelkilani.binge.tv.data.source.remote.EndpointInterceptor
+import com.arbelkilani.binge.tv.common.source.remote.ApiService
+import com.arbelkilani.binge.tv.common.source.remote.EndpointInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

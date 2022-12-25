@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.domain.repositories
+package com.arbelkilani.binge.tv.common.domain.repository
 
 import kotlinx.coroutines.flow.Flow
 

@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.data.source.local.prefsstore
+package com.arbelkilani.binge.tv.common.source.local.prefsstore
 
 import kotlinx.coroutines.flow.Flow
 

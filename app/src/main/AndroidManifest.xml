@@ -17,7 +17,7 @@
         android:theme="@style/Theme.BingeTV"
         tools:targetApi="31">
         <activity
-            android:name=".feature.main.MainActivity"
+            android:name=".feature.main.presentation.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.App.Starting"

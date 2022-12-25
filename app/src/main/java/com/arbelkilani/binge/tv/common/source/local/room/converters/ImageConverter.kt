@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.data.source.local.room.converters
+package com.arbelkilani.binge.tv.common.source.local.room.converters
 
 import androidx.room.TypeConverter
 import com.arbelkilani.binge.tv.common.domain.model.Image

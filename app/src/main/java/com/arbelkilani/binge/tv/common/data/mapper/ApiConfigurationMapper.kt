@@ -3,7 +3,7 @@ package com.arbelkilani.binge.tv.common.data.mapper
 import com.arbelkilani.binge.tv.common.data.model.ConfigurationResponse
 import com.arbelkilani.binge.tv.common.domain.model.ApiConfigurationEntity
 import com.arbelkilani.binge.tv.common.domain.model.Image
-import com.arbelkilani.binge.tv.data.enum.ImageSize
+import com.arbelkilani.binge.tv.common.data.enum.ImageSize
 import javax.inject.Inject
 
 class ApiConfigurationMapper @Inject constructor() {

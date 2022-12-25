@@ -1,6 +1,6 @@
-package com.arbelkilani.binge.tv.domain.usecase
+package com.arbelkilani.binge.tv.feature.main.domain.usecase
 
-import com.arbelkilani.binge.tv.domain.repositories.ConfigurationRepository
+import com.arbelkilani.binge.tv.common.domain.repository.ConfigurationRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

@@ -1,8 +1,8 @@
-package com.arbelkilani.binge.tv.feature.main
+package com.arbelkilani.binge.tv.feature.main.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.arbelkilani.binge.tv.domain.usecase.GetIsFirstRunUseCase
+import com.arbelkilani.binge.tv.feature.main.domain.usecase.GetIsFirstRunUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

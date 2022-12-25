@@ -2,7 +2,7 @@ package com.arbelkilani.binge.tv.feature.onboarding.data.repository
 
 import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
 import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
-import com.arbelkilani.binge.tv.data.source.local.room.AppDatabase
+import com.arbelkilani.binge.tv.common.source.local.room.AppDatabase
 import com.arbelkilani.binge.tv.feature.onboarding.domain.repository.OnBoardingRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

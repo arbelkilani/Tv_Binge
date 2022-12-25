@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.data.enum
+package com.arbelkilani.binge.tv.common.data.enum
 
 enum class ImageSize(val size: String) {
     ORIGINAL("original"),

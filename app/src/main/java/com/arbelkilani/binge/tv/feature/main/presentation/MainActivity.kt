@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.feature.main
+package com.arbelkilani.binge.tv.feature.main.presentation
 
 import android.os.Bundle
 import androidx.activity.viewModels

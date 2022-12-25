@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.data.source.local.room
+package com.arbelkilani.binge.tv.common.source.local.room
 
 import androidx.room.Dao
 import androidx.room.Insert

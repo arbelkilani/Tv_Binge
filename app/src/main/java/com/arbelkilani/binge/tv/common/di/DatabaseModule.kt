@@ -2,8 +2,8 @@ package com.arbelkilani.binge.tv.common.di
 
 import android.content.Context
 import androidx.room.Room
-import com.arbelkilani.binge.tv.data.source.local.room.AppDatabase
-import com.arbelkilani.binge.tv.data.source.local.room.ResourcesDao
+import com.arbelkilani.binge.tv.common.source.local.room.AppDatabase
+import com.arbelkilani.binge.tv.common.source.local.room.ResourcesDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

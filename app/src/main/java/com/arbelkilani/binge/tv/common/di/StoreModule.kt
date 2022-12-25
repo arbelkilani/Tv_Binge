@@ -1,7 +1,7 @@
 package com.arbelkilani.binge.tv.common.di
 
-import com.arbelkilani.binge.tv.data.source.local.prefsstore.PrefsStore
-import com.arbelkilani.binge.tv.data.source.local.prefsstore.PrefsStoreImpl
+import com.arbelkilani.binge.tv.common.source.local.prefsstore.PrefsStore
+import com.arbelkilani.binge.tv.common.source.local.prefsstore.PrefsStoreImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

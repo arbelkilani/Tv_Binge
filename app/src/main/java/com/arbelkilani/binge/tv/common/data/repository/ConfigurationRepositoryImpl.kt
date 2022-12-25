@@ -1,7 +1,7 @@
-package com.arbelkilani.binge.tv.data.repositories
+package com.arbelkilani.binge.tv.common.data.repository
 
-import com.arbelkilani.binge.tv.data.source.local.prefsstore.PrefsStore
-import com.arbelkilani.binge.tv.domain.repositories.ConfigurationRepository
+import com.arbelkilani.binge.tv.common.source.local.prefsstore.PrefsStore
+import com.arbelkilani.binge.tv.common.domain.repository.ConfigurationRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
