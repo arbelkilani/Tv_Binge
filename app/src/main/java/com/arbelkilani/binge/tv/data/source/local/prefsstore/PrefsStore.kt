@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface PrefsStore {
     fun isFirstRun(): Flow<Boolean>
-    suspend fun toggleIsFirstRunState()
+    suspend fun setNoFirstRun()
 }

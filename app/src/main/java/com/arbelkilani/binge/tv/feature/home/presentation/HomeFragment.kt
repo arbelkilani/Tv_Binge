@@ -26,16 +26,15 @@ class HomeFragment :
     }
 
     override suspend fun initViewModelObservation() {
-        super.initViewModelObservation()
         viewModel.viewState.collectLatest { viewState ->
             when (viewState) {
-                HomeViewState.Start -> toggleIsFirstRunState()
+                HomeViewState.Start -> setNoFirstRun()
                 HomeViewState.Loading -> Unit
             }
         }
     }
 
-    override fun toggleIsFirstRunState() {
-        viewModel.toggleIsFirstRunState()
+    override fun setNoFirstRun() {
+        viewModel.setNoFirstRun()
     }
 }

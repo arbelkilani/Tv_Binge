@@ -9,6 +9,5 @@ class SaveConfigurationUseCase @Inject constructor() {
     lateinit var configurationRepository: ConfigurationRepository
 
     suspend fun execute() {
-        configurationRepository.saveConfiguration()
     }
 }

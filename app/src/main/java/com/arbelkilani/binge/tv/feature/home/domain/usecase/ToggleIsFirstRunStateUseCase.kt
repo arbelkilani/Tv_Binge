@@ -9,6 +9,6 @@ class ToggleIsFirstRunStateUseCase @Inject constructor() {
     lateinit var configurationRepository: ConfigurationRepository
 
     suspend fun invoke() {
-        configurationRepository.toggleIsFirstRunState()
+        configurationRepository.setNoFirstRun()
     }
 }

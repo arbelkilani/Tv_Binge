@@ -3,7 +3,7 @@ package com.arbelkilani.binge.tv.feature.home
 interface HomeContract {
 
     interface ViewCapabilities {
-        fun toggleIsFirstRunState()
+        fun setNoFirstRun()
     }
 
     interface ViewNavigation {

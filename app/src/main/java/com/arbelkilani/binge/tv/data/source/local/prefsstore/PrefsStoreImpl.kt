@@ -39,10 +39,14 @@ class PrefsStoreImpl @Inject constructor(
             preferences[PreferencesKeys.IS_FIRST_RUN_KEY] ?: true
         }
 
-    override suspend fun toggleIsFirstRunState() {
-        context.dataStore.edit { mutablePreferences ->
-            mutablePreferences[PreferencesKeys.IS_FIRST_RUN_KEY] =
-                !(mutablePreferences[PreferencesKeys.IS_FIRST_RUN_KEY] ?: false)
+    override suspend fun setNoFirstRun() {
+        try {
+            context.dataStore.edit { mutablePreferences ->
+                mutablePreferences[PreferencesKeys.IS_FIRST_RUN_KEY] =
+                    mutablePreferences[PreferencesKeys.IS_FIRST_RUN_KEY] == null
+            }
+        } catch (ex: Exception) {
+            ex.printStackTrace()
         }
     }
 }
