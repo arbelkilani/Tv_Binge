@@ -2,8 +2,7 @@
 <resources>
     <!-- Splash Screen Theme (Android 12+) -->
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/background_color_splash</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
+        <item name="android:windowBackground">@drawable/bg_splash</item>
         <item name="postSplashScreenTheme">@style/Theme.BingeTV</item>
         <item name="android:windowSplashScreenBrandingImage">@drawable/ic_splash_branding</item>
     </style>
