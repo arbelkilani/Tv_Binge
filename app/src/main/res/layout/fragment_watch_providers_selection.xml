@@ -34,10 +34,26 @@
         app:layout_constraintTop_toBottomOf="@id/title" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_selected_providers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/on_boarding_edge_large_margin"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/on_boarding_edge_small_padding"
+        android:paddingEnd="0dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_description"
+        app:spanCount="1"
+        tools:listitem="@layout/item_provider" />
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_watch_providers"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/on_boarding_edge_large_margin"
+        android:layout_marginTop="@dimen/on_boarding_edge_mid_margin"
         android:clipToPadding="false"
         android:orientation="horizontal"
         android:overScrollMode="never"
@@ -46,9 +62,9 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_description"
+        app:layout_constraintTop_toBottomOf="@id/rv_selected_providers"
+        app:spanCount="4"
         tools:itemCount="15"
-        tools:listitem="@layout/item_provider"
-        tools:spanCount="4" />
+        tools:listitem="@layout/item_provider" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

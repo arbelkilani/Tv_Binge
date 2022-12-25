@@ -7,6 +7,7 @@ data class ProvidersResponse(
 )
 
 data class Provider(
+    @SerializedName("display_priorities") val displayPriorities:Map<String, Int>,
     @SerializedName("display_priority") val displayPriority: Int,
     @SerializedName("logo_path") val logoPath: String,
     @SerializedName("provider_name") val providerName: String,

@@ -1,5 +1,6 @@
 package com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.providerselection.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -19,8 +20,6 @@ class ProvidersAdapter @Inject constructor(
 
     class ProvidersHolder(val binding: ItemProviderBinding) : RecyclerView.ViewHolder(binding.root)
 
-    private val selectedItems = mutableListOf<WatchProviderEntity>()
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProvidersHolder(
         DataBindingUtil.inflate(
             LayoutInflater.from(parent.context), R.layout.item_provider, parent, false
@@ -29,15 +28,17 @@ class ProvidersAdapter @Inject constructor(
 
     override fun onBindViewHolder(holder: ProvidersHolder, position: Int) {
         val current = getItem(position)
-
-        holder.binding.mask.isVisible = current in selectedItems
         with(holder.binding) {
             provider = current
             root.setOnClickListener {
-                mask.isVisible = !mask.isVisible
-                if (mask.isVisible) selectedItems.add(current)
-                else selectedItems.remove(current)
-                providerSelectionListener.onWatchProviderClicked(current.copy(isFavorite = mask.isVisible))
+                if (current.isFavorite) {
+                    providerSelectionListener.removeFromFavorite(
+                        holder.bindingAdapterPosition,
+                        current
+                    )
+                } else {
+                    providerSelectionListener.addToFavorite(holder.bindingAdapterPosition, current)
+                }
             }
         }
     }
@@ -46,17 +47,9 @@ class ProvidersAdapter @Inject constructor(
         previousList: MutableList<WatchProviderEntity>,
         currentList: MutableList<WatchProviderEntity>
     ) {
-        super.onCurrentListChanged(previousList, currentList)
-        selectedItems.clear()
-        selectedItems.addAll(currentList.filter { it.isFavorite })
-    }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return position
+        //super.onCurrentListChanged(previousList, currentList)
+        //selectedItems.clear()
+        //selectedItems.addAll(currentList.filter { it.isFavorite })
     }
 
     companion object {

@@ -1,5 +1,8 @@
 package com.arbelkilani.binge.tv.feature.walkthrough.data.repository
 
+import android.app.Application
+import android.content.pm.PackageManager
+import android.util.Log
 import com.arbelkilani.binge.tv.common.data.mapper.ApiConfigurationMapper
 import com.arbelkilani.binge.tv.common.data.mapper.CertificationMapper
 import com.arbelkilani.binge.tv.common.data.mapper.GenreMapper
@@ -11,9 +14,11 @@ import java.util.*
 import javax.inject.Inject
 
 class ResourcesRepositoryImpl @Inject constructor(
-    private val service: ApiService,
-    database: AppDatabase
+    private val service: ApiService, database: AppDatabase
 ) : ResourcesRepository {
+
+    @Inject
+    lateinit var application: Application
 
     @Inject
     lateinit var watchProviderMapper: WatchProviderMapper
@@ -39,9 +44,16 @@ class ResourcesRepositoryImpl @Inject constructor(
 
     private suspend fun saveWatchProviders() {
         if (resourcesDao.getWatchLocalProviders().isNullOrEmpty()) {
-            service.getProviders(country).providers.map {
-                resourcesDao.saveWatchProvider(watchProviderMapper.map(it, false))
-            }
+            service.getProviders("").providers
+                .filter { it.displayPriorities.size > MIN_DISPLAY_PRIORITIES_SIZE }
+                .map { provider ->
+                    resourcesDao.saveWatchProvider(
+                        watchProviderMapper.map(
+                            provider,
+                            getInstalledPackages().contains(provider.providerName)
+                        )
+                    )
+                }
         }
     }
 
@@ -67,5 +79,29 @@ class ResourcesRepositoryImpl @Inject constructor(
                 resourcesDao.saveGenre(genreMapper.map(it, false))
             }
         }
+    }
+
+    // TODO: 24-12-2022
+    // replace the known packages map and fill it later
+    // with significant data.
+    private fun getInstalledPackages(): List<String> {
+        val packageManager = application.packageManager
+        return knownPackages.filter {
+            packageManager.getLaunchIntentForPackage(it.key) != null
+        }.map {
+            it.value
+        }
+    }
+
+    companion object {
+        val knownPackages = mapOf(
+            "com.google.android.videos" to "Google Play Movies",
+            "com.netflix.mediaclient" to "Netflix",
+            "com.crunchyroll.crunchyroid" to "Crunchyroll",
+            "com.disney.disneyplus" to "Disney Plus",
+            "com.amazon.avod.thirdpartyclient" to "Amazon Prime Video"
+        )
+
+        const val MIN_DISPLAY_PRIORITIES_SIZE = 10
     }
 }

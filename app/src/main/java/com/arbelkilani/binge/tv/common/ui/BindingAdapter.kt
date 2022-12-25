@@ -12,7 +12,7 @@ fun bindImage(view: ImageView, url: String?) {
     Glide.with(view)
         .load(url)
         .fallback(ContextCompat.getDrawable(view.context, R.drawable.ic_splash))
-        .centerCrop()
+        .fitCenter()
         .into(view)
 }
 
