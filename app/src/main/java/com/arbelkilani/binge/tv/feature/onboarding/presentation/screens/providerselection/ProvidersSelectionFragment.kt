@@ -3,6 +3,7 @@ package com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.provide
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
@@ -60,6 +61,10 @@ class ProvidersSelectionFragment :
         favoritesAdapter.apply { notifyItemInserted(0) }
         othersAdapter.apply { notifyItemRemoved(position) }
         binding.rvSelectedProviders.smoothScrollToPosition(0)
+    }
+
+    override fun showName(provider: WatchProviderEntity) {
+        Toast.makeText(context, provider.name, Toast.LENGTH_SHORT).show()
     }
 
     override fun removeFromFavorite(position: Int, provider: WatchProviderEntity) {

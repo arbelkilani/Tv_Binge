@@ -28,19 +28,28 @@ class ProvidersAdapter @Inject constructor(
         val current = getItem(position)
         with(holder.binding) {
             provider = current
-            root.setOnClickListener {
-                if (current.isFavorite) {
-                    providerSelectionListener.removeFromFavorite(
-                        holder.bindingAdapterPosition,
-                        current.copy(isFavorite = false)
-                    )
-                } else {
-                    providerSelectionListener.addToFavorite(
-                        holder.bindingAdapterPosition,
-                        current.copy(isFavorite = true)
-                    )
-                }
+            root.setOnClickListener { onClickListener(current, holder) }
+            root.setOnLongClickListener {
+                providerSelectionListener.showName(current)
+                true
             }
+        }
+    }
+
+    private fun onClickListener(
+        current: WatchProviderEntity,
+        holder: ProvidersHolder
+    ) {
+        if (current.isFavorite) {
+            providerSelectionListener.removeFromFavorite(
+                holder.bindingAdapterPosition,
+                current.copy(isFavorite = false)
+            )
+        } else {
+            providerSelectionListener.addToFavorite(
+                holder.bindingAdapterPosition,
+                current.copy(isFavorite = true)
+            )
         }
     }
 
