@@ -69,17 +69,9 @@ class ProvidersSelectionFragment :
         super.initViews()
         binding.rvWatchProviders.apply {
             adapter = otherProviders
-            (itemAnimator as? SimpleItemAnimator)?.apply {
-                supportsChangeAnimations = false
-                changeDuration = 0
-            }
         }
         binding.rvSelectedProviders.apply {
             adapter = selectedProviders
-            (itemAnimator as? SimpleItemAnimator)?.apply {
-                supportsChangeAnimations = false
-                changeDuration = 0
-            }
         }
     }
 
