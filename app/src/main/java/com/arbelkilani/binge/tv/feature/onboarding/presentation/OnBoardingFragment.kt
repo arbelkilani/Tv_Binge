@@ -88,6 +88,8 @@ class OnBoardingFragment :
         val currentItem = binding.viewPager.currentItem
         if (currentItem < fragments.size - 1)
             binding.viewPager.setCurrentItem(currentItem + 1, true)
+        else
+            navigator.navigateToHome(this)
     }
 
     private fun scrollToPrevious() {

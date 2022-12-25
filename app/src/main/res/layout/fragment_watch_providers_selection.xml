@@ -63,7 +63,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rv_selected_providers"
-        app:spanCount="4"
+        app:spanCount="5"
         tools:itemCount="15"
         tools:listitem="@layout/item_provider" />
 
