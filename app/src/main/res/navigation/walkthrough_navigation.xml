@@ -24,11 +24,13 @@
         android:label="@string/title_on_boarding"
         tools:layout="@layout/fragment_on_boarding">
         <action
-            android:id="@+id/action_fragment_on_boarding_to_dashboard_navigation"
+            android:id="@+id/action_fragment_on_boarding_to_home_navigation"
             app:destination="@id/dashboard_navigation"
             app:launchSingleTop="true"
             app:popUpTo="@id/fragment_on_boarding"
             app:popUpToInclusive="true" />
     </fragment>
+
     <include app:graph="@navigation/dashboard_navigation" />
+
 </navigation>
