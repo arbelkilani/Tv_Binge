@@ -1,10 +1,13 @@
 package com.arbelkilani.binge.tv.common.source.remote
 
+import com.arbelkilani.binge.tv.common.base.entities.ResponseWrapper
 import com.arbelkilani.binge.tv.common.data.model.CertificationsResponse
 import com.arbelkilani.binge.tv.common.data.model.ConfigurationResponse
 import com.arbelkilani.binge.tv.common.data.model.ProvidersResponse
 import com.arbelkilani.binge.tv.common.data.model.GenreResponse
+import com.arbelkilani.binge.tv.feature.discover.data.entities.TrendingResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -28,4 +31,11 @@ interface ApiService {
     // Get Tv List Genre
     @GET("genre/tv/list")
     suspend fun getGenres(): GenreResponse
+
+    // Get trending tv
+    @GET("trending/{media_type}/{time_window}")
+    suspend fun getTrending(
+        @Path("media_type") mediaType: String,
+        @Path("time_window") timeWindow: String
+    ): ResponseWrapper<TrendingResponse>
 }

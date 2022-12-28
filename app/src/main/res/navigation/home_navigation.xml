@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_discover"
-        android:name="com.arbelkilani.binge.tv.feature.discover.DiscoverFragment"
+        android:name="com.arbelkilani.binge.tv.feature.discover.presentation.DiscoverFragment"
         android:label="fragment_discover"
         tools:layout="@layout/fragment_discover" />
 
