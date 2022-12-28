@@ -1,14 +1,11 @@
 package com.arbelkilani.binge.tv.feature.home.presentation
 
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.base.BaseFragment
@@ -50,7 +47,6 @@ class HomeFragment :
     }
 
     override fun setNoFirstRun() {
-        Log.i("TAG**", "no first run")
         viewModel.setNoFirstRun()
     }
 }

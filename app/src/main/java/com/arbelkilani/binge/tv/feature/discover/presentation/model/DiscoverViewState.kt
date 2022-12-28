@@ -1,6 +1,6 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation.model
 
-import com.arbelkilani.binge.tv.feature.discover.data.entities.TrendingResponse
+import com.arbelkilani.binge.tv.feature.discover.domain.entities.TrendingEntity
 
 abstract class DiscoverViewState {
     object Start : DiscoverViewState()
@@ -8,5 +8,5 @@ abstract class DiscoverViewState {
     data class HttpException(val exception: Exception) : DiscoverViewState()
     data class IOException(val exception: Exception) : DiscoverViewState()
     data class UnknownException(val exception: Exception) : DiscoverViewState()
-    data class TrendingLoaded(val data: List<TrendingResponse>) : DiscoverViewState()
+    data class TrendingLoaded(val data: List<TrendingEntity>) : DiscoverViewState()
 }
