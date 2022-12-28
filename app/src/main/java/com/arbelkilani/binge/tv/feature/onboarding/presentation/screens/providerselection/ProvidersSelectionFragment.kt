@@ -1,6 +1,7 @@
 package com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.providerselection
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -13,6 +14,7 @@ import com.arbelkilani.binge.tv.databinding.FragmentWatchProvidersSelectionBindi
 import com.arbelkilani.binge.tv.feature.onboarding.OnBoardingContract
 import com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.providerselection.adapter.ProvidersAdapter
 import com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.providerselection.listener.ProviderSelectionListener
+import com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.providerselection.model.ProvidersSelectionViewState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -43,6 +45,15 @@ class ProvidersSelectionFragment :
         lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
             launch { viewModel.selectedList.collectLatest { setFavorites(it) } }
             launch { viewModel.unSelectedList.collectLatest { setOthers(it) } }
+        }
+        viewModel.viewState.collectLatest { viewState ->
+            when (viewState) {
+                is ProvidersSelectionViewState.Error -> Log.i(
+                    TAG,
+                    "Exception : ${viewState.exception}"
+                )
+                else -> Unit
+            }
         }
     }
 
@@ -86,5 +97,9 @@ class ProvidersSelectionFragment :
         binding.rvWatchProviders.adapter = null
         binding.rvSelectedProviders.adapter = null
         super.onDestroyView()
+    }
+
+    companion object {
+        private val TAG = ProvidersSelectionFragment::class.java.simpleName
     }
 }

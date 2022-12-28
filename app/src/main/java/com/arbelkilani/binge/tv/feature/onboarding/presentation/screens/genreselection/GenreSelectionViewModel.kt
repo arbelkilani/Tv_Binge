@@ -22,8 +22,13 @@ class GenreSelectionViewModel @Inject constructor(
 
     fun load() {
         viewModelScope.launch {
-            getGenresUseCase.getGenres().collectLatest { list ->
-                updateState { GenreSelectionViewState.Loaded(list) }
+            try {
+                getGenresUseCase.getGenres().collectLatest { list ->
+                    updateState { GenreSelectionViewState.Loaded(list) }
+                }
+            } catch (exception: Exception) {
+                exception.printStackTrace()
+                updateState { GenreSelectionViewState.Error(exception) }
             }
         }
     }

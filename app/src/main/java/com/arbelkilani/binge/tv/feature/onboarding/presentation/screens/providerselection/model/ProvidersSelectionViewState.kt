@@ -4,7 +4,10 @@ import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
 
 sealed class ProvidersSelectionViewState {
     object Start : ProvidersSelectionViewState()
-    data class Loaded(val list: List<WatchProviderEntity>) : ProvidersSelectionViewState()
-    data class SelectedItem(val provider: WatchProviderEntity?) :
+    object Loading : ProvidersSelectionViewState()
+    data class Error(val exception: Exception) : ProvidersSelectionViewState()
+    object Loaded : ProvidersSelectionViewState()
+    data class AddedToFavorite(val provider: WatchProviderEntity) : ProvidersSelectionViewState()
+    data class RemovedFromFavorite(val provider: WatchProviderEntity) :
         ProvidersSelectionViewState()
 }

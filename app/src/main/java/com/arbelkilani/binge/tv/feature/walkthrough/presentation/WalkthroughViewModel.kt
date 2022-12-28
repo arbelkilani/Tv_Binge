@@ -17,7 +17,12 @@ class WalkthroughViewModel @Inject constructor(
 
     fun saveResources() {
         viewModelScope.launch {
-            saveResourcesUseCase.execute()
+            try {
+                saveResourcesUseCase.execute()
+            } catch (exception: Exception) {
+                exception.printStackTrace()
+                updateState { WalkthroughViewState.Error(exception) }
+            }
         }
     }
 }

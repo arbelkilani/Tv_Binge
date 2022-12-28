@@ -18,10 +18,9 @@ import javax.inject.Inject
 class ProvidersSelectionViewModel @Inject constructor(
     private val getProvidersUseCase: GetProvidersUseCase,
     private val updateProviderUseCase: UpdateProviderUseCase
-) :
-    BaseStateViewModel<ProvidersSelectionViewState>(
-        initialState = ProvidersSelectionViewState.Start
-    ) {
+) : BaseStateViewModel<ProvidersSelectionViewState>(
+    initialState = ProvidersSelectionViewState.Start
+) {
 
     private val _selectedList = MutableStateFlow(mutableListOf<WatchProviderEntity>())
     val selectedList: StateFlow<MutableList<WatchProviderEntity>> = _selectedList
@@ -30,12 +29,19 @@ class ProvidersSelectionViewModel @Inject constructor(
     val unSelectedList: StateFlow<MutableList<WatchProviderEntity>> = _unSelectedList
 
     fun load() {
+        updateState { ProvidersSelectionViewState.Loading }
         viewModelScope.launch {
-            getProvidersUseCase.getProviders().collectLatest { providers ->
-                _selectedList.value =
-                    providers.filter { it.isFavorite }.toMutableList()
-                _unSelectedList.value =
-                    providers.filterNot { it.isFavorite }.toMutableList()
+            try {
+                getProvidersUseCase.getProviders().collectLatest { providers ->
+                    _selectedList.value =
+                        providers.filter { it.isFavorite }.toMutableList()
+                    _unSelectedList.value =
+                        providers.filterNot { it.isFavorite }.toMutableList()
+                }
+                updateState { ProvidersSelectionViewState.Loaded }
+            } catch (exception: Exception) {
+                exception.printStackTrace()
+                updateState { ProvidersSelectionViewState.Error(exception) }
             }
         }
     }
@@ -46,6 +52,7 @@ class ProvidersSelectionViewModel @Inject constructor(
         }
         _selectedList.updateAndGet { it.apply { add(0, provider) } }
         _unSelectedList.updateAndGet { it.apply { remove(provider.copy(isFavorite = false)) } }
+        updateState { ProvidersSelectionViewState.AddedToFavorite(provider) }
     }
 
     fun removeFromFavorite(provider: WatchProviderEntity) {
@@ -54,5 +61,6 @@ class ProvidersSelectionViewModel @Inject constructor(
         }
         _unSelectedList.updateAndGet { it.apply { add(0, provider) } }
         _selectedList.updateAndGet { it.apply { remove(provider.copy(isFavorite = true)) } }
+        updateState { ProvidersSelectionViewState.RemovedFromFavorite(provider) }
     }
 }

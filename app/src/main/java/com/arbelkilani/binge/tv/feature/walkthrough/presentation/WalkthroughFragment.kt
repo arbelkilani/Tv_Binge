@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isInvisible
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
@@ -12,10 +13,12 @@ import com.arbelkilani.binge.tv.common.extension.removeOverScroll
 import com.arbelkilani.binge.tv.databinding.FragmentWalkthroughBinding
 import com.arbelkilani.binge.tv.feature.walkthrough.WalkthroughContract
 import com.arbelkilani.binge.tv.feature.walkthrough.presentation.adapter.WalkthroughPagerAdapter
+import com.arbelkilani.binge.tv.feature.walkthrough.presentation.model.WalkthroughViewState
 import com.arbelkilani.binge.tv.feature.walkthrough.presentation.screens.FirstWalkthroughFragment
 import com.arbelkilani.binge.tv.feature.walkthrough.presentation.screens.SecondWalkthroughFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 
@@ -46,6 +49,21 @@ class WalkthroughFragment :
         inflater: LayoutInflater, container: ViewGroup?
     ): FragmentWalkthroughBinding {
         return FragmentWalkthroughBinding.inflate(inflater, container, false)
+    }
+
+    override suspend fun initViewModelObservation() {
+        viewModel.viewState.collectLatest { viewState ->
+            when (viewState) {
+                is WalkthroughViewState.Error -> {
+                    Toast.makeText(
+                        context,
+                        viewState.exception.localizedMessage,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> Unit
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

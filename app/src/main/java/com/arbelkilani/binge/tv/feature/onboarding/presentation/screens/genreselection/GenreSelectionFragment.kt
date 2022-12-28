@@ -3,6 +3,7 @@ package com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.genrese
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.arbelkilani.binge.tv.common.base.BaseFragment
 import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
@@ -40,6 +41,11 @@ class GenreSelectionFragment :
         viewModel.viewState.collectLatest { viewState ->
             when (viewState) {
                 is GenreSelectionViewState.Loaded -> populate(viewState.list)
+                is GenreSelectionViewState.Error -> Toast.makeText(
+                    context,
+                    viewState.exception.localizedMessage,
+                    Toast.LENGTH_SHORT
+                ).show()
                 else -> Unit
             }
         }
