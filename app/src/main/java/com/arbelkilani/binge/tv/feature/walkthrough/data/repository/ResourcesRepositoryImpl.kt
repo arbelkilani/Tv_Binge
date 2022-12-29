@@ -90,6 +90,14 @@ class ResourcesRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getBackdrop(): String? {
+        return resourcesDao.getApiConfiguration()?.backdrop?.large
+    }
+
+    override suspend fun getPoster(): String? {
+        return resourcesDao.getApiConfiguration()?.poster?.large
+    }
+
     companion object {
         val knownPackages = mapOf(
             "com.google.android.videos" to "Google Play Movies",
