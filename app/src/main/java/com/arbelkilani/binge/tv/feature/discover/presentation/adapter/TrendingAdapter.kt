@@ -1,6 +1,5 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -25,7 +24,6 @@ class TrendingAdapter @Inject constructor() :
     )
 
     override fun onBindViewHolder(holder: TrendingHolder, position: Int) {
-        Log.i("TAG**", "item = ${getItem(position)}")
         holder.binding.tv = getItem(position)
     }
 

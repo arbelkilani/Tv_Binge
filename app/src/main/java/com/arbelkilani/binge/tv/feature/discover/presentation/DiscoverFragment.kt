@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.arbelkilani.binge.tv.common.base.BaseFragment
+import com.arbelkilani.binge.tv.common.extension.removeOverScroll
+import com.arbelkilani.binge.tv.common.extension.scalePagerTransformer
 import com.arbelkilani.binge.tv.databinding.FragmentDiscoverBinding
 import com.arbelkilani.binge.tv.feature.discover.DiscoverContract
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.TrendingAdapter
@@ -41,7 +43,10 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(),
                 )
                 is DiscoverViewState.IOException -> Log.e("TAG**", "IOException : ${it.exception}")
                 is DiscoverViewState.UnknownException -> Log.e("TAG**", "UnknownException")
-                is DiscoverViewState.TrendingLoaded -> trendingAdapter.submitList(it.data)
+                is DiscoverViewState.TrendingLoaded -> {
+                    trendingAdapter.submitList(it.data)
+                    binding.rvTrending.setCurrentItem(it.data.size / 2, false)
+                }
             }
         }
     }
@@ -50,6 +55,8 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(),
         super.initViews()
         binding.rvTrending.apply {
             adapter = trendingAdapter
+            removeOverScroll()
+            scalePagerTransformer()
         }
     }
 }
