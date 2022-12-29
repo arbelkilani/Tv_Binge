@@ -21,7 +21,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(),
 
     val viewModel: DiscoverViewModel by viewModels()
 
-    private val trendingAdapter: TrendingAdapter by lazy { TrendingAdapter(binding.rvTrending) }
+    private val trendingAdapter: TrendingAdapter by lazy { TrendingAdapter() }
 
     @Inject
     lateinit var navigator: DiscoverContract.ViewNavigation
