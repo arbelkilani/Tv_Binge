@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.databinding.ItemDiscoverTrendingBinding
-import com.arbelkilani.binge.tv.feature.discover.domain.entities.TrendingEntity
+import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import javax.inject.Inject
 
 class TrendingAdapter @Inject constructor() :
-    ListAdapter<TrendingEntity, TrendingAdapter.TrendingHolder>(TrendingComparator) {
+    ListAdapter<TvEntity, TrendingAdapter.TrendingHolder>(TrendingComparator) {
 
     class TrendingHolder(val binding: ItemDiscoverTrendingBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -29,15 +29,15 @@ class TrendingAdapter @Inject constructor() :
 
     companion object {
         private val TrendingComparator =
-            object : DiffUtil.ItemCallback<TrendingEntity>() {
+            object : DiffUtil.ItemCallback<TvEntity>() {
                 override fun areItemsTheSame(
-                    oldItem: TrendingEntity, newItem: TrendingEntity
+                    oldItem: TvEntity, newItem: TvEntity
                 ): Boolean {
                     return oldItem.id == newItem.id
                 }
 
                 override fun areContentsTheSame(
-                    oldItem: TrendingEntity, newItem: TrendingEntity
+                    oldItem: TvEntity, newItem: TvEntity
                 ): Boolean {
                     return oldItem == newItem
                 }

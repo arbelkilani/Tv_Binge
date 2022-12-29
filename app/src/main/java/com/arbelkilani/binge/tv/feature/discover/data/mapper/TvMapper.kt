@@ -3,11 +3,11 @@ package com.arbelkilani.binge.tv.feature.discover.data.mapper
 import com.arbelkilani.binge.tv.common.domain.usecase.GetBackdropUseCase
 import com.arbelkilani.binge.tv.common.domain.usecase.GetGenresByIdsUseCase
 import com.arbelkilani.binge.tv.common.domain.usecase.GetPosterUseCase
-import com.arbelkilani.binge.tv.feature.discover.data.entities.TrendingResponse
-import com.arbelkilani.binge.tv.feature.discover.domain.entities.TrendingEntity
+import com.arbelkilani.binge.tv.feature.discover.data.entities.TvResponse
+import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import javax.inject.Inject
 
-class TrendingMapper @Inject constructor() {
+class TvMapper @Inject constructor() {
 
     @Inject
     lateinit var getGenresByIdsUseCase: GetGenresByIdsUseCase
@@ -18,7 +18,7 @@ class TrendingMapper @Inject constructor() {
     @Inject
     lateinit var getPosterUseCase: GetPosterUseCase
 
-    suspend fun map(response: TrendingResponse) = TrendingEntity(
+    suspend fun map(response: TvResponse) = TvEntity(
         id = response.id,
         name = response.name,
         poster = getPosterUseCase.invoke(response.poster),

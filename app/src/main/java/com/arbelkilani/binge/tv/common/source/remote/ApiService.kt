@@ -5,7 +5,7 @@ import com.arbelkilani.binge.tv.common.data.model.CertificationsResponse
 import com.arbelkilani.binge.tv.common.data.model.ConfigurationResponse
 import com.arbelkilani.binge.tv.common.data.model.ProvidersResponse
 import com.arbelkilani.binge.tv.common.data.model.GenreResponse
-import com.arbelkilani.binge.tv.feature.discover.data.entities.TrendingResponse
+import com.arbelkilani.binge.tv.feature.discover.data.entities.TvResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -37,5 +37,5 @@ interface ApiService {
     suspend fun getTrending(
         @Path("media_type") mediaType: String,
         @Path("time_window") timeWindow: String
-    ): ResponseWrapper<TrendingResponse>
+    ): ResponseWrapper<TvResponse>
 }

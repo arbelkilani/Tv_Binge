@@ -2,7 +2,7 @@ package com.arbelkilani.binge.tv.feature.discover.data.entities
 
 import com.google.gson.annotations.SerializedName
 
-data class TrendingResponse(
+data class TvResponse(
     @SerializedName("id") val id: Int,
     @SerializedName("name") val name: String,
     @SerializedName("adult") val isAdult: Boolean,

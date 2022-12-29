@@ -1,8 +1,8 @@
 package com.arbelkilani.binge.tv.feature.discover.data.repository
 
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
-import com.arbelkilani.binge.tv.feature.discover.data.mapper.TrendingMapper
-import com.arbelkilani.binge.tv.feature.discover.domain.entities.TrendingEntity
+import com.arbelkilani.binge.tv.feature.discover.data.mapper.TvMapper
+import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import com.arbelkilani.binge.tv.feature.discover.domain.repository.DiscoverRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -13,9 +13,9 @@ class DiscoverRepositoryImpl @Inject constructor(
 ) : DiscoverRepository {
 
     @Inject
-    lateinit var mapper: TrendingMapper
+    lateinit var mapper: TvMapper
 
-    override suspend fun getTrending(): Flow<List<TrendingEntity>> {
+    override suspend fun getTrending(): Flow<List<TvEntity>> {
         return flow {
             emit(service.getTrending(TRENDING_MEDIA_TYPE, TRENDING_TIME_WINDOW).results.map {
                 mapper.map(it)
