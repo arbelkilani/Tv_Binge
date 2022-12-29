@@ -42,7 +42,10 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(),
                 )
                 is DiscoverViewState.IOException -> Log.e("TAG**", "IOException : ${it.exception}")
                 is DiscoverViewState.UnknownException -> Log.e("TAG**", "UnknownException")
-                is DiscoverViewState.TrendingLoaded -> trendingAdapter.submitList(it.data)
+                is DiscoverViewState.TrendingLoaded -> {
+                    trendingAdapter.submitList(it.data)
+                    binding.rvTrending.setCurrentItem(it.data.size / 2, false)
+                }
             }
         }
     }
