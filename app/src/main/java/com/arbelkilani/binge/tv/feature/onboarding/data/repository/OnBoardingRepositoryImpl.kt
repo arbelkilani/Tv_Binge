@@ -32,6 +32,6 @@ class OnBoardingRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateGenreState(genreEntity: GenreEntity) {
-        resourcesDao.updateGenreState(genreEntity.id, genreEntity.isFavorite)
+        resourcesDao.updateGenreState(genreEntity.id.toString(), genreEntity.isFavorite)
     }
 }

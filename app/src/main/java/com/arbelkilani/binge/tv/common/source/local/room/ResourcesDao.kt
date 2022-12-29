@@ -38,11 +38,17 @@ interface ResourcesDao {
 
     // Genres
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun saveGenres(list: List<GenreEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveGenre(entity: GenreEntity)
 
     @Query("SELECT * FROM genre_table")
     suspend fun getGenres(): List<GenreEntity>?
 
     @Query("UPDATE genre_table SET isFavorite=:favorite WHERE id=:id")
-    suspend fun updateGenreState(id: Int, favorite: Boolean)
+    suspend fun updateGenreState(id: String, favorite: Boolean)
+
+    @Query("SELECT * FROM genre_table WHERE id=:id")
+    fun getGenreById(id: String): GenreEntity?
 }
