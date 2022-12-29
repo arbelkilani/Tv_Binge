@@ -66,7 +66,7 @@
         <item name="itemBackground">@color/bottom_navigation_view_background_color</item>
         <item name="itemIconTint">@color/selector_bottom_navigation_view</item>
         <item name="itemTextColor">@color/selector_bottom_navigation_view</item>
-        <item name="labelVisibilityMode">labeled</item>
+        <item name="labelVisibilityMode">auto</item>
         <item name="itemTextAppearance">@style/BottomNavigationView.Style.TextAppearance</item>
     </style>
 

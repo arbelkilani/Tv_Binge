@@ -30,10 +30,10 @@
     <!-- home -->
     <color name="toolbar_title_color">@color/anti_flash_white</color>
     <color name="toolbar_background_color">@color/space_cadet</color>
-    <color name="bottom_navigation_view_background_color">@color/space_cadet</color>
-    <color name="bottom_navigation_view_icon_color_active">@color/anti_flash_white</color>
-    <color name="bottom_navigation_view_icon_color_inactive">@color/independence</color>
-    <color name="bottom_navigation_view_text_color">@color/anti_flash_white</color>
+    <color name="bottom_navigation_view_background_color">@color/anti_flash_white</color>
+    <color name="bottom_navigation_view_icon_color_active">@color/space_cadet</color>
+    <color name="bottom_navigation_view_icon_color_inactive">#8Ccccccc</color>
+    <color name="bottom_navigation_view_text_color">@color/space_cadet</color>
     <color name="category_title_text_color">@color/anti_flash_white</color>
 
 </resources>
