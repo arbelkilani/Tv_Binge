@@ -20,4 +20,8 @@
     <dimen name="on_boarding_edge_large_margin">40dp</dimen>
     <dimen name="on_boarding_action_padding">10dp</dimen>
 
+    <!-- Home -->
+    <dimen name="toolbar_title_text_size">18sp</dimen>
+    <dimen name="bottom_navigation_view_text_size">13sp</dimen>
+
 </resources>

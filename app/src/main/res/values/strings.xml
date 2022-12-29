@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Binge Tv</string>
-    <string name="title_discover">Discover</string>
     <string name="title_walkthrough">Walkthrough</string>
     <string name="title_on_boarding">On Boarding</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -22,4 +21,8 @@
     <string name="on_boarding_provider_selection_description">Description : consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</string>
     <string name="on_boarding_genre_selection_title">Title</string>
     <string name="on_boarding_genre_selection_description">Description : consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</string>
+
+    <!-- Home -->
+    <string name="title_discover">Discover</string>
+    <string name="title_settings">Settings</string>
 </resources>

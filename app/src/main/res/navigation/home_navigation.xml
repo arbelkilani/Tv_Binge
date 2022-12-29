@@ -8,13 +8,13 @@
     <fragment
         android:id="@+id/navigation_discover"
         android:name="com.arbelkilani.binge.tv.feature.discover.presentation.DiscoverFragment"
-        android:label="fragment_discover"
+        android:label="@string/title_discover"
         tools:layout="@layout/fragment_discover" />
 
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.arbelkilani.binge.tv.feature.settings.SettingsFragment"
-        android:label="fragment_settings"
+        android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
 
 </navigation>

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.base.BaseFragment
@@ -32,8 +33,14 @@ class HomeFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val appBarConfiguration =
+            AppBarConfiguration(setOf(R.id.navigation_discover, R.id.navigation_settings))
         val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_home)
-        navHostFragment?.findNavController()?.let { binding.navView.setupWithNavController(it) }
+        navHostFragment?.findNavController()?.let {
+            binding.navView.setupWithNavController(it)
+            binding.toolbar.setupWithNavController(it, appBarConfiguration)
+        }
     }
 
     override suspend fun initViewModelObservation() {
