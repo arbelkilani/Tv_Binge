@@ -21,7 +21,9 @@ class DiscoverViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 getTrendingUseCase.invoke().collectLatest { list ->
-                    updateState { DiscoverViewState.TrendingLoaded(data = list) }
+                    updateState {
+                        DiscoverViewState.TrendingLoaded(data = list)
+                    }
                 }
             } catch (exception: Exception) {
                 handleError(exception)

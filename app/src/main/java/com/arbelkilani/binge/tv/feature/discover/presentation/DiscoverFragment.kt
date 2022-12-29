@@ -21,8 +21,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(),
 
     val viewModel: DiscoverViewModel by viewModels()
 
-    @Inject
-    lateinit var trendingAdapter: TrendingAdapter
+    private val trendingAdapter: TrendingAdapter by lazy { TrendingAdapter(binding.rvTrending) }
 
     @Inject
     lateinit var navigator: DiscoverContract.ViewNavigation
@@ -45,7 +44,6 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(),
                 is DiscoverViewState.UnknownException -> Log.e("TAG**", "UnknownException")
                 is DiscoverViewState.TrendingLoaded -> {
                     trendingAdapter.submitList(it.data)
-                    binding.rvTrending.setCurrentItem(it.data.size / 2, false)
                 }
             }
         }

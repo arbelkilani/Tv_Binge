@@ -17,10 +17,20 @@
         android:overScrollMode="never"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent=".32"
+        app:layout_constraintHeight_percent=".3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:itemCount="10"
         tools:listitem="@layout/item_discover_trending" />
+
+    <TextView
+        style="@style/Title.TextAppearance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/default_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_trending"
+        tools:text="On the air" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

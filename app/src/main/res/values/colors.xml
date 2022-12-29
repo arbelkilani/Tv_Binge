@@ -16,6 +16,7 @@
     <color name="yankees_blue">#122038</color>
     <color name="chinese_silver">#CCCCCC</color>
     <color name="independence">#525965</color>
+    <color name="outer_space">#444444</color>
 
     <color name="background_color_splash">@color/vista_blue</color>
     <color name="background_start_color">@color/anti_flash_white</color>
@@ -53,5 +54,6 @@
     <color name="bottom_navigation_view_icon_color_active">@color/vista_blue</color>
     <color name="bottom_navigation_view_icon_color_inactive">@color/chinese_silver</color>
     <color name="bottom_navigation_view_text_color">@color/vista_blue</color>
+    <color name="category_title_text_color">@color/outer_space</color>
 
 </resources>

@@ -75,4 +75,11 @@
         <item name="android:textSize">@dimen/bottom_navigation_view_text_size</item>
     </style>
 
+    <style name="Title.TextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/toolbar_title_text_size</item>
+        <item name="fontFamily">@font/avenir_next_demi_bold</item>
+        <item name="android:textColor">@color/category_title_text_color</item>
+    </style>
+
+
 </resources>

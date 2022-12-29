@@ -34,5 +34,6 @@
     <color name="bottom_navigation_view_icon_color_active">@color/anti_flash_white</color>
     <color name="bottom_navigation_view_icon_color_inactive">@color/independence</color>
     <color name="bottom_navigation_view_text_color">@color/anti_flash_white</color>
+    <color name="category_title_text_color">@color/anti_flash_white</color>
 
 </resources>
