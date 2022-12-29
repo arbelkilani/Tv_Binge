@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.base.BaseFragment
@@ -32,9 +32,8 @@ class HomeFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity?.let {
-            binding.navView.setupWithNavController(it.findNavController(R.id.nav_host_home))
-        }
+        val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_home)
+        navHostFragment?.findNavController()?.let { binding.navView.setupWithNavController(it) }
     }
 
     override suspend fun initViewModelObservation() {
