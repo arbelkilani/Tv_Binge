@@ -1,41 +1,62 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation
 
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.arbelkilani.binge.tv.common.base.BaseStateViewModel
+import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetAiringTodayUseCase
 import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetTrendingUseCase
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
-import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
 class DiscoverViewModel @Inject constructor(
-    private val getTrendingUseCase: GetTrendingUseCase
+    private val getTrendingUseCase: GetTrendingUseCase,
+    private val getAiringTodayUseCase: GetAiringTodayUseCase
 ) : BaseStateViewModel<DiscoverViewState>(initialState = DiscoverViewState.Start) {
 
     fun init() {
         updateState { DiscoverViewState.Loading }
         viewModelScope.launch {
-            try {
-                getTrendingUseCase.invoke().collectLatest { list ->
+            awaitAll(
+                async { getTrending() },
+                async { getAiringToday() }
+            )
+        }
+    }
+
+    private suspend fun getTrending() {
+        try {
+            getTrendingUseCase.invoke()
+                .collectLatest { trendingList ->
                     updateState {
-                        DiscoverViewState.TrendingLoaded(data = list)
+                        DiscoverViewState.Data.TrendingState.Success(trendingList)
                     }
                 }
-            } catch (exception: Exception) {
-                handleError(exception)
+        } catch (exception: Exception) {
+            updateState {
+                DiscoverViewState.Data.TrendingState.Fail(exception)
             }
         }
     }
 
-    override fun handleError(exception: Exception) {
-        when (exception) {
-            is HttpException -> updateState { DiscoverViewState.HttpException(exception) }
-            is IOException -> updateState { DiscoverViewState.IOException(exception) }
-            else -> updateState { DiscoverViewState.UnknownException(exception) }
+    private suspend fun getAiringToday() {
+        try {
+            getAiringTodayUseCase.invoke()
+                .cachedIn(viewModelScope)
+                .collectLatest { airingTodayPagingData ->
+                    updateState {
+                        DiscoverViewState.Data.AiringTodayState.Success(airingTodayPagingData)
+                    }
+                }
+        } catch (exception: Exception) {
+            updateState {
+                DiscoverViewState.Data.AiringTodayState.Fail(exception)
+            }
         }
     }
 }

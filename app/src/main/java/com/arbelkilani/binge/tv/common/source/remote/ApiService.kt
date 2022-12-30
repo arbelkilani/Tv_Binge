@@ -38,4 +38,11 @@ interface ApiService {
         @Path("media_type") mediaType: String,
         @Path("time_window") timeWindow: String
     ): ResponseWrapper<TvResponse>
+
+    // Get TV Airing Today
+    @GET("tv/airing_today")
+    suspend fun getAiringToday(
+        @Query("page") page: Int,
+        @Query("timezone") timezone: String
+    ): ResponseWrapper<TvResponse>
 }

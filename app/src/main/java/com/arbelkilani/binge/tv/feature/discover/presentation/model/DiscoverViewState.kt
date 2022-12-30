@@ -1,12 +1,22 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation.model
 
+import androidx.paging.PagingData
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 
-abstract class DiscoverViewState {
+sealed class DiscoverViewState {
+
+    sealed class Data : DiscoverViewState() {
+        sealed class TrendingState : Data() {
+            data class Success(val trending: List<TvEntity>) : Data()
+            data class Fail(val exception: Exception) : Data()
+        }
+
+        sealed class AiringTodayState : Data() {
+            data class Success(val airingToday: PagingData<TvEntity>) : Data()
+            data class Fail(val exception: Exception) : Data()
+        }
+    }
+
     object Start : DiscoverViewState()
     object Loading : DiscoverViewState()
-    data class HttpException(val exception: Exception) : DiscoverViewState()
-    data class IOException(val exception: Exception) : DiscoverViewState()
-    data class UnknownException(val exception: Exception) : DiscoverViewState()
-    data class TrendingLoaded(val data: List<TvEntity>) : DiscoverViewState()
 }

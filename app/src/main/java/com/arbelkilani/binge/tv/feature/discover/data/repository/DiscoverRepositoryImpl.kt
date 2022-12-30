@@ -1,6 +1,10 @@
 package com.arbelkilani.binge.tv.feature.discover.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
+import com.arbelkilani.binge.tv.common.source.remote.pagingsource.AiringTodayPagingSource
 import com.arbelkilani.binge.tv.feature.discover.data.mapper.TvMapper
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import com.arbelkilani.binge.tv.feature.discover.domain.repository.DiscoverRepository
@@ -21,6 +25,13 @@ class DiscoverRepositoryImpl @Inject constructor(
                 mapper.map(it)
             })
         }
+    }
+
+    override suspend fun getAiringToday(): Flow<PagingData<TvEntity>> {
+        return Pager(
+            config = PagingConfig(20),
+            pagingSourceFactory = { AiringTodayPagingSource(service, mapper) }
+        ).flow
     }
 
     companion object {

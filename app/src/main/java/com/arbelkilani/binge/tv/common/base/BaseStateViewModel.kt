@@ -12,6 +12,4 @@ abstract class BaseStateViewModel<T>(initialState: T) : StateViewModel<T>,
         val newState = handler.invoke(currentState)
         viewState.value = newState
     }
-
-    override fun handleError(exception: Exception) {}
 }

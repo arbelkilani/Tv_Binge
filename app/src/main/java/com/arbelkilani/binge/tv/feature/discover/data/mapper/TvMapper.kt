@@ -23,6 +23,7 @@ class TvMapper @Inject constructor() {
         name = response.name,
         poster = getPosterUseCase.invoke(response.poster),
         backdrop = getBackdropUseCase.invoke(response.backdrop),
-        genres = getGenresByIdsUseCase.invoke(response.genres)
+        genres = getGenresByIdsUseCase.invoke(response.genres),
+        voteAverage = response.voteAverage
     )
 }

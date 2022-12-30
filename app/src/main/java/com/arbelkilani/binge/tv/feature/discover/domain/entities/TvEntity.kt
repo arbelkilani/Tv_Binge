@@ -7,5 +7,6 @@ data class TvEntity(
     val name: String,
     val poster: String?,
     val backdrop: String?,
-    val genres: List<GenreEntity>
+    val genres: List<GenreEntity>,
+    val voteAverage: Float
 )
