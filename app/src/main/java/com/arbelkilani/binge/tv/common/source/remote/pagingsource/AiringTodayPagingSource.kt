@@ -17,6 +17,8 @@ class AiringTodayPagingSource @Inject constructor(
 
     companion object {
         private const val STARTING_PAGE_INDEX = 1
+        private const val OFFSET = 20
+        private const val MIN_AVERAGE_FILTER = 4
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TvEntity> {
@@ -25,7 +27,7 @@ class AiringTodayPagingSource @Inject constructor(
             val timezone = TimeZone.getDefault().id
             val response = service.getAiringToday(position, timezone)
             val tvShows = response.results
-                .filter { it.voteAverage > 4 }
+                .filter { it.voteAverage > MIN_AVERAGE_FILTER }
                 .map {
                     tvMapper.map(it)
                 }.sortedByDescending { it.voteAverage }
@@ -46,8 +48,8 @@ class AiringTodayPagingSource @Inject constructor(
 
     override fun getRefreshKey(state: PagingState<Int, TvEntity>): Int? {
         return state.anchorPosition?.let {
-            state.closestPageToPosition(it)?.prevKey?.plus(20)
-                ?: state.closestPageToPosition(it)?.nextKey?.minus(20)
+            state.closestPageToPosition(it)?.prevKey?.plus(OFFSET)
+                ?: state.closestPageToPosition(it)?.nextKey?.minus(OFFSET)
         }
     }
 }

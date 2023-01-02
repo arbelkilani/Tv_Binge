@@ -29,7 +29,7 @@ class DiscoverRepositoryImpl @Inject constructor(
 
     override suspend fun getAiringToday(): Flow<PagingData<TvEntity>> {
         return Pager(
-            config = PagingConfig(20),
+            config = PagingConfig(OFFSET),
             pagingSourceFactory = { AiringTodayPagingSource(service, mapper) }
         ).flow
     }
@@ -37,5 +37,6 @@ class DiscoverRepositoryImpl @Inject constructor(
     companion object {
         private const val TRENDING_MEDIA_TYPE = "tv"
         private const val TRENDING_TIME_WINDOW = "week" // Or "day"
+        private const val OFFSET = 20
     }
 }

@@ -17,7 +17,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            app:cardCornerRadius="@dimen/default_corner_radius"
+            app:cardCornerRadius="8dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
             app:layout_constraintDimensionRatio="2:3"
@@ -33,6 +33,24 @@
                 app:src="@{tv.poster}"
                 tools:src="@drawable/ic_launcher_background" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_gradient_mask" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|bottom"
+                android:layout_marginHorizontal="@dimen/small_margin"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:ellipsize="end"
+                android:fontFamily="@font/avenir_next_regular"
+                android:maxLines="1"
+                android:text="@{tv.name}"
+                android:textColor="@color/anti_flash_white"
+                android:textSize="10sp"
+                tools:ignore="SmallSp" />
         </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
