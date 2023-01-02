@@ -7,9 +7,11 @@ import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetAiringTodayUs
 import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetTrendingUseCase
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,17 +23,15 @@ class DiscoverViewModel @Inject constructor(
 
     fun init() {
         updateState { DiscoverViewState.Loading }
-        viewModelScope.launch {
-            awaitAll(
-                async { getTrending() },
-                async { getAiringToday() }
-            )
+        viewModelScope.launch(Dispatchers.IO) {
+            awaitAll(async { getTrending() }, async { getAiringToday() })
         }
     }
 
     private suspend fun getTrending() {
         try {
             getTrendingUseCase.invoke()
+                .flowOn(Dispatchers.IO)
                 .collectLatest { trendingList ->
                     updateState {
                         DiscoverViewState.Data.TrendingState.Success(trendingList)
@@ -47,6 +47,7 @@ class DiscoverViewModel @Inject constructor(
     private suspend fun getAiringToday() {
         try {
             getAiringTodayUseCase.invoke()
+                .flowOn(Dispatchers.IO)
                 .cachedIn(viewModelScope)
                 .collectLatest { airingTodayPagingData ->
                     updateState {

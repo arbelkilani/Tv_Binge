@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.paging.PagingData
 import com.arbelkilani.binge.tv.common.base.BaseFragment
 import com.arbelkilani.binge.tv.common.extension.removeOverScroll
@@ -15,6 +17,7 @@ import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.AiringToda
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.TrendingAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -37,22 +40,25 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(),
 
     override suspend fun initViewModelObservation() {
         super.initViewModelObservation()
-
-        viewModel.viewState.collect { viewState ->
-            when (viewState) {
-                DiscoverViewState.Start -> viewModel.init()
-                is DiscoverViewState.Data -> {
-                    when (viewState) {
-                        is DiscoverViewState.Data.TrendingState.Success -> showTrending(viewState.trending)
-                        is DiscoverViewState.Data.AiringTodayState.Success -> showAiringToday(
-                            viewState.airingToday
-                        )
-                        else -> Unit
+        viewModel.viewState
+            .flowWithLifecycle(lifecycle, Lifecycle.State.RESUMED)
+            .collectLatest { viewState ->
+                when (viewState) {
+                    DiscoverViewState.Start -> viewModel.init()
+                    is DiscoverViewState.Data -> {
+                        when (viewState) {
+                            is DiscoverViewState.Data.TrendingState.Success -> showTrending(
+                                viewState.trending
+                            )
+                            is DiscoverViewState.Data.AiringTodayState.Success -> showAiringToday(
+                                viewState.airingToday
+                            )
+                            else -> Unit
+                        }
                     }
+                    else -> Unit
                 }
-                else -> Unit
             }
-        }
     }
 
     override fun initViews() {
