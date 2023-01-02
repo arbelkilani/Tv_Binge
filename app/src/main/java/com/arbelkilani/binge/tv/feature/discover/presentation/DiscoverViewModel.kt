@@ -4,14 +4,12 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.arbelkilani.binge.tv.common.base.BaseStateViewModel
-import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetAiringTodayUseCase
 import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetTrendingUseCase
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,19 +23,8 @@ class DiscoverViewModel @Inject constructor(
     fun init() {
         updateState { DiscoverViewState.Loading }
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                combine(
-                    getTrendingUseCase.invoke(),
-                    getAiringTodayUseCase.invoke().cachedIn(viewModelScope)
-                ) { trending: List<TvEntity>, airingToday: PagingData<TvEntity> ->
-                    return@combine Pair(trending, airingToday)
-                }.flowOn(Dispatchers.IO)
-                    .collect { pair ->
-                        updateState { DiscoverViewState.Loaded(pair.first, pair.second) }
-                    }
-            } catch (exception: Exception) {
-                updateState { DiscoverViewState.Error(exception) }
-            }
+            getTrending()
+            getAiringToday()
         }
     }
 
@@ -47,12 +34,12 @@ class DiscoverViewModel @Inject constructor(
                 .flowOn(Dispatchers.IO)
                 .collectLatest { trendingList ->
                     updateState {
-                        DiscoverViewState.Data.TrendingState.Success(trendingList)
+                        DiscoverViewState.Loaded(trending = trendingList, PagingData.empty())
                     }
                 }
         } catch (exception: Exception) {
             updateState {
-                DiscoverViewState.Data.TrendingState.Fail(exception)
+                DiscoverViewState.Error(exception)
             }
         }
     }
@@ -63,14 +50,20 @@ class DiscoverViewModel @Inject constructor(
                 .flowOn(Dispatchers.IO)
                 .cachedIn(viewModelScope)
                 .collectLatest { airingTodayPagingData ->
-                    updateState {
-                        DiscoverViewState.Data.AiringTodayState.Success(airingTodayPagingData)
-                    }
+                    updateDataState { state -> state.copy(airingToday = airingTodayPagingData) }
                 }
         } catch (exception: Exception) {
             updateState {
-                DiscoverViewState.Data.AiringTodayState.Fail(exception)
+                DiscoverViewState.Error(exception)
             }
+        }
+    }
+
+    private fun updateDataState(handler: (DiscoverViewState.Loaded) -> (DiscoverViewState)) {
+        updateState { state ->
+            if (state is DiscoverViewState.Loaded) {
+                handler.invoke(state)
+            } else state
         }
     }
 }

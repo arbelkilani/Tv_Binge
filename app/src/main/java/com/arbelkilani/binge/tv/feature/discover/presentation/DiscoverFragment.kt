@@ -45,11 +45,11 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(),
             .collectLatest { viewState ->
                 when (viewState) {
                     DiscoverViewState.Start -> viewModel.init()
+                    is DiscoverViewState.Error -> showError(viewState.exception)
                     is DiscoverViewState.Loaded -> {
                         showTrending(viewState.trending)
                         showAiringToday(viewState.airingToday)
                     }
-                    is DiscoverViewState.Error -> showError(viewState.exception)
                     else -> Unit
                 }
             }
