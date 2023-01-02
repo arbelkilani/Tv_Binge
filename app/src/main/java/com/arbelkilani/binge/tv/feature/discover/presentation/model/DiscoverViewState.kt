@@ -19,4 +19,7 @@ sealed class DiscoverViewState {
 
     object Start : DiscoverViewState()
     object Loading : DiscoverViewState()
+    data class Error(val exception: Exception) : DiscoverViewState()
+    data class Loaded(val trending: List<TvEntity>, val airingToday: PagingData<TvEntity>) :
+        DiscoverViewState()
 }

@@ -8,7 +8,7 @@ class DiscoverContract {
     interface ViewCapabilities {
         fun showTrending(data: List<TvEntity>)
         fun showAiringToday(data: PagingData<TvEntity>)
-        fun showError(message: String?)
+        fun showError(exception: Exception)
     }
 
     interface ViewNavigation {

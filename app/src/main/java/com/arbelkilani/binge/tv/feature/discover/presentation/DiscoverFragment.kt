@@ -45,17 +45,11 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(),
             .collectLatest { viewState ->
                 when (viewState) {
                     DiscoverViewState.Start -> viewModel.init()
-                    is DiscoverViewState.Data -> {
-                        when (viewState) {
-                            is DiscoverViewState.Data.TrendingState.Success -> showTrending(
-                                viewState.trending
-                            )
-                            is DiscoverViewState.Data.AiringTodayState.Success -> showAiringToday(
-                                viewState.airingToday
-                            )
-                            else -> Unit
-                        }
+                    is DiscoverViewState.Loaded -> {
+                        showTrending(viewState.trending)
+                        showAiringToday(viewState.airingToday)
                     }
+                    is DiscoverViewState.Error -> showError(viewState.exception)
                     else -> Unit
                 }
             }
@@ -82,7 +76,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(),
         airingTodayAdapter.submitData(lifecycle, data)
     }
 
-    override fun showError(message: String?) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    override fun showError(exception: Exception) {
+        Toast.makeText(context, exception.localizedMessage, Toast.LENGTH_SHORT).show()
     }
 }
