@@ -6,7 +6,7 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#FEFEFE</color>
     <color name="transparent">@android:color/transparent</color>
 
     <color name="anti_flash_white">#F0F6F7</color>
@@ -17,6 +17,7 @@
     <color name="chinese_silver">#CCCCCC</color>
     <color name="independence">#525965</color>
     <color name="outer_space">#444444</color>
+    <color name="spanish_gray">#979797</color>
 
     <color name="background_color_splash">@color/vista_blue</color>
     <color name="background_start_color">@color/anti_flash_white</color>
@@ -50,11 +51,30 @@
 
     <!-- home -->
     <color name="toolbar_title_color">@color/anti_flash_white</color>
-    <color name="toolbar_background_color">@color/vista_blue</color>
     <color name="bottom_navigation_view_background_color">@color/anti_flash_white</color>
     <color name="bottom_navigation_view_icon_color_active">@color/vista_blue</color>
     <color name="bottom_navigation_view_icon_color_inactive">#8Ccccccc</color>
     <color name="bottom_navigation_view_text_color">@color/vista_blue</color>
     <color name="category_title_text_color">@color/outer_space</color>
+
+    <!-- tag -->
+    <color name="tag_stroke_color_selected">@color/vista_blue</color>
+    <color name="tag_stroke_color_unselected">@color/pale_cornflower_blue</color>
+    <color name="tag_text_color_selected">@color/outer_space</color>
+    <color name="tag_text_color_unselected">@color/pale_cornflower_blue</color>
+
+    <!-- background -->
+    <color name="start_background_color">@color/white</color>
+    <color name="end_background_color">@color/anti_flash_white</color>
+
+    <!-- toolbar -->
+    <color name="toolbar_background_color">@color/anti_flash_white</color>
+
+    <!-- status bar -->
+    <color name="status_bar_color">@color/vista_blue</color>
+
+    <!-- bottom navigation bar -->
+    <color name="bottom_bar_item_color_selected">@color/vista_blue</color>
+    <color name="bottom_bar_item_color_unselected">@color/spanish_gray</color>
 
 </resources>

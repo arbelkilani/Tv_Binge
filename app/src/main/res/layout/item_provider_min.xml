@@ -11,25 +11,16 @@
             type="com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity" />
     </data>
 
-    <com.google.android.material.card.MaterialCardView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/tag_background"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="10dp"
+        android:text="@{provider.name}"
+        android:textColor="@color/selector_tag_text_color"
         app:activated="@{true}"
-        app:cardBackgroundColor="@color/selector_background_item1"
-        app:cardCornerRadius="@dimen/default_corner_radius"
-        app:cardElevation="2dp"
-        app:cardUseCompatPadding="true"
-        app:strokeColor="@color/tag_stroke_color"
-        app:strokeWidth="1dp">
+        tools:text="Netflix" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="7dp"
-            android:text="@{provider.name}"
-            android:textColor="@color/selector_text_color_item2"
-            tools:text="Netflix" />
-
-    </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/anti_flash_white"
+    android:background="@drawable/drawable_bg_color"
     tools:context=".feature.home.presentation.HomeFragment">
 
     <include layout="@layout/layout_circle_shape" />
@@ -13,7 +13,9 @@
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/toolbar_background_color"
+        android:background="@color/transparent"
+        android:elevation="0dp"
+        app:elevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,6 +24,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/transparent"
             app:titleTextAppearance="@style/Toolbar.TextAppearance"
             app:titleTextColor="@color/toolbar_title_color"
             tools:title="Title" />
@@ -45,6 +48,9 @@
         style="@style/BottomNavigationView.Style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/drawable_bg_color"
+        app:itemIconTint="@color/selector_item_icon"
+        app:itemTextColor="@color/selector_item_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

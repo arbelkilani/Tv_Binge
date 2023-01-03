@@ -30,11 +30,30 @@
 
     <!-- home -->
     <color name="toolbar_title_color">@color/anti_flash_white</color>
-    <color name="toolbar_background_color">@color/space_cadet</color>
     <color name="bottom_navigation_view_background_color">@color/anti_flash_white</color>
     <color name="bottom_navigation_view_icon_color_active">@color/space_cadet</color>
     <color name="bottom_navigation_view_icon_color_inactive">#8Ccccccc</color>
     <color name="bottom_navigation_view_text_color">@color/space_cadet</color>
     <color name="category_title_text_color">@color/anti_flash_white</color>
+
+    <!-- tag -->
+    <color name="tag_stroke_color_selected">@color/anti_flash_white</color>
+    <color name="tag_stroke_color_unselected">@color/pale_cornflower_blue</color>
+    <color name="tag_text_color_selected">@color/anti_flash_white</color>
+    <color name="tag_text_color_unselected">@color/pale_cornflower_blue</color>
+
+    <!-- background -->
+    <color name="start_background_color">@color/space_cadet</color>
+    <color name="end_background_color">@color/yankees_blue</color>
+
+    <!-- Toolbar -->
+    <color name="toolbar_background_color">@color/yankees_blue</color>
+
+    <!-- status bar -->
+    <color name="status_bar_color">@color/yankees_blue</color>
+
+    <!-- bottom navigation bar -->
+    <color name="bottom_bar_item_color_selected">@color/anti_flash_white</color>
+    <color name="bottom_bar_item_color_unselected">#979797</color>
 
 </resources>
