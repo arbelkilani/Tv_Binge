@@ -18,20 +18,23 @@ import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.AiringToda
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.DiscoverAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.ProvidersAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.TrendingAdapter
+import com.arbelkilani.binge.tv.feature.discover.presentation.listener.ProviderClicked
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(),
-    DiscoverContract.ViewCapabilities {
+class DiscoverFragment :
+    BaseFragment<FragmentDiscoverBinding>(),
+    DiscoverContract.ViewCapabilities,
+    ProviderClicked {
 
     val viewModel: DiscoverViewModel by viewModels()
 
     private val trendingAdapter: TrendingAdapter by lazy { TrendingAdapter() }
     private val airingTodayAdapter: AiringTodayAdapter by lazy { AiringTodayAdapter() }
     private val discoverAdapter: DiscoverAdapter by lazy { DiscoverAdapter() }
-    private val providersAdapter: ProvidersAdapter by lazy { ProvidersAdapter() }
+    private val providersAdapter: ProvidersAdapter by lazy { ProvidersAdapter(this) }
 
     @Inject
     lateinit var navigator: DiscoverContract.ViewNavigation
@@ -92,5 +95,9 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(),
 
     override fun showError(exception: Exception) {
         Toast.makeText(context, exception.localizedMessage, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onProviderClicked(watchProviderEntity: WatchProviderEntity) {
+        Toast.makeText(context, watchProviderEntity.name, Toast.LENGTH_SHORT).show()
     }
 }

@@ -9,9 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
 import com.arbelkilani.binge.tv.databinding.ItemProviderMinBinding
+import com.arbelkilani.binge.tv.feature.discover.presentation.listener.ProviderClicked
 import javax.inject.Inject
 
-class ProvidersAdapter @Inject constructor() :
+class ProvidersAdapter @Inject constructor(
+    private val listener: ProviderClicked
+) :
     ListAdapter<WatchProviderEntity, ProvidersAdapter.ProvidersHolder>(
         WatchProviderEntityComparator
     ) {
@@ -21,6 +24,9 @@ class ProvidersAdapter @Inject constructor() :
 
     override fun onBindViewHolder(holder: ProvidersHolder, position: Int) {
         holder.binding.provider = getItem(position)
+        holder.binding.root.setOnClickListener {
+            listener.onProviderClicked(getItem(position))
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProvidersHolder(

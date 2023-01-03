@@ -14,5 +14,4 @@ class GetDiscoverUseCase @Inject constructor() {
     suspend fun invoke(): Flow<PagingData<TvEntity>> {
         return discoverRepository.discover()
     }
-
 }

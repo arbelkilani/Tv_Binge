@@ -13,5 +13,4 @@ class GetFavoriteProvidersUseCase @Inject constructor() {
     suspend fun invoke(): Flow<List<WatchProviderEntity>?> {
         return discoverRepository.getFavoriteProviders()
     }
-
 }
