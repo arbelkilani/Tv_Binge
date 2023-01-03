@@ -1,5 +1,6 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -14,10 +15,10 @@ import com.arbelkilani.binge.tv.databinding.FragmentDiscoverBinding
 import com.arbelkilani.binge.tv.feature.discover.DiscoverContract
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.AiringTodayAdapter
+import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.DiscoverAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.TrendingAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -28,6 +29,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(),
 
     private val trendingAdapter: TrendingAdapter by lazy { TrendingAdapter() }
     private val airingTodayAdapter: AiringTodayAdapter by lazy { AiringTodayAdapter() }
+    private val discoverAdapter: DiscoverAdapter by lazy { DiscoverAdapter() }
 
     @Inject
     lateinit var navigator: DiscoverContract.ViewNavigation
@@ -42,13 +44,17 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(),
         super.initViewModelObservation()
         viewModel.viewState
             .flowWithLifecycle(lifecycle, Lifecycle.State.RESUMED)
-            .collectLatest { viewState ->
+            .collect { viewState ->
                 when (viewState) {
                     DiscoverViewState.Start -> viewModel.init()
                     is DiscoverViewState.Error -> showError(viewState.exception)
                     is DiscoverViewState.Loaded -> {
                         showTrending(viewState.trending)
                         showAiringToday(viewState.airingToday)
+                        showDiscover(viewState.discover)
+                        Log.i("TAG**", "trending : ${viewState.trending}")
+                        Log.i("TAG**", "airingtoday : ${viewState.airingToday}")
+                        Log.i("TAG**", "discover : ${viewState.discover}")
                     }
                     else -> Unit
                 }
@@ -65,6 +71,9 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(),
         binding.rvAiringToday.apply {
             adapter = airingTodayAdapter
         }
+        binding.rvDiscover.apply {
+            adapter = discoverAdapter
+        }
     }
 
     override fun showTrending(data: List<TvEntity>) {
@@ -74,6 +83,10 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(),
 
     override fun showAiringToday(data: PagingData<TvEntity>) {
         airingTodayAdapter.submitData(lifecycle, data)
+    }
+
+    override fun showDiscover(data: PagingData<TvEntity>) {
+        discoverAdapter.submitData(lifecycle, data)
     }
 
     override fun showError(exception: Exception) {

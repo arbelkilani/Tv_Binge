@@ -45,4 +45,9 @@ interface ApiService {
         @Query("page") page: Int,
         @Query("timezone") timezone: String
     ): ResponseWrapper<TvResponse>
+
+    @GET("discover/tv")
+    suspend fun discover(
+        @Query("page") page: Int,
+    ): ResponseWrapper<TvResponse>
 }

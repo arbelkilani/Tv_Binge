@@ -46,9 +46,38 @@
         android:overScrollMode="never"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent=".32"
+        app:layout_constraintHeight_percent=".3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_airing_today"
+        tools:itemCount="10"
+        tools:listitem="@layout/item_tv_show" />
+
+    <TextView
+        android:id="@+id/tv_discover"
+        style="@style/Title.TextAppearance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/default_margin"
+        android:layout_marginTop="@dimen/default_margin"
+        android:text="@string/discover_airing_today_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_airing_today" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_discover"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_discover"
         tools:itemCount="10"
         tools:listitem="@layout/item_tv_show" />
 

@@ -1,28 +1,32 @@
 package com.arbelkilani.binge.tv.common.source.remote.pagingsource
 
+import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
 import com.arbelkilani.binge.tv.feature.discover.data.mapper.TvMapper
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import retrofit2.HttpException
 import java.io.IOException
-import java.util.*
 import javax.inject.Inject
 
-class AiringTodayPagingSource @Inject constructor(
+open class TvEntityPagingSource @Inject constructor(
     private val service: ApiService,
     private val tvMapper: TvMapper
-) : TvEntityPagingSource(service, tvMapper) {
+) : PagingSource<Int, TvEntity>() {
+
+    companion object {
+        const val STARTING_PAGE_INDEX = 1
+        const val OFFSET = 20
+    }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TvEntity> {
         val position = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val timezone = TimeZone.getDefault().id
-            val response = service.getAiringToday(position, timezone)
+            val response = service.discover(position)
             val tvShows = response.results
-                .filter { it.voteAverage > 5f }
                 .map {
                     tvMapper.map(it)
-                }.sortedByDescending { it.voteAverage }
+                }
 
             LoadResult.Page(
                 data = tvShows,
@@ -35,6 +39,13 @@ class AiringTodayPagingSource @Inject constructor(
             return LoadResult.Error(exception)
         } catch (exception: Exception) {
             return LoadResult.Error(exception)
+        }
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, TvEntity>): Int? {
+        return state.anchorPosition?.let {
+            state.closestPageToPosition(it)?.prevKey?.plus(OFFSET)
+                ?: state.closestPageToPosition(it)?.nextKey?.minus(OFFSET)
         }
     }
 }
