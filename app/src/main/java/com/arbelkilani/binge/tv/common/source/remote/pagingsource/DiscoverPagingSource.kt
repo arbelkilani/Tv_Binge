@@ -9,9 +9,10 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-open class TvEntityPagingSource @Inject constructor(
+open class DiscoverPagingSource @Inject constructor(
     private val service: ApiService,
-    private val tvMapper: TvMapper
+    private val tvMapper: TvMapper,
+    private val queryMap: Map<String, String?>
 ) : PagingSource<Int, TvEntity>() {
 
     companion object {
@@ -22,7 +23,10 @@ open class TvEntityPagingSource @Inject constructor(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TvEntity> {
         val position = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val response = service.discover(position)
+            val response = service.discover(
+                page = position,
+                options = queryMap
+            )
             val tvShows = response.results
                 .map {
                     tvMapper.map(it)

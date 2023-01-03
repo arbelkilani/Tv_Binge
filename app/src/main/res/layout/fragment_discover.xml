@@ -1,84 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:overScrollMode="never"
     tools:context=".feature.discover.presentation.DiscoverFragment">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/rv_trending"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:orientation="horizontal"
-        android:overScrollMode="never"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent=".3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:itemCount="10"
-        tools:listitem="@layout/item_discover_trending" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_airing_today"
-        style="@style/Title.TextAppearance"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/default_margin"
-        android:layout_marginTop="@dimen/default_margin"
-        android:text="@string/discover_airing_today_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_trending" />
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/rv_trending"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_discover_trending" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_airing_today"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/medium_margin"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:orientation="horizontal"
-        android:overScrollMode="never"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent=".3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_airing_today"
-        tools:itemCount="10"
-        tools:listitem="@layout/item_tv_show" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_providers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/medium_margin"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_trending"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_provider_min" />
 
-    <TextView
-        android:id="@+id/tv_discover"
-        style="@style/Title.TextAppearance"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/default_margin"
-        android:layout_marginTop="@dimen/default_margin"
-        android:text="@string/discover_airing_today_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_airing_today" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_airing_today"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_providers"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_tv_show" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_discover"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/medium_margin"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:orientation="horizontal"
-        android:overScrollMode="never"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent=".3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_discover"
-        tools:itemCount="10"
-        tools:listitem="@layout/item_tv_show" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_discover"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_airing_today"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_tv_show" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

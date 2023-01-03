@@ -1,6 +1,5 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -9,6 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.paging.PagingData
 import com.arbelkilani.binge.tv.common.base.BaseFragment
+import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
 import com.arbelkilani.binge.tv.common.extension.removeOverScroll
 import com.arbelkilani.binge.tv.common.extension.scalePagerTransformer
 import com.arbelkilani.binge.tv.databinding.FragmentDiscoverBinding
@@ -16,6 +16,7 @@ import com.arbelkilani.binge.tv.feature.discover.DiscoverContract
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.AiringTodayAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.DiscoverAdapter
+import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.ProvidersAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.TrendingAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,6 +31,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(),
     private val trendingAdapter: TrendingAdapter by lazy { TrendingAdapter() }
     private val airingTodayAdapter: AiringTodayAdapter by lazy { AiringTodayAdapter() }
     private val discoverAdapter: DiscoverAdapter by lazy { DiscoverAdapter() }
+    private val providersAdapter: ProvidersAdapter by lazy { ProvidersAdapter() }
 
     @Inject
     lateinit var navigator: DiscoverContract.ViewNavigation
@@ -52,9 +54,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(),
                         showTrending(viewState.trending)
                         showAiringToday(viewState.airingToday)
                         showDiscover(viewState.discover)
-                        Log.i("TAG**", "trending : ${viewState.trending}")
-                        Log.i("TAG**", "airingtoday : ${viewState.airingToday}")
-                        Log.i("TAG**", "discover : ${viewState.discover}")
+                        showProviders(viewState.providers)
                     }
                     else -> Unit
                 }
@@ -68,12 +68,9 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(),
             removeOverScroll()
             scalePagerTransformer()
         }
-        binding.rvAiringToday.apply {
-            adapter = airingTodayAdapter
-        }
-        binding.rvDiscover.apply {
-            adapter = discoverAdapter
-        }
+        binding.rvAiringToday.apply { adapter = airingTodayAdapter }
+        binding.rvDiscover.apply { adapter = discoverAdapter }
+        binding.rvProviders.apply { adapter = providersAdapter }
     }
 
     override fun showTrending(data: List<TvEntity>) {
@@ -87,6 +84,10 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(),
 
     override fun showDiscover(data: PagingData<TvEntity>) {
         discoverAdapter.submitData(lifecycle, data)
+    }
+
+    override fun showProviders(data: List<WatchProviderEntity>) {
+        providersAdapter.submitList(data)
     }
 
     override fun showError(exception: Exception) {

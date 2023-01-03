@@ -1,30 +1,35 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation
 
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.arbelkilani.binge.tv.common.base.BaseStateViewModel
 import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetAiringTodayUseCase
 import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetDiscoverUseCase
+import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetFavoriteProvidersUseCase
 import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetTrendingUseCase
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DiscoverViewModel @Inject constructor(
     private val getTrendingUseCase: GetTrendingUseCase,
     private val getAiringTodayUseCase: GetAiringTodayUseCase,
-    private val getDiscoverUseCase: GetDiscoverUseCase
+    private val getDiscoverUseCase: GetDiscoverUseCase,
+    private val getFavoriteProvidersUseCase: GetFavoriteProvidersUseCase
 ) : BaseStateViewModel<DiscoverViewState>(initialState = DiscoverViewState.Start) {
 
     fun init() {
         updateState { DiscoverViewState.Loading }
         viewModelScope.launch(Dispatchers.IO) {
             getTrending()
+            getFavoriteProviders()
             awaitAll(async { getAiringToday() }, async { discover() })
         }
     }
@@ -36,9 +41,7 @@ class DiscoverViewModel @Inject constructor(
                 .collectLatest { trendingList ->
                     updateState {
                         DiscoverViewState.Loaded(
-                            trending = trendingList,
-                            PagingData.empty(),
-                            PagingData.empty()
+                            trending = trendingList
                         )
                     }
                 }
@@ -46,6 +49,21 @@ class DiscoverViewModel @Inject constructor(
             updateState {
                 DiscoverViewState.Error(exception)
             }
+        }
+    }
+
+    private suspend fun getFavoriteProviders() {
+        try {
+            getFavoriteProvidersUseCase.invoke()
+                .flowOn(Dispatchers.IO)
+                .collectLatest { data ->
+                    data?.let {
+                        updateDataState { state -> state.copy(providers = it) }
+                    }
+                }
+
+        } catch (exception: Exception) {
+            updateState { DiscoverViewState.Error(exception) }
         }
     }
 

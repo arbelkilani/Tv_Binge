@@ -1,5 +1,7 @@
 package com.arbelkilani.binge.tv.common.source.remote.pagingsource
 
+import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
 import com.arbelkilani.binge.tv.feature.discover.data.mapper.TvMapper
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
@@ -11,7 +13,12 @@ import javax.inject.Inject
 class AiringTodayPagingSource @Inject constructor(
     private val service: ApiService,
     private val tvMapper: TvMapper
-) : TvEntityPagingSource(service, tvMapper) {
+) : PagingSource<Int, TvEntity>() {
+
+    companion object {
+        private const val STARTING_PAGE_INDEX = 1
+        private const val OFFSET = 20
+    }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TvEntity> {
         val position = params.key ?: STARTING_PAGE_INDEX
@@ -35,6 +42,13 @@ class AiringTodayPagingSource @Inject constructor(
             return LoadResult.Error(exception)
         } catch (exception: Exception) {
             return LoadResult.Error(exception)
+        }
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, TvEntity>): Int? {
+        return state.anchorPosition?.let {
+            state.closestPageToPosition(it)?.prevKey?.plus(OFFSET)
+                ?: state.closestPageToPosition(it)?.nextKey?.minus(OFFSET)
         }
     }
 }

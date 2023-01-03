@@ -5,9 +5,12 @@ import com.arbelkilani.binge.tv.common.data.mapper.ApiConfigurationMapper
 import com.arbelkilani.binge.tv.common.data.mapper.CertificationMapper
 import com.arbelkilani.binge.tv.common.data.mapper.GenreMapper
 import com.arbelkilani.binge.tv.common.data.mapper.WatchProviderMapper
+import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
 import com.arbelkilani.binge.tv.common.source.local.room.AppDatabase
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
 import com.arbelkilani.binge.tv.feature.walkthrough.domain.repository.ResourcesRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import java.util.*
 import javax.inject.Inject
 
@@ -76,6 +79,10 @@ class ResourcesRepositoryImpl @Inject constructor(
                 resourcesDao.saveGenre(genreMapper.map(it, false))
             }
         }
+    }
+
+    override suspend fun getFavoriteProviders(): Flow<List<WatchProviderEntity>?> {
+        return flow { emit(resourcesDao.getFavoriteProviders()) }
     }
 
     // TODO: 24-12-2022
