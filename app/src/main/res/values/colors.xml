@@ -50,7 +50,6 @@
     <color name="item_discover_name_background">#8Ccccccc</color>
 
     <!-- home -->
-    <color name="toolbar_title_color">@color/anti_flash_white</color>
     <color name="bottom_navigation_view_background_color">@color/anti_flash_white</color>
     <color name="bottom_navigation_view_icon_color_active">@color/vista_blue</color>
     <color name="bottom_navigation_view_icon_color_inactive">#8Ccccccc</color>
@@ -65,10 +64,11 @@
 
     <!-- background -->
     <color name="start_background_color">@color/white</color>
-    <color name="end_background_color">@color/anti_flash_white</color>
+    <color name="end_background_color">@color/white</color>
 
     <!-- toolbar -->
     <color name="toolbar_background_color">@color/anti_flash_white</color>
+    <color name="toolbar_title_color">@color/outer_space</color>
 
     <!-- status bar -->
     <color name="status_bar_color">@color/vista_blue</color>

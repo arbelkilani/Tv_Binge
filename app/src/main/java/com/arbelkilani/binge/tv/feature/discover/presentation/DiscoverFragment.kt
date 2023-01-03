@@ -78,7 +78,6 @@ class DiscoverFragment :
 
     override fun showTrending(data: List<TvEntity>) {
         trendingAdapter.submitList(data)
-        binding.rvTrending.setCurrentItem(data.size / 2, false)
     }
 
     override fun showAiringToday(data: PagingData<TvEntity>) {

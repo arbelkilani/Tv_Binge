@@ -13,27 +13,25 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="16dp">
+        app:cardCornerRadius="@dimen/default_corner_radius">
 
-        <ImageView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@{tv.name}"
-            android:scaleType="centerCrop"
-            app:src="@{tv.backdrop}"
-            tools:src="@drawable/ic_launcher_background" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@color/item_discover_name_background"
-            android:fontFamily="@font/avenir_next_medium"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp"
-            android:text="@{tv.name}"
-            android:textColor="@color/details_network_text_color"
-            android:textSize="12sp" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@{tv.name}"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:src="@{tv.backdrop}"
+                tools:src="@drawable/ic_launcher_background" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 </layout>

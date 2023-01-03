@@ -10,8 +10,6 @@ import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetTrendingUseCa
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
@@ -29,8 +27,8 @@ class DiscoverViewModel @Inject constructor(
         updateState { DiscoverViewState.Loading }
         viewModelScope.launch(Dispatchers.IO) {
             getTrending()
-            getFavoriteProviders()
-            awaitAll(async { getAiringToday() }, async { discover() })
+            //getFavoriteProviders()
+            //awaitAll(async { getAiringToday() }, async { discover() })
         }
     }
 
