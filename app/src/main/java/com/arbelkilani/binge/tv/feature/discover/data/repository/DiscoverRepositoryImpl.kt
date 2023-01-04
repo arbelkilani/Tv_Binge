@@ -3,6 +3,7 @@ package com.arbelkilani.binge.tv.feature.discover.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
 import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
 import com.arbelkilani.binge.tv.common.source.local.room.AppDatabase
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
@@ -49,10 +50,11 @@ class DiscoverRepositoryImpl @Inject constructor(
 
     override suspend fun discover(): Flow<PagingData<TvEntity>> {
         val queryMap = hashMapOf(
-            "air_date.gte" to getGteAndLteDates().first,
-            "air_date.lte" to getGteAndLteDates().second,
+            "air_date.gte" to "2023-01-01",
+            "air_date.lte" to "2023-01-31",
             "watch_region" to country,
-            "with_watch_providers" to getProvidersString()
+            "with_watch_providers" to getProvidersString(),
+            "with_genres" to getGenresString()
         )
 
         return Pager(
@@ -65,12 +67,21 @@ class DiscoverRepositoryImpl @Inject constructor(
         return resourceRepository.getFavoriteProviders()
     }
 
+    override suspend fun getFavoriteGenres(): Flow<List<GenreEntity>?> {
+        return resourceRepository.getFavoriteGenres()
+    }
+
     /**
      *
      */
     private suspend fun getProvidersString(): String? {
         return resourceRepository.getFavoriteProviders().single()?.map { it.id }
             ?.joinToString(separator = "|")
+    }
+
+    private suspend fun getGenresString(): String? {
+        return resourceRepository.getFavoriteGenres().single()?.map { it.id }
+            ?.joinToString(separator = ",")
     }
 
     /**

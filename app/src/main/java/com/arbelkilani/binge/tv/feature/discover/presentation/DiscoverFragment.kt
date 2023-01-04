@@ -24,9 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DiscoverFragment :
-    BaseFragment<FragmentDiscoverBinding>(),
-    DiscoverContract.ViewCapabilities,
+class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContract.ViewCapabilities,
     ProviderClicked {
 
     val viewModel: DiscoverViewModel by viewModels()
@@ -47,8 +45,7 @@ class DiscoverFragment :
 
     override suspend fun initViewModelObservation() {
         super.initViewModelObservation()
-        viewModel.viewState
-            .flowWithLifecycle(lifecycle, Lifecycle.State.RESUMED)
+        viewModel.viewState.flowWithLifecycle(lifecycle, Lifecycle.State.RESUMED)
             .collect { viewState ->
                 when (viewState) {
                     DiscoverViewState.Start -> viewModel.init()
@@ -68,32 +65,16 @@ class DiscoverFragment :
         super.initViews()
         binding.rvTrending.apply {
             adapter = trendingAdapter
-            setCurrentItem(1, false)
             removeOverScroll()
             scalePagerTransformer()
         }
-        binding.rvAiringToday.apply { adapter = airingTodayAdapter }
+        //binding.rvAiringToday.apply { adapter = airingTodayAdapter }
         binding.rvDiscover.apply { adapter = discoverAdapter }
-        binding.rvProviders.apply { adapter = providersAdapter }
+        //binding.rvProviders.apply { adapter = providersAdapter }
     }
 
     override fun showTrending(data: List<TvEntity>) {
-        data.toMutableList().apply {
-            add(0, data[0])
-            add(0, data[data.size - 2])
-        }
         trendingAdapter.submitList(data)
-
-        /*binding.viewPager.apply {
-            adapter = TestAdapter(data)
-            offscreenPageLimit = 3
-
-            val width = Resources.getSystem().displayMetrics.widthPixels
-            val paddingFactor = (.1F * width).toInt()
-            pageMargin = (.08F * width).toInt()
-            setPadding(paddingFactor, 0, paddingFactor, 0)
-            setPageTransformer(false, CarouselTransformer())
-        }*/
     }
 
     override fun showAiringToday(data: PagingData<TvEntity>) {

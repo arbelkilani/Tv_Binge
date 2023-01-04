@@ -54,4 +54,7 @@ interface ResourcesDao {
 
     @Query("SELECT * FROM genre_table WHERE id=:id")
     fun getGenreById(id: String): GenreEntity?
+
+    @Query("SELECT * FROM genre_table WHERE isFavorite=:state")
+    suspend fun getFavoriteGenres(state: Boolean = true): List<GenreEntity>?
 }

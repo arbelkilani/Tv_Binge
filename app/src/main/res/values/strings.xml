@@ -28,4 +28,6 @@
 
     <!-- Discover -->
     <string name="discover_airing_today_label">Airing Today</string>
+    <string name="discover_new_in_this_month">New in January</string>
+
 </resources>

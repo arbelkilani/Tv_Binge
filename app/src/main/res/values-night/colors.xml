@@ -16,7 +16,6 @@
 
     <!-- on boarding -->
     <color name="on_boarding_background_color">@color/space_cadet</color>
-    <color name="title_color">#FFFFFF</color>
     <color name="description_color">#FFFFFF</color>
 
     <!-- item 1 -->
@@ -55,5 +54,8 @@
     <!-- bottom navigation bar -->
     <color name="bottom_bar_item_color_selected">@color/anti_flash_white</color>
     <color name="bottom_bar_item_color_unselected">#979797</color>
+
+    <!-- title color -->
+    <color name="title_color">@color/anti_flash_white</color>
 
 </resources>
