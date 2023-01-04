@@ -1,6 +1,5 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation
 
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -12,11 +11,13 @@ import com.arbelkilani.binge.tv.common.base.BaseFragment
 import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
 import com.arbelkilani.binge.tv.common.extension.removeOverScroll
 import com.arbelkilani.binge.tv.common.extension.scalePagerTransformer
-import com.arbelkilani.binge.tv.common.ui.CarouselTransformer
 import com.arbelkilani.binge.tv.databinding.FragmentDiscoverBinding
 import com.arbelkilani.binge.tv.feature.discover.DiscoverContract
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
-import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.*
+import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.AiringTodayAdapter
+import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.DiscoverAdapter
+import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.ProvidersAdapter
+import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.TrendingAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.ProviderClicked
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import dagger.hilt.android.AndroidEntryPoint
@@ -67,6 +68,7 @@ class DiscoverFragment :
         super.initViews()
         binding.rvTrending.apply {
             adapter = trendingAdapter
+            setCurrentItem(1, false)
             removeOverScroll()
             scalePagerTransformer()
         }
@@ -76,8 +78,13 @@ class DiscoverFragment :
     }
 
     override fun showTrending(data: List<TvEntity>) {
-        //trendingAdapter.submitList(data)
-        binding.viewPager.apply {
+        data.toMutableList().apply {
+            add(0, data[0])
+            add(0, data[data.size - 2])
+        }
+        trendingAdapter.submitList(data)
+
+        /*binding.viewPager.apply {
             adapter = TestAdapter(data)
             offscreenPageLimit = 3
 
@@ -86,7 +93,7 @@ class DiscoverFragment :
             pageMargin = (.08F * width).toInt()
             setPadding(paddingFactor, 0, paddingFactor, 0)
             setPageTransformer(false, CarouselTransformer())
-        }
+        }*/
     }
 
     override fun showAiringToday(data: PagingData<TvEntity>) {
