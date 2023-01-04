@@ -1,5 +1,6 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -11,13 +12,11 @@ import com.arbelkilani.binge.tv.common.base.BaseFragment
 import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
 import com.arbelkilani.binge.tv.common.extension.removeOverScroll
 import com.arbelkilani.binge.tv.common.extension.scalePagerTransformer
+import com.arbelkilani.binge.tv.common.ui.CarouselTransformer
 import com.arbelkilani.binge.tv.databinding.FragmentDiscoverBinding
 import com.arbelkilani.binge.tv.feature.discover.DiscoverContract
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
-import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.AiringTodayAdapter
-import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.DiscoverAdapter
-import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.ProvidersAdapter
-import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.TrendingAdapter
+import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.*
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.ProviderClicked
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import dagger.hilt.android.AndroidEntryPoint
@@ -77,7 +76,17 @@ class DiscoverFragment :
     }
 
     override fun showTrending(data: List<TvEntity>) {
-        trendingAdapter.submitList(data)
+        //trendingAdapter.submitList(data)
+        binding.viewPager.apply {
+            adapter = TestAdapter(data)
+            offscreenPageLimit = 3
+
+            val width = Resources.getSystem().displayMetrics.widthPixels
+            val paddingFactor = (.1F * width).toInt()
+            pageMargin = (.08F * width).toInt()
+            setPadding(paddingFactor, 0, paddingFactor, 0)
+            setPageTransformer(false, CarouselTransformer())
+        }
     }
 
     override fun showAiringToday(data: PagingData<TvEntity>) {
