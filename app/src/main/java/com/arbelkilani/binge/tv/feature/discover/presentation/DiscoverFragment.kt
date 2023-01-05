@@ -15,10 +15,7 @@ import com.arbelkilani.binge.tv.common.extension.scalePagerTransformer
 import com.arbelkilani.binge.tv.databinding.FragmentDiscoverBinding
 import com.arbelkilani.binge.tv.feature.discover.DiscoverContract
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
-import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.AiringTodayAdapter
-import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.DiscoverAdapter
-import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.ProvidersAdapter
-import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.TrendingAdapter
+import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.*
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.ProviderClicked
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,6 +33,9 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
     private val providersAdapter: ProvidersAdapter by lazy { ProvidersAdapter(this) }
 
     @Inject
+    lateinit var tvShimmerAdapter: TvShimmerAdapter
+
+    @Inject
     lateinit var navigator: DiscoverContract.ViewNavigation
 
     override fun bindView(
@@ -50,7 +50,9 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
             .collect { viewState ->
                 when (viewState) {
                     DiscoverViewState.Start -> viewModel.init()
-                    DiscoverViewState.Loading -> showLoading()
+                    DiscoverViewState.Loading -> {
+                        showLoading()
+                    }
                     is DiscoverViewState.Error -> showError(viewState.exception)
                     is DiscoverViewState.Loaded -> {
                         showTrending(viewState.trending)
@@ -70,9 +72,17 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
             removeOverScroll()
             scalePagerTransformer()
         }
-        binding.rvStartingThisMonth.apply {
-            setPadding(0, 0, width / 3, 0)
-            adapter = discoverAdapter
+        with(binding.layoutThisMonth) {
+            rvData.apply {
+                setPadding(0, 0, width / 3, 0)
+                adapter = discoverAdapter
+            }
+            rvShimmer.apply {
+                setPadding(0, 0, width / 3, 0)
+                adapter = tvShimmerAdapter.apply {
+                    submitList(listOf())
+                }
+            }
         }
 
         //binding.rvAiringToday.apply { adapter = airingTodayAdapter }
@@ -89,8 +99,11 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
     }
 
     override fun showDiscover(data: PagingData<TvEntity>) {
-        binding.grpStartingThisMonth.visibility = View.VISIBLE
-        discoverAdapter.submitData(lifecycle, data)
+        binding.layoutThisMonth.grpData.visibility = View.VISIBLE
+        binding.layoutThisMonth.grpShimmer.visibility = View.GONE
+        binding.layoutThisMonth.rvData.adapter = discoverAdapter.apply {
+            submitData(lifecycle, data)
+        }
     }
 
     override fun showProviders(data: List<WatchProviderEntity>) {
@@ -98,7 +111,8 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
     }
 
     private fun showLoading() {
-        binding.grpStartingThisMonth.visibility = View.GONE
+        binding.layoutThisMonth.grpData.visibility = View.GONE
+        binding.layoutThisMonth.grpShimmer.visibility = View.VISIBLE
     }
 
     override fun showError(exception: Exception) {
