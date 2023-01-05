@@ -10,50 +10,81 @@
             type="com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            app:cardCornerRadius="@dimen/default_corner_radius"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true"
-            app:layout_constraintDimensionRatio="2:3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:outlineProvider="background"
+        app:cardCornerRadius="@dimen/default_corner_radius"
+        app:cardElevation="8dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@{tv.name}"
+                android:foreground="@drawable/selector_network"
                 android:scaleType="centerCrop"
-                app:src="@{tv.poster}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:src="@{tv.backdrop}"
                 tools:src="@drawable/ic_launcher_background" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/bg_gradient_mask"
-                android:visibility="gone" />
-
             <TextView
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start|bottom"
-                android:layout_marginHorizontal="@dimen/small_margin"
-                android:layout_marginBottom="@dimen/small_margin"
-                android:ellipsize="end"
-                android:fontFamily="@font/avenir_next_regular"
+                android:layout_marginHorizontal="@dimen/medium_margin"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/avenir_next_demi_bold"
                 android:maxLines="1"
                 android:text="@{tv.name}"
                 android:textColor="@color/anti_flash_white"
-                android:textSize="10sp"
-                android:visibility="gone"
-                tools:ignore="SmallSp" />
-        </com.google.android.material.card.MaterialCardView>
+                android:textSize="13sp"
+                app:layout_constraintBottom_toTopOf="@id/tv_genres"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Pokemon" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tv_genres"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:fontFamily="@font/avenir_next_regular"
+                android:maxLines="1"
+                android:textColor="@color/anti_flash_white"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_date"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="SmallSp"
+                tools:text="Animation - Horror - Comedy" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/medium_margin"
+                android:fontFamily="@font/avenir_next_regular"
+                android:text="@{tv.firstAirDate}"
+                android:textColor="@color/anti_flash_white"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_genres"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_genres"
+                tools:ignore="SmallSp"
+                tools:text="2023-01-01" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
 </layout>

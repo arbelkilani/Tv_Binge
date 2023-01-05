@@ -18,7 +18,11 @@ class DiscoverAdapter @Inject constructor() :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onBindViewHolder(holder: DiscoverHolder, position: Int) {
-        holder.binding.tv = getItem(position)
+        with(holder.binding) {
+            val item = getItem(position)
+            tv = item
+            tvGenres.text = item?.genres?.joinToString(separator = " \u2022 ") { it.name }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = DiscoverHolder(

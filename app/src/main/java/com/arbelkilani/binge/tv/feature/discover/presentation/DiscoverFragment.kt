@@ -63,13 +63,17 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
 
     override fun initViews() {
         super.initViews()
+        val width = resources.displayMetrics.widthPixels
         binding.rvTrending.apply {
             adapter = trendingAdapter
             removeOverScroll()
             scalePagerTransformer()
         }
         //binding.rvAiringToday.apply { adapter = airingTodayAdapter }
-        binding.rvDiscover.apply { adapter = discoverAdapter }
+        binding.rvDiscover.apply {
+            setPadding(0, 0, width / 3, 0)
+            adapter = discoverAdapter
+        }
         //binding.rvProviders.apply { adapter = providersAdapter }
     }
 

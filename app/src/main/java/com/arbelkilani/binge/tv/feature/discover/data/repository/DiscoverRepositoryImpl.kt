@@ -50,11 +50,16 @@ class DiscoverRepositoryImpl @Inject constructor(
 
     override suspend fun discover(): Flow<PagingData<TvEntity>> {
         val queryMap = hashMapOf(
-            "air_date.gte" to "2023-01-01",
-            "air_date.lte" to "2023-01-31",
+            //"air_date.gte" to "2023-01-01",
+            //"air_date.lte" to "2023-01-31",
             "watch_region" to country,
-            "with_watch_providers" to getProvidersString(),
-            "with_genres" to getGenresString()
+            //"with_watch_providers" to getProvidersString(),
+            //"with_genres" to getGenresString(),
+            "first_air_date.gte" to "2023-01-05",
+            "first_air_date.lte" to "2023-01-31",
+            "sort_by" to "first_air_date.asc",
+            "with_original_language" to "ar|en|fr|jp"
+            //"with_watch_monetization_types" to "ads,rent,buy" //flatrate, free, ads, rent, buy
         )
 
         return Pager(
@@ -81,7 +86,7 @@ class DiscoverRepositoryImpl @Inject constructor(
 
     private suspend fun getGenresString(): String? {
         return resourceRepository.getFavoriteGenres().single()?.map { it.id }
-            ?.joinToString(separator = ",")
+            ?.joinToString(separator = "|")
     }
 
     /**
