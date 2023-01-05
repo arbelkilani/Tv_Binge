@@ -12,4 +12,5 @@ interface DiscoverRepository {
     suspend fun discover(): Flow<PagingData<TvEntity>>
     suspend fun getFavoriteProviders(): Flow<List<WatchProviderEntity>?>
     suspend fun getFavoriteGenres(): Flow<List<GenreEntity>?>
+    suspend fun getStartingThisMonth(): Flow<PagingData<TvEntity>>
 }

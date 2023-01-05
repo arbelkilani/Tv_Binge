@@ -53,7 +53,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
                     is DiscoverViewState.Loaded -> {
                         showTrending(viewState.trending)
                         showAiringToday(viewState.airingToday)
-                        showDiscover(viewState.discover)
+                        showDiscover(viewState.startingThisMonth)
                         showProviders(viewState.providers)
                     }
                     else -> Unit

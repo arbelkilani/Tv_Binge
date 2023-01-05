@@ -9,6 +9,7 @@ import com.arbelkilani.binge.tv.common.source.local.room.AppDatabase
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
 import com.arbelkilani.binge.tv.common.source.remote.pagingsource.AiringTodayPagingSource
 import com.arbelkilani.binge.tv.common.source.remote.pagingsource.DiscoverPagingSource
+import com.arbelkilani.binge.tv.feature.discover.data.entities.DiscoverQuery
 import com.arbelkilani.binge.tv.feature.discover.data.mapper.TvMapper
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import com.arbelkilani.binge.tv.feature.discover.domain.repository.DiscoverRepository
@@ -20,8 +21,7 @@ import java.util.*
 import javax.inject.Inject
 
 class DiscoverRepositoryImpl @Inject constructor(
-    private val service: ApiService,
-    private val database: AppDatabase
+    private val service: ApiService, private val database: AppDatabase
 ) : DiscoverRepository {
 
     private val country = Locale.getDefault().country
@@ -41,31 +41,34 @@ class DiscoverRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getAiringToday(): Flow<PagingData<TvEntity>> {
+    override suspend fun getStartingThisMonth(): Flow<PagingData<TvEntity>> {
+        val discoverQuery = DiscoverQuery.Builder()
+            .sortBy(DiscoverQuery.SortBy.FIRST_AIR_DATE_ASC)
+            .timezone(timezone)
+            .firstAirDateGte("2023-01-01")
+            .firstAirDateLte("2023-01-31")
+            .watchRegion(country).build()
+
         return Pager(
             config = PagingConfig(OFFSET),
-            pagingSourceFactory = { AiringTodayPagingSource(service, mapper) }
-        ).flow
+            pagingSourceFactory = {
+                DiscoverPagingSource(service, mapper, discoverQuery)
+            }).flow
+    }
+
+    override suspend fun getAiringToday(): Flow<PagingData<TvEntity>> {
+        return Pager(config = PagingConfig(OFFSET),
+            pagingSourceFactory = { AiringTodayPagingSource(service, mapper) }).flow
     }
 
     override suspend fun discover(): Flow<PagingData<TvEntity>> {
-        val queryMap = hashMapOf(
-            //"air_date.gte" to "2023-01-01",
-            //"air_date.lte" to "2023-01-31",
-            "watch_region" to country,
-            //"with_watch_providers" to getProvidersString(),
-            //"with_genres" to getGenresString(),
-            "first_air_date.gte" to "2023-01-05",
-            "first_air_date.lte" to "2023-01-31",
-            "sort_by" to "first_air_date.asc",
-            "with_original_language" to "ar|en|fr|jp"
-            //"with_watch_monetization_types" to "ads,rent,buy" //flatrate, free, ads, rent, buy
-        )
 
-        return Pager(
-            config = PagingConfig(OFFSET),
-            pagingSourceFactory = { DiscoverPagingSource(service, mapper, queryMap) }
-        ).flow
+        val discoverQuery =
+            DiscoverQuery.Builder().airDateGte("2023-01-01").airDateLte("2023-01-31")
+                .watchRegion(country).build()
+
+        return Pager(config = PagingConfig(OFFSET),
+            pagingSourceFactory = { DiscoverPagingSource(service, mapper, discoverQuery) }).flow
     }
 
     override suspend fun getFavoriteProviders(): Flow<List<WatchProviderEntity>?> {

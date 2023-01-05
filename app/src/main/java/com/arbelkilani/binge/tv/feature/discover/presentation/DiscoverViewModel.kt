@@ -3,10 +3,7 @@ package com.arbelkilani.binge.tv.feature.discover.presentation
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.arbelkilani.binge.tv.common.base.BaseStateViewModel
-import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetAiringTodayUseCase
-import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetDiscoverUseCase
-import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetFavoriteProvidersUseCase
-import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetTrendingUseCase
+import com.arbelkilani.binge.tv.feature.discover.domain.usecase.*
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DiscoverViewModel @Inject constructor(
     private val getTrendingUseCase: GetTrendingUseCase,
+    private val getStartingThisMonthUseCase: GetStartingThisMonthUseCase,
     private val getAiringTodayUseCase: GetAiringTodayUseCase,
     private val getDiscoverUseCase: GetDiscoverUseCase,
     private val getFavoriteProvidersUseCase: GetFavoriteProvidersUseCase
@@ -29,8 +27,10 @@ class DiscoverViewModel @Inject constructor(
         updateState { DiscoverViewState.Loading }
         viewModelScope.launch(Dispatchers.IO) {
             getTrending()
+            awaitAll(async { getStartingThisMonth() })
+
             //getFavoriteProviders()
-            awaitAll(async { getAiringToday() }, async { discover() })
+            //awaitAll(async { getAiringToday() }, async { discover() })
         }
     }
 
@@ -43,6 +43,22 @@ class DiscoverViewModel @Inject constructor(
                         DiscoverViewState.Loaded(
                             trending = trendingList
                         )
+                    }
+                }
+        } catch (exception: Exception) {
+            updateState {
+                DiscoverViewState.Error(exception)
+            }
+        }
+    }
+
+    private suspend fun getStartingThisMonth() {
+        try {
+            getStartingThisMonthUseCase.invoke()
+                .flowOn(Dispatchers.IO)
+                .collectLatest { data ->
+                    updateDataState { state ->
+                        state.copy(startingThisMonth = data)
                     }
                 }
         } catch (exception: Exception) {
