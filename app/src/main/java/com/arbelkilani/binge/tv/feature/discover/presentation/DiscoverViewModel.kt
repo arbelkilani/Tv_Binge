@@ -18,6 +18,7 @@ import javax.inject.Inject
 class DiscoverViewModel @Inject constructor(
     private val getTrendingUseCase: GetTrendingUseCase,
     private val getStartingThisMonthUseCase: GetStartingThisMonthUseCase,
+    private val getBasedOnProvidersUseCase: GetBasedOnProvidersUseCase,
     private val getAiringTodayUseCase: GetAiringTodayUseCase,
     private val getDiscoverUseCase: GetDiscoverUseCase,
     private val getFavoriteProvidersUseCase: GetFavoriteProvidersUseCase
@@ -27,7 +28,10 @@ class DiscoverViewModel @Inject constructor(
         updateState { DiscoverViewState.Loading }
         viewModelScope.launch(Dispatchers.IO) {
             getTrending()
-            awaitAll(async { getStartingThisMonth() }, async { discover() })
+            awaitAll(
+                async { getStartingThisMonth() },
+                async { getBasedOnProviders() },
+                async { discover() })
 
             //getFavoriteProviders()
             //awaitAll(async { getAiringToday() }, async { discover() })
@@ -65,6 +69,22 @@ class DiscoverViewModel @Inject constructor(
         }
     }
 
+    private suspend fun getBasedOnProviders() {
+        try {
+            getBasedOnProvidersUseCase.invoke()
+                .flowOn(Dispatchers.IO)
+                .cachedIn(viewModelScope)
+                .collectLatest { data ->
+                    updateDataState { state -> state.copy(basedOnProvider = data) }
+                }
+        } catch (exception: Exception) {
+            updateState { DiscoverViewState.Error(exception) }
+        }
+    }
+
+    /**
+     *
+     */
     private suspend fun getFavoriteProviders() {
         try {
             getFavoriteProvidersUseCase.invoke()

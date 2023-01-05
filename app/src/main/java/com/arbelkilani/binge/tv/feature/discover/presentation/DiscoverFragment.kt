@@ -31,6 +31,8 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
 
     private val trendingAdapter: TrendingAdapter by lazy { TrendingAdapter() }
     private val startingThisMonthAdapter: DiscoverAdapter by lazy { DiscoverAdapter() }
+    private val basedOnProvidersAdapter: DiscoverAdapter by lazy { DiscoverAdapter() }
+
     private val discoverAdapter: DiscoverAdapter by lazy { DiscoverAdapter() }
 
     private val airingTodayAdapter: AiringTodayAdapter by lazy { AiringTodayAdapter() }
@@ -61,6 +63,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
                     is DiscoverViewState.Loaded -> {
                         showTrending(viewState.trending)
                         showStartingThisMonth(viewState.startingThisMonth)
+                        showBasedOnProviders(viewState.basedOnProvider)
                         showDiscover(viewState.discover)
 
                         //showAiringToday(viewState.airingToday)
@@ -89,6 +92,19 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
             rvData.apply {
                 setPadding(0, 0, width / 3, 0)
                 adapter = startingThisMonthAdapter
+            }
+            rvShimmer.apply {
+                setPadding(0, 0, width / 3, 0)
+                adapter = tvShimmerAdapter.apply {
+                    submitList(listOf())
+                }
+            }
+        }
+
+        with(binding.layoutBasedOnProvider) {
+            rvData.apply {
+                setPadding(0, 0, width / 3, 0)
+                adapter = basedOnProvidersAdapter
             }
             rvShimmer.apply {
                 setPadding(0, 0, width / 3, 0)
@@ -136,6 +152,18 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
         }
     }
 
+    override fun showBasedOnProviders(data: PagingData<TvEntity>) {
+        binding.layoutBasedOnProvider.apply {
+            grpData.visibility = View.VISIBLE
+            grpShimmer.visibility = View.INVISIBLE
+            tvTitle.text = getString(R.string.discover_based_on_providers)
+        }
+        binding.layoutBasedOnProvider.rvData.adapter = basedOnProvidersAdapter.apply {
+            submitData(lifecycle, data)
+            binding.layoutThisMonth.ivAction.isVisible = basedOnProvidersAdapter.itemCount > 10
+        }
+    }
+
     override fun showDiscover(data: PagingData<TvEntity>) {
         binding.layoutDiscover.apply {
             grpData.visibility = View.VISIBLE
@@ -163,6 +191,10 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
             vpShimmer.visibility = View.VISIBLE
         }
         binding.layoutThisMonth.apply {
+            grpData.visibility = View.INVISIBLE
+            grpShimmer.visibility = View.VISIBLE
+        }
+        binding.layoutBasedOnProvider.apply {
             grpData.visibility = View.INVISIBLE
             grpShimmer.visibility = View.VISIBLE
         }

@@ -41,14 +41,31 @@ class DiscoverRepositoryImpl @Inject constructor(
         }
     }
 
+    /**
+     *
+     */
     override suspend fun getStartingThisMonth(): Flow<PagingData<TvEntity>> {
         val discoverQuery = DiscoverQuery.Builder()
             .sortBy(DiscoverQuery.SortBy.FIRST_AIR_DATE_ASC)
             .timezone(timezone)
-            .genres(getGenresString())
-            .watchProviders(getProvidersString())
             .firstAirDateGte("2023-01-01")
             .firstAirDateLte("2023-01-31")
+            .watchRegion(country).build()
+
+        return Pager(
+            config = PagingConfig(OFFSET),
+            pagingSourceFactory = {
+                DiscoverPagingSource(service, mapper, discoverQuery)
+            }).flow
+    }
+
+    /**
+     *
+     */
+    override suspend fun getBasedOnProviders(): Flow<PagingData<TvEntity>> {
+        val discoverQuery = DiscoverQuery.Builder()
+            .timezone(timezone)
+            .watchProviders(getProvidersString())
             .watchRegion(country).build()
 
         return Pager(
@@ -64,7 +81,12 @@ class DiscoverRepositoryImpl @Inject constructor(
     }
 
     override suspend fun discover(): Flow<PagingData<TvEntity>> {
-        val discoverQuery = emptyMap<String, String>()
+        val discoverQuery = DiscoverQuery.Builder()
+            .watchRegion(country)
+            .timezone(timezone)
+            .watchProviders("283")
+            .build()
+
         return Pager(config = PagingConfig(OFFSET),
             pagingSourceFactory = { DiscoverPagingSource(service, mapper, discoverQuery) }).flow
     }
