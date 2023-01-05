@@ -4,10 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.paging.PagingData
+import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.base.BaseFragment
 import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
 import com.arbelkilani.binge.tv.common.extension.removeOverScroll
@@ -28,8 +30,10 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
     val viewModel: DiscoverViewModel by viewModels()
 
     private val trendingAdapter: TrendingAdapter by lazy { TrendingAdapter() }
-    private val airingTodayAdapter: AiringTodayAdapter by lazy { AiringTodayAdapter() }
+    private val startingThisMonthAdapter: DiscoverAdapter by lazy { DiscoverAdapter() }
     private val discoverAdapter: DiscoverAdapter by lazy { DiscoverAdapter() }
+
+    private val airingTodayAdapter: AiringTodayAdapter by lazy { AiringTodayAdapter() }
     private val providersAdapter: ProvidersAdapter by lazy { ProvidersAdapter(this) }
 
     @Inject
@@ -56,9 +60,11 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
                     is DiscoverViewState.Error -> showError(viewState.exception)
                     is DiscoverViewState.Loaded -> {
                         showTrending(viewState.trending)
-                        showAiringToday(viewState.airingToday)
-                        showDiscover(viewState.startingThisMonth)
-                        showProviders(viewState.providers)
+                        showStartingThisMonth(viewState.startingThisMonth)
+                        showDiscover(viewState.discover)
+
+                        //showAiringToday(viewState.airingToday)
+                        //showProviders(viewState.providers)
                     }
                 }
             }
@@ -80,6 +86,19 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
         }
 
         with(binding.layoutThisMonth) {
+            rvData.apply {
+                setPadding(0, 0, width / 3, 0)
+                adapter = startingThisMonthAdapter
+            }
+            rvShimmer.apply {
+                setPadding(0, 0, width / 3, 0)
+                adapter = tvShimmerAdapter.apply {
+                    submitList(listOf())
+                }
+            }
+        }
+
+        with(binding.layoutDiscover) {
             rvData.apply {
                 setPadding(0, 0, width / 3, 0)
                 adapter = discoverAdapter
@@ -105,18 +124,33 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
         trendingAdapter.submitList(data)
     }
 
-    override fun showAiringToday(data: PagingData<TvEntity>) {
-        airingTodayAdapter.submitData(lifecycle, data)
-    }
-
-    override fun showDiscover(data: PagingData<TvEntity>) {
+    override fun showStartingThisMonth(data: PagingData<TvEntity>) {
         binding.layoutThisMonth.apply {
             grpData.visibility = View.VISIBLE
             grpShimmer.visibility = View.INVISIBLE
+            tvTitle.text = getString(R.string.discover_new_in_this_month)
         }
-        binding.layoutThisMonth.rvData.adapter = discoverAdapter.apply {
+        binding.layoutThisMonth.rvData.adapter = startingThisMonthAdapter.apply {
             submitData(lifecycle, data)
+            binding.layoutThisMonth.ivAction.isVisible = startingThisMonthAdapter.itemCount > 10
         }
+    }
+
+    override fun showDiscover(data: PagingData<TvEntity>) {
+        binding.layoutDiscover.apply {
+            grpData.visibility = View.VISIBLE
+            grpShimmer.visibility = View.INVISIBLE
+            tvTitle.text = "title is here"
+
+        }
+        binding.layoutDiscover.rvData.adapter = discoverAdapter.apply {
+            submitData(lifecycle, data)
+            binding.layoutDiscover.ivAction.isVisible = discoverAdapter.itemCount > 10
+        }
+    }
+
+    override fun showAiringToday(data: PagingData<TvEntity>) {
+        airingTodayAdapter.submitData(lifecycle, data)
     }
 
     override fun showProviders(data: List<WatchProviderEntity>) {
@@ -132,7 +166,10 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
             grpData.visibility = View.INVISIBLE
             grpShimmer.visibility = View.VISIBLE
         }
-
+        binding.layoutDiscover.apply {
+            grpData.visibility = View.INVISIBLE
+            grpShimmer.visibility = View.VISIBLE
+        }
     }
 
     override fun showError(exception: Exception) {

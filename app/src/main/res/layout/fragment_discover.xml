@@ -24,7 +24,7 @@
 
         <include
             android:id="@+id/layout_this_month"
-            layout="@layout/layout_discover_this_month"
+            layout="@layout/layout_discover"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/default_margin"
@@ -32,6 +32,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_trending" />
+
+        <include
+            android:id="@+id/layout_discover"
+            layout="@layout/layout_discover"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/default_margin"
+            app:layout_constraintDimensionRatio="1:.45"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_this_month" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

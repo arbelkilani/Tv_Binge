@@ -27,7 +27,7 @@ class DiscoverViewModel @Inject constructor(
         updateState { DiscoverViewState.Loading }
         viewModelScope.launch(Dispatchers.IO) {
             getTrending()
-            awaitAll(async { getStartingThisMonth() })
+            awaitAll(async { getStartingThisMonth() }, async { discover() })
 
             //getFavoriteProviders()
             //awaitAll(async { getAiringToday() }, async { discover() })

@@ -8,8 +8,10 @@ class DiscoverContract {
 
     interface ViewCapabilities {
         fun showTrending(data: List<TvEntity>)
-        fun showAiringToday(data: PagingData<TvEntity>)
+        fun showStartingThisMonth(data: PagingData<TvEntity>)
         fun showDiscover(data: PagingData<TvEntity>)
+
+        fun showAiringToday(data: PagingData<TvEntity>)
         fun showProviders(data: List<WatchProviderEntity>)
         fun showError(exception: Exception)
     }

@@ -64,11 +64,7 @@ class DiscoverRepositoryImpl @Inject constructor(
     }
 
     override suspend fun discover(): Flow<PagingData<TvEntity>> {
-
-        val discoverQuery =
-            DiscoverQuery.Builder().airDateGte("2023-01-01").airDateLte("2023-01-31")
-                .watchRegion(country).build()
-
+        val discoverQuery = emptyMap<String, String>()
         return Pager(config = PagingConfig(OFFSET),
             pagingSourceFactory = { DiscoverPagingSource(service, mapper, discoverQuery) }).flow
     }
