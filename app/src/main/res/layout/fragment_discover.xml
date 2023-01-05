@@ -12,22 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/rv_trending"
+        <include
+            android:id="@+id/layout_trending"
+            layout="@layout/layout_discover_trending"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/medium_margin"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            android:overScrollMode="never"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintDimensionRatio="1:.5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:itemCount="10"
-            tools:listitem="@layout/item_discover_trending" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <include
             android:id="@+id/layout_this_month"
@@ -35,10 +28,10 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/default_margin"
-            app:layout_constraintDimensionRatio="1:.4"
+            app:layout_constraintDimensionRatio="1:.45"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_trending" />
+            app:layout_constraintTop_toBottomOf="@id/layout_trending" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

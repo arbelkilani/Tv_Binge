@@ -67,11 +67,18 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
     override fun initViews() {
         super.initViews()
         val width = resources.displayMetrics.widthPixels
-        binding.rvTrending.apply {
-            adapter = trendingAdapter
-            removeOverScroll()
-            scalePagerTransformer()
+        with(binding.layoutTrending) {
+            vpTrending.apply {
+                adapter = trendingAdapter
+                removeOverScroll()
+                scalePagerTransformer()
+            }
+            vpShimmer.apply {
+                adapter = tvShimmerAdapter
+                scalePagerTransformer()
+            }
         }
+
         with(binding.layoutThisMonth) {
             rvData.apply {
                 setPadding(0, 0, width / 3, 0)
@@ -91,6 +98,10 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
     }
 
     override fun showTrending(data: List<TvEntity>) {
+        binding.layoutTrending.apply {
+            vpTrending.visibility = View.VISIBLE
+            vpShimmer.visibility = View.INVISIBLE
+        }
         trendingAdapter.submitList(data)
     }
 
@@ -99,8 +110,10 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
     }
 
     override fun showDiscover(data: PagingData<TvEntity>) {
-        binding.layoutThisMonth.grpData.visibility = View.VISIBLE
-        binding.layoutThisMonth.grpShimmer.visibility = View.GONE
+        binding.layoutThisMonth.apply {
+            grpData.visibility = View.VISIBLE
+            grpShimmer.visibility = View.INVISIBLE
+        }
         binding.layoutThisMonth.rvData.adapter = discoverAdapter.apply {
             submitData(lifecycle, data)
         }
@@ -111,8 +124,15 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
     }
 
     private fun showLoading() {
-        binding.layoutThisMonth.grpData.visibility = View.GONE
-        binding.layoutThisMonth.grpShimmer.visibility = View.VISIBLE
+        binding.layoutTrending.apply {
+            vpTrending.visibility = View.INVISIBLE
+            vpShimmer.visibility = View.VISIBLE
+        }
+        binding.layoutThisMonth.apply {
+            grpData.visibility = View.INVISIBLE
+            grpShimmer.visibility = View.VISIBLE
+        }
+
     }
 
     override fun showError(exception: Exception) {
