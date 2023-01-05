@@ -45,6 +45,8 @@ class DiscoverRepositoryImpl @Inject constructor(
         val discoverQuery = DiscoverQuery.Builder()
             .sortBy(DiscoverQuery.SortBy.FIRST_AIR_DATE_ASC)
             .timezone(timezone)
+            .genres(getGenresString())
+            .watchProviders(getProvidersString())
             .firstAirDateGte("2023-01-01")
             .firstAirDateLte("2023-01-31")
             .watchRegion(country).build()

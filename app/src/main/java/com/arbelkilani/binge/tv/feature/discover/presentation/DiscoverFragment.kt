@@ -1,6 +1,7 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -49,6 +50,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
             .collect { viewState ->
                 when (viewState) {
                     DiscoverViewState.Start -> viewModel.init()
+                    DiscoverViewState.Loading -> showLoading()
                     is DiscoverViewState.Error -> showError(viewState.exception)
                     is DiscoverViewState.Loaded -> {
                         showTrending(viewState.trending)
@@ -56,7 +58,6 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
                         showDiscover(viewState.startingThisMonth)
                         showProviders(viewState.providers)
                     }
-                    else -> Unit
                 }
             }
     }
@@ -69,11 +70,13 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
             removeOverScroll()
             scalePagerTransformer()
         }
-        //binding.rvAiringToday.apply { adapter = airingTodayAdapter }
-        binding.rvDiscover.apply {
+        binding.rvStartingThisMonth.apply {
             setPadding(0, 0, width / 3, 0)
             adapter = discoverAdapter
         }
+
+        //binding.rvAiringToday.apply { adapter = airingTodayAdapter }
+
         //binding.rvProviders.apply { adapter = providersAdapter }
     }
 
@@ -86,11 +89,16 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
     }
 
     override fun showDiscover(data: PagingData<TvEntity>) {
+        binding.grpStartingThisMonth.visibility = View.VISIBLE
         discoverAdapter.submitData(lifecycle, data)
     }
 
     override fun showProviders(data: List<WatchProviderEntity>) {
         providersAdapter.submitList(data)
+    }
+
+    private fun showLoading() {
+        binding.grpStartingThisMonth.visibility = View.GONE
     }
 
     override fun showError(exception: Exception) {

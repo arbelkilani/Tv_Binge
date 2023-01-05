@@ -14,12 +14,16 @@ class DiscoverQuery {
         fun timezone(value: String) = apply { hashMap["timezone"] = value }
         fun voteAverageGte(value: String) = apply { hashMap["vote_average.gte"] = value }
         fun voteCountGte(value: String) = apply { hashMap["vote_count.gte"] = value }
-        fun genres(value: String) = apply { hashMap["with_genres"] = value }
+        fun genres(value: String?) =
+            apply { if (!value.isNullOrEmpty()) hashMap["with_genres"] = value }
+
         fun networks(value: String) = apply { hashMap["with_networks"] = value }
         fun runtimeGte(value: String) = apply { hashMap["with_runtime.gte"] = value }
         fun runtimeLte(value: String) = apply { hashMap["with_runtime.lte"] = value }
         fun watchRegion(value: String) = apply { hashMap["watch_region"] = value }
-        fun watchProviders(value: String) = apply { hashMap["with_watch_providers"] = value }
+        fun watchProviders(value: String?) =
+            apply { if (!value.isNullOrEmpty()) hashMap["with_watch_providers"] = value }
+
         fun monetizationType(value: MonetizationType) =
             apply { hashMap["with_watch_monetization_types"] = value.value }
 

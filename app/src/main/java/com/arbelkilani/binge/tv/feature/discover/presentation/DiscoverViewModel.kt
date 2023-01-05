@@ -56,15 +56,12 @@ class DiscoverViewModel @Inject constructor(
         try {
             getStartingThisMonthUseCase.invoke()
                 .flowOn(Dispatchers.IO)
+                .cachedIn(viewModelScope)
                 .collectLatest { data ->
-                    updateDataState { state ->
-                        state.copy(startingThisMonth = data)
-                    }
+                    updateDataState { state -> state.copy(startingThisMonth = data) }
                 }
         } catch (exception: Exception) {
-            updateState {
-                DiscoverViewState.Error(exception)
-            }
+            updateState { DiscoverViewState.Error(exception) }
         }
     }
 
