@@ -28,6 +28,9 @@ open class DiscoverPagingSource @Inject constructor(
                 options = queryMap
             )
             val tvShows = response.results
+                .filterNot {
+                    it.poster.isNullOrEmpty() && it.backdrop.isNullOrEmpty()
+                }
                 .map {
                     tvMapper.map(it)
                 }

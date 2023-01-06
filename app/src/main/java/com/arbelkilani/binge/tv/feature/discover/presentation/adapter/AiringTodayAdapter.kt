@@ -7,14 +7,14 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
-import com.arbelkilani.binge.tv.databinding.ItemTvShowBinding
+import com.arbelkilani.binge.tv.databinding.ItemTvShowBackdropBinding
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import javax.inject.Inject
 
 class AiringTodayAdapter @Inject constructor() :
     PagingDataAdapter<TvEntity, AiringTodayAdapter.AiringTodayHolder>(TvEntityComparator) {
 
-    class AiringTodayHolder(val binding: ItemTvShowBinding) :
+    class AiringTodayHolder(val binding: ItemTvShowBackdropBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onBindViewHolder(holder: AiringTodayHolder, position: Int) {
@@ -23,7 +23,7 @@ class AiringTodayAdapter @Inject constructor() :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = AiringTodayHolder(
         DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context), R.layout.item_tv_show, parent, false
+            LayoutInflater.from(parent.context), R.layout.item_tv_show_backdrop, parent, false
         )
     )
 

@@ -8,9 +8,9 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
-import com.arbelkilani.binge.tv.databinding.ItemShimmerThirdBinding
-import com.arbelkilani.binge.tv.databinding.ItemTvShowBinding
+import com.arbelkilani.binge.tv.databinding.ItemTvShowBackdropBinding
 import com.arbelkilani.binge.tv.databinding.ItemTvShowPosterBinding
+import com.arbelkilani.binge.tv.databinding.ItemTvShowShimmerBinding
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import javax.inject.Inject
@@ -22,10 +22,10 @@ class DiscoverAdapter @Inject constructor(
 
     val width = Resources.getSystem().displayMetrics.widthPixels
 
-    class DiscoverHolder(val binding: ItemTvShowBinding) :
+    class BackdropHolder(val binding: ItemTvShowBackdropBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    class ShimmerHolder(val binding: ItemShimmerThirdBinding) :
+    class ShimmerHolder(val binding: ItemTvShowShimmerBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     class PosterHolder(val binding: ItemTvShowPosterBinding) :
@@ -35,7 +35,7 @@ class DiscoverAdapter @Inject constructor(
         val item = getItem(position)
         val genres = item?.genres?.joinToString(separator = DOT_SYMBOL) { it.name }
         when (holder.itemViewType) {
-            DISCOVER_TYPE -> with((holder as DiscoverHolder).binding) {
+            BACKDROP_TYPE -> with((holder as BackdropHolder).binding) {
                 tv = item
                 tvGenres.text = genres
             }
@@ -51,7 +51,7 @@ class DiscoverAdapter @Inject constructor(
             SHIMMER_TYPE -> ShimmerHolder(
                 DataBindingUtil.inflate(
                     LayoutInflater.from(parent.context),
-                    R.layout.item_shimmer_third,
+                    R.layout.item_tv_show_shimmer,
                     parent,
                     false
                 )
@@ -66,9 +66,12 @@ class DiscoverAdapter @Inject constructor(
                     )
                 )
             }
-            else -> DiscoverHolder(
+            else -> BackdropHolder(
                 DataBindingUtil.inflate(
-                    LayoutInflater.from(parent.context), R.layout.item_tv_show, parent, false
+                    LayoutInflater.from(parent.context),
+                    R.layout.item_tv_show_backdrop,
+                    parent,
+                    false
                 )
             )
         }
@@ -77,11 +80,7 @@ class DiscoverAdapter @Inject constructor(
     override fun getItemViewType(position: Int): Int {
         return if (getItem(0)?.id == EMPTY_ITEM_ID)
             SHIMMER_TYPE else {
-            if (getItem(position)?.backdrop?.endsWith("null") == true) {
-                POSTER_TYPE
-            } else {
-                DISCOVER_TYPE
-            }
+            if (getItem(position)?.backdrop?.endsWith("null") == true) POSTER_TYPE else BACKDROP_TYPE
         }
     }
 
@@ -100,7 +99,7 @@ class DiscoverAdapter @Inject constructor(
         private const val DOT_SYMBOL = " \u2022 "
 
         private const val SHIMMER_TYPE = 1
-        private const val DISCOVER_TYPE = 2
+        private const val BACKDROP_TYPE = 2
         private const val POSTER_TYPE = 3
     }
 }

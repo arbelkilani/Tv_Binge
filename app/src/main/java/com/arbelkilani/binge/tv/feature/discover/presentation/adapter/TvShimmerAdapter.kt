@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
-import com.arbelkilani.binge.tv.databinding.ItemShimmerThirdBinding
+import com.arbelkilani.binge.tv.databinding.ItemTvShowShimmerBinding
 import javax.inject.Inject
 
 class TvShimmerAdapter @Inject constructor() :
     ListAdapter<Int, TvShimmerAdapter.TvShimmerHolder>(Comparator) {
 
-    class TvShimmerHolder(val binding: ItemShimmerThirdBinding) :
+    class TvShimmerHolder(val binding: ItemTvShowShimmerBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onBindViewHolder(holder: TvShimmerHolder, position: Int) {
@@ -24,7 +24,7 @@ class TvShimmerAdapter @Inject constructor() :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = TvShimmerHolder(
         DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context), R.layout.item_shimmer_third, parent, false
+            LayoutInflater.from(parent.context), R.layout.item_tv_show_shimmer, parent, false
         )
     )
 

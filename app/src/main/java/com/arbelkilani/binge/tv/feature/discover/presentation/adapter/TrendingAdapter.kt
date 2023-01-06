@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.databinding.ItemDiscoverTrendingBinding
-import com.arbelkilani.binge.tv.databinding.ItemShimmerThirdBinding
+import com.arbelkilani.binge.tv.databinding.ItemTvShowShimmerBinding
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import javax.inject.Inject
 
@@ -18,14 +18,17 @@ class TrendingAdapter @Inject constructor() :
     class TrendingHolder(val binding: ItemDiscoverTrendingBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    class ShimmerHolder(val binding: ItemShimmerThirdBinding) :
+    class ShimmerHolder(val binding: ItemTvShowShimmerBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             SHIMMER_TYPE -> ShimmerHolder(
                 DataBindingUtil.inflate(
-                    LayoutInflater.from(parent.context), R.layout.item_shimmer_third, parent, false
+                    LayoutInflater.from(parent.context),
+                    R.layout.item_tv_show_shimmer,
+                    parent,
+                    false
                 )
             )
             else -> TrendingHolder(
