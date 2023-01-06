@@ -35,9 +35,11 @@ class DiscoverViewModel @Inject constructor(
             getTrendingUseCase.invoke()
                 .flowOn(Dispatchers.IO)
                 .collectLatest { trendingList ->
-                    updateState {
-                        DiscoverViewState.Loaded(
-                            trending = trendingList
+                    updateDataState { state ->
+                        state.copy(
+                            trending = DiscoverViewState.Trending(
+                                list = trendingList
+                            )
                         )
                     }
                 }
@@ -54,8 +56,13 @@ class DiscoverViewModel @Inject constructor(
                 .flowOn(Dispatchers.IO)
                 .cachedIn(viewModelScope)
                 .collectLatest { data ->
-                    updateDataState { state -> state.copy(startingThisMonth = data) }
-                    //updateState { DiscoverViewState.Loaded(startingThisMonth = data) }
+                    updateDataState { state ->
+                        state.copy(
+                            startingThisMonth = DiscoverViewState.StartingThisMonth(
+                                data = data
+                            )
+                        )
+                    }
                 }
         } catch (exception: Exception) {
             updateState { DiscoverViewState.Error(exception) }
@@ -68,7 +75,7 @@ class DiscoverViewModel @Inject constructor(
                 .flowOn(Dispatchers.IO)
                 .cachedIn(viewModelScope)
                 .collectLatest { data ->
-                    updateDataState { state -> state.copy(basedOnProvider = data) }
+                    //updateDataState { state -> state.copy(basedOnProvider = data) }
                 }
         } catch (exception: Exception) {
             updateState { DiscoverViewState.Error(exception) }
@@ -81,7 +88,7 @@ class DiscoverViewModel @Inject constructor(
                 .flowOn(Dispatchers.IO)
                 .collectLatest { data ->
                     data?.let {
-                        updateDataState { state -> state.copy(providers = it) }
+                        //updateDataState { state -> state.copy(providers = it) }
                     }
                 }
 
@@ -96,7 +103,7 @@ class DiscoverViewModel @Inject constructor(
                 .flowOn(Dispatchers.IO)
                 .cachedIn(viewModelScope)
                 .collect { airingTodayPagingData ->
-                    updateDataState { state -> state.copy(airingToday = airingTodayPagingData) }
+                    //updateDataState { state -> state.copy(airingToday = airingTodayPagingData) }
                 }
         } catch (exception: Exception) {
             updateState {
@@ -111,7 +118,7 @@ class DiscoverViewModel @Inject constructor(
                 .flowOn(Dispatchers.IO)
                 .cachedIn(viewModelScope)
                 .collect { data ->
-                    updateDataState { state -> state.copy(discover = data) }
+                    //updateDataState { state -> state.copy(discover = data) }
                 }
         } catch (exception: Exception) {
             updateState { DiscoverViewState.Error(exception = exception) }
@@ -119,6 +126,7 @@ class DiscoverViewModel @Inject constructor(
     }
 
     private fun updateDataState(handler: (DiscoverViewState.Loaded) -> (DiscoverViewState)) {
+        updateState { DiscoverViewState.Loaded() }
         updateState { state ->
             if (state is DiscoverViewState.Loaded) {
                 handler.invoke(state)

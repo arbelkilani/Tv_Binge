@@ -9,11 +9,21 @@ sealed class DiscoverViewState {
     object Loading : DiscoverViewState()
     data class Error(val exception: Exception) : DiscoverViewState()
     data class Loaded(
-        val trending: List<TvEntity> = emptyList(),
-        val startingThisMonth: PagingData<TvEntity> = PagingData.empty(),
+        val trending: Trending? = null,
+        val startingThisMonth: StartingThisMonth? = null,
         val basedOnProvider: PagingData<TvEntity> = PagingData.empty(),
         val airingToday: PagingData<TvEntity> = PagingData.empty(),
         val discover: PagingData<TvEntity> = PagingData.empty(),
         val providers: List<WatchProviderEntity> = emptyList()
     ) : DiscoverViewState()
+
+    data class Trending(
+        val list: List<TvEntity> = emptyList(),
+        val exception: Exception? = null
+    )
+
+    data class StartingThisMonth(
+        val data: PagingData<TvEntity> = PagingData.empty(),
+        val exception: Exception? = null
+    )
 }

@@ -22,7 +22,6 @@ import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverI
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.ProviderClicked
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
@@ -112,14 +111,16 @@ class DiscoverFragment :
         //binding.rvProviders.apply { adapter = providersAdapter }
     }
 
-    override suspend fun showTrending(data: List<TvEntity>) {
-        delay(100)
-        trendingAdapter.submitList(data)
+    override suspend fun showTrending(state: DiscoverViewState.Trending?) {
+        state?.let {
+            trendingAdapter.submitList(it.list)
+        }
     }
 
-    override suspend fun showStartingThisMonth(data: PagingData<TvEntity>) {
-        delay(50)
-        startingThisMonthAdapter.submitData(lifecycle, data)
+    override suspend fun showStartingThisMonth(state: DiscoverViewState.StartingThisMonth?) {
+        state?.let {
+            startingThisMonthAdapter.submitData(lifecycle, it.data)
+        }
     }
 
     override fun showBasedOnProviders(data: PagingData<TvEntity>) {
