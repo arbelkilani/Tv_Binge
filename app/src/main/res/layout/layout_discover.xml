@@ -6,14 +6,6 @@
     android:layout_height="wrap_content"
     tools:layout_height="170dp">
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/grp_data"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:constraint_referenced_ids="tv_title,iv_action,rv_data"
-        tools:visibility="gone" />
-
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="0dp"
@@ -57,35 +49,6 @@
         app:layout_constraintTop_toBottomOf="@id/tv_title"
         tools:itemCount="10"
         tools:listitem="@layout/item_tv_show"
-        tools:paddingEnd="120dp" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/grp_shimmer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:constraint_referenced_ids="tv_title_shimmer,rv_shimmer" />
-
-    <include
-        android:id="@+id/tv_title_shimmer"
-        layout="@layout/item_shimmer_title" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_shimmer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/default_margin"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:orientation="horizontal"
-        android:overScrollMode="never"
-        android:visibility="visible"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title_shimmer"
-        tools:itemCount="10"
-        tools:listitem="@layout/item_shimmer_third"
         tools:paddingEnd="120dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

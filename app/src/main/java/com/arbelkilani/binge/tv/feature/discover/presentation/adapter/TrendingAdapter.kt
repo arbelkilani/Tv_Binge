@@ -8,27 +8,50 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.databinding.ItemDiscoverTrendingBinding
+import com.arbelkilani.binge.tv.databinding.ItemShimmerThirdBinding
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import javax.inject.Inject
 
 class TrendingAdapter @Inject constructor() :
-    ListAdapter<TvEntity, TrendingAdapter.TrendingHolder>(TrendingComparator) {
+    ListAdapter<TvEntity, RecyclerView.ViewHolder>(TrendingComparator) {
 
     class TrendingHolder(val binding: ItemDiscoverTrendingBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = TrendingHolder(
-        DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context), R.layout.item_discover_trending, parent, false
-        )
-    )
+    class ShimmerHolder(val binding: ItemShimmerThirdBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
-    override fun onBindViewHolder(holder: TrendingHolder, position: Int) {
-        with(holder.binding) {
-            val item = getItem(position)
-            tv = item
-            tvGenres.text = item.genres.joinToString(separator = " \u2022 ") { it.name }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            SHIMMER_TYPE -> ShimmerHolder(
+                DataBindingUtil.inflate(
+                    LayoutInflater.from(parent.context), R.layout.item_shimmer_third, parent, false
+                )
+            )
+            else -> TrendingHolder(
+                DataBindingUtil.inflate(
+                    LayoutInflater.from(parent.context),
+                    R.layout.item_discover_trending,
+                    parent,
+                    false
+                )
+            )
         }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder.itemViewType == TRENDING_TYPE) {
+            with((holder as TrendingHolder).binding) {
+                val item = getItem(position)
+                tv = item
+                tvGenres.text = item?.genres?.joinToString(separator = " \u2022 ") { it.name }
+            }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (getItem(position)?.id == -1)
+            SHIMMER_TYPE else TRENDING_TYPE
     }
 
     companion object {
@@ -46,5 +69,8 @@ class TrendingAdapter @Inject constructor() :
                     return oldItem == newItem
                 }
             }
+
+        private const val SHIMMER_TYPE = 1
+        private const val TRENDING_TYPE = 2
     }
 }

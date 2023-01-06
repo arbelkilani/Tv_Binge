@@ -7,8 +7,8 @@ import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 class DiscoverContract {
 
     interface ViewCapabilities {
-        fun showTrending(data: List<TvEntity>)
-        fun showStartingThisMonth(data: PagingData<TvEntity>)
+        suspend fun showTrending(data: List<TvEntity>)
+        suspend fun showStartingThisMonth(data: PagingData<TvEntity>)
         fun showBasedOnProviders(data: PagingData<TvEntity>)
         fun showDiscover(data: PagingData<TvEntity>)
 
