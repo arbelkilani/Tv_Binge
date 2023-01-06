@@ -11,7 +11,7 @@ sealed class DiscoverViewState {
     data class Loaded(
         val trending: Trending? = null,
         val startingThisMonth: StartingThisMonth? = null,
-        val basedOnProvider: PagingData<TvEntity> = PagingData.empty(),
+        val basedOnProvider: FromProviders? = null,
         val airingToday: PagingData<TvEntity> = PagingData.empty(),
         val discover: PagingData<TvEntity> = PagingData.empty(),
         val providers: List<WatchProviderEntity> = emptyList()
@@ -23,6 +23,11 @@ sealed class DiscoverViewState {
     )
 
     data class StartingThisMonth(
+        val data: PagingData<TvEntity> = PagingData.empty(),
+        val exception: Exception? = null
+    )
+
+    data class FromProviders(
         val data: PagingData<TvEntity> = PagingData.empty(),
         val exception: Exception? = null
     )

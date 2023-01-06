@@ -10,7 +10,7 @@ class DiscoverContract {
     interface ViewCapabilities {
         suspend fun showTrending(state: DiscoverViewState.Trending?)
         suspend fun showStartingThisMonth(state: DiscoverViewState.StartingThisMonth?)
-        fun showBasedOnProviders(data: PagingData<TvEntity>)
+        suspend fun showBasedOnProviders(state: DiscoverViewState.FromProviders?)
         fun showDiscover(data: PagingData<TvEntity>)
 
         fun showAiringToday(data: PagingData<TvEntity>)

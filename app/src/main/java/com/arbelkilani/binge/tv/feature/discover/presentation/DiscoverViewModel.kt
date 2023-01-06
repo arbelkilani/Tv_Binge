@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,8 +26,9 @@ class DiscoverViewModel @Inject constructor(
     fun init() {
         updateState { DiscoverViewState.Loading }
         viewModelScope.launch(Dispatchers.IO) {
-            getTrending()
-            getStartingThisMonth()
+            withContext(Dispatchers.IO) { getTrending() }
+            withContext(Dispatchers.IO) { getStartingThisMonth() }
+            withContext(Dispatchers.IO) { getBasedOnProviders() }
         }
     }
 
@@ -54,7 +56,6 @@ class DiscoverViewModel @Inject constructor(
         try {
             getStartingThisMonthUseCase.invoke()
                 .flowOn(Dispatchers.IO)
-                .cachedIn(viewModelScope)
                 .collectLatest { data ->
                     updateDataState { state ->
                         state.copy(
@@ -73,9 +74,14 @@ class DiscoverViewModel @Inject constructor(
         try {
             getBasedOnProvidersUseCase.invoke()
                 .flowOn(Dispatchers.IO)
-                .cachedIn(viewModelScope)
                 .collectLatest { data ->
-                    //updateDataState { state -> state.copy(basedOnProvider = data) }
+                    updateDataState { state ->
+                        state.copy(
+                            basedOnProvider = DiscoverViewState.FromProviders(
+                                data = data
+                            )
+                        )
+                    }
                 }
         } catch (exception: Exception) {
             updateState { DiscoverViewState.Error(exception) }

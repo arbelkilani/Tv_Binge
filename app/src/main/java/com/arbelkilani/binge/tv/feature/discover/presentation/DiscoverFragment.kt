@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.base.BaseFragment
@@ -22,7 +23,10 @@ import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverI
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.ProviderClicked
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.cache
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.shareIn
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -36,7 +40,7 @@ class DiscoverFragment :
 
     private val trendingAdapter: TrendingAdapter by lazy { TrendingAdapter() }
     private val startingThisMonthAdapter: DiscoverAdapter by lazy { DiscoverAdapter(this) }
-    //private val basedOnProvidersAdapter: DiscoverAdapter by lazy { DiscoverAdapter() }
+    private val basedOnProvidersAdapter: DiscoverAdapter by lazy { DiscoverAdapter(this) }
 
     //private val discoverAdapter: DiscoverAdapter by lazy { DiscoverAdapter() }
 
@@ -57,7 +61,8 @@ class DiscoverFragment :
 
     override suspend fun initViewModelObservation() {
         super.initViewModelObservation()
-        viewModel.viewState.flowWithLifecycle(lifecycle, Lifecycle.State.RESUMED)
+        viewModel.viewState.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .shareIn(lifecycleScope, SharingStarted.Eagerly)
             .collectLatest { viewState ->
                 when (viewState) {
                     DiscoverViewState.Start -> viewModel.init()
@@ -68,7 +73,7 @@ class DiscoverFragment :
                     is DiscoverViewState.Loaded -> {
                         showTrending(viewState.trending)
                         showStartingThisMonth(viewState.startingThisMonth)
-                        //showBasedOnProviders(viewState.basedOnProvider)
+                        showBasedOnProviders(viewState.basedOnProvider)
                         //showDiscover(viewState.discover)
 
                         //showAiringToday(viewState.airingToday)
@@ -123,10 +128,13 @@ class DiscoverFragment :
         }
     }
 
-    override fun showBasedOnProviders(data: PagingData<TvEntity>) {
-        binding.layoutBasedOnProvider.apply {
-            tvTitle.text = getString(R.string.discover_based_on_providers)
+    override suspend fun showBasedOnProviders(state: DiscoverViewState.FromProviders?) {
+        state?.let {
+            basedOnProvidersAdapter.submitData(lifecycle, it.data)
         }
+        //binding.layoutBasedOnProvider.apply {
+        //    tvTitle.text = getString(R.string.discover_based_on_providers)
+        //}
         //binding.layoutBasedOnProvider.rvData.adapter = basedOnProvidersAdapter.apply {
         //    submitData(lifecycle, data)
         //    binding.layoutThisMonth.ivAction.isVisible = basedOnProvidersAdapter.itemCount > 10
@@ -160,6 +168,12 @@ class DiscoverFragment :
 
         binding.layoutThisMonth.rvData.apply {
             adapter = startingThisMonthAdapter.apply {
+                submitData(lifecycle, PagingData.from(shimmerList))
+            }
+        }
+
+        binding.layoutBasedOnProvider.rvData.apply {
+            adapter = basedOnProvidersAdapter.apply {
                 submitData(lifecycle, PagingData.from(shimmerList))
             }
         }
