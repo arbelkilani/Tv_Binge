@@ -33,6 +33,20 @@
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_trending" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_providers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="@dimen/default_margin"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_this_month"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_provider_min" />
+
         <include
             android:id="@+id/layout_based_on_provider"
             layout="@layout/layout_discover"
@@ -42,18 +56,7 @@
             app:layout_constraintDimensionRatio="1:.45"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_this_month" />
-
-        <include
-            android:id="@+id/layout_discover"
-            layout="@layout/layout_discover"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/default_margin"
-            app:layout_constraintDimensionRatio="1:.45"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_based_on_provider" />
+            app:layout_constraintTop_toBottomOf="@id/rv_providers" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

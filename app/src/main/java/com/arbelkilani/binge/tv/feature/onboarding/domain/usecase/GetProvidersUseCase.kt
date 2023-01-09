@@ -10,7 +10,7 @@ class GetProvidersUseCase @Inject constructor() {
     @Inject
     lateinit var onBoardingRepository: OnBoardingRepository
 
-    suspend fun getProviders(): Flow<List<WatchProviderEntity>> {
+    suspend fun invoke(): Flow<List<WatchProviderEntity>> {
         return onBoardingRepository.getProviders()
     }
 }

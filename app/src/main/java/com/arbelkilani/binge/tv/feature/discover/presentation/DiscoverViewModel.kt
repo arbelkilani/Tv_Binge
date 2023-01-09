@@ -5,6 +5,7 @@ import androidx.paging.cachedIn
 import com.arbelkilani.binge.tv.common.base.BaseStateViewModel
 import com.arbelkilani.binge.tv.feature.discover.domain.usecase.*
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
+import com.arbelkilani.binge.tv.feature.onboarding.domain.usecase.GetProvidersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -16,6 +17,7 @@ import javax.inject.Inject
 class DiscoverViewModel @Inject constructor(
     private val getTrendingUseCase: GetTrendingUseCase,
     private val getStartingThisMonthUseCase: GetStartingThisMonthUseCase,
+    private val getProvidersUseCase: GetProvidersUseCase,
     private val getBasedOnProvidersUseCase: GetBasedOnProvidersUseCase
 ) : BaseStateViewModel<DiscoverViewState>(initialState = DiscoverViewState.Start) {
 
@@ -23,6 +25,7 @@ class DiscoverViewModel @Inject constructor(
         updateState { DiscoverViewState.Loading }
         getTrending()
         getStartingThisMonth()
+        getProviders()
         getBasedOnProviders()
     }
 
@@ -56,6 +59,16 @@ class DiscoverViewModel @Inject constructor(
                             )
                         )
                     }
+                }
+        }
+    }
+
+    private suspend fun getProviders() {
+        viewModelScope.launch {
+            getProvidersUseCase.invoke()
+                .flowOn(Dispatchers.IO)
+                .collectLatest { list ->
+                    updateDataState { state -> state.copy(providers = list) }
                 }
         }
     }

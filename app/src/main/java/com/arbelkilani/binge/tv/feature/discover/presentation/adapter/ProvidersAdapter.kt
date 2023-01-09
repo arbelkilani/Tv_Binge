@@ -1,5 +1,6 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -23,6 +24,7 @@ class ProvidersAdapter @Inject constructor(
         RecyclerView.ViewHolder(binding.root)
 
     override fun onBindViewHolder(holder: ProvidersHolder, position: Int) {
+        Log.i("TAG**", "providers = ${getItem(position)}")
         holder.binding.provider = getItem(position)
         holder.binding.root.setOnClickListener {
             listener.onProviderClicked(getItem(position))

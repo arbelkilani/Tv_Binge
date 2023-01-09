@@ -4,8 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
 import androidx.paging.PagingData
 import com.arbelkilani.binge.tv.common.base.BaseFragment
 import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
@@ -15,6 +13,7 @@ import com.arbelkilani.binge.tv.databinding.FragmentDiscoverBinding
 import com.arbelkilani.binge.tv.feature.discover.DiscoverContract
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.DiscoverAdapter
+import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.ProvidersAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.TrendingAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.TvShimmerAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
@@ -36,11 +35,7 @@ class DiscoverFragment :
     private val trendingAdapter: TrendingAdapter by lazy { TrendingAdapter() }
     private val startingThisMonthAdapter: DiscoverAdapter by lazy { DiscoverAdapter(this) }
     private val basedOnProvidersAdapter: DiscoverAdapter by lazy { DiscoverAdapter(this) }
-
-    //private val discoverAdapter: DiscoverAdapter by lazy { DiscoverAdapter() }
-
-    //private val airingTodayAdapter: AiringTodayAdapter by lazy { AiringTodayAdapter() }
-    //private val providersAdapter: ProvidersAdapter by lazy { ProvidersAdapter(this) }
+    private val providersAdapter: ProvidersAdapter by lazy { ProvidersAdapter(this) }
 
     @Inject
     lateinit var tvShimmerAdapter: TvShimmerAdapter
@@ -56,7 +51,7 @@ class DiscoverFragment :
 
     override suspend fun initViewModelObservation() {
         super.initViewModelObservation()
-        viewModel.viewState.flowWithLifecycle(lifecycle, Lifecycle.State.RESUMED)
+        viewModel.viewState
             .collectLatest { viewState ->
                 when (viewState) {
                     DiscoverViewState.Start -> viewModel.init()
@@ -68,6 +63,7 @@ class DiscoverFragment :
                         showTrending(viewState.trending)
                         showStartingThisMonth(viewState.startingThisMonth)
                         showBasedOnProviders(viewState.basedOnProvider)
+                        showProviders(viewState.providers)
                     }
                 }
             }
@@ -89,6 +85,8 @@ class DiscoverFragment :
 
         binding.layoutBasedOnProvider.rvData.setPadding(0, 0, width / 3, 0)
         binding.layoutBasedOnProvider.rvData.adapter = basedOnProvidersAdapter
+
+        binding.rvProviders.adapter = providersAdapter
     }
 
     override suspend fun showTrending(state: DiscoverViewState.Trending?) {
@@ -107,6 +105,10 @@ class DiscoverFragment :
         state?.let {
             basedOnProvidersAdapter.submitData(lifecycle, it.data)
         }
+    }
+
+    override suspend fun showProviders(providers: List<WatchProviderEntity>?) {
+        providersAdapter.submitList(providers)
     }
 
     private fun showLoading() {

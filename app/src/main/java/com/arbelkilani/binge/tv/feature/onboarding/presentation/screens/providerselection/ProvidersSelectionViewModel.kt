@@ -32,7 +32,7 @@ class ProvidersSelectionViewModel @Inject constructor(
         updateState { ProvidersSelectionViewState.Loading }
         viewModelScope.launch {
             try {
-                getProvidersUseCase.getProviders().collectLatest { providers ->
+                getProvidersUseCase.invoke().collectLatest { providers ->
                     _selectedList.value =
                         providers.filter { it.isFavorite }.toMutableList()
                     _unSelectedList.value =
