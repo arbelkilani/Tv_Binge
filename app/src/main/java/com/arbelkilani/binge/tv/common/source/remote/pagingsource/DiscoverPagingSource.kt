@@ -23,17 +23,12 @@ open class DiscoverPagingSource @Inject constructor(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TvEntity> {
         val position = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val response = service.discover(
-                page = position,
-                options = queryMap
-            )
+            val response = service.discover(page = position, options = queryMap)
             val tvShows = response.results
                 .filterNot {
                     it.poster.isNullOrEmpty() && it.backdrop.isNullOrEmpty()
                 }
-                .map {
-                    tvMapper.map(it)
-                }
+                .map { tvMapper.map(it) }.sortedByDescending { it.voteAverage }
 
             LoadResult.Page(
                 data = tvShows,
