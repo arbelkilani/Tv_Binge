@@ -35,15 +35,10 @@ class DiscoverRepositoryImpl @Inject constructor(
     override suspend fun getTrending(): Flow<PagingData<TvEntity>> {
         return Pager(
             config = PagingConfig(OFFSET),
-            pagingSourceFactory = {
-                TrendingPagingSource(service, mapper)
-            }
+            pagingSourceFactory = { TrendingPagingSource(service, mapper) }
         ).flow
     }
 
-    /**
-     *
-     */
     override suspend fun getStartingThisMonth(): Flow<PagingData<TvEntity>> {
         val discoverQuery = DiscoverQuery.Builder()
             .sortBy(DiscoverQuery.SortBy.FIRST_AIR_DATE_ASC)

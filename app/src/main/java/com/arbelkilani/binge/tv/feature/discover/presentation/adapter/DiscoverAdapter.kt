@@ -17,8 +17,7 @@ import javax.inject.Inject
 
 class DiscoverAdapter @Inject constructor(
     private val listener: DiscoverItemListener
-) :
-    PagingDataAdapter<TvEntity, RecyclerView.ViewHolder>(TvEntityComparator) {
+) : PagingDataAdapter<TvEntity, RecyclerView.ViewHolder>(TvEntityComparator) {
 
     val width = Resources.getSystem().displayMetrics.widthPixels
 
@@ -28,8 +27,7 @@ class DiscoverAdapter @Inject constructor(
     class ShimmerHolder(val binding: ItemTvShowShimmerBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    class PosterHolder(val binding: ItemTvShowPosterBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    class PosterHolder(val binding: ItemTvShowPosterBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
@@ -78,8 +76,7 @@ class DiscoverAdapter @Inject constructor(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (getItem(0)?.id == EMPTY_ITEM_ID)
-            SHIMMER_TYPE else {
+        return if (getItem(0)?.id == EMPTY_ITEM_ID) SHIMMER_TYPE else {
             if (getItem(position)?.backdrop?.endsWith("null") == true) POSTER_TYPE else BACKDROP_TYPE
         }
     }
