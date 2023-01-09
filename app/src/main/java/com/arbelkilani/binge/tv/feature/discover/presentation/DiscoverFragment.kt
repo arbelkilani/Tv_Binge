@@ -7,7 +7,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.paging.PagingData
-import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.base.BaseFragment
 import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
 import com.arbelkilani.binge.tv.common.extension.removeOverScroll
@@ -36,7 +35,7 @@ class DiscoverFragment :
 
     private val trendingAdapter: TrendingAdapter by lazy { TrendingAdapter() }
     private val startingThisMonthAdapter: DiscoverAdapter by lazy { DiscoverAdapter(this) }
-    //private val basedOnProvidersAdapter: DiscoverAdapter by lazy { DiscoverAdapter() }
+    private val basedOnProvidersAdapter: DiscoverAdapter by lazy { DiscoverAdapter(this) }
 
     //private val discoverAdapter: DiscoverAdapter by lazy { DiscoverAdapter() }
 
@@ -68,11 +67,7 @@ class DiscoverFragment :
                     is DiscoverViewState.Loaded -> {
                         showTrending(viewState.trending)
                         showStartingThisMonth(viewState.startingThisMonth)
-                        //showBasedOnProviders(viewState.basedOnProvider)
-                        //showDiscover(viewState.discover)
-
-                        //showAiringToday(viewState.airingToday)
-                        //showProviders(viewState.providers)
+                        showBasedOnProviders(viewState.basedOnProvider)
                     }
                 }
             }
@@ -92,28 +87,13 @@ class DiscoverFragment :
         binding.layoutThisMonth.rvData.setPadding(0, 0, width / 3, 0)
         binding.layoutThisMonth.rvData.adapter = startingThisMonthAdapter
 
-        with(binding.layoutBasedOnProvider) {
-            rvData.apply {
-                setPadding(0, 0, width / 3, 0)
-                //adapter = basedOnProvidersAdapter
-            }
-        }
-
-        with(binding.layoutDiscover) {
-            rvData.apply {
-                setPadding(0, 0, width / 3, 0)
-                //adapter = discoverAdapter
-            }
-        }
-
-        //binding.rvAiringToday.apply { adapter = airingTodayAdapter }
-
-        //binding.rvProviders.apply { adapter = providersAdapter }
+        binding.layoutBasedOnProvider.rvData.setPadding(0, 0, width / 3, 0)
+        binding.layoutBasedOnProvider.rvData.adapter = basedOnProvidersAdapter
     }
 
     override suspend fun showTrending(state: DiscoverViewState.Trending?) {
         state?.let {
-            trendingAdapter.submitList(it.list)
+            trendingAdapter.submitData(lifecycle, it.list)
         }
     }
 
@@ -123,43 +103,27 @@ class DiscoverFragment :
         }
     }
 
-    override fun showBasedOnProviders(data: PagingData<TvEntity>) {
-        binding.layoutBasedOnProvider.apply {
-            tvTitle.text = getString(R.string.discover_based_on_providers)
+    override suspend fun showBasedOnProviders(state: DiscoverViewState.BasedOnProviders?) {
+        state?.let {
+            basedOnProvidersAdapter.submitData(lifecycle, it.data)
         }
-        //binding.layoutBasedOnProvider.rvData.adapter = basedOnProvidersAdapter.apply {
-        //    submitData(lifecycle, data)
-        //    binding.layoutThisMonth.ivAction.isVisible = basedOnProvidersAdapter.itemCount > 10
-        //}
-    }
-
-    override fun showDiscover(data: PagingData<TvEntity>) {
-        binding.layoutDiscover.apply {
-            tvTitle.text = "title is here"
-        }
-        //binding.layoutDiscover.rvData.adapter = discoverAdapter.apply {
-        //submitData(lifecycle, data)
-        //binding.layoutDiscover.ivAction.isVisible = discoverAdapter.itemCount > 10
-        //}
-    }
-
-    override fun showAiringToday(data: PagingData<TvEntity>) {
-        //airingTodayAdapter.submitData(lifecycle, data)
-    }
-
-    override fun showProviders(data: List<WatchProviderEntity>) {
-        //providersAdapter.submitList(data)
     }
 
     private fun showLoading() {
         binding.layoutTrending.vpTrending.apply {
             adapter = trendingAdapter.apply {
-                submitList(shimmerList)
+                submitData(lifecycle, PagingData.from(shimmerList))
             }
         }
 
         binding.layoutThisMonth.rvData.apply {
             adapter = startingThisMonthAdapter.apply {
+                submitData(lifecycle, PagingData.from(shimmerList))
+            }
+        }
+
+        binding.layoutBasedOnProvider.rvData.apply {
+            adapter = basedOnProvidersAdapter.apply {
                 submitData(lifecycle, PagingData.from(shimmerList))
             }
         }
@@ -174,7 +138,6 @@ class DiscoverFragment :
     }
 
     companion object {
-        private val TAG = DiscoverFragment::class.java.simpleName
         private val shimmerList = listOf(
             TvEntity(id = -1, "", null, null, emptyList(), 0f, ""),
             TvEntity(id = -1, "", null, null, emptyList(), 0f, ""),

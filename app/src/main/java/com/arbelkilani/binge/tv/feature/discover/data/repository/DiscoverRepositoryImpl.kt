@@ -5,23 +5,22 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
 import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
-import com.arbelkilani.binge.tv.common.source.local.room.AppDatabase
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
 import com.arbelkilani.binge.tv.common.source.remote.pagingsource.AiringTodayPagingSource
 import com.arbelkilani.binge.tv.common.source.remote.pagingsource.DiscoverPagingSource
+import com.arbelkilani.binge.tv.common.source.remote.pagingsource.TrendingPagingSource
 import com.arbelkilani.binge.tv.feature.discover.data.entities.DiscoverQuery
 import com.arbelkilani.binge.tv.feature.discover.data.mapper.TvMapper
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import com.arbelkilani.binge.tv.feature.discover.domain.repository.DiscoverRepository
 import com.arbelkilani.binge.tv.feature.walkthrough.domain.repository.ResourcesRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.single
 import java.util.*
 import javax.inject.Inject
 
 class DiscoverRepositoryImpl @Inject constructor(
-    private val service: ApiService, private val database: AppDatabase
+    private val service: ApiService
 ) : DiscoverRepository {
 
     private val country = Locale.getDefault().country
@@ -33,12 +32,13 @@ class DiscoverRepositoryImpl @Inject constructor(
     @Inject
     lateinit var resourceRepository: ResourcesRepository
 
-    override suspend fun getTrending(): Flow<List<TvEntity>> {
-        return flow {
-            emit(service.getTrending(TRENDING_MEDIA_TYPE, TRENDING_TIME_WINDOW).results.map {
-                mapper.map(it)
-            })
-        }
+    override suspend fun getTrending(): Flow<PagingData<TvEntity>> {
+        return Pager(
+            config = PagingConfig(OFFSET),
+            pagingSourceFactory = {
+                TrendingPagingSource(service, mapper)
+            }
+        ).flow
     }
 
     /**
@@ -115,13 +115,11 @@ class DiscoverRepositoryImpl @Inject constructor(
     /**
      *
      */
-    private suspend fun getGteAndLteDates(): Pair<String, String> {
+    private fun getGteAndLteDates(): Pair<String, String> {
         return Pair("", "")
     }
 
     companion object {
-        private const val TRENDING_MEDIA_TYPE = "tv"
-        private const val TRENDING_TIME_WINDOW = "week" // Or "day"
         private const val OFFSET = 20
     }
 }

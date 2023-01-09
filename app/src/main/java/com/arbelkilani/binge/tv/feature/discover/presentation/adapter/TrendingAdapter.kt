@@ -3,8 +3,8 @@ package com.arbelkilani.binge.tv.feature.discover.presentation.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.databinding.ItemDiscoverTrendingBinding
@@ -13,7 +13,7 @@ import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import javax.inject.Inject
 
 class TrendingAdapter @Inject constructor() :
-    ListAdapter<TvEntity, RecyclerView.ViewHolder>(TrendingComparator) {
+    PagingDataAdapter<TvEntity, RecyclerView.ViewHolder>(TrendingComparator) {
 
     class TrendingHolder(val binding: ItemDiscoverTrendingBinding) :
         RecyclerView.ViewHolder(binding.root)

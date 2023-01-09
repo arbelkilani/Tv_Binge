@@ -16,24 +16,21 @@ import javax.inject.Inject
 class DiscoverViewModel @Inject constructor(
     private val getTrendingUseCase: GetTrendingUseCase,
     private val getStartingThisMonthUseCase: GetStartingThisMonthUseCase,
-    private val getBasedOnProvidersUseCase: GetBasedOnProvidersUseCase,
-    private val getAiringTodayUseCase: GetAiringTodayUseCase,
-    private val getDiscoverUseCase: GetDiscoverUseCase,
-    private val getFavoriteProvidersUseCase: GetFavoriteProvidersUseCase
+    private val getBasedOnProvidersUseCase: GetBasedOnProvidersUseCase
 ) : BaseStateViewModel<DiscoverViewState>(initialState = DiscoverViewState.Start) {
 
-    fun init() {
+    suspend fun init() {
         updateState { DiscoverViewState.Loading }
-        viewModelScope.launch(Dispatchers.IO) {
-            getTrending()
-            getStartingThisMonth()
-        }
+        getTrending()
+        getStartingThisMonth()
+        getBasedOnProviders()
     }
 
     private suspend fun getTrending() {
-        try {
+        viewModelScope.launch {
             getTrendingUseCase.invoke()
                 .flowOn(Dispatchers.IO)
+                .cachedIn(viewModelScope)
                 .collectLatest { trendingList ->
                     updateDataState { state ->
                         state.copy(
@@ -43,15 +40,11 @@ class DiscoverViewModel @Inject constructor(
                         )
                     }
                 }
-        } catch (exception: Exception) {
-            updateState {
-                DiscoverViewState.Error(exception)
-            }
         }
     }
 
     private suspend fun getStartingThisMonth() {
-        try {
+        viewModelScope.launch {
             getStartingThisMonthUseCase.invoke()
                 .flowOn(Dispatchers.IO)
                 .cachedIn(viewModelScope)
@@ -64,64 +57,23 @@ class DiscoverViewModel @Inject constructor(
                         )
                     }
                 }
-        } catch (exception: Exception) {
-            updateState { DiscoverViewState.Error(exception) }
         }
     }
 
     private suspend fun getBasedOnProviders() {
-        try {
+        viewModelScope.launch {
             getBasedOnProvidersUseCase.invoke()
                 .flowOn(Dispatchers.IO)
                 .cachedIn(viewModelScope)
                 .collectLatest { data ->
-                    //updateDataState { state -> state.copy(basedOnProvider = data) }
-                }
-        } catch (exception: Exception) {
-            updateState { DiscoverViewState.Error(exception) }
-        }
-    }
-
-    private suspend fun getFavoriteProviders() {
-        try {
-            getFavoriteProvidersUseCase.invoke()
-                .flowOn(Dispatchers.IO)
-                .collectLatest { data ->
-                    data?.let {
-                        //updateDataState { state -> state.copy(providers = it) }
+                    updateDataState { state ->
+                        state.copy(
+                            basedOnProvider = DiscoverViewState.BasedOnProviders(
+                                data = data
+                            )
+                        )
                     }
                 }
-
-        } catch (exception: Exception) {
-            updateState { DiscoverViewState.Error(exception) }
-        }
-    }
-
-    private suspend fun getAiringToday() {
-        try {
-            getAiringTodayUseCase.invoke()
-                .flowOn(Dispatchers.IO)
-                .cachedIn(viewModelScope)
-                .collect { airingTodayPagingData ->
-                    //updateDataState { state -> state.copy(airingToday = airingTodayPagingData) }
-                }
-        } catch (exception: Exception) {
-            updateState {
-                DiscoverViewState.Error(exception)
-            }
-        }
-    }
-
-    private suspend fun discover() {
-        try {
-            getDiscoverUseCase.invoke()
-                .flowOn(Dispatchers.IO)
-                .cachedIn(viewModelScope)
-                .collect { data ->
-                    //updateDataState { state -> state.copy(discover = data) }
-                }
-        } catch (exception: Exception) {
-            updateState { DiscoverViewState.Error(exception = exception) }
         }
     }
 
