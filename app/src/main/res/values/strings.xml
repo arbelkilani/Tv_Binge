@@ -30,5 +30,6 @@
     <string name="discover_airing_today_label">Airing Today</string>
     <string name="discover_new_in_this_month">Starting this month</string>
     <string name="discover_based_on_providers">Based on favorite providers</string>
+    <string name="discover_free_to_watch">Free to watch</string>
 
 </resources>

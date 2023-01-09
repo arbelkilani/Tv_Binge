@@ -54,13 +54,22 @@ class DiscoverRepositoryImpl @Inject constructor(
             }).flow
     }
 
-    /**
-     *
-     */
     override suspend fun getBasedOnProviders(): Flow<PagingData<TvEntity>> {
         val discoverQuery = DiscoverQuery.Builder()
             .timezone(timezone)
             .watchProviders(getProvidersString())
+            .watchRegion(country).build()
+
+        return Pager(
+            config = PagingConfig(OFFSET),
+            pagingSourceFactory = {
+                DiscoverPagingSource(service, mapper, discoverQuery)
+            }).flow
+    }
+
+    override suspend fun getFree(): Flow<PagingData<TvEntity>> {
+        val discoverQuery = DiscoverQuery.Builder()
+            .monetizationType(DiscoverQuery.MonetizationType.FREE)
             .watchRegion(country).build()
 
         return Pager(

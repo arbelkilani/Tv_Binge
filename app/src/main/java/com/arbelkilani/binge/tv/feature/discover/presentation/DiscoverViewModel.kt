@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.arbelkilani.binge.tv.common.base.BaseStateViewModel
 import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetBasedOnProvidersUseCase
+import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetFreeUseCase
 import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetStartingThisMonthUseCase
 import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetTrendingUseCase
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
@@ -23,7 +24,8 @@ class DiscoverViewModel @Inject constructor(
     private val getStartingThisMonthUseCase: GetStartingThisMonthUseCase,
     private val getProvidersUseCase: GetProvidersUseCase,
     private val getBasedOnProvidersUseCase: GetBasedOnProvidersUseCase,
-    private val getGenresUseCase: GetGenresUseCase
+    private val getGenresUseCase: GetGenresUseCase,
+    private val getFreeUseCase: GetFreeUseCase
 ) : BaseStateViewModel<DiscoverViewState>(initialState = DiscoverViewState.Start) {
 
     suspend fun init() {
@@ -33,6 +35,7 @@ class DiscoverViewModel @Inject constructor(
         getStartingThisMonth()
         getBasedOnProviders()
         getGenres()
+        getFree()
     }
 
     private suspend fun getTrending() {
@@ -84,13 +87,22 @@ class DiscoverViewModel @Inject constructor(
                 .flowOn(Dispatchers.IO)
                 .collectLatest { data ->
                     updateDataState { state ->
-                        Log.i("TAG**", "state = $state")
                         state.copy(genres = data)
                     }
                 }
         }
     }
 
+    private suspend fun getFree() {
+        viewModelScope.launch {
+            getFreeUseCase.invoke()
+                .flowOn(Dispatchers.IO)
+                .cachedIn(viewModelScope)
+                .collectLatest { data ->
+                    updateDataState { state -> state.copy(free = data) }
+                }
+        }
+    }
 
     private fun updateDataState(handler: (DiscoverViewState.Loaded) -> (DiscoverViewState)) {
         updateState { state ->

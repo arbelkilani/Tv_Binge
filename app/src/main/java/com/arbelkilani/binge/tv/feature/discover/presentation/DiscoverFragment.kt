@@ -32,6 +32,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
     private val trendingAdapter: TrendingAdapter by lazy { TrendingAdapter() }
     private val startingThisMonthAdapter: DiscoverAdapter by lazy { DiscoverAdapter(this) }
     private val basedOnProvidersAdapter: DiscoverAdapter by lazy { DiscoverAdapter(this) }
+    private val freeAdapter: DiscoverAdapter by lazy { DiscoverAdapter(this) }
     private val providersAdapter: ProvidersAdapter by lazy { ProvidersAdapter(this) }
     private val genresAdapter: GenresAdapter by lazy { GenresAdapter() }
 
@@ -57,6 +58,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
                     showBasedOnProviders(viewState.basedOnProvider)
                     showProviders(viewState.providers)
                     showGenres(viewState.genres)
+                    showFree(viewState.free)
                 }
             }
         }
@@ -78,6 +80,9 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
 
         binding.layoutBasedOnProvider.rvData.setPadding(0, 0, width / 3, 0)
         binding.layoutBasedOnProvider.rvData.adapter = basedOnProvidersAdapter
+
+        binding.layoutFree.rvData.setPadding(0, 0, width / 4, 0)
+        binding.layoutFree.rvData.adapter = freeAdapter
 
         binding.rvProviders.adapter = providersAdapter.apply {
             submitList(providerShimmerTag)
@@ -109,6 +114,14 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
             text = getString(R.string.discover_based_on_providers)
         }
         basedOnProvidersAdapter.submitData(lifecycle, data)
+    }
+
+    override fun showFree(data: PagingData<TvEntity>) {
+        with(binding.layoutFree.tvTitle) {
+            isVisible = true
+            text = getString(R.string.discover_free_to_watch)
+        }
+        freeAdapter.submitData(lifecycle, data)
     }
 
     override fun showProviders(providers: List<WatchProviderEntity>?) {
@@ -170,9 +183,5 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
             GenreEntity(id = -1, "", false),
             GenreEntity(id = -1, "", false)
         )
-    }
-
-    override fun onBackdropNull() {
-
     }
 }

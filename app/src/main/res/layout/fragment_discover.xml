@@ -76,6 +76,17 @@
             tools:itemCount="10"
             tools:listitem="@layout/item_genre_min" />
 
+        <include
+            android:id="@+id/layout_free"
+            layout="@layout/layout_discover"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/default_margin"
+            app:layout_constraintDimensionRatio="1:.45"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_genres" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

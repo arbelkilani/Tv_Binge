@@ -34,6 +34,7 @@ class DiscoverAdapter @Inject constructor(
         val genres = item?.genres?.joinToString(separator = DOT_SYMBOL) { it.name }
         when (holder.itemViewType) {
             BACKDROP_TYPE -> with((holder as BackdropHolder).binding) {
+                root.layoutParams.width = width / 4
                 tv = item
                 tvGenres.text = genres
             }

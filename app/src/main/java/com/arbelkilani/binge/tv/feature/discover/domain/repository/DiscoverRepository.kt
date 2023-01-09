@@ -14,4 +14,5 @@ interface DiscoverRepository {
     suspend fun getFavoriteGenres(): Flow<List<GenreEntity>?>
     suspend fun getStartingThisMonth(): Flow<PagingData<TvEntity>>
     suspend fun getBasedOnProviders(): Flow<PagingData<TvEntity>>
+    suspend fun getFree(): Flow<PagingData<TvEntity>>
 }
