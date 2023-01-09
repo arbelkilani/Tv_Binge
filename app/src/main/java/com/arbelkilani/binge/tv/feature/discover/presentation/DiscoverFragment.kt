@@ -1,5 +1,6 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -51,13 +52,13 @@ class DiscoverFragment :
 
     override suspend fun initViewModelObservation() {
         super.initViewModelObservation()
+        Log.i("TAG**", "initViewModelObservation")
         viewModel.viewState
             .collectLatest { viewState ->
+                Log.i("TAG**", "viewState : $viewState")
                 when (viewState) {
                     DiscoverViewState.Start -> viewModel.init()
-                    DiscoverViewState.Loading -> {
-                        showLoading()
-                    }
+                    DiscoverViewState.Loading -> showLoading()
                     is DiscoverViewState.Error -> showError(viewState.exception)
                     is DiscoverViewState.Loaded -> {
                         showTrending(viewState.trending)
@@ -89,22 +90,16 @@ class DiscoverFragment :
         binding.rvProviders.adapter = providersAdapter
     }
 
-    override suspend fun showTrending(state: DiscoverViewState.Trending?) {
-        state?.let {
-            trendingAdapter.submitData(lifecycle, it.list)
-        }
+    override suspend fun showTrending(data: PagingData<TvEntity>) {
+        trendingAdapter.submitData(lifecycle, data)
     }
 
-    override suspend fun showStartingThisMonth(state: DiscoverViewState.StartingThisMonth?) {
-        state?.let {
-            startingThisMonthAdapter.submitData(lifecycle, it.data)
-        }
+    override suspend fun showStartingThisMonth(data: PagingData<TvEntity>) {
+        startingThisMonthAdapter.submitData(lifecycle, data)
     }
 
-    override suspend fun showBasedOnProviders(state: DiscoverViewState.BasedOnProviders?) {
-        state?.let {
-            basedOnProvidersAdapter.submitData(lifecycle, it.data)
-        }
+    override suspend fun showBasedOnProviders(data: PagingData<TvEntity>) {
+        basedOnProvidersAdapter.submitData(lifecycle, data)
     }
 
     override suspend fun showProviders(providers: List<WatchProviderEntity>?) {

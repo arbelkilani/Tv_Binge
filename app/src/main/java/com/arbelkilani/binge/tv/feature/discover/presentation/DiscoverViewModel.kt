@@ -1,5 +1,6 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.arbelkilani.binge.tv.common.base.BaseStateViewModel
@@ -24,8 +25,8 @@ class DiscoverViewModel @Inject constructor(
     suspend fun init() {
         updateState { DiscoverViewState.Loading }
         getTrending()
-        getStartingThisMonth()
         getProviders()
+        getStartingThisMonth()
         getBasedOnProviders()
     }
 
@@ -34,14 +35,8 @@ class DiscoverViewModel @Inject constructor(
             getTrendingUseCase.invoke()
                 .flowOn(Dispatchers.IO)
                 .cachedIn(viewModelScope)
-                .collectLatest { trendingList ->
-                    updateDataState { state ->
-                        state.copy(
-                            trending = DiscoverViewState.Trending(
-                                list = trendingList
-                            )
-                        )
-                    }
+                .collectLatest { data ->
+                    updateState { DiscoverViewState.Loaded(trending = data) }
                 }
         }
     }
@@ -52,13 +47,7 @@ class DiscoverViewModel @Inject constructor(
                 .flowOn(Dispatchers.IO)
                 .cachedIn(viewModelScope)
                 .collectLatest { data ->
-                    updateDataState { state ->
-                        state.copy(
-                            startingThisMonth = DiscoverViewState.StartingThisMonth(
-                                data = data
-                            )
-                        )
-                    }
+                    updateDataState { state -> state.copy(startingThisMonth = data) }
                 }
         }
     }
@@ -79,19 +68,13 @@ class DiscoverViewModel @Inject constructor(
                 .flowOn(Dispatchers.IO)
                 .cachedIn(viewModelScope)
                 .collectLatest { data ->
-                    updateDataState { state ->
-                        state.copy(
-                            basedOnProvider = DiscoverViewState.BasedOnProviders(
-                                data = data
-                            )
-                        )
-                    }
+                    updateDataState { state -> state.copy(basedOnProvider = data) }
                 }
         }
     }
 
     private fun updateDataState(handler: (DiscoverViewState.Loaded) -> (DiscoverViewState)) {
-        updateState { DiscoverViewState.Loaded() }
+        Log.i("TAG**", "updateDataState()")
         updateState { state ->
             if (state is DiscoverViewState.Loaded) {
                 handler.invoke(state)
