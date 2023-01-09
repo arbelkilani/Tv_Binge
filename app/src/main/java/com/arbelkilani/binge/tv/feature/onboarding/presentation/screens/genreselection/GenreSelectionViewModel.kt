@@ -23,7 +23,7 @@ class GenreSelectionViewModel @Inject constructor(
     fun load() {
         viewModelScope.launch {
             try {
-                getGenresUseCase.getGenres().collectLatest { list ->
+                getGenresUseCase.invoke().collectLatest { list ->
                     updateState { GenreSelectionViewState.Loaded(list) }
                 }
             } catch (exception: Exception) {

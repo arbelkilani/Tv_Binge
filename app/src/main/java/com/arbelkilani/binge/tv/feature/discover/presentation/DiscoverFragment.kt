@@ -1,22 +1,19 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.paging.PagingData
 import com.arbelkilani.binge.tv.common.base.BaseFragment
+import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
 import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
 import com.arbelkilani.binge.tv.common.extension.removeOverScroll
 import com.arbelkilani.binge.tv.common.extension.scalePagerTransformer
 import com.arbelkilani.binge.tv.databinding.FragmentDiscoverBinding
 import com.arbelkilani.binge.tv.feature.discover.DiscoverContract
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
-import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.DiscoverAdapter
-import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.ProvidersAdapter
-import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.TrendingAdapter
-import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.TvShimmerAdapter
+import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.*
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.ProviderClicked
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
@@ -37,6 +34,7 @@ class DiscoverFragment :
     private val startingThisMonthAdapter: DiscoverAdapter by lazy { DiscoverAdapter(this) }
     private val basedOnProvidersAdapter: DiscoverAdapter by lazy { DiscoverAdapter(this) }
     private val providersAdapter: ProvidersAdapter by lazy { ProvidersAdapter(this) }
+    private val genresAdapter: GenresAdapter by lazy { GenresAdapter() }
 
     @Inject
     lateinit var tvShimmerAdapter: TvShimmerAdapter
@@ -52,10 +50,8 @@ class DiscoverFragment :
 
     override suspend fun initViewModelObservation() {
         super.initViewModelObservation()
-        Log.i("TAG**", "initViewModelObservation")
         viewModel.viewState
             .collectLatest { viewState ->
-                Log.i("TAG**", "viewState : $viewState")
                 when (viewState) {
                     DiscoverViewState.Start -> viewModel.init()
                     DiscoverViewState.Loading -> showLoading()
@@ -65,6 +61,7 @@ class DiscoverFragment :
                         showStartingThisMonth(viewState.startingThisMonth)
                         showBasedOnProviders(viewState.basedOnProvider)
                         showProviders(viewState.providers)
+                        showGenres(viewState.genres)
                     }
                 }
             }
@@ -88,22 +85,31 @@ class DiscoverFragment :
         binding.layoutBasedOnProvider.rvData.adapter = basedOnProvidersAdapter
 
         binding.rvProviders.adapter = providersAdapter
+        binding.rvGenres.adapter = genresAdapter
     }
 
-    override suspend fun showTrending(data: PagingData<TvEntity>) {
+    override fun showTrending(data: PagingData<TvEntity>) {
         trendingAdapter.submitData(lifecycle, data)
     }
 
-    override suspend fun showStartingThisMonth(data: PagingData<TvEntity>) {
+    override fun showStartingThisMonth(data: PagingData<TvEntity>) {
         startingThisMonthAdapter.submitData(lifecycle, data)
     }
 
-    override suspend fun showBasedOnProviders(data: PagingData<TvEntity>) {
+    override fun getMoreStartingThisMonth() {
+
+    }
+
+    override fun showBasedOnProviders(data: PagingData<TvEntity>) {
         basedOnProvidersAdapter.submitData(lifecycle, data)
     }
 
-    override suspend fun showProviders(providers: List<WatchProviderEntity>?) {
+    override fun showProviders(providers: List<WatchProviderEntity>?) {
         providersAdapter.submitList(providers)
+    }
+
+    override fun showGenres(genres: List<GenreEntity>?) {
+        genresAdapter.submitList(genres)
     }
 
     private fun showLoading() {

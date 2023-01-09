@@ -4,8 +4,11 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.arbelkilani.binge.tv.common.base.BaseStateViewModel
-import com.arbelkilani.binge.tv.feature.discover.domain.usecase.*
+import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetBasedOnProvidersUseCase
+import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetStartingThisMonthUseCase
+import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetTrendingUseCase
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
+import com.arbelkilani.binge.tv.feature.onboarding.domain.usecase.GetGenresUseCase
 import com.arbelkilani.binge.tv.feature.onboarding.domain.usecase.GetProvidersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +22,8 @@ class DiscoverViewModel @Inject constructor(
     private val getTrendingUseCase: GetTrendingUseCase,
     private val getStartingThisMonthUseCase: GetStartingThisMonthUseCase,
     private val getProvidersUseCase: GetProvidersUseCase,
-    private val getBasedOnProvidersUseCase: GetBasedOnProvidersUseCase
+    private val getBasedOnProvidersUseCase: GetBasedOnProvidersUseCase,
+    private val getGenresUseCase: GetGenresUseCase
 ) : BaseStateViewModel<DiscoverViewState>(initialState = DiscoverViewState.Start) {
 
     suspend fun init() {
@@ -28,6 +32,7 @@ class DiscoverViewModel @Inject constructor(
         getProviders()
         getStartingThisMonth()
         getBasedOnProviders()
+        getGenres()
     }
 
     private suspend fun getTrending() {
@@ -73,8 +78,21 @@ class DiscoverViewModel @Inject constructor(
         }
     }
 
+    private suspend fun getGenres() {
+        viewModelScope.launch {
+            getGenresUseCase.invoke()
+                .flowOn(Dispatchers.IO)
+                .collectLatest { data ->
+                    updateDataState { state ->
+                        Log.i("TAG**", "state = $state")
+                        state.copy(genres = data)
+                    }
+                }
+        }
+    }
+
+
     private fun updateDataState(handler: (DiscoverViewState.Loaded) -> (DiscoverViewState)) {
-        Log.i("TAG**", "updateDataState()")
         updateState { state ->
             if (state is DiscoverViewState.Loaded) {
                 handler.invoke(state)

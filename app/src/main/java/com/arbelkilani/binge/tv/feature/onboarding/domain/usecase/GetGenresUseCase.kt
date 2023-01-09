@@ -10,7 +10,7 @@ class GetGenresUseCase @Inject constructor() {
     @Inject
     lateinit var onBoardingRepository: OnBoardingRepository
 
-    suspend fun getGenres(): Flow<List<GenreEntity>> {
+    suspend fun invoke(): Flow<List<GenreEntity>> {
         return onBoardingRepository.getGenres()
     }
 }

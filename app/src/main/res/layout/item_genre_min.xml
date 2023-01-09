@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="provider"
-            type="com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity" />
+            name="genre"
+            type="com.arbelkilani.binge.tv.common.domain.model.GenreEntity" />
     </data>
 
     <TextView
@@ -18,8 +18,8 @@
         android:elevation="2dp"
         android:paddingHorizontal="10dp"
         android:paddingVertical="5dp"
-        android:text="@{provider.name}"
+        android:text="@{genre.name}"
         android:textColor="@color/selector_tag_text_color"
-        tools:text="Netflix" />
+        tools:text="Animation" />
 
 </layout>
