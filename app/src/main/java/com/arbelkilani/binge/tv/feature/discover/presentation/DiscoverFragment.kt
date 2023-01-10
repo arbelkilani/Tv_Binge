@@ -24,7 +24,6 @@ import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverI
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.ProviderClicked
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -35,13 +34,37 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
 
     val viewModel: DiscoverViewModel by viewModels()
 
-    private val trendingAdapter: TrendingAdapter by lazy { TrendingAdapter() }
-    private val startingThisMonthAdapter: DiscoverAdapter by lazy { DiscoverAdapter(this) }
-    private val basedOnProvidersAdapter: DiscoverAdapter by lazy { DiscoverAdapter(this) }
-    private val freeAdapter: DiscoverAdapter by lazy { DiscoverAdapter(this) }
+    private val trendingAdapter: TrendingAdapter by lazy {
+        TrendingAdapter().apply {
+            submitData(lifecycle, PagingData.from(shimmerList))
+        }
+    }
+    private val startingThisMonthAdapter: DiscoverAdapter by lazy {
+        DiscoverAdapter(this).apply {
+            submitData(lifecycle, PagingData.from(shimmerList))
+        }
+    }
+    private val basedOnProvidersAdapter: DiscoverAdapter by lazy {
+        DiscoverAdapter(this).apply {
+            submitData(lifecycle, PagingData.from(shimmerList))
+        }
+    }
+    private val freeAdapter: DiscoverAdapter by lazy {
+        DiscoverAdapter(this).apply {
+            submitData(lifecycle, PagingData.from(shimmerList))
+        }
+    }
 
-    private val providersAdapter: ProvidersAdapter by lazy { ProvidersAdapter(this) }
-    private val genresAdapter: GenresAdapter by lazy { GenresAdapter() }
+    private val providersAdapter: ProvidersAdapter by lazy {
+        ProvidersAdapter(this).apply {
+            submitList(providerShimmerTag)
+        }
+    }
+    private val genresAdapter: GenresAdapter by lazy {
+        GenresAdapter().apply {
+            submitList(genreShimmerTag)
+        }
+    }
 
     @Inject
     lateinit var navigator: DiscoverContract.ViewNavigation
@@ -57,16 +80,16 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
             .map { viewState ->
                 when (viewState) {
                     DiscoverViewState.Start -> viewModel.init()
-                    DiscoverViewState.Loading -> showLoading()
                     is DiscoverViewState.Error -> showError(viewState.exception)
-                    is DiscoverViewState.Loaded -> {
+                    is DiscoverViewState.Data -> {
                         showTrending(viewState.trending)
                         showStartingThisMonth(viewState.startingThisMonth)
                         showBasedOnProviders(viewState.basedOnProvider)
+                        showFree(viewState.free)
                         showProviders(viewState.providers)
                         showGenres(viewState.genres)
-                        showFree(viewState.free)
                     }
+                    else -> Unit
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
@@ -91,12 +114,8 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
         binding.layoutFree.rvData.setPadding(0, 0, width / 4, 0)
         binding.layoutFree.rvData.adapter = freeAdapter
 
-        binding.rvProviders.adapter = providersAdapter.apply {
-            submitList(providerShimmerTag)
-        }
-        binding.rvGenres.adapter = genresAdapter.apply {
-            submitList(genreShimmerTag)
-        }
+        binding.rvProviders.adapter = providersAdapter
+        binding.rvGenres.adapter = genresAdapter
     }
 
     override fun showTrending(data: PagingData<TvEntity>) {
@@ -115,7 +134,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
 
     }
 
-    override fun showBasedOnProviders(data: PagingData<TvEntity>) {
+    override suspend fun showBasedOnProviders(data: PagingData<TvEntity>) {
         with(binding.layoutBasedOnProvider.tvTitle) {
             isVisible = true
             text = getString(R.string.discover_based_on_providers)
@@ -137,26 +156,6 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
 
     override fun showGenres(genres: List<GenreEntity>?) {
         genresAdapter.submitList(genres)
-    }
-
-    private fun showLoading() {
-        binding.layoutTrending.vpTrending.apply {
-            adapter = trendingAdapter.apply {
-                submitData(lifecycle, PagingData.from(shimmerList))
-            }
-        }
-
-        binding.layoutThisMonth.rvData.apply {
-            adapter = startingThisMonthAdapter.apply {
-                submitData(lifecycle, PagingData.from(shimmerList))
-            }
-        }
-
-        binding.layoutBasedOnProvider.rvData.apply {
-            adapter = basedOnProvidersAdapter.apply {
-                submitData(lifecycle, PagingData.from(shimmerList))
-            }
-        }
     }
 
     override fun showError(exception: Exception) {

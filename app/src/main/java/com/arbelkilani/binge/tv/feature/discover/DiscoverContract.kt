@@ -11,7 +11,7 @@ class DiscoverContract {
         fun showTrending(data: PagingData<TvEntity>)
         fun showStartingThisMonth(data: PagingData<TvEntity>)
         fun getMoreStartingThisMonth()
-        fun showBasedOnProviders(data: PagingData<TvEntity>)
+        suspend fun showBasedOnProviders(data: PagingData<TvEntity>)
         fun showFree(data: PagingData<TvEntity>)
         fun showProviders(providers: List<WatchProviderEntity>?)
         fun showGenres(genres: List<GenreEntity>?)
