@@ -104,7 +104,8 @@ class DiscoverRepositoryImpl @Inject constructor(
     }
 
     private suspend fun getProvidersString(): String? {
-        return resourceRepository.getFavoriteProviders().single()?.map { it.id }
+        return resourceRepository.getFavoriteProviders().single()
+            ?.map { it.id }
             ?.joinToString(separator = "|")
     }
 

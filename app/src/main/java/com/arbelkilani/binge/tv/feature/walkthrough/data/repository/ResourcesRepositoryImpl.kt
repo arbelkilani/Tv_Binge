@@ -83,7 +83,11 @@ class ResourcesRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getFavoriteProviders(): Flow<List<WatchProviderEntity>?> {
-        return flow { emit(resourcesDao.getFavoriteProviders()) }
+        return flow {
+            emit(resourcesDao.getFavoriteProviders()?.sortedByDescending {
+                it.priority
+            })
+        }
     }
 
     override suspend fun getFavoriteGenres(): Flow<List<GenreEntity>?> {
