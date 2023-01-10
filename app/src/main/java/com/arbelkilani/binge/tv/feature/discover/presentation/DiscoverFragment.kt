@@ -135,9 +135,12 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
     }
 
     override suspend fun showBasedOnProviders(data: PagingData<TvEntity>) {
-        with(binding.layoutBasedOnProvider.tvTitle) {
-            isVisible = true
-            text = getString(R.string.discover_based_on_providers)
+        with(binding.layoutBasedOnProvider) {
+            tvTitle.isVisible = true
+            tvTitle.text = getString(R.string.discover_based_on_providers)
+            val subtitle = viewModel.favoriteProviders.value
+            tvSubtitle.isVisible = subtitle.isNotEmpty()
+            tvSubtitle.text = subtitle
         }
         basedOnProvidersAdapter.submitData(lifecycle, data)
     }

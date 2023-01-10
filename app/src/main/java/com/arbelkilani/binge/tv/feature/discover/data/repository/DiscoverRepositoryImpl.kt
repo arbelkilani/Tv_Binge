@@ -103,9 +103,6 @@ class DiscoverRepositoryImpl @Inject constructor(
         return resourceRepository.getFavoriteGenres()
     }
 
-    /**
-     *
-     */
     private suspend fun getProvidersString(): String? {
         return resourceRepository.getFavoriteProviders().single()?.map { it.id }
             ?.joinToString(separator = "|")
@@ -116,9 +113,6 @@ class DiscoverRepositoryImpl @Inject constructor(
             ?.joinToString(separator = "|")
     }
 
-    /**
-     *
-     */
     private fun getGteAndLteDates(): Pair<String, String> {
         return Pair("", "")
     }
