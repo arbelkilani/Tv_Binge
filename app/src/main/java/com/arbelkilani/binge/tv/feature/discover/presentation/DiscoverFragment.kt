@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.base.BaseFragment
@@ -15,12 +16,17 @@ import com.arbelkilani.binge.tv.common.extension.scalePagerTransformer
 import com.arbelkilani.binge.tv.databinding.FragmentDiscoverBinding
 import com.arbelkilani.binge.tv.feature.discover.DiscoverContract
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
-import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.*
+import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.DiscoverAdapter
+import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.GenresAdapter
+import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.ProvidersAdapter
+import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.TrendingAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.ProviderClicked
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -33,6 +39,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
     private val startingThisMonthAdapter: DiscoverAdapter by lazy { DiscoverAdapter(this) }
     private val basedOnProvidersAdapter: DiscoverAdapter by lazy { DiscoverAdapter(this) }
     private val freeAdapter: DiscoverAdapter by lazy { DiscoverAdapter(this) }
+
     private val providersAdapter: ProvidersAdapter by lazy { ProvidersAdapter(this) }
     private val genresAdapter: GenresAdapter by lazy { GenresAdapter() }
 
@@ -46,22 +53,22 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
     }
 
     override suspend fun initViewModelObservation() {
-        super.initViewModelObservation()
-        viewModel.viewState.collectLatest { viewState ->
-            when (viewState) {
-                DiscoverViewState.Start -> viewModel.init()
-                DiscoverViewState.Loading -> showLoading()
-                is DiscoverViewState.Error -> showError(viewState.exception)
-                is DiscoverViewState.Loaded -> {
-                    showTrending(viewState.trending)
-                    showStartingThisMonth(viewState.startingThisMonth)
-                    showBasedOnProviders(viewState.basedOnProvider)
-                    showProviders(viewState.providers)
-                    showGenres(viewState.genres)
-                    showFree(viewState.free)
+        viewModel.viewState
+            .map { viewState ->
+                when (viewState) {
+                    DiscoverViewState.Start -> viewModel.init()
+                    DiscoverViewState.Loading -> showLoading()
+                    is DiscoverViewState.Error -> showError(viewState.exception)
+                    is DiscoverViewState.Loaded -> {
+                        showTrending(viewState.trending)
+                        showStartingThisMonth(viewState.startingThisMonth)
+                        showBasedOnProviders(viewState.basedOnProvider)
+                        showProviders(viewState.providers)
+                        showGenres(viewState.genres)
+                        showFree(viewState.free)
+                    }
                 }
-            }
-        }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     override fun initViews() {

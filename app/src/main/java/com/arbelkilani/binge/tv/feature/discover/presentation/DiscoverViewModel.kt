@@ -13,6 +13,7 @@ import com.arbelkilani.binge.tv.feature.onboarding.domain.usecase.GetGenresUseCa
 import com.arbelkilani.binge.tv.feature.onboarding.domain.usecase.GetProvidersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
@@ -30,6 +31,7 @@ class DiscoverViewModel @Inject constructor(
 
     suspend fun init() {
         updateState { DiscoverViewState.Loading }
+        delay(1000)
         getTrending()
         getProviders()
         getStartingThisMonth()
