@@ -6,7 +6,6 @@ import androidx.paging.PagingData
 import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
 import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
-import com.arbelkilani.binge.tv.common.source.remote.pagingsource.AiringTodayPagingSource
 import com.arbelkilani.binge.tv.common.source.remote.pagingsource.DiscoverPagingSource
 import com.arbelkilani.binge.tv.common.source.remote.pagingsource.TrendingPagingSource
 import com.arbelkilani.binge.tv.feature.discover.data.entities.DiscoverQuery
@@ -79,20 +78,17 @@ class DiscoverRepositoryImpl @Inject constructor(
             }).flow
     }
 
-    override suspend fun getAiringToday(): Flow<PagingData<TvEntity>> {
-        return Pager(config = PagingConfig(OFFSET),
-            pagingSourceFactory = { AiringTodayPagingSource(service, mapper) }).flow
-    }
-
-    override suspend fun discover(): Flow<PagingData<TvEntity>> {
+    override suspend fun getBasedOnGenres(): Flow<PagingData<TvEntity>> {
         val discoverQuery = DiscoverQuery.Builder()
-            .watchRegion(country)
             .timezone(timezone)
-            .watchProviders("283")
-            .build()
+            .genres(getGenresString())
+            .watchRegion(country).build()
 
-        return Pager(config = PagingConfig(OFFSET),
-            pagingSourceFactory = { DiscoverPagingSource(service, mapper, discoverQuery) }).flow
+        return Pager(
+            config = PagingConfig(OFFSET),
+            pagingSourceFactory = {
+                DiscoverPagingSource(service, mapper, discoverQuery)
+            }).flow
     }
 
     override suspend fun getFavoriteProviders(): Flow<List<WatchProviderEntity>?> {
@@ -110,7 +106,8 @@ class DiscoverRepositoryImpl @Inject constructor(
     }
 
     private suspend fun getGenresString(): String? {
-        return resourceRepository.getFavoriteGenres().single()?.map { it.id }
+        return resourceRepository.getFavoriteGenres().single()
+            ?.map { it.id }
             ?.joinToString(separator = "|")
     }
 

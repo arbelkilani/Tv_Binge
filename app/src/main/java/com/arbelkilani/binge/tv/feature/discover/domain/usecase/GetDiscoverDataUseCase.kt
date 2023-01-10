@@ -14,7 +14,8 @@ class GetDiscoverDataUseCase @Inject constructor(
     private val basedOnProvidersUseCase: GetBasedOnProvidersUseCase,
     private val freeUseCase: GetFreeUseCase,
     private val getProvidersUseCase: GetProvidersUseCase,
-    private val getGenresUseCase: GetGenresUseCase
+    private val getGenresUseCase: GetGenresUseCase,
+    private val getBasedOnGenresUseCase: GetBasedOnGenresUseCase
 ) {
 
     suspend fun invoke(scope: CoroutineScope): Flow<DiscoverViewState.Data> {
@@ -26,7 +27,8 @@ class GetDiscoverDataUseCase @Inject constructor(
                     basedOnProvider = basedOnProvidersUseCase.invoke().cachedIn(scope).first(),
                     free = freeUseCase.invoke().cachedIn(scope).first(),
                     providers = getProvidersUseCase.invoke().first(),
-                    genres = getGenresUseCase.invoke().first()
+                    genres = getGenresUseCase.invoke().first(),
+                    basedOnGenres = getBasedOnGenresUseCase.invoke().cachedIn(scope).first()
                 )
             )
         }

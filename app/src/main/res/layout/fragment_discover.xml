@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/default_margin"
-            app:layout_constraintDimensionRatio="1:.47"
+            app:layout_constraintDimensionRatio="1:.48"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rv_providers" />
@@ -86,6 +86,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rv_genres" />
+
+        <include
+            android:id="@+id/layout_based_on_genre"
+            layout="@layout/layout_discover"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/default_margin"
+            app:layout_constraintDimensionRatio="1:.48"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_free" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

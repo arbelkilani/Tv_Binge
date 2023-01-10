@@ -34,7 +34,7 @@
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
-        app:layout_constraintWidth_percent=".5"
+        app:layout_constraintWidth_percent=".75"
         tools:text="subtitle is here"
         tools:visibility="visible" />
 

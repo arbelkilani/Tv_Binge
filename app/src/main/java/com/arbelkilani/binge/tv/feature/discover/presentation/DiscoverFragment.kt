@@ -29,7 +29,9 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContract.ViewCapabilities,
+class DiscoverFragment :
+    BaseFragment<FragmentDiscoverBinding>(),
+    DiscoverContract.ViewCapabilities,
     ProviderClicked, DiscoverItemListener {
 
     val viewModel: DiscoverViewModel by viewModels()
@@ -50,6 +52,12 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
         }
     }
     private val freeAdapter: DiscoverAdapter by lazy {
+        DiscoverAdapter(this).apply {
+            submitData(lifecycle, PagingData.from(shimmerList))
+        }
+    }
+
+    private val basedOnGenresAdapter: DiscoverAdapter by lazy {
         DiscoverAdapter(this).apply {
             submitData(lifecycle, PagingData.from(shimmerList))
         }
@@ -88,6 +96,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
                         showFree(viewState.free)
                         showProviders(viewState.providers)
                         showGenres(viewState.genres)
+                        showBasedOnGenres(viewState.basedOnGenres)
                     }
                     else -> Unit
                 }
@@ -111,8 +120,10 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
         binding.layoutBasedOnProvider.rvData.setPadding(0, 0, width / 3, 0)
         binding.layoutBasedOnProvider.rvData.adapter = basedOnProvidersAdapter
 
-        binding.layoutFree.rvData.setPadding(0, 0, width / 4, 0)
+        binding.layoutFree.rvData.setPadding(0, 0, width / 3, 0)
         binding.layoutFree.rvData.adapter = freeAdapter
+
+        binding.layoutBasedOnGenre.rvData.adapter = basedOnGenresAdapter
 
         binding.rvProviders.adapter = providersAdapter
         binding.rvGenres.adapter = genresAdapter
@@ -134,7 +145,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
 
     }
 
-    override suspend fun showBasedOnProviders(data: PagingData<TvEntity>) {
+    override fun showBasedOnProviders(data: PagingData<TvEntity>) {
         with(binding.layoutBasedOnProvider) {
             tvTitle.isVisible = true
             tvTitle.text = getString(R.string.discover_based_on_providers)
@@ -151,6 +162,17 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>(), DiscoverContra
             text = getString(R.string.discover_free_to_watch)
         }
         freeAdapter.submitData(lifecycle, data)
+    }
+
+    override fun showBasedOnGenres(data: PagingData<TvEntity>) {
+        with(binding.layoutBasedOnGenre) {
+            tvTitle.isVisible = true
+            tvTitle.text = getString(R.string.discover_based_on_genres)
+            val subtitle = viewModel.favoriteGenres.value
+            tvSubtitle.isVisible = subtitle.isNotEmpty()
+            tvSubtitle.text = subtitle
+        }
+        basedOnGenresAdapter.submitData(lifecycle, data)
     }
 
     override fun showProviders(providers: List<WatchProviderEntity>?) {

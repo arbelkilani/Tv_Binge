@@ -3,6 +3,7 @@ package com.arbelkilani.binge.tv.feature.discover.presentation
 import androidx.lifecycle.viewModelScope
 import com.arbelkilani.binge.tv.common.base.BaseStateViewModel
 import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetDiscoverDataUseCase
+import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetFavoriteGenresUseCase
 import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetFavoriteProvidersUseCase
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,11 +18,15 @@ import javax.inject.Inject
 @HiltViewModel
 class DiscoverViewModel @Inject constructor(
     private val getDiscoverDataUseCase: GetDiscoverDataUseCase,
-    private val getFavoriteProvidersUseCase: GetFavoriteProvidersUseCase
+    private val getFavoriteProvidersUseCase: GetFavoriteProvidersUseCase,
+    private val getFavoriteGenresUseCase: GetFavoriteGenresUseCase
 ) : BaseStateViewModel<DiscoverViewState>(initialState = DiscoverViewState.Start) {
 
     private val _favoriteProviders = MutableStateFlow("")
     val favoriteProviders: StateFlow<String> = _favoriteProviders
+
+    private val _favoriteGenres = MutableStateFlow("")
+    val favoriteGenres: StateFlow<String> = _favoriteGenres
 
     suspend fun init() {
         updateState { DiscoverViewState.Loading }
@@ -35,7 +40,8 @@ class DiscoverViewModel @Inject constructor(
                             basedOnProvider = data.basedOnProvider,
                             free = data.free,
                             providers = data.providers,
-                            genres = data.genres
+                            genres = data.genres,
+                            basedOnGenres = data.basedOnGenres
                         )
                     }
                 }
@@ -45,6 +51,14 @@ class DiscoverViewModel @Inject constructor(
             getFavoriteProvidersUseCase.invoke().collectLatest { list ->
                 list?.let {
                     _favoriteProviders.value = it.joinToString(separator = ", ") { it.name }
+                }
+            }
+        }
+
+        viewModelScope.launch {
+            getFavoriteGenresUseCase.invoke().collectLatest { list ->
+                list?.let {
+                    _favoriteGenres.value = it.joinToString(separator = ", ") { it.name }
                 }
             }
         }
