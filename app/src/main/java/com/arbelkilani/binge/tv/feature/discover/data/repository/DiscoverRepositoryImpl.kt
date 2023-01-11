@@ -38,6 +38,21 @@ class DiscoverRepositoryImpl @Inject constructor(
         ).flow
     }
 
+    override suspend fun getUpcoming(): Flow<PagingData<TvEntity>> {
+        val discoverQuery = DiscoverQuery.Builder()
+            .timezone(timezone)
+            .airDateGte("2023-01-11")
+            .sortBy(DiscoverQuery.SortBy.VOTE_AVERAGE_DESC)
+            .type(DiscoverQuery.Type.SCRIPTED)
+            .watchRegion(country).build()
+
+        return Pager(
+            config = PagingConfig(OFFSET),
+            pagingSourceFactory = {
+                DiscoverPagingSource(service, mapper, discoverQuery)
+            }).flow
+    }
+
     override suspend fun getStartingThisMonth(): Flow<PagingData<TvEntity>> {
         val discoverQuery = DiscoverQuery.Builder()
             .sortBy(DiscoverQuery.SortBy.FIRST_AIR_DATE_ASC)

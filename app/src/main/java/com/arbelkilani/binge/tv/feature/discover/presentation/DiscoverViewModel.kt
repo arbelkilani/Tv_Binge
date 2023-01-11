@@ -41,7 +41,8 @@ class DiscoverViewModel @Inject constructor(
                             free = data.free,
                             providers = data.providers,
                             genres = data.genres,
-                            basedOnGenres = data.basedOnGenres
+                            basedOnGenres = data.basedOnGenres,
+                            upcoming = data.upcoming
                         )
                     }
                 }

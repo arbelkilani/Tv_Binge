@@ -63,6 +63,12 @@ class DiscoverFragment :
         }
     }
 
+    private val upcomingAdapter: DiscoverAdapter by lazy {
+        DiscoverAdapter(this).apply {
+            submitData(lifecycle, PagingData.from(shimmerList))
+        }
+    }
+
     private val providersAdapter: ProvidersAdapter by lazy {
         ProvidersAdapter(this).apply {
             submitList(providerShimmerTag)
@@ -97,6 +103,7 @@ class DiscoverFragment :
                         showProviders(viewState.providers)
                         showGenres(viewState.genres)
                         showBasedOnGenres(viewState.basedOnGenres)
+                        showUpcoming(viewState.upcoming)
                     }
                     else -> Unit
                 }
@@ -124,16 +131,25 @@ class DiscoverFragment :
             adapter = basedOnProvidersAdapter
         }
 
-        binding.layoutFree.rvData.setPadding(0, 0, width / 3, 0)
-        binding.layoutFree.rvData.adapter = freeAdapter
+        binding.layoutFree.rvData.apply {
+            setPadding(0, 0, width / 3, 0)
+            adapter = freeAdapter
+        }
 
         binding.layoutProviders.rvData.apply {
             setPadding(0, 0, (width * .78f).toInt(), 0)
             adapter = providersAdapter
         }
 
-        binding.layoutBasedOnGenre.rvData.setPadding(0, 0, width / 3, 0)
-        binding.layoutBasedOnGenre.rvData.adapter = basedOnGenresAdapter
+        binding.layoutUpcoming.rvData.apply {
+            setPadding(0, 0, (width * .6f).toInt(), 0)
+            adapter = upcomingAdapter
+        }
+
+        binding.layoutBasedOnGenre.rvData.apply {
+            setPadding(0, 0, width / 3, 0)
+            adapter = basedOnGenresAdapter
+        }
 
         binding.rvGenres.adapter = genresAdapter
     }
@@ -163,6 +179,14 @@ class DiscoverFragment :
             tvSubtitle.text = subtitle
         }
         basedOnProvidersAdapter.submitData(lifecycle, data)
+    }
+
+    override fun showUpcoming(data: PagingData<TvEntity>) {
+        with(binding.layoutUpcoming) {
+            tvTitle.isVisible = true
+            tvTitle.text = getString(R.string.discover_upcoming)
+        }
+        upcomingAdapter.submitData(lifecycle, data)
     }
 
     override fun showFree(data: PagingData<TvEntity>) {

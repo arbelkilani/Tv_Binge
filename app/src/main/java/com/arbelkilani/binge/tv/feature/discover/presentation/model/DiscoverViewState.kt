@@ -16,6 +16,7 @@ sealed class DiscoverViewState {
         val free: PagingData<TvEntity> = PagingData.empty(),
         val providers: List<WatchProviderEntity> = emptyList(),
         val genres: List<GenreEntity> = emptyList(),
-        val basedOnGenres: PagingData<TvEntity> = PagingData.empty()
+        val basedOnGenres: PagingData<TvEntity> = PagingData.empty(),
+        val upcoming: PagingData<TvEntity> = PagingData.empty()
     ) : DiscoverViewState()
 }

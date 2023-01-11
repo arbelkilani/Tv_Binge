@@ -28,7 +28,7 @@ open class DiscoverPagingSource @Inject constructor(
                 .filterNot {
                     it.poster.isNullOrEmpty() && it.backdrop.isNullOrEmpty()
                 }
-                .map { tvMapper.map(it) }.sortedByDescending { it.voteAverage }
+                .map { tvMapper.map(it) }
 
             LoadResult.Page(
                 data = tvShows,

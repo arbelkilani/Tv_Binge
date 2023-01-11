@@ -14,6 +14,7 @@ class DiscoverContract {
         fun showBasedOnProviders(data: PagingData<TvEntity>)
         fun showFree(data: PagingData<TvEntity>)
         fun showBasedOnGenres(data: PagingData<TvEntity>)
+        fun showUpcoming(data: PagingData<TvEntity>)
         fun showProviders(providers: List<WatchProviderEntity>?)
         fun showGenres(genres: List<GenreEntity>?)
         fun showError(exception: Exception)
