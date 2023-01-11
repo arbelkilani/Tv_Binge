@@ -11,7 +11,7 @@
     </data>
 
 
-    <com.google.android.material.card.MaterialCardView
+    <com.arbelkilani.binge.tv.common.ui.CustomCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:outlineProvider="background"
@@ -87,6 +87,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+    </com.arbelkilani.binge.tv.common.ui.CustomCardView>
 
 </layout>

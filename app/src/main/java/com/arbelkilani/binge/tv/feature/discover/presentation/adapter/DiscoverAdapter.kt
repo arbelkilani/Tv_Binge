@@ -32,13 +32,15 @@ class DiscoverAdapter @Inject constructor(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
-        //val genres = item?.genres?.joinToString(separator = DOT_SYMBOL) { it.name }
+        val genres = item?.genres?.joinToString(separator = DOT_SYMBOL) { it.name }
         when (holder.itemViewType) {
             BACKDROP_TYPE -> with((holder as BackdropHolder).binding) {
+                root.setOnClickListener { listener.onTvClicked(item) }
                 tv = item
-                //tvGenres.text = genres
+                tvGenres.text = genres
             }
             POSTER_TYPE -> with((holder as PosterHolder).binding) {
+                root.setOnClickListener { listener.onTvClicked(item) }
                 root.layoutParams.width = width / 4
                 tv = item
             }

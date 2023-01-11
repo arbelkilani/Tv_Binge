@@ -15,7 +15,6 @@ import com.arbelkilani.binge.tv.common.extension.removeOverScroll
 import com.arbelkilani.binge.tv.common.extension.scalePagerTransformer
 import com.arbelkilani.binge.tv.databinding.FragmentDiscoverBinding
 import com.arbelkilani.binge.tv.feature.discover.DiscoverContract
-import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.DiscoverAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.GenresAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.ProvidersAdapter
@@ -224,8 +223,8 @@ class DiscoverFragment :
         Toast.makeText(context, exception.localizedMessage, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onTvClicked(tvEntity: TvEntity) {
-        TODO("Not yet implemented")
+    override fun onTvClicked(tv: Tv?) {
+        Toast.makeText(context, tv?.name, Toast.LENGTH_SHORT).show()
     }
 
     override fun onProviderClicked(watchProviderEntity: WatchProviderEntity) {

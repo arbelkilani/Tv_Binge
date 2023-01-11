@@ -10,7 +10,7 @@
             type="com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity" />
     </data>
 
-    <com.google.android.material.card.MaterialCardView
+    <com.arbelkilani.binge.tv.common.ui.CustomCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="@dimen/default_card_elevation"
@@ -40,5 +40,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+    </com.arbelkilani.binge.tv.common.ui.CustomCardView>
 </layout>
