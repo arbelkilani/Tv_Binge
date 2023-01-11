@@ -17,6 +17,7 @@
             layout="@layout/layout_discover_trending"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/default_margin"
             app:layout_constraintDimensionRatio="1:.5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +38,7 @@
             layout="@layout/layout_square_providers"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/default_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_this_month" />
@@ -47,7 +49,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/default_margin"
-            app:layout_constraintDimensionRatio="1:.48"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_providers" />
@@ -74,7 +75,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/default_margin"
-            app:layout_constraintDimensionRatio="1:.45"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rv_genres" />
@@ -85,7 +85,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/default_margin"
-            app:layout_constraintDimensionRatio="1:.48"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_free" />
