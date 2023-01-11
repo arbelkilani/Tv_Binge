@@ -114,18 +114,27 @@ class DiscoverFragment :
             }
         }
 
-        binding.layoutThisMonth.rvData.setPadding(0, 0, width / 3, 0)
-        binding.layoutThisMonth.rvData.adapter = startingThisMonthAdapter
+        binding.layoutThisMonth.rvData.apply {
+            setPadding(0, 0, (width * .4f).toInt(), 0)
+            adapter = startingThisMonthAdapter
+        }
 
-        binding.layoutBasedOnProvider.rvData.setPadding(0, 0, width / 3, 0)
-        binding.layoutBasedOnProvider.rvData.adapter = basedOnProvidersAdapter
+        binding.layoutBasedOnProvider.rvData.apply {
+            setPadding(0, 0, (width * .2f).toInt(), 0)
+            adapter = basedOnProvidersAdapter
+        }
 
         binding.layoutFree.rvData.setPadding(0, 0, width / 3, 0)
         binding.layoutFree.rvData.adapter = freeAdapter
 
+        binding.layoutProviders.rvData.apply {
+            setPadding(0, 0, (width * .78f).toInt(), 0)
+            adapter = providersAdapter
+        }
+
+        binding.layoutBasedOnGenre.rvData.setPadding(0, 0, width / 3, 0)
         binding.layoutBasedOnGenre.rvData.adapter = basedOnGenresAdapter
 
-        binding.rvProviders.adapter = providersAdapter
         binding.rvGenres.adapter = genresAdapter
     }
 

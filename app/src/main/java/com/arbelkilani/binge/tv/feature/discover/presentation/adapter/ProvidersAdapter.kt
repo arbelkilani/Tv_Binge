@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
-import com.arbelkilani.binge.tv.databinding.ItemProviderMinBinding
+import com.arbelkilani.binge.tv.databinding.ItemSquareProviderBinding
 import com.arbelkilani.binge.tv.databinding.ItemTagShimmerBinding
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.ProviderClicked
 import javax.inject.Inject
@@ -17,7 +17,7 @@ class ProvidersAdapter @Inject constructor(
     private val listener: ProviderClicked
 ) : ListAdapter<WatchProviderEntity, RecyclerView.ViewHolder>(WatchProviderEntityComparator) {
 
-    class ProvidersHolder(val binding: ItemProviderMinBinding) :
+    class ProvidersHolder(val binding: ItemSquareProviderBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     class ShimmerTagHolder(val binding: ItemTagShimmerBinding) :
@@ -38,7 +38,10 @@ class ProvidersAdapter @Inject constructor(
         return when (viewType) {
             DEFAULT_TYPE -> ProvidersHolder(
                 DataBindingUtil.inflate(
-                    LayoutInflater.from(parent.context), R.layout.item_provider_min, parent, false
+                    LayoutInflater.from(parent.context),
+                    R.layout.item_square_provider,
+                    parent,
+                    false
                 )
             )
             else -> ShimmerTagHolder(

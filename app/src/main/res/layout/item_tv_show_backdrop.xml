@@ -15,8 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:outlineProvider="background"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp"
+        app:cardCornerRadius="@dimen/medium_corner_radius"
+        app:cardElevation="@dimen/default_card_elevation"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true">
 
@@ -39,10 +39,11 @@
 
             <TextView
                 android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/medium_margin"
                 android:layout_marginBottom="5dp"
+                android:ellipsize="end"
                 android:fontFamily="@font/avenir_next_demi_bold"
                 android:maxLines="1"
                 android:text="@{tv.name}"
@@ -50,6 +51,7 @@
                 android:textSize="13sp"
                 app:layout_constraintBottom_toTopOf="@id/tv_genres"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintWidth_percent=".8"
                 tools:text="Pokemon" />
 
             <TextView
