@@ -56,11 +56,12 @@
                 android:layout_marginBottom="@dimen/default_margin"
                 android:fontFamily="@font/avenir_next_regular"
                 android:textColor="@color/anti_flash_white"
-                android:textSize="11sp"
+                android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:text="Animation - Horror - Comedy" />
+                tools:text="Animation - Horror - Comedy"
+                tools:ignore="SmallSp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

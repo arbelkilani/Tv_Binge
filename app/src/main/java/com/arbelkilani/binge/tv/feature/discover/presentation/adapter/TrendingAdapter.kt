@@ -50,7 +50,7 @@ class TrendingAdapter @Inject constructor(
             with((holder as TrendingHolder).binding) {
                 val item = getItem(position)
                 tv = item
-                //tvGenres.text = item?.genres?.joinToString(separator = " \u2022 ") { it.name }
+                tvGenres.text = item?.genres?.joinToString(separator = " \u2022 ") { it.name }
             }
         }
     }

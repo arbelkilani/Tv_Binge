@@ -126,26 +126,32 @@ class DiscoverFragment :
         }
 
         binding.layoutThisMonth.rvData.apply {
+            setPadding(0, 0, (width * .4f).toInt(), 0)
             adapter = startingThisMonthAdapter
         }
 
         binding.layoutBasedOnProvider.rvData.apply {
+            setPadding(0, 0, (width * .4f).toInt(), 0)
             adapter = basedOnProvidersAdapter
         }
 
         binding.layoutFree.rvData.apply {
+            setPadding(0, 0, (width * .4f).toInt(), 0)
             adapter = freeAdapter
         }
 
         binding.layoutProviders.rvData.apply {
+            setPadding(0, 0, (width * .82f).toInt(), 0)
             adapter = providersAdapter
         }
 
         binding.layoutUpcoming.rvData.apply {
+            setPadding(0, 0, (width * .4f).toInt(), 0)
             adapter = upcomingAdapter
         }
 
         binding.layoutBasedOnGenre.rvData.apply {
+            setPadding(0, 0, (width * .4f).toInt(), 0)
             adapter = basedOnGenresAdapter
         }
 

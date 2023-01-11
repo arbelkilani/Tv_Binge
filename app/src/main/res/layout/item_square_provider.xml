@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:elevation="@dimen/default_card_elevation"
         android:outlineProvider="background"
-        app:cardCornerRadius="@dimen/medium_corner_radius"
+        app:cardCornerRadius="@dimen/min_corner_radius"
         app:cardElevation="@dimen/default_card_elevation"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true">
