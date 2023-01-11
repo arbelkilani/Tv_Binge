@@ -21,8 +21,8 @@ import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.GenresAdap
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.ProvidersAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.TrendingAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
-import com.arbelkilani.binge.tv.feature.discover.presentation.listener.ProviderClicked
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -32,25 +32,28 @@ import javax.inject.Inject
 class DiscoverFragment :
     BaseFragment<FragmentDiscoverBinding>(),
     DiscoverContract.ViewCapabilities,
-    ProviderClicked, DiscoverItemListener {
+    DiscoverItemListener {
 
     val viewModel: DiscoverViewModel by viewModels()
 
     private val trendingAdapter: TrendingAdapter by lazy {
-        TrendingAdapter().apply {
+        TrendingAdapter(this).apply {
             submitData(lifecycle, PagingData.from(shimmerList))
         }
     }
+
     private val startingThisMonthAdapter: DiscoverAdapter by lazy {
         DiscoverAdapter(this).apply {
             submitData(lifecycle, PagingData.from(shimmerList))
         }
     }
+
     private val basedOnProvidersAdapter: DiscoverAdapter by lazy {
         DiscoverAdapter(this).apply {
             submitData(lifecycle, PagingData.from(shimmerList))
         }
     }
+
     private val freeAdapter: DiscoverAdapter by lazy {
         DiscoverAdapter(this).apply {
             submitData(lifecycle, PagingData.from(shimmerList))
@@ -74,8 +77,9 @@ class DiscoverFragment :
             submitList(providerShimmerTag)
         }
     }
+
     private val genresAdapter: GenresAdapter by lazy {
-        GenresAdapter().apply {
+        GenresAdapter(this).apply {
             submitList(genreShimmerTag)
         }
     }
@@ -122,43 +126,37 @@ class DiscoverFragment :
         }
 
         binding.layoutThisMonth.rvData.apply {
-            setPadding(0, 0, (width * .4f).toInt(), 0)
             adapter = startingThisMonthAdapter
         }
 
         binding.layoutBasedOnProvider.rvData.apply {
-            setPadding(0, 0, (width * .2f).toInt(), 0)
             adapter = basedOnProvidersAdapter
         }
 
         binding.layoutFree.rvData.apply {
-            setPadding(0, 0, width / 3, 0)
             adapter = freeAdapter
         }
 
         binding.layoutProviders.rvData.apply {
-            setPadding(0, 0, (width * .78f).toInt(), 0)
             adapter = providersAdapter
         }
 
         binding.layoutUpcoming.rvData.apply {
-            setPadding(0, 0, (width * .6f).toInt(), 0)
             adapter = upcomingAdapter
         }
 
         binding.layoutBasedOnGenre.rvData.apply {
-            setPadding(0, 0, width / 3, 0)
             adapter = basedOnGenresAdapter
         }
 
         binding.rvGenres.adapter = genresAdapter
     }
 
-    override fun showTrending(data: PagingData<TvEntity>) {
+    override fun showTrending(data: PagingData<Tv>) {
         trendingAdapter.submitData(lifecycle, data)
     }
 
-    override fun showStartingThisMonth(data: PagingData<TvEntity>) {
+    override fun showStartingThisMonth(data: PagingData<Tv>) {
         with(binding.layoutThisMonth.tvTitle) {
             isVisible = true
             text = getString(R.string.discover_new_in_this_month)
@@ -170,7 +168,7 @@ class DiscoverFragment :
 
     }
 
-    override fun showBasedOnProviders(data: PagingData<TvEntity>) {
+    override fun showBasedOnProviders(data: PagingData<Tv>) {
         with(binding.layoutBasedOnProvider) {
             tvTitle.isVisible = true
             tvTitle.text = getString(R.string.discover_based_on_providers)
@@ -181,7 +179,7 @@ class DiscoverFragment :
         basedOnProvidersAdapter.submitData(lifecycle, data)
     }
 
-    override fun showUpcoming(data: PagingData<TvEntity>) {
+    override fun showUpcoming(data: PagingData<Tv>) {
         with(binding.layoutUpcoming) {
             tvTitle.isVisible = true
             tvTitle.text = getString(R.string.discover_upcoming)
@@ -189,7 +187,7 @@ class DiscoverFragment :
         upcomingAdapter.submitData(lifecycle, data)
     }
 
-    override fun showFree(data: PagingData<TvEntity>) {
+    override fun showFree(data: PagingData<Tv>) {
         with(binding.layoutFree.tvTitle) {
             isVisible = true
             text = getString(R.string.discover_free_to_watch)
@@ -197,7 +195,7 @@ class DiscoverFragment :
         freeAdapter.submitData(lifecycle, data)
     }
 
-    override fun showBasedOnGenres(data: PagingData<TvEntity>) {
+    override fun showBasedOnGenres(data: PagingData<Tv>) {
         with(binding.layoutBasedOnGenre) {
             tvTitle.isVisible = true
             tvTitle.text = getString(R.string.discover_based_on_genres)
@@ -220,17 +218,25 @@ class DiscoverFragment :
         Toast.makeText(context, exception.localizedMessage, Toast.LENGTH_SHORT).show()
     }
 
+    override fun onTvClicked(tvEntity: TvEntity) {
+        TODO("Not yet implemented")
+    }
+
     override fun onProviderClicked(watchProviderEntity: WatchProviderEntity) {
         Toast.makeText(context, watchProviderEntity.name, Toast.LENGTH_SHORT).show()
     }
 
+    override fun onGenreClicked(genreEntity: GenreEntity) {
+        TODO("Not yet implemented")
+    }
+
     companion object {
         private val shimmerList = listOf(
-            TvEntity(id = -1, "", null, null, emptyList(), 0f, ""),
-            TvEntity(id = -1, "", null, null, emptyList(), 0f, ""),
-            TvEntity(id = -1, "", null, null, emptyList(), 0f, ""),
-            TvEntity(id = -1, "", null, null, emptyList(), 0f, ""),
-            TvEntity(id = -1, "", null, null, emptyList(), 0f, "")
+            Tv(id = -1, "", null, null, emptyList(), 0f, ""),
+            Tv(id = -1, "", null, null, emptyList(), 0f, ""),
+            Tv(id = -1, "", null, null, emptyList(), 0f, ""),
+            Tv(id = -1, "", null, null, emptyList(), 0f, ""),
+            Tv(id = -1, "", null, null, emptyList(), 0f, "")
         )
         private val providerShimmerTag = listOf(
             WatchProviderEntity(id = -1, "", "", 0, false),

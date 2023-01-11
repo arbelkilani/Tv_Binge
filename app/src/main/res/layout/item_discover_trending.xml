@@ -7,12 +7,13 @@
 
         <variable
             name="tv"
-            type="com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity" />
+            type="com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:cardElevation="@dimen/default_card_elevation"
         app:cardCornerRadius="@dimen/default_corner_radius">
 
         <androidx.constraintlayout.widget.ConstraintLayout

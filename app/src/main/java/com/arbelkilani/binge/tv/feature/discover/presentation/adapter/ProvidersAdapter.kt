@@ -10,11 +10,11 @@ import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
 import com.arbelkilani.binge.tv.databinding.ItemSquareProviderBinding
 import com.arbelkilani.binge.tv.databinding.ItemTagShimmerBinding
-import com.arbelkilani.binge.tv.feature.discover.presentation.listener.ProviderClicked
+import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import javax.inject.Inject
 
 class ProvidersAdapter @Inject constructor(
-    private val listener: ProviderClicked
+    private val listener: DiscoverItemListener
 ) : ListAdapter<WatchProviderEntity, RecyclerView.ViewHolder>(WatchProviderEntityComparator) {
 
     class ProvidersHolder(val binding: ItemSquareProviderBinding) :

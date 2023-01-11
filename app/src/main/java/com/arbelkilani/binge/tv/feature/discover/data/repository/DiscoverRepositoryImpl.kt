@@ -9,7 +9,7 @@ import com.arbelkilani.binge.tv.common.source.remote.ApiService
 import com.arbelkilani.binge.tv.common.source.remote.pagingsource.DiscoverPagingSource
 import com.arbelkilani.binge.tv.common.source.remote.pagingsource.TrendingPagingSource
 import com.arbelkilani.binge.tv.feature.discover.data.entities.DiscoverQuery
-import com.arbelkilani.binge.tv.feature.discover.data.mapper.TvMapper
+import com.arbelkilani.binge.tv.feature.discover.data.mapper.TvResponseMapper
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import com.arbelkilani.binge.tv.feature.discover.domain.repository.DiscoverRepository
 import com.arbelkilani.binge.tv.feature.walkthrough.domain.repository.ResourcesRepository
@@ -26,7 +26,7 @@ class DiscoverRepositoryImpl @Inject constructor(
     private val timezone = TimeZone.getDefault().id
 
     @Inject
-    lateinit var mapper: TvMapper
+    lateinit var mapper: TvResponseMapper
 
     @Inject
     lateinit var resourceRepository: ResourcesRepository

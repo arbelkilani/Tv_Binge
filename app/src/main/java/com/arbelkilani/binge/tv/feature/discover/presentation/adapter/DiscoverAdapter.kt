@@ -11,13 +11,13 @@ import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.databinding.ItemTvShowBackdropBinding
 import com.arbelkilani.binge.tv.databinding.ItemTvShowPosterBinding
 import com.arbelkilani.binge.tv.databinding.ItemTvShowShimmerBinding
-import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 import javax.inject.Inject
 
 class DiscoverAdapter @Inject constructor(
     private val listener: DiscoverItemListener
-) : PagingDataAdapter<TvEntity, RecyclerView.ViewHolder>(TvEntityComparator) {
+) : PagingDataAdapter<Tv, RecyclerView.ViewHolder>(TvEntityComparator) {
 
     val width = Resources.getSystem().displayMetrics.widthPixels
 
@@ -27,15 +27,16 @@ class DiscoverAdapter @Inject constructor(
     class ShimmerHolder(val binding: ItemTvShowShimmerBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    class PosterHolder(val binding: ItemTvShowPosterBinding) : RecyclerView.ViewHolder(binding.root)
+    class PosterHolder(val binding: ItemTvShowPosterBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
-        val genres = item?.genres?.joinToString(separator = DOT_SYMBOL) { it.name }
+        //val genres = item?.genres?.joinToString(separator = DOT_SYMBOL) { it.name }
         when (holder.itemViewType) {
             BACKDROP_TYPE -> with((holder as BackdropHolder).binding) {
                 tv = item
-                tvGenres.text = genres
+                //tvGenres.text = genres
             }
             POSTER_TYPE -> with((holder as PosterHolder).binding) {
                 root.layoutParams.width = width / 4
@@ -76,18 +77,20 @@ class DiscoverAdapter @Inject constructor(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (getItem(0)?.id == EMPTY_ITEM_ID) SHIMMER_TYPE else {
-            if (getItem(position)?.backdrop?.endsWith("null") == true) POSTER_TYPE else BACKDROP_TYPE
-        }
+        return if (getItem(0)?.id == EMPTY_ITEM_ID) SHIMMER_TYPE
+        else if (getItem(position)?.backdrop?.endsWith(
+                "null"
+            ) == true
+        ) POSTER_TYPE else BACKDROP_TYPE
     }
 
     companion object {
-        private val TvEntityComparator = object : DiffUtil.ItemCallback<TvEntity>() {
-            override fun areItemsTheSame(oldItem: TvEntity, newItem: TvEntity): Boolean {
+        private val TvEntityComparator = object : DiffUtil.ItemCallback<Tv>() {
+            override fun areItemsTheSame(oldItem: Tv, newItem: Tv): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: TvEntity, newItem: TvEntity): Boolean {
+            override fun areContentsTheSame(oldItem: Tv, newItem: Tv): Boolean {
                 return oldItem == newItem
             }
         }

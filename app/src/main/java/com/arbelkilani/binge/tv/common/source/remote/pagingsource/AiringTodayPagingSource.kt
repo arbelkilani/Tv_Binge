@@ -3,7 +3,7 @@ package com.arbelkilani.binge.tv.common.source.remote.pagingsource
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
-import com.arbelkilani.binge.tv.feature.discover.data.mapper.TvMapper
+import com.arbelkilani.binge.tv.feature.discover.data.mapper.TvResponseMapper
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import retrofit2.HttpException
 import java.io.IOException
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class AiringTodayPagingSource @Inject constructor(
     private val service: ApiService,
-    private val tvMapper: TvMapper
+    private val tvResponseMapper: TvResponseMapper
 ) : PagingSource<Int, TvEntity>() {
 
     companion object {
@@ -28,7 +28,7 @@ class AiringTodayPagingSource @Inject constructor(
             val tvShows = response.results
                 .filter { it.voteAverage > 5f }
                 .map {
-                    tvMapper.map(it)
+                    tvResponseMapper.map(it)
                 }.sortedByDescending { it.voteAverage }
 
             LoadResult.Page(

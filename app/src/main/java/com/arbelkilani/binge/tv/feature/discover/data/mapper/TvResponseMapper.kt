@@ -7,7 +7,7 @@ import com.arbelkilani.binge.tv.feature.discover.data.entities.TvResponse
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import javax.inject.Inject
 
-class TvMapper @Inject constructor() {
+class TvResponseMapper @Inject constructor() {
 
     @Inject
     lateinit var getGenresByIdsUseCase: GetGenresByIdsUseCase

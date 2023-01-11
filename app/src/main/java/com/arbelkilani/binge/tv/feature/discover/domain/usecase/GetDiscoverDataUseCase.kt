@@ -1,6 +1,8 @@
 package com.arbelkilani.binge.tv.feature.discover.domain.usecase
 
 import androidx.paging.cachedIn
+import androidx.paging.map
+import com.arbelkilani.binge.tv.feature.discover.domain.mapper.TvEntityMapper
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import com.arbelkilani.binge.tv.feature.onboarding.domain.usecase.GetGenresUseCase
 import com.arbelkilani.binge.tv.feature.onboarding.domain.usecase.GetProvidersUseCase
@@ -19,18 +21,26 @@ class GetDiscoverDataUseCase @Inject constructor(
     private val getUpcomingUseCase: GetUpcomingUseCase
 ) {
 
+    @Inject
+    lateinit var mapper: TvEntityMapper
+
     suspend fun invoke(scope: CoroutineScope): Flow<DiscoverViewState.Data> {
         return flow {
             emit(
                 DiscoverViewState.Data(
-                    trending = trendingUseCase.invoke().cachedIn(scope).first(),
-                    startingThisMonth = startingThisMonthUseCase.invoke().cachedIn(scope).first(),
-                    basedOnProvider = basedOnProvidersUseCase.invoke().cachedIn(scope).first(),
-                    free = freeUseCase.invoke().cachedIn(scope).first(),
+                    trending = trendingUseCase.invoke().cachedIn(scope).first()
+                        .map { mapper.map(it) },
+                    startingThisMonth = startingThisMonthUseCase.invoke().cachedIn(scope).first()
+                        .map { mapper.map(it) },
+                    basedOnProvider = basedOnProvidersUseCase.invoke().cachedIn(scope).first()
+                        .map { mapper.map(it) },
+                    free = freeUseCase.invoke().cachedIn(scope).first().map { mapper.map(it) },
                     providers = getProvidersUseCase.invoke().first(),
                     genres = getGenresUseCase.invoke().first(),
-                    basedOnGenres = getBasedOnGenresUseCase.invoke().cachedIn(scope).first(),
+                    basedOnGenres = getBasedOnGenresUseCase.invoke().cachedIn(scope).first()
+                        .map { mapper.map(it) },
                     upcoming = getUpcomingUseCase.invoke().cachedIn(scope).first()
+                        .map { mapper.map(it) }
                 )
             )
         }

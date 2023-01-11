@@ -9,11 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.databinding.ItemDiscoverTrendingBinding
 import com.arbelkilani.binge.tv.databinding.ItemTvShowShimmerBinding
-import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
+import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 import javax.inject.Inject
 
-class TrendingAdapter @Inject constructor() :
-    PagingDataAdapter<TvEntity, RecyclerView.ViewHolder>(TrendingComparator) {
+class TrendingAdapter @Inject constructor(
+    private val listener: DiscoverItemListener
+) :
+    PagingDataAdapter<Tv, RecyclerView.ViewHolder>(TrendingComparator) {
 
     class TrendingHolder(val binding: ItemDiscoverTrendingBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -47,7 +50,7 @@ class TrendingAdapter @Inject constructor() :
             with((holder as TrendingHolder).binding) {
                 val item = getItem(position)
                 tv = item
-                tvGenres.text = item?.genres?.joinToString(separator = " \u2022 ") { it.name }
+                //tvGenres.text = item?.genres?.joinToString(separator = " \u2022 ") { it.name }
             }
         }
     }
@@ -59,15 +62,15 @@ class TrendingAdapter @Inject constructor() :
 
     companion object {
         private val TrendingComparator =
-            object : DiffUtil.ItemCallback<TvEntity>() {
+            object : DiffUtil.ItemCallback<Tv>() {
                 override fun areItemsTheSame(
-                    oldItem: TvEntity, newItem: TvEntity
+                    oldItem: Tv, newItem: Tv
                 ): Boolean {
                     return oldItem.id == newItem.id
                 }
 
                 override fun areContentsTheSame(
-                    oldItem: TvEntity, newItem: TvEntity
+                    oldItem: Tv, newItem: Tv
                 ): Boolean {
                     return oldItem == newItem
                 }
