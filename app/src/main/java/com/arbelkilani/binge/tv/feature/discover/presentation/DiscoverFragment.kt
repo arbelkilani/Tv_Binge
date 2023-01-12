@@ -101,12 +101,12 @@ class DiscoverFragment :
                     is DiscoverViewState.Data -> {
                         showTrending(viewState.trending)
                         showStartingThisMonth(viewState.startingThisMonth)
-                        showBasedOnProviders(viewState.basedOnProvider)
+                        //showBasedOnProviders(viewState.basedOnProvider)
                         showFree(viewState.free)
                         showProviders(viewState.providers)
                         showGenres(viewState.genres)
-                        showBasedOnGenres(viewState.basedOnGenres)
-                        showUpcoming(viewState.upcoming)
+                        //showBasedOnGenres(viewState.basedOnGenres)
+                        //showUpcoming(viewState.upcoming)
                     }
                     else -> Unit
                 }
@@ -225,6 +225,7 @@ class DiscoverFragment :
 
     override fun onTvClicked(tv: Tv?) {
         Toast.makeText(context, tv?.name, Toast.LENGTH_SHORT).show()
+        tv?.let { navigator.navigateToTvDetails(this, it) }
     }
 
     override fun onProviderClicked(watchProviderEntity: WatchProviderEntity) {

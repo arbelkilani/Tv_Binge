@@ -26,6 +26,9 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
     override fun onResume() {
         Log.i(this.javaClass.simpleName, "onResume")
         super.onResume()
+        lifecycleScope.launch(Dispatchers.Default) {
+            initViewModelObservation()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,9 +36,6 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initEvents()
         initViews()
-        lifecycleScope.launch(Dispatchers.IO) {
-            initViewModelObservation()
-        }
     }
 
     override fun onCreateView(

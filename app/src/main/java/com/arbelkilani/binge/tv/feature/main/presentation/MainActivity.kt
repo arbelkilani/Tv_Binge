@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.databinding.ActivityMainBinding
@@ -38,5 +39,16 @@ class MainActivity : AppCompatActivity() {
                 splash.setKeepOnScreenCondition { false }
             }
         }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        val controller = Navigation.findNavController(this, R.id.nav_host_home)
+        val state = controller.takeUnless { it.previousBackStackEntry == null }
+            ?.popBackStack()
+            ?.let { true }
+            ?: false
+        if (state.not())
+            super.onBackPressed()
     }
 }

@@ -1,7 +1,10 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation.model
 
+import android.os.Parcelable
 import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Tv(
     val id: Int,
     val name: String,
@@ -10,4 +13,4 @@ data class Tv(
     val genres: List<GenreEntity>,
     val voteAverage: Float,
     val firstAirDate: String
-)
+): Parcelable

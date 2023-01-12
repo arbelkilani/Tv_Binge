@@ -1,5 +1,6 @@
 package com.arbelkilani.binge.tv.feature.discover
 
+import androidx.fragment.app.Fragment
 import androidx.paging.PagingData
 import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
 import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
@@ -21,6 +22,6 @@ class DiscoverContract {
     }
 
     interface ViewNavigation {
-
+        fun navigateToTvDetails(fragment: Fragment, tv: Tv)
     }
 }
