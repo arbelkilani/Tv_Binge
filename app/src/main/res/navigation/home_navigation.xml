@@ -12,11 +12,17 @@
         tools:layout="@layout/fragment_discover">
         <action
             android:id="@+id/action_navigation_discover_to_tvDetailsFragment"
-            app:destination="@id/tvDetailsFragment">
-            <argument
-                android:name="tv"
-                app:argType="com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv" />
-        </action>
+            app:destination="@id/tvDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tvDetailsFragment"
+        android:name="com.arbelkilani.binge.tv.feature.details.presentation.TvDetailsFragment"
+        android:label="@string/tv_details_fragment_label"
+        tools:layout="@layout/fragment_tv_details">
+        <argument
+            android:name="tv"
+            app:argType="com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv" />
     </fragment>
 
     <fragment
@@ -24,10 +30,5 @@
         android:name="com.arbelkilani.binge.tv.feature.settings.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
-    <fragment
-        android:id="@+id/tvDetailsFragment"
-        android:name="com.arbelkilani.binge.tv.feature.details.presentation.TvDetailsFragment"
-        android:label="fragment_tv_details"
-        tools:layout="@layout/fragment_tv_details" />
 
 </navigation>

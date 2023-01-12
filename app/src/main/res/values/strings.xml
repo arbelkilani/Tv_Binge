@@ -34,4 +34,7 @@
     <string name="discover_based_on_genres">From favorite Genres</string>
     <string name="discover_upcoming">Upcoming</string>
 
+    <!-- Tv Details -->
+    <string name="tv_details_fragment_label">Tv Details</string>
+
 </resources>

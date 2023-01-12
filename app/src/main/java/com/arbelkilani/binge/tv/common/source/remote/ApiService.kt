@@ -5,6 +5,7 @@ import com.arbelkilani.binge.tv.common.data.model.CertificationsResponse
 import com.arbelkilani.binge.tv.common.data.model.ConfigurationResponse
 import com.arbelkilani.binge.tv.common.data.model.GenreResponse
 import com.arbelkilani.binge.tv.common.data.model.ProvidersResponse
+import com.arbelkilani.binge.tv.feature.details.data.entities.TvDetailsResponse
 import com.arbelkilani.binge.tv.feature.discover.data.entities.TvResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -47,9 +48,17 @@ interface ApiService {
         @Query("timezone") timezone: String
     ): ResponseWrapper<TvResponse>
 
+    // Discover
     @GET("discover/tv")
     suspend fun discover(
         @Query("page") page: Int,
         @QueryMap options: Map<String, String?>
     ): ResponseWrapper<TvResponse>
+
+    //
+    @GET("tv/{tv_id}")
+    suspend fun getTvDetails(
+        @Path("tv_id") id: Int,
+        @Query("append_to_response") appendToResponse: String
+    ): TvDetailsResponse
 }

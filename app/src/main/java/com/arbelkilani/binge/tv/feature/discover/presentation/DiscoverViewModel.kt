@@ -51,7 +51,8 @@ class DiscoverViewModel @Inject constructor(
         viewModelScope.launch {
             getFavoriteProvidersUseCase.invoke().collectLatest { list ->
                 list?.let {
-                    _favoriteProviders.value = it.joinToString(separator = ", ") { it.name }
+                    _favoriteProviders.value =
+                        it.joinToString(separator = ", ") { item -> item.name }
                 }
             }
         }
@@ -59,7 +60,7 @@ class DiscoverViewModel @Inject constructor(
         viewModelScope.launch {
             getFavoriteGenresUseCase.invoke().collectLatest { list ->
                 list?.let {
-                    _favoriteGenres.value = it.joinToString(separator = ", ") { it.name }
+                    _favoriteGenres.value = it.joinToString(separator = ", ") { item -> item.name }
                 }
             }
         }
