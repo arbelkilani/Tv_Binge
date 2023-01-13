@@ -63,7 +63,7 @@ class TvDetailsFragment :
         val height = resources.displayMetrics.heightPixels
         val behavior: BottomSheetBehavior<NestedScrollView> =
             BottomSheetBehavior.from(binding.bottomSheetBehaviour)
-        behavior.peekHeight = (height * .6f).toInt()
+        behavior.peekHeight = (height * .7f).toInt()
         behavior.addBottomSheetCallback(bottomSheetCallback())
     }
 
