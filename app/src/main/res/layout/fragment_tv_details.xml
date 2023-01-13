@@ -11,8 +11,8 @@
             type="com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv" />
 
         <variable
-            name="tvEntity"
-            type="com.arbelkilani.binge.tv.feature.details.domain.entities.TvDetailsEntity" />
+            name="tvDetails"
+            type="com.arbelkilani.binge.tv.feature.details.presentation.entities.TvDetails" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -72,6 +72,26 @@
             app:behavior_fitToContents="true"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
             tools:behavior_peekHeight="800dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:text="@{tv.name}"
+                    android:textColor="@color/title_color"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Bleach" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.core.widget.NestedScrollView>

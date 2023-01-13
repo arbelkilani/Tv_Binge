@@ -1,13 +1,10 @@
 package com.arbelkilani.binge.tv.feature.details.presentation
 
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.graphics.drawable.GradientDrawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -46,7 +43,7 @@ class TvDetailsFragment :
     override fun initViews() {
         super.initViews()
         binding.tv = tv
-        showDetails()
+        initDetailsView()
     }
 
     override suspend fun initViewModelObservation() {
@@ -55,14 +52,14 @@ class TvDetailsFragment :
             when (viewState) {
                 TvDetailsViewState.Start -> viewModel.init(tv.id)
                 is TvDetailsViewState.Data -> {
-                    binding.tvEntity = viewState.data
+                    binding.tvDetails = viewState.data
                 }
                 else -> Unit
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
-    private fun showDetails() {
+    private fun initDetailsView() {
         val height = resources.displayMetrics.heightPixels
         val behavior: BottomSheetBehavior<NestedScrollView> =
             BottomSheetBehavior.from(binding.bottomSheetBehaviour)

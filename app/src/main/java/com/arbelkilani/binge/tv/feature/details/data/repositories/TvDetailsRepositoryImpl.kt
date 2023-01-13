@@ -14,8 +14,6 @@ class TvDetailsRepositoryImpl @Inject constructor(
     lateinit var mapper: TvDetailsResponseMapper
 
     override suspend fun getTvDetails(id: Int) = flow {
-        val response = service.getTvDetails(id, "")
-        val mapped = mapper.map(response)
-        emit(mapped)
+        emit(mapper.map(service.getTvDetails(id, "videos,images")))
     }
 }

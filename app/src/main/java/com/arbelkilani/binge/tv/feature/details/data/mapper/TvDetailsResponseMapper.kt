@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class TvDetailsResponseMapper @Inject constructor() {
 
-    suspend fun map(response: TvDetailsResponse) = TvDetailsEntity(
+    fun map(response: TvDetailsResponse) = TvDetailsEntity(
         status = response.status
     )
 }
