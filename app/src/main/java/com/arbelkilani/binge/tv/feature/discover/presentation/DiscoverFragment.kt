@@ -22,6 +22,7 @@ import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.TrendingAd
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
+import com.arbelkilani.binge.tv.feature.home.HomeContract
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -85,6 +86,9 @@ class DiscoverFragment :
 
     @Inject
     lateinit var navigator: DiscoverContract.ViewNavigation
+
+    @Inject
+    lateinit var homeNavigator: HomeContract.ViewNavigation
 
     override fun bindView(
         inflater: LayoutInflater, container: ViewGroup?
@@ -224,7 +228,8 @@ class DiscoverFragment :
     }
 
     override fun onTvClicked(tv: Tv?) {
-        tv?.let { navigator.navigateToTvDetails(this, it) }
+        //tv?.let { navigator.navigateToTvDetails(this, it) }
+        tv?.let { homeNavigator.navigateToTvDetails(this, it) }
     }
 
     override fun onProviderClicked(watchProviderEntity: WatchProviderEntity) {

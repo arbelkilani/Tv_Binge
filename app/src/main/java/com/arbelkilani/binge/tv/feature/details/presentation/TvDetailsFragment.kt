@@ -34,11 +34,19 @@ class TvDetailsFragment :
         return FragmentTvDetailsBinding.inflate(inflater, container, false)
     }
 
+    override fun initViews() {
+        super.initViews()
+        binding.tv = tv
+    }
+
     override suspend fun initViewModelObservation() {
         super.initViewModelObservation()
         viewModel.viewState.map { viewState ->
             when (viewState) {
                 TvDetailsViewState.Start -> viewModel.init(tv.id)
+                is TvDetailsViewState.Data -> {
+                    binding.tvEntity = viewState.data
+                }
                 else -> Unit
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)

@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        val controller = Navigation.findNavController(this, R.id.nav_host_home)
+        val controller = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main)
         val state = controller.takeUnless { it.previousBackStackEntry == null }
             ?.popBackStack()
             ?.let { true }

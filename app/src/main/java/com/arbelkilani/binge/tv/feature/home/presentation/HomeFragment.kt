@@ -41,7 +41,7 @@ class HomeFragment :
         navHostFragment?.findNavController()?.let {
             binding.navView.setupWithNavController(it)
             binding.toolbar.setupWithNavController(it, appBarConfiguration)
-            it.addOnDestinationChangedListener { _, destination, _ ->
+            it.addOnDestinationChangedListener { current, destination, _ ->
                 when (destination.id) {
                     R.id.tvDetailsFragment -> binding.navView.isVisible = false
                     else -> binding.navView.isVisible = true
