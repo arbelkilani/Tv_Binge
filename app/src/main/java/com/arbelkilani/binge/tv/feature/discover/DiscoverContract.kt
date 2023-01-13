@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.paging.PagingData
 import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
 import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
+import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 
 class DiscoverContract {

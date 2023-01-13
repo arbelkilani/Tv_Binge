@@ -1,17 +1,17 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation
 
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import androidx.paging.map
 import com.arbelkilani.binge.tv.common.base.BaseStateViewModel
-import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetDiscoverDataUseCase
-import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetFavoriteGenresUseCase
-import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetFavoriteProvidersUseCase
+import com.arbelkilani.binge.tv.feature.discover.domain.mapper.TvEntityMapper
+import com.arbelkilani.binge.tv.feature.discover.domain.usecase.*
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,7 +19,9 @@ import javax.inject.Inject
 class DiscoverViewModel @Inject constructor(
     private val getDiscoverDataUseCase: GetDiscoverDataUseCase,
     private val getFavoriteProvidersUseCase: GetFavoriteProvidersUseCase,
-    private val getFavoriteGenresUseCase: GetFavoriteGenresUseCase
+    private val getFavoriteGenresUseCase: GetFavoriteGenresUseCase,
+    private val getTrendingUseCase: GetTrendingUseCase,
+    private val getFreeUseCase: GetFreeUseCase
 ) : BaseStateViewModel<DiscoverViewState>(initialState = DiscoverViewState.Start) {
 
     private val _favoriteProviders = MutableStateFlow("")
@@ -28,8 +30,19 @@ class DiscoverViewModel @Inject constructor(
     private val _favoriteGenres = MutableStateFlow("")
     val favoriteGenres: StateFlow<String> = _favoriteGenres
 
+    private val _trending = MutableStateFlow(PagingData.empty<Tv>())
+    val trending: StateFlow<PagingData<Tv>> = _trending
+
+    private val _free = MutableStateFlow(PagingData.empty<Tv>())
+    val free: StateFlow<PagingData<Tv>> = _free
+
+    @Inject
+    lateinit var mapper: TvEntityMapper
+
     suspend fun init() {
         updateState { DiscoverViewState.Loading }
+        trending()
+        free()
         viewModelScope.launch(Dispatchers.IO) {
             getDiscoverDataUseCase.invoke(viewModelScope).flowOn(Dispatchers.IO)
                 .collectLatest { data ->
@@ -63,6 +76,26 @@ class DiscoverViewModel @Inject constructor(
                     _favoriteGenres.value = it.joinToString(separator = ", ") { item -> item.name }
                 }
             }
+        }
+    }
+
+    private suspend fun trending() {
+        viewModelScope.launch {
+            getTrendingUseCase.invoke()
+                .cachedIn(viewModelScope)
+                .collect { data ->
+                    _trending.value = data.map { mapper.map(it) }
+                }
+        }
+    }
+
+    private suspend fun free() {
+        viewModelScope.launch {
+            getFreeUseCase.invoke()
+                .cachedIn(viewModelScope)
+                .collect { data ->
+                    _free.value = data.map { mapper.map(it) }
+                }
         }
     }
 }

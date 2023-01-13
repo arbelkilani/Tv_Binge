@@ -1,5 +1,6 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -46,6 +47,7 @@ class TrendingAdapter @Inject constructor(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        Log.i("TAG**", "get item = ${getItem(position)}")
         if (holder.itemViewType == TRENDING_TYPE) {
             with((holder as TrendingHolder).binding) {
                 val item = getItem(position)

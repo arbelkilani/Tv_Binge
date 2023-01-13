@@ -1,10 +1,13 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import com.arbelkilani.binge.tv.R
@@ -15,6 +18,7 @@ import com.arbelkilani.binge.tv.common.extension.removeOverScroll
 import com.arbelkilani.binge.tv.common.extension.scalePagerTransformer
 import com.arbelkilani.binge.tv.databinding.FragmentDiscoverBinding
 import com.arbelkilani.binge.tv.feature.discover.DiscoverContract
+import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.DiscoverAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.GenresAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.ProvidersAdapter
@@ -26,6 +30,7 @@ import com.arbelkilani.binge.tv.feature.home.HomeContract
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -38,49 +43,49 @@ class DiscoverFragment :
 
     private val trendingAdapter: TrendingAdapter by lazy {
         TrendingAdapter(this).apply {
-            submitData(lifecycle, PagingData.from(shimmerList))
+            //submitData(lifecycle, PagingData.from(shimmerList))
         }
     }
 
     private val startingThisMonthAdapter: DiscoverAdapter by lazy {
         DiscoverAdapter(this).apply {
-            submitData(lifecycle, PagingData.from(shimmerList))
+            //submitData(lifecycle, PagingData.from(shimmerList))
         }
     }
 
     private val basedOnProvidersAdapter: DiscoverAdapter by lazy {
         DiscoverAdapter(this).apply {
-            submitData(lifecycle, PagingData.from(shimmerList))
+            //submitData(lifecycle, PagingData.from(shimmerList))
         }
     }
 
     private val freeAdapter: DiscoverAdapter by lazy {
         DiscoverAdapter(this).apply {
-            submitData(lifecycle, PagingData.from(shimmerList))
+            //submitData(lifecycle, PagingData.from(shimmerList))
         }
     }
 
     private val basedOnGenresAdapter: DiscoverAdapter by lazy {
         DiscoverAdapter(this).apply {
-            submitData(lifecycle, PagingData.from(shimmerList))
+            //submitData(lifecycle, PagingData.from(shimmerList))
         }
     }
 
     private val upcomingAdapter: DiscoverAdapter by lazy {
         DiscoverAdapter(this).apply {
-            submitData(lifecycle, PagingData.from(shimmerList))
+            //submitData(lifecycle, PagingData.from(shimmerList))
         }
     }
 
     private val providersAdapter: ProvidersAdapter by lazy {
         ProvidersAdapter(this).apply {
-            submitList(providerShimmerTag)
+            //submitList(providerShimmerTag)
         }
     }
 
     private val genresAdapter: GenresAdapter by lazy {
         GenresAdapter(this).apply {
-            submitList(genreShimmerTag)
+            //submitList(genreShimmerTag)
         }
     }
 
@@ -97,20 +102,28 @@ class DiscoverFragment :
     }
 
     override suspend fun initViewModelObservation() {
+        viewModel.trending.flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+            .onEach { state -> showTrending(state) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+
+        viewModel.free.flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+            .onEach { state -> showFree(state) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+
         viewModel.viewState
             .map { viewState ->
                 when (viewState) {
                     DiscoverViewState.Start -> viewModel.init()
                     is DiscoverViewState.Error -> showError(viewState.exception)
                     is DiscoverViewState.Data -> {
-                        showTrending(viewState.trending)
-                        showStartingThisMonth(viewState.startingThisMonth)
-                        showBasedOnProviders(viewState.basedOnProvider)
-                        showFree(viewState.free)
-                        showProviders(viewState.providers)
-                        showGenres(viewState.genres)
-                        showBasedOnGenres(viewState.basedOnGenres)
-                        showUpcoming(viewState.upcoming)
+                        //showTrending(viewState.trending)
+                        //showStartingThisMonth(viewState.startingThisMonth)
+                        //showBasedOnProviders(viewState.basedOnProvider)
+                        //showFree(viewState.free)
+                        //showProviders(viewState.providers)
+                        //showGenres(viewState.genres)
+                        //showBasedOnGenres(viewState.basedOnGenres)
+                        //showUpcoming(viewState.upcoming)
                     }
                     else -> Unit
                 }
