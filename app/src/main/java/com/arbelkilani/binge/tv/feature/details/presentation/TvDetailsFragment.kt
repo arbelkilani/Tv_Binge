@@ -1,15 +1,24 @@
 package com.arbelkilani.binge.tv.feature.details.presentation
 
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
+import android.graphics.drawable.GradientDrawable
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.base.BaseFragment
 import com.arbelkilani.binge.tv.databinding.FragmentTvDetailsBinding
 import com.arbelkilani.binge.tv.feature.details.TvDetailsContract
 import com.arbelkilani.binge.tv.feature.details.presentation.model.TvDetailsViewState
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -37,6 +46,7 @@ class TvDetailsFragment :
     override fun initViews() {
         super.initViews()
         binding.tv = tv
+        showDetails()
     }
 
     override suspend fun initViewModelObservation() {
@@ -50,6 +60,27 @@ class TvDetailsFragment :
                 else -> Unit
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private fun showDetails() {
+        val height = resources.displayMetrics.heightPixels
+        val behavior: BottomSheetBehavior<NestedScrollView> =
+            BottomSheetBehavior.from(binding.bottomSheetBehaviour)
+        behavior.peekHeight = (height * .6f).toInt()
+        behavior.addBottomSheetCallback(bottomSheetCallback())
+    }
+
+    private fun bottomSheetCallback() = object : BottomSheetBehavior.BottomSheetCallback() {
+        override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            val drawable = bottomSheet.background.mutate() as GradientDrawable
+            val cornerRadius =
+                resources.getDimension(R.dimen.default_corner_radius)
+            drawable.cornerRadius = cornerRadius * (1.0f - slideOffset)
+        }
+
+        override fun onStateChanged(bottomSheet: View, newState: Int) {
+            Log.i(TvDetailsFragment::class.simpleName, "onStateChanged: $newState")
+        }
     }
 
 }

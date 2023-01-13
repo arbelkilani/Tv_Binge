@@ -55,17 +55,26 @@
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent=".35"
+                app:layout_constraintHeight_percent=".31"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:src="@{tv.backdrop}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <include
-            layout="@layout/layout_tv_details"
-            bind:tv="@{tv}"
-            bind:tvEntity="@{tvEntity}" />
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/bottom_sheet_behaviour"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_tv_details"
+            android:fitsSystemWindows="true"
+            app:behavior_draggable="true"
+            app:behavior_fitToContents="true"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            tools:behavior_peekHeight="800dp">
+
+
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
