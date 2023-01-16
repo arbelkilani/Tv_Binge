@@ -39,11 +39,17 @@ class DiscoverViewModel @Inject constructor(
     @Inject
     lateinit var mapper: TvEntityMapper
 
+    init {
+        viewModelScope.launch {
+            free()
+        }
+    }
+
     suspend fun init() {
         updateState { DiscoverViewState.Loading }
-        trending()
-        free()
-        viewModelScope.launch(Dispatchers.IO) {
+        //trending()
+
+        /*viewModelScope.launch(Dispatchers.IO) {
             getDiscoverDataUseCase.invoke(viewModelScope).flowOn(Dispatchers.IO)
                 .collectLatest { data ->
                     updateState {
@@ -59,9 +65,9 @@ class DiscoverViewModel @Inject constructor(
                         )
                     }
                 }
-        }
+        }*/
 
-        viewModelScope.launch {
+        /*viewModelScope.launch {
             getFavoriteProvidersUseCase.invoke().collectLatest { list ->
                 list?.let {
                     _favoriteProviders.value =
@@ -76,12 +82,13 @@ class DiscoverViewModel @Inject constructor(
                     _favoriteGenres.value = it.joinToString(separator = ", ") { item -> item.name }
                 }
             }
-        }
+        } */
     }
 
     private suspend fun trending() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             getTrendingUseCase.invoke()
+                .flowOn(Dispatchers.IO)
                 .cachedIn(viewModelScope)
                 .collect { data ->
                     _trending.value = data.map { mapper.map(it) }
@@ -89,13 +96,10 @@ class DiscoverViewModel @Inject constructor(
         }
     }
 
-    private suspend fun free() {
-        viewModelScope.launch {
-            getFreeUseCase.invoke()
-                .cachedIn(viewModelScope)
-                .collect { data ->
-                    _free.value = data.map { mapper.map(it) }
-                }
+    private suspend fun free() = getFreeUseCase.invoke()
+        .cachedIn(viewModelScope)
+        .collectLatest { data ->
+            updateState { DiscoverViewState.Loaded }
+            _free.value = data.map { mapper.map(it) }
         }
-    }
 }

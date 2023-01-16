@@ -34,16 +34,6 @@
             app:layout_constraintTop_toBottomOf="@id/layout_trending" />
 
         <include
-            android:id="@+id/layout_this_month"
-            layout="@layout/layout_discover"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/default_margin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_upcoming" />
-
-        <include
             android:id="@+id/layout_providers"
             layout="@layout/layout_square_providers"
             android:layout_width="match_parent"
@@ -51,17 +41,7 @@
             android:layout_marginTop="@dimen/default_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_this_month" />
-
-        <include
-            android:id="@+id/layout_based_on_provider"
-            layout="@layout/layout_discover"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/default_margin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_providers" />
+            app:layout_constraintTop_toBottomOf="@id/layout_upcoming" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_genres"
@@ -75,30 +55,9 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_based_on_provider"
+            app:layout_constraintTop_toBottomOf="@id/layout_providers"
             tools:itemCount="10"
             tools:listitem="@layout/item_genre_min" />
-
-        <include
-            android:id="@+id/layout_free"
-            layout="@layout/layout_discover"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/default_margin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_genres" />
-
-        <include
-            android:id="@+id/layout_based_on_genre"
-            layout="@layout/layout_discover"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/default_margin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_free" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

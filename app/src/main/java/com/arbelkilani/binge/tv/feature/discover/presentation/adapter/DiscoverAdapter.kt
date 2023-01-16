@@ -17,74 +17,47 @@ import javax.inject.Inject
 
 class DiscoverAdapter @Inject constructor(
     private val listener: DiscoverItemListener
-) : PagingDataAdapter<Tv, RecyclerView.ViewHolder>(TvEntityComparator) {
+) : PagingDataAdapter<Tv, DiscoverAdapter.BackdropHolder>(TvEntityComparator) {
 
     val width = Resources.getSystem().displayMetrics.widthPixels
 
     class BackdropHolder(val binding: ItemTvShowBackdropBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    class ShimmerHolder(val binding: ItemTvShowShimmerBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    //class ShimmerHolder(val binding: ItemTvShowShimmerBinding) :
+    //    RecyclerView.ViewHolder(binding.root)
 
     class PosterHolder(val binding: ItemTvShowPosterBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BackdropHolder, position: Int) {
         val item = getItem(position)
         val genres = item?.genres?.joinToString(separator = DOT_SYMBOL) { it.name }
-        when (holder.itemViewType) {
-            BACKDROP_TYPE -> with((holder as BackdropHolder).binding) {
-                root.setOnClickListener { listener.onTvClicked(item) }
-                tv = item
-                tvGenres.text = genres
-            }
-            POSTER_TYPE -> with((holder as PosterHolder).binding) {
-                root.setOnClickListener { listener.onTvClicked(item) }
-                root.layoutParams.width = width / 4
-                tv = item
-            }
+        with((holder as BackdropHolder).binding) {
+            root.setOnClickListener { listener.onTvClicked(item) }
+            tv = item
+            tvGenres.text = genres
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            SHIMMER_TYPE -> ShimmerHolder(
-                DataBindingUtil.inflate(
-                    LayoutInflater.from(parent.context),
-                    R.layout.item_tv_show_shimmer,
-                    parent,
-                    false
-                )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BackdropHolder {
+        return BackdropHolder(
+            DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.item_tv_show_backdrop,
+                parent,
+                false
             )
-            POSTER_TYPE -> {
-                PosterHolder(
-                    DataBindingUtil.inflate(
-                        LayoutInflater.from(parent.context),
-                        R.layout.item_tv_show_poster,
-                        parent,
-                        false
-                    )
-                )
-            }
-            else -> BackdropHolder(
-                DataBindingUtil.inflate(
-                    LayoutInflater.from(parent.context),
-                    R.layout.item_tv_show_backdrop,
-                    parent,
-                    false
-                )
-            )
-        }
+        )
     }
 
-    override fun getItemViewType(position: Int): Int {
+    /*override fun getItemViewType(position: Int): Int {
         return if (getItem(0)?.id == EMPTY_ITEM_ID) SHIMMER_TYPE
         else if (getItem(position)?.backdrop?.endsWith(
                 "null"
             ) == true
         ) POSTER_TYPE else BACKDROP_TYPE
-    }
+    }*/
 
     companion object {
         private val TvEntityComparator = object : DiffUtil.ItemCallback<Tv>() {

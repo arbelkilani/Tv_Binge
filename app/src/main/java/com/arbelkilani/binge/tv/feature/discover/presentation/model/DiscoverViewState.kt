@@ -18,4 +18,6 @@ sealed class DiscoverViewState {
         val basedOnGenres: PagingData<Tv> = PagingData.empty(),
         val upcoming: PagingData<Tv> = PagingData.empty()
     ) : DiscoverViewState()
+
+    object Loaded : DiscoverViewState()
 }
