@@ -18,7 +18,7 @@ class CustomCardView @JvmOverloads constructor(
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        val rectF = RectF(0f, 0f, width.toFloat(), height.toFloat())
+        /*val rectF = RectF(0f, 0f, width.toFloat(), height.toFloat())
         val x = event!!.x
         val y = event.y
         if (rectF.contains(x, y) &&
@@ -29,7 +29,7 @@ class CustomCardView @JvmOverloads constructor(
         } else {
             scaleX = DEFAULT_SCALE
             scaleY = DEFAULT_SCALE
-        }
+        } */
 
         return super.onTouchEvent(event)
     }
