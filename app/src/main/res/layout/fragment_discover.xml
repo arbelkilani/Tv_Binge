@@ -25,39 +25,14 @@
 
         <include
             android:id="@+id/layout_upcoming"
-            layout="@layout/layout_discover"
+            layout="@layout/linear_layout_discover"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/default_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintHeight_percent=".24"
             app:layout_constraintTop_toBottomOf="@id/layout_trending" />
-
-        <include
-            android:id="@+id/layout_providers"
-            layout="@layout/layout_square_providers"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/default_margin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_upcoming" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_genres"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/default_margin"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            android:paddingHorizontal="8dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_providers"
-            tools:itemCount="10"
-            tools:listitem="@layout/item_genre_min" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

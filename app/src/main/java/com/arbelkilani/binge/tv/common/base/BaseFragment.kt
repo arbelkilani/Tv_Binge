@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 abstract class BaseFragment<B : ViewBinding> : Fragment() {
 
@@ -33,7 +31,7 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initEvents()
         initViews()
-        lifecycleScope.launch(Dispatchers.IO) {
+        lifecycleScope.launchWhenCreated {
             initViewModelObservation()
         }
     }
@@ -59,7 +57,9 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
 
     abstract fun bindView(inflater: LayoutInflater, container: ViewGroup?): B
 
-    open suspend fun initViewModelObservation() {}
+    open suspend fun initViewModelObservation() {
+        Log.i(this.javaClass.simpleName, "initViewModelObservation")
+    }
 
     open fun initEvents() {}
 

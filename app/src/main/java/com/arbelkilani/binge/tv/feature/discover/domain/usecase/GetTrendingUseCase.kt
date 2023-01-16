@@ -1,13 +1,12 @@
 package com.arbelkilani.binge.tv.feature.discover.domain.usecase
 
 import androidx.paging.PagingData
-import androidx.paging.map
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import com.arbelkilani.binge.tv.feature.discover.domain.mapper.TvEntityMapper
 import com.arbelkilani.binge.tv.feature.discover.domain.repository.DiscoverRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class GetTrendingUseCase @Inject constructor() {
@@ -20,5 +19,6 @@ class GetTrendingUseCase @Inject constructor() {
 
     suspend fun invoke(): Flow<PagingData<TvEntity>> {
         return discoverRepository.getTrending()
+            .flowOn(Dispatchers.IO)
     }
 }

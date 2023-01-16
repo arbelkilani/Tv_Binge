@@ -24,8 +24,8 @@ class DiscoverAdapter @Inject constructor(
     class BackdropHolder(val binding: ItemTvShowBackdropBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    //class ShimmerHolder(val binding: ItemTvShowShimmerBinding) :
-    //    RecyclerView.ViewHolder(binding.root)
+    class ShimmerHolder(val binding: ItemTvShowShimmerBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     class PosterHolder(val binding: ItemTvShowPosterBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -41,6 +41,7 @@ class DiscoverAdapter @Inject constructor(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BackdropHolder {
+
         return BackdropHolder(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
@@ -51,13 +52,13 @@ class DiscoverAdapter @Inject constructor(
         )
     }
 
-    /*override fun getItemViewType(position: Int): Int {
+    override fun getItemViewType(position: Int): Int {
         return if (getItem(0)?.id == EMPTY_ITEM_ID) SHIMMER_TYPE
         else if (getItem(position)?.backdrop?.endsWith(
                 "null"
             ) == true
         ) POSTER_TYPE else BACKDROP_TYPE
-    }*/
+    }
 
     companion object {
         private val TvEntityComparator = object : DiffUtil.ItemCallback<Tv>() {
