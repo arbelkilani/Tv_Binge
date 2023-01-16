@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.databinding.ItemTvShowBackdropBinding
-import com.arbelkilani.binge.tv.databinding.ItemTvShowPosterBinding
 import com.arbelkilani.binge.tv.databinding.ItemTvShowShimmerBinding
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
@@ -17,7 +16,7 @@ import javax.inject.Inject
 
 class DiscoverAdapter @Inject constructor(
     private val listener: DiscoverItemListener
-) : PagingDataAdapter<Tv, DiscoverAdapter.BackdropHolder>(TvEntityComparator) {
+) : PagingDataAdapter<Tv, RecyclerView.ViewHolder>(TvEntityComparator) {
 
     val width = Resources.getSystem().displayMetrics.widthPixels
 
@@ -27,29 +26,37 @@ class DiscoverAdapter @Inject constructor(
     class ShimmerHolder(val binding: ItemTvShowShimmerBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    class PosterHolder(val binding: ItemTvShowPosterBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
-    override fun onBindViewHolder(holder: BackdropHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
         val genres = item?.genres?.joinToString(separator = DOT_SYMBOL) { it.name }
-        with((holder as BackdropHolder).binding) {
-            root.setOnClickListener { listener.onTvClicked(item) }
-            tv = item
-            tvGenres.text = genres
+        if (holder.itemViewType == BACKDROP_TYPE) {
+            with((holder as BackdropHolder).binding) {
+                root.setOnClickListener { listener.onTvClicked(item) }
+                tv = item
+                tvGenres.text = genres
+            }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BackdropHolder {
-
-        return BackdropHolder(
-            DataBindingUtil.inflate(
-                LayoutInflater.from(parent.context),
-                R.layout.item_tv_show_backdrop,
-                parent,
-                false
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            SHIMMER_TYPE -> ShimmerHolder(
+                DataBindingUtil.inflate(
+                    LayoutInflater.from(parent.context),
+                    R.layout.item_tv_show_shimmer,
+                    parent,
+                    false
+                )
             )
-        )
+            else -> BackdropHolder(
+                DataBindingUtil.inflate(
+                    LayoutInflater.from(parent.context),
+                    R.layout.item_tv_show_backdrop,
+                    parent,
+                    false
+                )
+            )
+        }
     }
 
     override fun getItemViewType(position: Int): Int {

@@ -18,12 +18,13 @@ import com.arbelkilani.binge.tv.common.extension.scalePagerTransformer
 import com.arbelkilani.binge.tv.databinding.FragmentDiscoverBinding
 import com.arbelkilani.binge.tv.feature.discover.DiscoverContract
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.DiscoverAdapter
-import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.TrendingAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 import com.arbelkilani.binge.tv.feature.home.HomeContract
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -38,10 +39,9 @@ class DiscoverFragment :
     lateinit var homeNavigator: HomeContract.ViewNavigation
 
     private val viewModel: DiscoverViewModel by viewModels()
-    private val trendingAdapter: TrendingAdapter by lazy {
-        TrendingAdapter(this).apply {
-            submitData(lifecycle, PagingData.from(shimmerList))
-        }
+    private val trendingAdapter: DiscoverAdapter by lazy {
+        DiscoverAdapter(this)
+            .apply { submitData(lifecycle, PagingData.from(shimmerList)) }
     }
     private val upcomingAdapter: DiscoverAdapter by lazy {
         DiscoverAdapter(this)
@@ -55,32 +55,34 @@ class DiscoverFragment :
     }
 
     override suspend fun initViewModelObservation() {
-        viewModel.viewState.onEach { viewState ->
-            when (viewState) {
-                is DiscoverViewState.Start -> viewModel.init()
-                is DiscoverViewState.Loaded -> {
-                    collectTrendingTvShows()
-                    collectUpcomingTvShows()
+        viewModel.viewState
+            .collectLatest { viewState ->
+                when (viewState) {
+                    is DiscoverViewState.Start -> viewModel.init()
+                    is DiscoverViewState.Loaded -> {
+                        delay(100)
+                        collectTrendingTvShows()
+                        collectUpcomingTvShows()
+                    }
+                    else -> Unit
                 }
-                else -> Unit
             }
-        }.launchIn(scope = viewLifecycleOwner.lifecycleScope)
     }
 
-    private fun collectTrendingTvShows() {
-        viewModel.trending.flowWithLifecycle(
-            viewLifecycleOwner.lifecycle,
-            Lifecycle.State.CREATED
-        ).onEach { state -> showTrending(state) }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
+    private suspend fun collectTrendingTvShows() {
+        viewModel.trending
+            .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
+            .onEach {
+                showTrending(it)
+            }.launchIn(lifecycleScope)
     }
 
-    private fun collectUpcomingTvShows() {
-        viewModel.free.flowWithLifecycle(
-            viewLifecycleOwner.lifecycle,
-            Lifecycle.State.CREATED
-        ).onEach { state -> showUpcoming(state) }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
+    private suspend fun collectUpcomingTvShows() {
+        viewModel.free
+            .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
+            .onEach {
+                showUpcoming(it)
+            }.launchIn(lifecycleScope)
     }
 
     override fun initViews() {
@@ -93,9 +95,11 @@ class DiscoverFragment :
                 scalePagerTransformer()
             }
         }
-        binding.layoutUpcoming.rvData.apply {
-            setPadding(0, 0, (width * .7f).toInt(), 0)
-            adapter = upcomingAdapter
+        with(binding.layoutUpcoming) {
+            rvData.apply {
+                setPadding(0, 0, (width * .4f).toInt(), 0)
+                adapter = upcomingAdapter
+            }
         }
     }
 
