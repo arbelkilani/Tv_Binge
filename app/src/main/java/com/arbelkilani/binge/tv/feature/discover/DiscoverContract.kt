@@ -9,6 +9,7 @@ class DiscoverContract {
     interface ViewCapabilities {
         suspend fun showTrending(data: PagingData<Tv>)
         suspend fun showUpcoming(data: PagingData<Tv>)
+        suspend fun showTalkShows(data: PagingData<Tv>)
         fun showError(exception: Exception)
     }
 

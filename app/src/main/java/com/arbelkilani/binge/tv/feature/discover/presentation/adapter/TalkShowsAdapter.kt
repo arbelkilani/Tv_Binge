@@ -14,7 +14,7 @@ import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverI
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 import javax.inject.Inject
 
-open class DiscoverAdapter @Inject constructor(
+class TalkShowsAdapter @Inject constructor(
     private val listener: DiscoverItemListener
 ) : PagingDataAdapter<Tv, RecyclerView.ViewHolder>(TvEntityComparator) {
 

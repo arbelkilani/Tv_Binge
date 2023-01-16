@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class GetUpcomingUseCase @Inject constructor() {
+class GetTalkShowsUseCase @Inject constructor() {
 
     @Inject
     lateinit var discoverRepository: DiscoverRepository
@@ -20,7 +20,7 @@ class GetUpcomingUseCase @Inject constructor() {
     lateinit var mapper: TvEntityMapper
 
     suspend fun invoke(): Flow<PagingData<Tv>> {
-        return discoverRepository.getUpcoming()
+        return discoverRepository.getTalkShows()
             .map { pagingData -> pagingData.map { tvEntity -> mapper.map(tvEntity) } }
             .flowOn(Dispatchers.IO)
     }

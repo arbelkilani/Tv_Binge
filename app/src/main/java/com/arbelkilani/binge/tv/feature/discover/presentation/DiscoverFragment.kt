@@ -18,6 +18,7 @@ import com.arbelkilani.binge.tv.common.extension.scalePagerTransformer
 import com.arbelkilani.binge.tv.databinding.FragmentDiscoverBinding
 import com.arbelkilani.binge.tv.feature.discover.DiscoverContract
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.DiscoverAdapter
+import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.TalkShowsAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
@@ -47,6 +48,10 @@ class DiscoverFragment :
         DiscoverAdapter(this)
             .apply { submitData(lifecycle, PagingData.from(shimmerList)) }
     }
+    private val talkShows: TalkShowsAdapter by lazy {
+        TalkShowsAdapter(this)
+            .apply { submitData(lifecycle, PagingData.from(shimmerList)) }
+    }
 
     override fun bindView(
         inflater: LayoutInflater, container: ViewGroup?
@@ -63,6 +68,7 @@ class DiscoverFragment :
                         delay(100)
                         collectTrendingTvShows()
                         collectUpcomingTvShows()
+                        collectTalkShows()
                     }
                     else -> Unit
                 }
@@ -74,15 +80,23 @@ class DiscoverFragment :
             .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
             .onEach {
                 showTrending(it)
-            }.launchIn(lifecycleScope)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private suspend fun collectUpcomingTvShows() {
-        viewModel.free
+        viewModel.upcoming
             .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
             .onEach {
                 showUpcoming(it)
-            }.launchIn(lifecycleScope)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private suspend fun collectTalkShows() {
+        viewModel.talkShows
+            .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
+            .onEach {
+                showTalkShows(it)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     override fun initViews() {
@@ -101,6 +115,12 @@ class DiscoverFragment :
                 adapter = upcomingAdapter
             }
         }
+        with(binding.layoutTalkShows) {
+            rvData.apply {
+                setPadding(0, 0, (width * .3f).toInt(), 0)
+                adapter = talkShows
+            }
+        }
     }
 
     override suspend fun showTrending(data: PagingData<Tv>) {
@@ -110,9 +130,17 @@ class DiscoverFragment :
     override suspend fun showUpcoming(data: PagingData<Tv>) {
         with(binding.layoutUpcoming) {
             tvTitle.isVisible = true
-            tvTitle.text = getString(R.string.discover_upcoming)
+            tvTitle.text = getString(R.string.discover_title_upcoming)
         }
         upcomingAdapter.submitData(lifecycle, data)
+    }
+
+    override suspend fun showTalkShows(data: PagingData<Tv>) {
+        with(binding.layoutTalkShows) {
+            tvTitle.isVisible = true
+            tvTitle.text = getString(R.string.discover_title_talk_shows)
+        }
+        talkShows.submitData(lifecycle, data)
     }
 
     override fun showError(exception: Exception) {

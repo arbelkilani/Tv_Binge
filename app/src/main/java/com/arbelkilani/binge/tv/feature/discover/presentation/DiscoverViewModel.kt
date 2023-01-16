@@ -4,8 +4,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.arbelkilani.binge.tv.common.base.BaseStateViewModel
-import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetFreeUseCase
+import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetTalkShowsUseCase
 import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetTrendingUseCase
+import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetUpcomingUseCase
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,18 +19,23 @@ import javax.inject.Inject
 @HiltViewModel
 class DiscoverViewModel @Inject constructor(
     private val getTrendingUseCase: GetTrendingUseCase,
-    private val getFreeUseCase: GetFreeUseCase
+    private val getUpcomingUseCase: GetUpcomingUseCase,
+    private val getTalkShowsUseCase: GetTalkShowsUseCase
 ) : BaseStateViewModel<DiscoverViewState>(initialState = DiscoverViewState.Start) {
 
     private val _trending = MutableStateFlow(PagingData.empty<Tv>())
     val trending: StateFlow<PagingData<Tv>> = _trending
 
-    private val _free = MutableStateFlow(PagingData.empty<Tv>())
-    val free: StateFlow<PagingData<Tv>> = _free
+    private val _upcoming = MutableStateFlow(PagingData.empty<Tv>())
+    val upcoming: StateFlow<PagingData<Tv>> = _upcoming
+
+    private val _talkShows = MutableStateFlow(PagingData.empty<Tv>())
+    val talkShows: StateFlow<PagingData<Tv>> = _talkShows
 
     suspend fun init() {
         free()
         trending()
+        talkShows()
     }
 
     private fun trending() = viewModelScope.launch {
@@ -42,11 +48,20 @@ class DiscoverViewModel @Inject constructor(
     }
 
     private suspend fun free() = viewModelScope.launch {
-        getFreeUseCase.invoke()
+        getUpcomingUseCase.invoke()
             .cachedIn(viewModelScope)
             .collectLatest { data ->
                 updateState { DiscoverViewState.Loaded }
-                _free.value = data
+                _upcoming.value = data
+            }
+    }
+
+    private suspend fun talkShows() = viewModelScope.launch {
+        getTalkShowsUseCase.invoke()
+            .cachedIn(viewModelScope)
+            .collectLatest { data ->
+                updateState { DiscoverViewState.Loaded }
+                _talkShows.value = data
             }
     }
 }

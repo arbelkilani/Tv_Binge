@@ -34,6 +34,17 @@
             app:layout_constraintHeight_percent=".24"
             app:layout_constraintTop_toBottomOf="@id/layout_trending" />
 
+        <include
+            android:id="@+id/layout_talk_shows"
+            layout="@layout/linear_layout_discover"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/default_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintHeight_percent=".24"
+            app:layout_constraintTop_toBottomOf="@id/layout_upcoming" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

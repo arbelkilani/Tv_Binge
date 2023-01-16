@@ -22,7 +22,7 @@ class DiscoverRepositoryImpl @Inject constructor(
     private val service: ApiService
 ) : DiscoverRepository {
 
-    private val country = Locale.getDefault().country
+    private val country = "FR"
     private val timezone = TimeZone.getDefault().id
 
     @Inject
@@ -41,9 +41,7 @@ class DiscoverRepositoryImpl @Inject constructor(
     override suspend fun getUpcoming(): Flow<PagingData<TvEntity>> {
         val discoverQuery = DiscoverQuery.Builder()
             .timezone(timezone)
-            .airDateGte("2023-01-11")
-            .sortBy(DiscoverQuery.SortBy.VOTE_AVERAGE_DESC)
-            .type(DiscoverQuery.Type.SCRIPTED)
+            .airDateGte("2023-01-16")
             .watchRegion(country).build()
 
         return Pager(
@@ -104,6 +102,20 @@ class DiscoverRepositoryImpl @Inject constructor(
             pagingSourceFactory = {
                 DiscoverPagingSource(service, mapper, discoverQuery)
             }).flow
+    }
+
+    override suspend fun getTalkShows(): Flow<PagingData<TvEntity>> {
+        val discoverQuery = DiscoverQuery.Builder()
+            .timezone(timezone)
+            .type(DiscoverQuery.Type.TALK_SHOW)
+            .watchRegion(country).build()
+
+        return Pager(
+            config = PagingConfig(OFFSET),
+            pagingSourceFactory = {
+                DiscoverPagingSource(service, mapper, discoverQuery)
+            }
+        ).flow
     }
 
     override suspend fun getFavoriteProviders(): Flow<List<WatchProviderEntity>?> {
