@@ -78,21 +78,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.google.android.flexbox.FlexboxLayout
-                    android:id="@+id/flex_genres"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/default_margin"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_genres"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/default_margin"
-                    app:alignContent="flex_start"
-                    app:alignItems="flex_start"
-                    app:dividerDrawable="@drawable/drawable_divider"
-                    app:flexWrap="wrap"
-                    app:genres="@{tvDetails.genres}"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:paddingHorizontal="@dimen/default_padding"
+                    app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:showDivider="middle" />
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_genre_solid"
+                    tools:paddingEnd="310dp" />
 
                 <TextView
                     android:id="@+id/tv_name"
@@ -106,7 +108,7 @@
                     android:textSize="20sp"
                     app:layout_constraintEnd_toStartOf="@id/tv_vote"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/flex_genres"
+                    app:layout_constraintTop_toBottomOf="@id/rv_genres"
                     tools:text="Bleach" />
 
                 <TextView
@@ -192,7 +194,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_network_label"
                     tools:itemCount="10"
-                    tools:listitem="@layout/item_network"
+                    tools:listitem="@layout/item_network_stroke"
                     tools:paddingEnd="310dp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

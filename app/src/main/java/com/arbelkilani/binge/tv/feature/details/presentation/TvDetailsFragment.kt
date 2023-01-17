@@ -14,10 +14,14 @@ import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.base.BaseFragment
 import com.arbelkilani.binge.tv.databinding.FragmentTvDetailsBinding
 import com.arbelkilani.binge.tv.feature.details.TvDetailsContract
+import com.arbelkilani.binge.tv.feature.details.presentation.adapter.GenresAdapter
 import com.arbelkilani.binge.tv.feature.details.presentation.adapter.NetworksAdapter
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.TvDetails
 import com.arbelkilani.binge.tv.feature.details.presentation.model.TvDetailsViewState
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
+import com.google.android.flexbox.AlignItems
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -33,6 +37,7 @@ class TvDetailsFragment :
     private val args by navArgs<TvDetailsFragmentArgs>()
     private val tv: Tv by lazy(LazyThreadSafetyMode.NONE) { args.tv }
     private val networksAdapter: NetworksAdapter by lazy { NetworksAdapter() }
+    private val genresAdapter: GenresAdapter by lazy { GenresAdapter() }
 
     @Inject
     lateinit var navigator: TvDetailsContract.ViewNavigation
@@ -49,6 +54,13 @@ class TvDetailsFragment :
         binding.tv = tv
         initDetailsView()
         binding.rvNetworks.adapter = networksAdapter
+        binding.rvGenres.apply {
+            (layoutManager as FlexboxLayoutManager).apply {
+                flexWrap = FlexWrap.WRAP
+                alignItems = AlignItems.FLEX_START
+            }
+            adapter = genresAdapter
+        }
     }
 
     override suspend fun initViewModelObservation() {
@@ -69,6 +81,7 @@ class TvDetailsFragment :
         binding.tvVote.isVisible = tvDetails.vote.isNotEmpty()
         binding.tvStoryLabel.isVisible = tvDetails.story.isNotEmpty()
         networksAdapter.submitList(tvDetails.networks)
+        genresAdapter.submitList(tv.genres)
     }
 
     private fun initDetailsView() {
