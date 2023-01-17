@@ -3,13 +3,11 @@ package com.arbelkilani.binge.tv.feature.discover.presentation
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
-import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.base.BaseFragment
 import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
 import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
@@ -42,15 +40,15 @@ class DiscoverFragment :
     private val viewModel: DiscoverViewModel by viewModels()
     private val trendingAdapter: DiscoverAdapter by lazy {
         DiscoverAdapter(this)
-            .apply { submitData(lifecycle, PagingData.from(shimmerList)) }
+            .apply { submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerList)) }
     }
     private val upcomingAdapter: DiscoverAdapter by lazy {
         DiscoverAdapter(this)
-            .apply { submitData(lifecycle, PagingData.from(shimmerList)) }
+            .apply { submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerList)) }
     }
-    private val talkShows: TalkShowsAdapter by lazy {
+    private val talkShowsAdapter: TalkShowsAdapter by lazy {
         TalkShowsAdapter(this)
-            .apply { submitData(lifecycle, PagingData.from(shimmerList)) }
+            .apply { submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerList)) }
     }
 
     override fun bindView(
@@ -109,17 +107,13 @@ class DiscoverFragment :
                 scalePagerTransformer()
             }
         }
-        with(binding.layoutUpcoming) {
-            rvData.apply {
-                setPadding(0, 0, (width * .4f).toInt(), 0)
-                adapter = upcomingAdapter
-            }
+        binding.rvUpcoming.apply {
+            setPadding(0, 0, (width * .45f).toInt(), 0)
+            adapter = upcomingAdapter
         }
-        with(binding.layoutTalkShows) {
-            rvData.apply {
-                setPadding(0, 0, (width * .3f).toInt(), 0)
-                adapter = talkShows
-            }
+        binding.rvTalkShows.apply {
+            setPadding(0, 0, (width * .72f).toInt(), 0)
+            adapter = talkShowsAdapter
         }
     }
 
@@ -128,19 +122,11 @@ class DiscoverFragment :
     }
 
     override suspend fun showUpcoming(data: PagingData<Tv>) {
-        with(binding.layoutUpcoming) {
-            tvTitle.isVisible = true
-            tvTitle.text = getString(R.string.discover_title_upcoming)
-        }
         upcomingAdapter.submitData(lifecycle, data)
     }
 
     override suspend fun showTalkShows(data: PagingData<Tv>) {
-        with(binding.layoutTalkShows) {
-            tvTitle.isVisible = true
-            tvTitle.text = getString(R.string.discover_title_talk_shows)
-        }
-        talkShows.submitData(lifecycle, data)
+        talkShowsAdapter.submitData(lifecycle, data)
     }
 
     override fun showError(exception: Exception) {

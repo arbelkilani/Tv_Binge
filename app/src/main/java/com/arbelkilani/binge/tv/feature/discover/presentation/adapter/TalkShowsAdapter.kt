@@ -8,7 +8,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
-import com.arbelkilani.binge.tv.databinding.ItemTvShowBackdropBinding
+import com.arbelkilani.binge.tv.databinding.ItemTvShowPosterBinding
 import com.arbelkilani.binge.tv.databinding.ItemTvShowShimmerBinding
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
@@ -20,7 +20,7 @@ class TalkShowsAdapter @Inject constructor(
 
     val width = Resources.getSystem().displayMetrics.widthPixels
 
-    class BackdropHolder(val binding: ItemTvShowBackdropBinding) :
+    class DataHolder(val binding: ItemTvShowPosterBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     class ShimmerHolder(val binding: ItemTvShowShimmerBinding) :
@@ -28,12 +28,10 @@ class TalkShowsAdapter @Inject constructor(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
-        val genres = item?.genres?.joinToString(separator = DOT_SYMBOL) { it.name }
         if (holder.itemViewType == DATA_TYPE) {
-            with((holder as BackdropHolder).binding) {
+            with((holder as DataHolder).binding) {
                 root.setOnClickListener { listener.onTvClicked(item) }
                 tv = item
-                tvGenres.text = genres
             }
         }
     }
@@ -48,10 +46,10 @@ class TalkShowsAdapter @Inject constructor(
                     false
                 )
             )
-            else -> BackdropHolder(
+            else -> DataHolder(
                 DataBindingUtil.inflate(
                     LayoutInflater.from(parent.context),
-                    R.layout.item_tv_show_backdrop,
+                    R.layout.item_tv_show_poster,
                     parent,
                     false
                 )
