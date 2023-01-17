@@ -79,4 +79,7 @@
     <!-- title color -->
     <color name="title_color">@color/outer_space</color>
 
+    <!-- details -->
+    <color name="star_color">@color/vista_blue</color>
+
 </resources>

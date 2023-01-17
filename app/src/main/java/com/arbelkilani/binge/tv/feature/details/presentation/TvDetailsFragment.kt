@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -13,6 +14,7 @@ import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.base.BaseFragment
 import com.arbelkilani.binge.tv.databinding.FragmentTvDetailsBinding
 import com.arbelkilani.binge.tv.feature.details.TvDetailsContract
+import com.arbelkilani.binge.tv.feature.details.presentation.entities.TvDetails
 import com.arbelkilani.binge.tv.feature.details.presentation.model.TvDetailsViewState
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -26,7 +28,7 @@ class TvDetailsFragment :
     BaseFragment<FragmentTvDetailsBinding>(),
     TvDetailsContract.ViewCapabilities {
 
-    val viewModel: TvDetailsViewModel by viewModels()
+    private val viewModel: TvDetailsViewModel by viewModels()
     private val args by navArgs<TvDetailsFragmentArgs>()
     private val tv: Tv by lazy(LazyThreadSafetyMode.NONE) { args.tv }
 
@@ -52,11 +54,17 @@ class TvDetailsFragment :
             when (viewState) {
                 TvDetailsViewState.Start -> viewModel.init(tv.id)
                 is TvDetailsViewState.Data -> {
+                    views(viewState.data)
                     binding.tvDetails = viewState.data
                 }
                 else -> Unit
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private fun views(tvDetails: TvDetails) {
+        binding.tvVote.isVisible = tvDetails.vote.isNotEmpty()
+        binding.tvStoryLabel.isVisible = tvDetails.story.isNotEmpty()
     }
 
     private fun initDetailsView() {
@@ -79,5 +87,4 @@ class TvDetailsFragment :
             Log.i(TvDetailsFragment::class.simpleName, "onStateChanged: $newState")
         }
     }
-
 }

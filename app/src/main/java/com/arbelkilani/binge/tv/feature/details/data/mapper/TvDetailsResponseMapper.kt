@@ -7,6 +7,10 @@ import javax.inject.Inject
 class TvDetailsResponseMapper @Inject constructor() {
 
     fun map(response: TvDetailsResponse) = TvDetailsEntity(
-        status = response.status
+        name = response.name,
+        overview = response.overview,
+        genres = response.genres,
+        status = response.status,
+        voteAverage = response.voteAverage
     )
 }

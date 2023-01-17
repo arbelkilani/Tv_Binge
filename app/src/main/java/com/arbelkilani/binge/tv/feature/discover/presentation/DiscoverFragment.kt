@@ -34,7 +34,7 @@ class DiscoverFragment :
     DiscoverItemListener {
 
     @Inject
-    lateinit var homeNavigator: HomeContract.ViewNavigation
+    lateinit var navigator: HomeContract.ViewNavigation
 
     private val viewModel: DiscoverViewModel by viewModels()
     private val trendingAdapter: DiscoverAdapter by lazy {
@@ -187,15 +187,15 @@ class DiscoverFragment :
     }
 
     override fun onTvClicked(tv: Tv?) {
-        tv?.let { homeNavigator.navigateToTvDetails(this, it) }
+        tv?.let { navigator.navigateToTvDetails(this, it) }
     }
 
     override fun onProviderClicked(watchProviderEntity: WatchProviderEntity) {
-        Toast.makeText(context, watchProviderEntity.name, Toast.LENGTH_SHORT).show()
+        navigator.navigateToShowsFromProvider(this, watchProviderEntity)
     }
 
     override fun onGenreClicked(genreEntity: GenreEntity) {
-        Toast.makeText(context, genreEntity.name, Toast.LENGTH_SHORT).show()
+        navigator.navigateToShowsFromGenre(this, genreEntity)
     }
 
     companion object {

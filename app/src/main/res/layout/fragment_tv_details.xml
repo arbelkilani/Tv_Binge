@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -54,6 +53,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
+                android:contentDescription="@{tv.name}"
+                android:foreground="@drawable/bg_gradient_mask"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_percent=".31"
                 app:layout_constraintStart_toStartOf="parent"
@@ -77,19 +78,92 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/flex_genres"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/default_margin"
+                    app:alignContent="flex_start"
+                    app:alignItems="flex_start"
+                    app:dividerDrawable="@drawable/drawable_divider"
+                    app:flexWrap="wrap"
+                    app:genres="@{tvDetails.genres}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:showDivider="middle" />
+
                 <TextView
                     android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_marginHorizontal="@dimen/default_margin"
                     android:layout_marginTop="@dimen/default_margin"
                     android:fontFamily="@font/avenir_next_demi_bold"
                     android:text="@{tv.name}"
                     android:textColor="@color/title_color"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toStartOf="@id/tv_vote"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/flex_genres"
                     tools:text="Bleach" />
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/avenir_next_regular"
+                    android:text="@{tvDetails.status}"
+                    android:textColor="@color/title_color"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_name"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name"
+                    tools:text="Returning series" />
+
+                <TextView
+                    android:id="@+id/tv_vote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="@dimen/default_margin"
+                    android:fontFamily="@font/avenir_next_regular"
+                    android:gravity="center"
+                    android:text="@{tvDetails.vote}"
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp"
+                    app:drawableTopCompat="@drawable/ic_star"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_name"
+                    tools:ignore="SmallSp"
+                    tools:text="9.9" />
+
+                <TextView
+                    android:id="@+id/tv_story_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:text="@string/tv_details_story_label"
+                    android:textColor="@color/title_color"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_name"
+                    app:layout_constraintTop_toBottomOf="@id/tv_status" />
+
+                <TextView
+                    android:id="@+id/tv_story"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="@dimen/default_margin"
+                    android:fontFamily="@font/avenir_next_regular"
+                    android:text="@{tvDetails.story}"
+                    android:textColor="@color/title_color"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tv_story_label"
+                    app:layout_constraintTop_toBottomOf="@id/tv_story_label"
+                    tools:text="@tools:sample/lorem" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

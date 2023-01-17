@@ -5,5 +5,9 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class TvDetails(
-    val status: String
+    val name: String,
+    val status: String,
+    val story: String,
+    val genres: List<String>,
+    val vote: String
 ) : Parcelable
