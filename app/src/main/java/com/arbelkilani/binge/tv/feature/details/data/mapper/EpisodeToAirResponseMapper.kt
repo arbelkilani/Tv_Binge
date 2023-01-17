@@ -6,6 +6,9 @@ import javax.inject.Inject
 
 class EpisodeToAirResponseMapper @Inject constructor() {
     fun map(response: EpisodeToAirResponse) = EpisodeToAirEntity(
-        name = response.name
+        name = response.name,
+        story = response.overview,
+        episodeNumber = response.episodeNumber,
+        seasonNumber = response.seasonNumber
     )
 }

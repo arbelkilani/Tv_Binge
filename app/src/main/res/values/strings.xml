@@ -41,5 +41,6 @@
     <string name="tv_details_story_label">Story</string>
     <string name="tv_details_network_label">Network</string>
     <string name="tv_details_next_episode_label">Next Episode</string>
+    <string name="tv_details_next_episode">"S%dxE%d, <b>%s</b>"</string>
 
 </resources>

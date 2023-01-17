@@ -82,6 +82,19 @@ class TvDetailsFragment :
         binding.tvStoryLabel.isVisible = tvDetails.story.isNotEmpty()
         networksAdapter.submitList(tvDetails.networks)
         genresAdapter.submitList(tv.genres)
+
+        // next episode
+        tvDetails.episodeToAir?.let {
+            binding.layoutNextEpisode.isVisible = true
+            binding.tvNextEpisode.text = getString(
+                R.string.tv_details_next_episode,
+                it.seasonNumber,
+                it.episodeNumber,
+                it.name
+            )
+            binding.tvNextEpisodeStoryLabel.isVisible = it.story.isNotEmpty()
+            binding.tvNextEpisodeStory.isVisible = it.story.isNotEmpty()
+        }
     }
 
     private fun initDetailsView() {

@@ -11,5 +11,5 @@ data class TvDetails(
     val genres: List<String>,
     val vote: String,
     val networks: List<Network>,
-    val episodeToAir: EpisodeToAir
+    val episodeToAir: EpisodeToAir?
 ) : Parcelable

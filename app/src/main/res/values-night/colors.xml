@@ -60,5 +60,6 @@
 
     <!-- details -->
     <color name="star_color">@color/anti_flash_white</color>
+    <color name="card_background_color">@color/outer_space</color>
 
 </resources>

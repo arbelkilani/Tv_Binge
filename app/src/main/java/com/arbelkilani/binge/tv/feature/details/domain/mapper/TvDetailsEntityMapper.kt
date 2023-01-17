@@ -20,6 +20,6 @@ class TvDetailsEntityMapper @Inject constructor() {
         status = entity.status,
         vote = if (entity.voteAverage == 0f) "" else DecimalFormat("0.#").format(entity.voteAverage),
         networks = entity.networks.map { networkEntityMapper.map(it) },
-        episodeToAir = episodeToAirEntityMapper.map(entity.episodeToAir)
+        episodeToAir = entity.episodeToAir?.let { episodeToAirEntityMapper.map(it) }
     )
 }

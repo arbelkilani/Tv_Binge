@@ -93,6 +93,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:itemCount="2"
+                    tools:layoutManager="LinearLayoutManager"
                     tools:listitem="@layout/item_genre_solid"
                     tools:paddingEnd="310dp" />
 
@@ -143,13 +144,16 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/layout_next_episode"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="@dimen/default_margin"
+                    android:visibility="gone"
+                    app:cardBackgroundColor="@color/card_background_color"
                     app:cardCornerRadius="@dimen/default_corner_radius"
                     app:cardElevation="@dimen/default_card_elevation"
                     app:contentPadding="@dimen/default_padding"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_status">
+                    app:layout_constraintTop_toBottomOf="@id/tv_status"
+                    tools:visibility="visible">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -168,14 +172,43 @@
 
                         <TextView
                             android:id="@+id/tv_next_episode"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/medium_margin"
                             android:fontFamily="@font/avenir_next_regular"
-                            android:text="@{tvDetails.episodeToAir.name}"
                             android:textColor="@color/title_color"
                             android:textSize="11sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/tv_next_episode_label"
+                            app:layout_constraintTop_toBottomOf="@id/tv_next_episode_label"
+                            tools:text="@tools:sample/lorem" />
+
+                        <TextView
+                            android:id="@+id/tv_next_episode_story_label"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:fontFamily="@font/avenir_next_demi_bold"
+                            android:text="@string/tv_details_story_label"
+                            android:textColor="@color/title_color"
+                            android:textSize="13sp"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_next_episode_label" />
+                            app:layout_constraintTop_toBottomOf="@id/tv_next_episode" />
+
+                        <TextView
+                            android:id="@+id/tv_next_episode_story"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/medium_margin"
+                            android:fontFamily="@font/avenir_next_regular"
+                            android:text="@{tvDetails.episodeToAir.story}"
+                            android:textColor="@color/title_color"
+                            android:textSize="11sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/tv_next_episode_story_label"
+                            app:layout_constraintTop_toBottomOf="@id/tv_next_episode_story_label"
+                            tools:text="@tools:sample/lorem" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -12,13 +12,13 @@ class TvDetailsResponseMapper @Inject constructor() {
     @Inject
     lateinit var episodeToAirResponseMapper: EpisodeToAirResponseMapper
 
-    suspend fun map(response: TvDetailsResponse) = TvDetailsEntity(
+    fun map(response: TvDetailsResponse) = TvDetailsEntity(
         name = response.name,
         overview = response.overview,
         genres = response.genres,
         status = response.status,
         voteAverage = response.voteAverage,
         networks = response.networks.map { networkResponseMapper.map(it) },
-        episodeToAir = episodeToAirResponseMapper.map(response.nextEpisodeToAir)
+        episodeToAir = response.nextEpisodeToAir?.let { episodeToAirResponseMapper.map(it) }
     )
 }

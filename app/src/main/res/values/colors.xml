@@ -81,5 +81,5 @@
 
     <!-- details -->
     <color name="star_color">@color/vista_blue</color>
-
+    <color name="card_background_color">@color/anti_flash_white</color>
 </resources>

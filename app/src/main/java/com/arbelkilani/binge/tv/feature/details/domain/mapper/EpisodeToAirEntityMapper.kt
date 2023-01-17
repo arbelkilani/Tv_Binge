@@ -6,6 +6,9 @@ import javax.inject.Inject
 
 class EpisodeToAirEntityMapper @Inject constructor() {
     fun map(entity: EpisodeToAirEntity) = EpisodeToAir(
-        name = entity.name
+        name = entity.name,
+        story = entity.story,
+        episodeNumber = entity.episodeNumber,
+        seasonNumber = entity.seasonNumber
     )
 }
