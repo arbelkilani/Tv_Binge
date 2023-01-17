@@ -9,5 +9,6 @@ data class TvDetailsEntity(
     val status: String,
     val voteAverage: Float,
     val networks: List<NetworkEntity>,
-    val episodeToAir: EpisodeToAirEntity?
+    val episodeToAir: EpisodeToAirEntity?,
+    val tagline: String
 )

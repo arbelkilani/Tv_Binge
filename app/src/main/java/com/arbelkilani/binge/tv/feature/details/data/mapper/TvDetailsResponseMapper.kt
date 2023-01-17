@@ -19,6 +19,7 @@ class TvDetailsResponseMapper @Inject constructor() {
         status = response.status,
         voteAverage = response.voteAverage,
         networks = response.networks.map { networkResponseMapper.map(it) },
-        episodeToAir = response.nextEpisodeToAir?.let { episodeToAirResponseMapper.map(it) }
+        episodeToAir = response.nextEpisodeToAir?.let { episodeToAirResponseMapper.map(it) },
+        tagline = response.tagline
     )
 }

@@ -113,6 +113,19 @@
                     tools:text="Bleach" />
 
                 <TextView
+                    android:id="@+id/tv_tagline"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/default_margin"
+                    android:fontFamily="@font/avenir_next_cyr_italic"
+                    android:textColor="@color/title_color"
+                    android:textSize="@dimen/small_text_size"
+                    app:layout_constraintEnd_toStartOf="@id/tv_vote"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name"
+                    tools:text="@tools:sample/lorem" />
+
+                <TextView
                     android:id="@+id/tv_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -121,8 +134,9 @@
                     android:text="@{tvDetails.status}"
                     android:textColor="@color/title_color"
                     android:textSize="@dimen/small_text_size"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="@id/tv_name"
-                    app:layout_constraintTop_toBottomOf="@id/tv_name"
+                    app:layout_constraintTop_toBottomOf="@id/tv_tagline"
                     tools:text="Returning series" />
 
                 <TextView
@@ -268,8 +282,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_network_label"
                     tools:itemCount="10"
-                    tools:listitem="@layout/item_network_stroke"
-                    tools:paddingEnd="310dp" />
+                    tools:listitem="@layout/item_network_stroke" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

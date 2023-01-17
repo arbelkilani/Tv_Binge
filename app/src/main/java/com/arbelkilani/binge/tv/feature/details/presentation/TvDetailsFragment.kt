@@ -83,6 +83,9 @@ class TvDetailsFragment :
         networksAdapter.submitList(tvDetails.networks)
         genresAdapter.submitList(tv.genres)
 
+        binding.tvTagline.text = getString(R.string.tv_details_tagline, tvDetails.tagline)
+        binding.tvTagline.isVisible = tvDetails.tagline.isNotEmpty()
+
         // next episode
         tvDetails.episodeToAir?.let {
             binding.layoutNextEpisode.isVisible = true
