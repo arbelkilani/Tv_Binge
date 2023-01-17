@@ -26,7 +26,9 @@ open class DiscoverPagingSource @Inject constructor(
             val response = service.discover(page = position, options = queryMap)
             val tvShows = response.results
                 .filterNot {
-                    it.poster.isNullOrEmpty() && it.backdrop.isNullOrEmpty()
+                    it.backdrop.isNullOrEmpty()
+                }.filterNot {
+                    it.voteAverage < 5f
                 }
                 .map { tvResponseMapper.map(it) }
 

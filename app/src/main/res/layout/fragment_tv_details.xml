@@ -52,9 +52,9 @@
                 android:id="@+id/iv_backdrop"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:scaleType="centerCrop"
                 android:contentDescription="@{tv.name}"
                 android:foreground="@drawable/bg_gradient_mask"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_percent=".31"
                 app:layout_constraintStart_toStartOf="parent"
@@ -113,11 +113,11 @@
                     android:id="@+id/tv_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="@dimen/small_margin"
                     android:fontFamily="@font/avenir_next_regular"
                     android:text="@{tvDetails.status}"
                     android:textColor="@color/title_color"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/small_text_size"
                     app:layout_constraintStart_toStartOf="@id/tv_name"
                     app:layout_constraintTop_toBottomOf="@id/tv_name"
                     tools:text="Returning series" />
@@ -154,19 +154,48 @@
                     android:id="@+id/tv_story"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="@dimen/medium_margin"
                     android:layout_marginEnd="@dimen/default_margin"
                     android:fontFamily="@font/avenir_next_regular"
                     android:text="@{tvDetails.story}"
                     android:textColor="@color/title_color"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/small_text_size"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_story_label"
                     app:layout_constraintTop_toBottomOf="@id/tv_story_label"
                     tools:text="@tools:sample/lorem" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/tv_network_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:text="@string/tv_details_network_label"
+                    android:textColor="@color/title_color"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_name"
+                    app:layout_constraintTop_toBottomOf="@id/tv_story" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_networks"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:paddingHorizontal="@dimen/default_padding"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_network_label"
+                    tools:itemCount="10"
+                    tools:listitem="@layout/item_network"
+                    tools:paddingEnd="310dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
 

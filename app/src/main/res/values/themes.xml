@@ -79,17 +79,28 @@
         <item name="android:textColor">@color/category_title_text_color</item>
     </style>
 
-    <!-- Tv Details -->
     <style name="Tag.Solid" parent="Widget.AppCompat.TextView">
         <item name="fontFamily">@font/avenir_next_regular</item>
-        <item name="android:textColor">#444444</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:paddingStart">10dp</item>
-        <item name="android:paddingEnd">10dp</item>
-        <item name="android:paddingTop">3dp</item>
-        <item name="android:paddingBottom">3dp</item>
+        <item name="android:textColor">@color/outer_space</item>
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="android:paddingStart">@dimen/medium_padding</item>
+        <item name="android:paddingEnd">@dimen/medium_padding</item>
+        <item name="android:paddingTop">@dimen/small_padding</item>
+        <item name="android:paddingBottom">@dimen/small_padding</item>
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/drawable_tag_solid</item>
+    </style>
+
+    <style name="Tag.Stroke" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/avenir_next_regular</item>
+        <item name="android:textColor">@color/details_network_text_color</item>
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="android:paddingStart">@dimen/medium_padding</item>
+        <item name="android:paddingEnd">@dimen/medium_padding</item>
+        <item name="android:paddingTop">@dimen/small_padding</item>
+        <item name="android:paddingBottom">@dimen/small_padding</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/drawable_tag_stroke</item>
     </style>
 
 </resources>

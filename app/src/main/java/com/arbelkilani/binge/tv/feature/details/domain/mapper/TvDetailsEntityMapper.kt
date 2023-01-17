@@ -7,11 +7,15 @@ import javax.inject.Inject
 
 class TvDetailsEntityMapper @Inject constructor() {
 
-    fun map(entity: TvDetailsEntity) = TvDetails(
+    @Inject
+    lateinit var networkEntityMapper: NetworkEntityMapper
+
+    suspend fun map(entity: TvDetailsEntity) = TvDetails(
         name = entity.name,
         story = entity.overview,
         genres = entity.genres.map { it.name },
         status = entity.status,
-        vote = if (entity.voteAverage == 0f) "" else DecimalFormat("0.#").format(entity.voteAverage)
+        vote = if (entity.voteAverage == 0f) "" else DecimalFormat("0.#").format(entity.voteAverage),
+        networks = entity.networks.map { networkEntityMapper.map(it) }
     )
 }

@@ -4,11 +4,8 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class TvDetails(
+data class Network(
+    val id: Int,
     val name: String,
-    val status: String,
-    val story: String,
-    val genres: List<String>,
-    val vote: String,
-    val networks: List<Network>
+    val logo: String
 ) : Parcelable

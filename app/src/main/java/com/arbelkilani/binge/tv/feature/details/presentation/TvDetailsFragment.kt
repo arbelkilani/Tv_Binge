@@ -14,6 +14,7 @@ import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.base.BaseFragment
 import com.arbelkilani.binge.tv.databinding.FragmentTvDetailsBinding
 import com.arbelkilani.binge.tv.feature.details.TvDetailsContract
+import com.arbelkilani.binge.tv.feature.details.presentation.adapter.NetworksAdapter
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.TvDetails
 import com.arbelkilani.binge.tv.feature.details.presentation.model.TvDetailsViewState
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
@@ -31,6 +32,7 @@ class TvDetailsFragment :
     private val viewModel: TvDetailsViewModel by viewModels()
     private val args by navArgs<TvDetailsFragmentArgs>()
     private val tv: Tv by lazy(LazyThreadSafetyMode.NONE) { args.tv }
+    private val networksAdapter: NetworksAdapter by lazy { NetworksAdapter() }
 
     @Inject
     lateinit var navigator: TvDetailsContract.ViewNavigation
@@ -46,6 +48,7 @@ class TvDetailsFragment :
         super.initViews()
         binding.tv = tv
         initDetailsView()
+        binding.rvNetworks.adapter = networksAdapter
     }
 
     override suspend fun initViewModelObservation() {
@@ -65,6 +68,7 @@ class TvDetailsFragment :
     private fun views(tvDetails: TvDetails) {
         binding.tvVote.isVisible = tvDetails.vote.isNotEmpty()
         binding.tvStoryLabel.isVisible = tvDetails.story.isNotEmpty()
+        networksAdapter.submitList(tvDetails.networks)
     }
 
     private fun initDetailsView() {

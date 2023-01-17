@@ -21,16 +21,14 @@ class TvDetailsViewModel @Inject constructor(
         getDetails(id)
     }
 
-    private suspend fun getDetails(id: Int) {
-        viewModelScope.launch {
-            tvDetailsDataUseCase.invoke(id)
-                .onStart {
-                    updateState { TvDetailsViewState.Loading }
-                }.catch { throwable ->
-                    updateState { TvDetailsViewState.Error(throwable) }
-                }.collect { data ->
-                    updateState { TvDetailsViewState.Data(data) }
-                }
-        }
+    private suspend fun getDetails(id: Int) = viewModelScope.launch {
+        tvDetailsDataUseCase.invoke(id)
+            .onStart {
+                updateState { TvDetailsViewState.Loading }
+            }.catch { throwable ->
+                updateState { TvDetailsViewState.Error(throwable) }
+            }.collect { data ->
+                updateState { TvDetailsViewState.Data(data) }
+            }
     }
 }

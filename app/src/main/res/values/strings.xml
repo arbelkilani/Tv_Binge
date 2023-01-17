@@ -39,5 +39,6 @@
     <!-- Tv Details -->
     <string name="tv_details_fragment_label">Tv Details</string>
     <string name="tv_details_story_label">Story</string>
+    <string name="tv_details_network_label">Network</string>
 
 </resources>

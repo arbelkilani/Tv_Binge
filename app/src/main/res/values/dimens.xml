@@ -12,6 +12,8 @@
     <dimen name="min_corner_radius">8dp</dimen>
     <dimen name="default_corner_radius">16dp</dimen>
     <dimen name="default_card_elevation">2dp</dimen>
+    <dimen name="small_text_size">12sp</dimen>
+
 
     <!-- Splash Screen -->
     <dimen name="bottom_padding_ic_branding">60dp</dimen>

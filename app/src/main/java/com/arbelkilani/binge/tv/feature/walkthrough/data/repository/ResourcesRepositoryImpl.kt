@@ -1,6 +1,7 @@
 package com.arbelkilani.binge.tv.feature.walkthrough.data.repository
 
 import android.app.Application
+import com.arbelkilani.binge.tv.common.data.enum.ImageSize
 import com.arbelkilani.binge.tv.common.data.mapper.ApiConfigurationMapper
 import com.arbelkilani.binge.tv.common.data.mapper.CertificationMapper
 import com.arbelkilani.binge.tv.common.data.mapper.GenreMapper
@@ -46,15 +47,13 @@ class ResourcesRepositoryImpl @Inject constructor(
 
     private suspend fun saveWatchProviders() {
         if (resourcesDao.getWatchLocalProviders().isNullOrEmpty()) {
-            service.getProviders(country).providers
-                .map { provider ->
-                    resourcesDao.saveWatchProvider(
-                        watchProviderMapper.map(
-                            provider,
-                            getInstalledPackages().contains(provider.providerName)
-                        )
+            service.getProviders(country).providers.map { provider ->
+                resourcesDao.saveWatchProvider(
+                    watchProviderMapper.map(
+                        provider, getInstalledPackages().contains(provider.providerName)
                     )
-                }
+                )
+            }
         }
     }
 
@@ -112,6 +111,20 @@ class ResourcesRepositoryImpl @Inject constructor(
 
     override suspend fun getPoster(): String? {
         return resourcesDao.getApiConfiguration()?.poster?.large
+    }
+
+    override suspend fun getLogo(size: ImageSize): String {
+        return resourcesDao.getApiConfiguration()?.logo?.let { image ->
+            when (size) {
+                ImageSize.LOGO_W154 -> image.small
+                ImageSize.LOGO_W185 -> image.medium
+                ImageSize.LOGO_W500 -> image.large
+                ImageSize.ORIGINAL -> image.original
+                else -> String()
+            }
+        } ?: run {
+            String()
+        }
     }
 
     companion object {

@@ -18,7 +18,7 @@ data class TvDetailsResponse(
     @SerializedName("last_episode_to_air") val lastEpisodeToAir: EpisodeToAir,
     @SerializedName("name") val name: String,
     @SerializedName("next_episode_to_air") val nextEpisodeToAir: EpisodeToAir,
-    @SerializedName("networks") val networks: List<Network>,
+    @SerializedName("networks") val networks: List<NetworkResponse>,
     @SerializedName("number_of_episodes") val numberOfEpisodes: Int,
     @SerializedName("number_of_seasons") val numberOfSeasons: Int,
     @SerializedName("origin_country") val originCountry: List<String>,
@@ -61,7 +61,7 @@ data class EpisodeToAir(
     @SerializedName("vote_count") val voteCount: Int
 )
 
-data class Network(
+data class NetworkResponse(
     @SerializedName("id") val id: Int,
     @SerializedName("name") val name: String,
     @SerializedName("logo_path") val logo: String?,
