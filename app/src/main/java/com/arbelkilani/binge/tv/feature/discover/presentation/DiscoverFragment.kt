@@ -127,7 +127,7 @@ class DiscoverFragment :
             adapter = talkShowsAdapter
         }
         binding.rvProviders.apply {
-            setPadding(0, 0, (width * .8f).toInt(), 0)
+            setPadding(0, 0, (width * .82f).toInt(), 0)
             adapter = providersAdapter
         }
     }
@@ -178,7 +178,12 @@ class DiscoverFragment :
             WatchProviderEntity(id = -1, "", "", 0, false),
             WatchProviderEntity(id = -1, "", "", 0, false),
             WatchProviderEntity(id = -1, "", "", 0, false),
-            WatchProviderEntity(id = -1, "", "", 0, false)
+            WatchProviderEntity(id = -1, "", "", 0, false),
+            WatchProviderEntity(id = -1, "", "", 0, false),
+            WatchProviderEntity(id = -1, "", "", 0, false),
+            WatchProviderEntity(id = -1, "", "", 0, false),
+            WatchProviderEntity(id = -1, "", "", 0, false),
+            WatchProviderEntity(id = -1, "", "", 0, false),
         )
     }
 }
