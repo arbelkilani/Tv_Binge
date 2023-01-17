@@ -16,7 +16,9 @@ import com.arbelkilani.binge.tv.common.extension.scalePagerTransformer
 import com.arbelkilani.binge.tv.databinding.FragmentDiscoverBinding
 import com.arbelkilani.binge.tv.feature.discover.DiscoverContract
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.DiscoverAdapter
+import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.ProvidersAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.TalkShowsAdapter
+import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.UpcomingAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
@@ -42,13 +44,17 @@ class DiscoverFragment :
         DiscoverAdapter(this)
             .apply { submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerList)) }
     }
-    private val upcomingAdapter: DiscoverAdapter by lazy {
-        DiscoverAdapter(this)
+    private val upcomingAdapter: UpcomingAdapter by lazy {
+        UpcomingAdapter(this)
             .apply { submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerList)) }
     }
     private val talkShowsAdapter: TalkShowsAdapter by lazy {
         TalkShowsAdapter(this)
             .apply { submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerList)) }
+    }
+    private val providersAdapter: ProvidersAdapter by lazy {
+        ProvidersAdapter(this)
+            .apply { submitList(shimmerListProviders) }
     }
 
     override fun bindView(
@@ -67,6 +73,7 @@ class DiscoverFragment :
                         collectTrendingTvShows()
                         collectUpcomingTvShows()
                         collectTalkShows()
+                        collectProviders()
                     }
                     else -> Unit
                 }
@@ -76,25 +83,29 @@ class DiscoverFragment :
     private suspend fun collectTrendingTvShows() {
         viewModel.trending
             .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
-            .onEach {
-                showTrending(it)
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
+            .onEach { showTrending(it) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private suspend fun collectUpcomingTvShows() {
         viewModel.upcoming
             .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
-            .onEach {
-                showUpcoming(it)
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
+            .onEach { showUpcoming(it) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private suspend fun collectTalkShows() {
         viewModel.talkShows
             .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
-            .onEach {
-                showTalkShows(it)
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
+            .onEach { showTalkShows(it) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private suspend fun collectProviders() {
+        viewModel.providers
+            .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
+            .onEach { showProviders(it) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     override fun initViews() {
@@ -115,6 +126,10 @@ class DiscoverFragment :
             setPadding(0, 0, (width * .72f).toInt(), 0)
             adapter = talkShowsAdapter
         }
+        binding.rvProviders.apply {
+            setPadding(0, 0, (width * .8f).toInt(), 0)
+            adapter = providersAdapter
+        }
     }
 
     override suspend fun showTrending(data: PagingData<Tv>) {
@@ -127,6 +142,10 @@ class DiscoverFragment :
 
     override suspend fun showTalkShows(data: PagingData<Tv>) {
         talkShowsAdapter.submitData(lifecycle, data)
+    }
+
+    override suspend fun showProviders(data: List<WatchProviderEntity>) {
+        providersAdapter.submitList(data)
     }
 
     override fun showError(exception: Exception) {
@@ -152,6 +171,14 @@ class DiscoverFragment :
             Tv(id = -1, "", null, null, emptyList(), 0f, ""),
             Tv(id = -1, "", null, null, emptyList(), 0f, ""),
             Tv(id = -1, "", null, null, emptyList(), 0f, "")
+        )
+
+        private val shimmerListProviders = listOf(
+            WatchProviderEntity(id = -1, "", "", 0, false),
+            WatchProviderEntity(id = -1, "", "", 0, false),
+            WatchProviderEntity(id = -1, "", "", 0, false),
+            WatchProviderEntity(id = -1, "", "", 0, false),
+            WatchProviderEntity(id = -1, "", "", 0, false)
         )
     }
 }

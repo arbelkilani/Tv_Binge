@@ -24,11 +24,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/grp_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="tv_date,tv_genres,tv_title" />
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@{tv.name}"
-                android:foreground="@drawable/bg_gradient_mask"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -36,6 +41,12 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:src="@{tv.backdrop}"
                 tools:src="@drawable/ic_launcher_background" />
+
+            <View
+                android:id="@+id/view_mask"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_gradient_mask" />
 
             <TextView
                 android:id="@+id/tv_title"

@@ -59,6 +59,24 @@
             tools:listitem="@layout/item_tv_show_backdrop"
             tools:paddingEnd="150dp" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_providers"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginVertical="@dimen/default_margin"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintDimensionRatio="1:.2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_upcoming"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_square_provider"
+            tools:paddingEnd="300dp" />
+
         <androidx.constraintlayout.widget.Group
             android:id="@+id/grp_talk_shows"
             android:layout_width="wrap_content"
@@ -76,7 +94,7 @@
             android:textColor="@color/title_color"
             android:textSize="@dimen/category_title_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_upcoming" />
+            app:layout_constraintTop_toBottomOf="@id/rv_providers" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_talk_shows"
