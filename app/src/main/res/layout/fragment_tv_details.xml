@@ -140,6 +140,47 @@
                     tools:ignore="SmallSp"
                     tools:text="9.9" />
 
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/layout_next_episode"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_margin="@dimen/default_margin"
+                    app:cardCornerRadius="@dimen/default_corner_radius"
+                    app:cardElevation="@dimen/default_card_elevation"
+                    app:contentPadding="@dimen/default_padding"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_status">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tv_next_episode_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/avenir_next_demi_bold"
+                            android:text="@string/tv_details_next_episode_label"
+                            android:textColor="@color/title_color"
+                            android:textSize="13sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_next_episode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/avenir_next_regular"
+                            android:text="@{tvDetails.episodeToAir.name}"
+                            android:textColor="@color/title_color"
+                            android:textSize="11sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_next_episode_label" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
                 <TextView
                     android:id="@+id/tv_story_label"
                     android:layout_width="wrap_content"
@@ -150,7 +191,7 @@
                     android:textColor="@color/title_color"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@id/tv_name"
-                    app:layout_constraintTop_toBottomOf="@id/tv_status" />
+                    app:layout_constraintTop_toBottomOf="@id/layout_next_episode" />
 
                 <TextView
                     android:id="@+id/tv_story"

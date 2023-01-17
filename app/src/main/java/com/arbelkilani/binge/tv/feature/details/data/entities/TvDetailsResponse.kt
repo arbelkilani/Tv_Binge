@@ -15,9 +15,9 @@ data class TvDetailsResponse(
     @SerializedName("in_production") val inProduction: Boolean,
     @SerializedName("languages") val languages: List<String>,
     @SerializedName("last_air_date") val lastAirDate: String,
-    @SerializedName("last_episode_to_air") val lastEpisodeToAir: EpisodeToAir,
+    @SerializedName("last_episode_to_air") val lastEpisodeToAir: EpisodeToAirResponse,
     @SerializedName("name") val name: String,
-    @SerializedName("next_episode_to_air") val nextEpisodeToAir: EpisodeToAir,
+    @SerializedName("next_episode_to_air") val nextEpisodeToAir: EpisodeToAirResponse,
     @SerializedName("networks") val networks: List<NetworkResponse>,
     @SerializedName("number_of_episodes") val numberOfEpisodes: Int,
     @SerializedName("number_of_seasons") val numberOfSeasons: Int,
@@ -47,7 +47,7 @@ data class CreatedBy(
     @SerializedName("profile_path") val profile: String?
 )
 
-data class EpisodeToAir(
+data class EpisodeToAirResponse(
     @SerializedName("air_date") val airDate: String,
     @SerializedName("episode_number") val episodeNumber: Int,
     @SerializedName("name") val name: String,

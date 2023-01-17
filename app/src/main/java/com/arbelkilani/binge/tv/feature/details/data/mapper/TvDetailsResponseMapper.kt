@@ -9,12 +9,16 @@ class TvDetailsResponseMapper @Inject constructor() {
     @Inject
     lateinit var networkResponseMapper: NetworkResponseMapper
 
-    fun map(response: TvDetailsResponse) = TvDetailsEntity(
+    @Inject
+    lateinit var episodeToAirResponseMapper: EpisodeToAirResponseMapper
+
+    suspend fun map(response: TvDetailsResponse) = TvDetailsEntity(
         name = response.name,
         overview = response.overview,
         genres = response.genres,
         status = response.status,
         voteAverage = response.voteAverage,
-        networks = response.networks.map { networkResponseMapper.map(it) }
+        networks = response.networks.map { networkResponseMapper.map(it) },
+        episodeToAir = episodeToAirResponseMapper.map(response.nextEpisodeToAir)
     )
 }

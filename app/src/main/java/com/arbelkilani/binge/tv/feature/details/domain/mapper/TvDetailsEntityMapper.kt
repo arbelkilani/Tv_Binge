@@ -10,12 +10,16 @@ class TvDetailsEntityMapper @Inject constructor() {
     @Inject
     lateinit var networkEntityMapper: NetworkEntityMapper
 
+    @Inject
+    lateinit var episodeToAirEntityMapper: EpisodeToAirEntityMapper
+
     suspend fun map(entity: TvDetailsEntity) = TvDetails(
         name = entity.name,
         story = entity.overview,
         genres = entity.genres.map { it.name },
         status = entity.status,
         vote = if (entity.voteAverage == 0f) "" else DecimalFormat("0.#").format(entity.voteAverage),
-        networks = entity.networks.map { networkEntityMapper.map(it) }
+        networks = entity.networks.map { networkEntityMapper.map(it) },
+        episodeToAir = episodeToAirEntityMapper.map(entity.episodeToAir)
     )
 }
