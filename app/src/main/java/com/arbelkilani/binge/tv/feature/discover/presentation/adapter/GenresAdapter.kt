@@ -18,28 +18,30 @@ class GenresAdapter @Inject constructor(
 ) :
     ListAdapter<GenreEntity, RecyclerView.ViewHolder>(GenreComparator) {
 
-    class GenresHolder(val binding: ItemGenreMinBinding) :
+    class DataHolder(val binding: ItemGenreMinBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    class ShimmerTagHolder(val binding: ItemTagShimmerBinding) :
+    class ShimmerHolder(val binding: ItemTagShimmerBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val item = getItem(position)
         when (holder.itemViewType) {
-            DEFAULT_TYPE -> with((holder as GenresHolder).binding) {
-                genre = getItem(position)
+            DATA_TYPE -> with((holder as DataHolder).binding) {
+                root.setOnClickListener { listener.onGenreClicked(item) }
+                genre = item
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            DEFAULT_TYPE -> GenresHolder(
+            DATA_TYPE -> DataHolder(
                 DataBindingUtil.inflate(
                     LayoutInflater.from(parent.context), R.layout.item_genre_min, parent, false
                 )
             )
-            else -> ShimmerTagHolder(
+            else -> ShimmerHolder(
                 DataBindingUtil.inflate(
                     LayoutInflater.from(parent.context), R.layout.item_tag_shimmer, parent, false
                 )
@@ -49,7 +51,7 @@ class GenresAdapter @Inject constructor(
 
     override fun getItemViewType(position: Int): Int {
         return if (getItem(0)?.id == -1) SHIMMER_TYPE else
-            DEFAULT_TYPE
+            DATA_TYPE
     }
 
     companion object {
@@ -71,6 +73,6 @@ class GenresAdapter @Inject constructor(
             }
 
         private const val SHIMMER_TYPE = 1
-        private const val DEFAULT_TYPE = 2
+        private const val DATA_TYPE = 2
     }
 }

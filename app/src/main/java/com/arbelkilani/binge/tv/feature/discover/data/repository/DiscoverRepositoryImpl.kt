@@ -118,6 +118,20 @@ class DiscoverRepositoryImpl @Inject constructor(
         ).flow
     }
 
+    override suspend fun getDocumentaries(): Flow<PagingData<TvEntity>> {
+        val discoverQuery = DiscoverQuery.Builder()
+            .timezone(timezone)
+            .type(DiscoverQuery.Type.DOCUMENTARY)
+            .watchRegion(country).build()
+
+        return Pager(
+            config = PagingConfig(OFFSET),
+            pagingSourceFactory = {
+                DiscoverPagingSource(service, mapper, discoverQuery)
+            }
+        ).flow
+    }
+
     override suspend fun getFavoriteProviders(): Flow<List<WatchProviderEntity>?> {
         return resourceRepository.getFavoriteProviders()
     }

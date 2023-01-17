@@ -15,10 +15,7 @@ import com.arbelkilani.binge.tv.common.extension.removeOverScroll
 import com.arbelkilani.binge.tv.common.extension.scalePagerTransformer
 import com.arbelkilani.binge.tv.databinding.FragmentDiscoverBinding
 import com.arbelkilani.binge.tv.feature.discover.DiscoverContract
-import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.DiscoverAdapter
-import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.ProvidersAdapter
-import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.TalkShowsAdapter
-import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.UpcomingAdapter
+import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.*
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
@@ -56,6 +53,14 @@ class DiscoverFragment :
         ProvidersAdapter(this)
             .apply { submitList(shimmerListProviders) }
     }
+    private val genresAdapter: GenresAdapter by lazy {
+        GenresAdapter(this)
+            .apply { submitList(shimmerListGenres) }
+    }
+    private val documentariesAdapter: DocumentariesAdapter by lazy {
+        DocumentariesAdapter(this)
+            .apply { submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerList)) }
+    }
 
     override fun bindView(
         inflater: LayoutInflater, container: ViewGroup?
@@ -74,6 +79,8 @@ class DiscoverFragment :
                         collectUpcomingTvShows()
                         collectTalkShows()
                         collectProviders()
+                        collectGenres()
+                        collectDocumentaries()
                     }
                     else -> Unit
                 }
@@ -108,6 +115,20 @@ class DiscoverFragment :
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
+    private suspend fun collectGenres() {
+        viewModel.genres
+            .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
+            .onEach { showGenres(it) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private suspend fun collectDocumentaries() {
+        viewModel.documentaries
+            .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
+            .onEach { showDocumentaries(it) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
     override fun initViews() {
         super.initViews()
         val width = resources.displayMetrics.widthPixels
@@ -130,6 +151,11 @@ class DiscoverFragment :
             setPadding(0, 0, (width * .82f).toInt(), 0)
             adapter = providersAdapter
         }
+        binding.rvGenres.adapter = genresAdapter
+        binding.rvDocumentaries.apply {
+            setPadding(0, 0, (width * .45f).toInt(), 0)
+            adapter = documentariesAdapter
+        }
     }
 
     override suspend fun showTrending(data: PagingData<Tv>) {
@@ -148,6 +174,14 @@ class DiscoverFragment :
         providersAdapter.submitList(data)
     }
 
+    override suspend fun showGenres(data: List<GenreEntity>) {
+        genresAdapter.submitList(data)
+    }
+
+    override suspend fun showDocumentaries(data: PagingData<Tv>) {
+        documentariesAdapter.submitData(data)
+    }
+
     override fun showError(exception: Exception) {
         Toast.makeText(context, exception.localizedMessage, Toast.LENGTH_SHORT).show()
     }
@@ -161,7 +195,7 @@ class DiscoverFragment :
     }
 
     override fun onGenreClicked(genreEntity: GenreEntity) {
-        TODO("Not yet implemented")
+        Toast.makeText(context, genreEntity.name, Toast.LENGTH_SHORT).show()
     }
 
     companion object {
@@ -184,6 +218,16 @@ class DiscoverFragment :
             WatchProviderEntity(id = -1, "", "", 0, false),
             WatchProviderEntity(id = -1, "", "", 0, false),
             WatchProviderEntity(id = -1, "", "", 0, false),
+        )
+
+        private val shimmerListGenres = listOf(
+            GenreEntity(id = -1, "", false),
+            GenreEntity(id = -1, "", false),
+            GenreEntity(id = -1, "", false),
+            GenreEntity(id = -1, "", false),
+            GenreEntity(id = -1, "", false),
+            GenreEntity(id = -1, "", false),
+            GenreEntity(id = -1, "", false),
         )
     }
 }

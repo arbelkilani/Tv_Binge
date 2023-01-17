@@ -16,4 +16,5 @@ interface DiscoverRepository {
     suspend fun getBasedOnGenres(): Flow<PagingData<TvEntity>>
     suspend fun getUpcoming(): Flow<PagingData<TvEntity>>
     suspend fun getTalkShows(): Flow<PagingData<TvEntity>>
+    suspend fun getDocumentaries(): Flow<PagingData<TvEntity>>
 }
