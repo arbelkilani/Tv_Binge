@@ -8,8 +8,11 @@ import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
 import com.arbelkilani.binge.tv.common.source.remote.pagingsource.DiscoverPagingSource
 import com.arbelkilani.binge.tv.common.source.remote.pagingsource.TrendingPagingSource
+import com.arbelkilani.binge.tv.common.source.remote.pagingsource.TrendingPersonPagingSource
 import com.arbelkilani.binge.tv.feature.discover.data.entities.DiscoverQuery
+import com.arbelkilani.binge.tv.feature.discover.data.mapper.PersonResponseMapper
 import com.arbelkilani.binge.tv.feature.discover.data.mapper.TvResponseMapper
+import com.arbelkilani.binge.tv.feature.discover.domain.entities.PersonEntity
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
 import com.arbelkilani.binge.tv.feature.discover.domain.repository.DiscoverRepository
 import com.arbelkilani.binge.tv.feature.walkthrough.domain.repository.ResourcesRepository
@@ -22,14 +25,24 @@ class DiscoverRepositoryImpl @Inject constructor(
     private val service: ApiService
 ) : DiscoverRepository {
 
-    private val country = "FR"
+    private val country = Locale.getDefault().country
     private val timezone = TimeZone.getDefault().id
 
     @Inject
     lateinit var mapper: TvResponseMapper
 
     @Inject
+    lateinit var personResponseMapper: PersonResponseMapper
+
+    @Inject
     lateinit var resourceRepository: ResourcesRepository
+
+    override suspend fun getTrendingPerson(): Flow<PagingData<PersonEntity>> {
+        return Pager(
+            config = PagingConfig(OFFSET),
+            pagingSourceFactory = { TrendingPersonPagingSource(service, personResponseMapper) }
+        ).flow
+    }
 
     override suspend fun getTrending(): Flow<PagingData<TvEntity>> {
         return Pager(

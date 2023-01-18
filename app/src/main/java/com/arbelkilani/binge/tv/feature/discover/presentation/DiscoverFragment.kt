@@ -18,6 +18,7 @@ import com.arbelkilani.binge.tv.feature.discover.DiscoverContract
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.*
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.Person
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 import com.arbelkilani.binge.tv.feature.home.HomeContract
 import dagger.hilt.android.AndroidEntryPoint
@@ -61,6 +62,7 @@ class DiscoverFragment :
         DocumentariesAdapter(this)
             .apply { submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerList)) }
     }
+    private val personAdapter: PersonAdapter by lazy { PersonAdapter() }
 
     override fun bindView(
         inflater: LayoutInflater, container: ViewGroup?
@@ -81,6 +83,7 @@ class DiscoverFragment :
                         collectProviders()
                         collectGenres()
                         collectDocumentaries()
+                        collectPersons()
                     }
                     else -> Unit
                 }
@@ -129,6 +132,13 @@ class DiscoverFragment :
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
+    private suspend fun collectPersons() {
+        viewModel.persons
+            .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
+            .onEach { showTrendingPersons(it) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
     override fun initViews() {
         super.initViews()
         val width = resources.displayMetrics.widthPixels
@@ -156,6 +166,10 @@ class DiscoverFragment :
             setPadding(0, 0, (width * .45f).toInt(), 0)
             adapter = documentariesAdapter
         }
+        binding.rvPersons.apply {
+            setPadding(20, 0, (width * .75f).toInt(), 0)
+            adapter = personAdapter
+        }
     }
 
     override suspend fun showTrending(data: PagingData<Tv>) {
@@ -180,6 +194,10 @@ class DiscoverFragment :
 
     override suspend fun showDocumentaries(data: PagingData<Tv>) {
         documentariesAdapter.submitData(data)
+    }
+
+    override suspend fun showTrendingPersons(data: PagingData<Person>) {
+        personAdapter.submitData(lifecycle, data)
     }
 
     override fun showError(exception: Exception) {

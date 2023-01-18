@@ -8,6 +8,7 @@ import com.arbelkilani.binge.tv.common.data.model.ProvidersResponse
 import com.arbelkilani.binge.tv.feature.details.data.entities.CreditsRaw
 import com.arbelkilani.binge.tv.feature.details.data.entities.KeywordsRaw
 import com.arbelkilani.binge.tv.feature.details.data.entities.TvDetailsResponse
+import com.arbelkilani.binge.tv.feature.discover.data.entities.PersonResponse
 import com.arbelkilani.binge.tv.feature.discover.data.entities.TvResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -42,6 +43,12 @@ interface ApiService {
         @Path("media_type") mediaType: String,
         @Path("time_window") timeWindow: String
     ): ResponseWrapper<TvResponse>
+
+    // Get trending person
+    @GET("trending/person/{time_window}")
+    suspend fun getTrendingPerson(
+        @Path("time_window") timeWindow: String
+    ) : ResponseWrapper<PersonResponse>
 
     // Get TV Airing Today
     @GET("tv/airing_today")

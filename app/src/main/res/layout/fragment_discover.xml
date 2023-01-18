@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
+    android:fitsSystemWindows="true"
     android:overScrollMode="never"
     tools:context=".feature.discover.presentation.DiscoverFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <include
             android:id="@+id/layout_trending"
@@ -122,6 +122,7 @@
             android:clipToPadding="false"
             android:orientation="horizontal"
             android:overScrollMode="never"
+            android:paddingHorizontal="@dimen/medium_padding"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -129,6 +130,23 @@
             tools:itemCount="10"
             tools:listitem="@layout/item_genre_min"
             tools:paddingEnd="300dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_persons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/default_margin"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_genres"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_person"
+            tools:paddingEnd="240dp" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/grp_documentaries"
@@ -147,7 +165,7 @@
             android:textColor="@color/title_color"
             android:textSize="@dimen/category_title_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_genres" />
+            app:layout_constraintTop_toBottomOf="@id/rv_persons" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_documentaries"
@@ -161,10 +179,11 @@
             app:layout_constraintDimensionRatio="1:.32"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_documentaries"
+            app:layout_constraintTop_toBottomOf="@id/rv_persons"
             tools:itemCount="10"
             tools:listitem="@layout/item_tv_show_backdrop"
             tools:paddingEnd="150dp" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

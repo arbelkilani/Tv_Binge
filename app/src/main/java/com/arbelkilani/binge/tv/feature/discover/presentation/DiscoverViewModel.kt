@@ -6,11 +6,9 @@ import androidx.paging.cachedIn
 import com.arbelkilani.binge.tv.common.base.BaseStateViewModel
 import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
 import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
-import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetDocumentariesUseCase
-import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetTalkShowsUseCase
-import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetTrendingUseCase
-import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetUpcomingUseCase
+import com.arbelkilani.binge.tv.feature.discover.domain.usecase.*
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.Person
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 import com.arbelkilani.binge.tv.feature.onboarding.domain.usecase.GetGenresUseCase
 import com.arbelkilani.binge.tv.feature.onboarding.domain.usecase.GetProvidersUseCase
@@ -28,7 +26,8 @@ class DiscoverViewModel @Inject constructor(
     private val getTalkShowsUseCase: GetTalkShowsUseCase,
     private val getProvidersUseCase: GetProvidersUseCase,
     private val getGenresUseCase: GetGenresUseCase,
-    private val getDocumentariesUseCase: GetDocumentariesUseCase
+    private val getDocumentariesUseCase: GetDocumentariesUseCase,
+    private val getTrendingPersonUseCase: GetTrendingPersonUseCase
 ) : BaseStateViewModel<DiscoverViewState>(initialState = DiscoverViewState.Start) {
 
     private val _trending = MutableStateFlow(PagingData.empty<Tv>())
@@ -49,6 +48,9 @@ class DiscoverViewModel @Inject constructor(
     private val _documentaries = MutableStateFlow(PagingData.empty<Tv>())
     val documentaries: StateFlow<PagingData<Tv>> = _documentaries
 
+    private val _persons = MutableStateFlow(PagingData.empty<Person>())
+    val persons: StateFlow<PagingData<Person>> = _persons
+
     suspend fun init() {
         free()
         trending()
@@ -56,6 +58,7 @@ class DiscoverViewModel @Inject constructor(
         providers()
         genres()
         documentaries()
+        persons()
     }
 
     private fun trending() = viewModelScope.launch {
@@ -107,6 +110,15 @@ class DiscoverViewModel @Inject constructor(
             .collectLatest { data ->
                 updateState { DiscoverViewState.Loaded }
                 _documentaries.value = data
+            }
+    }
+
+    private suspend fun persons() = viewModelScope.launch {
+        getTrendingPersonUseCase.invoke()
+            .cachedIn(viewModelScope)
+            .collectLatest { data ->
+                updateState { DiscoverViewState.Loaded }
+                _persons.value = data
             }
     }
 }
