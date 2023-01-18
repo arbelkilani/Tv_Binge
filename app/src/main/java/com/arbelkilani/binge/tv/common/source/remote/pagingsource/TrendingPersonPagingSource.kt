@@ -27,7 +27,6 @@ class TrendingPersonPagingSource @Inject constructor(
             val response = service.getTrendingPerson(TRENDING_TIME_WINDOW)
             val tvShows = response.results
                 .map {
-                    Log.i("TAG**", "response = $it")
                     personResponseMapper.map(it)
                 }
 
@@ -37,13 +36,10 @@ class TrendingPersonPagingSource @Inject constructor(
                 nextKey = if (position > response.totalPages) null else position + 1
             )
         } catch (exception: IOException) {
-            Log.i("TAG**", "IOException = $exception")
             return LoadResult.Error(exception)
         } catch (exception: HttpException) {
-            Log.i("TAG**", "HttpException = $exception")
             return LoadResult.Error(exception)
         } catch (exception: Exception) {
-            Log.i("TAG**", "Exception = $exception")
             return LoadResult.Error(exception)
         }
     }

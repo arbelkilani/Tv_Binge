@@ -24,7 +24,6 @@ class PersonAdapter @Inject constructor() :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
-        Log.i("TAG**", "item = $item")
         when (holder.itemViewType) {
             DATA_TYPE -> with((holder as DataHolder).binding) {
                 person = item

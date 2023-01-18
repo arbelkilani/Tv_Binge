@@ -45,13 +45,16 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/iv_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/iv_backdrop"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:adjustViewBounds="true"
+                android:alpha="0"
                 android:contentDescription="@{tv.name}"
                 android:foreground="@drawable/bg_gradient_mask"
                 android:scaleType="centerCrop"
@@ -73,7 +76,8 @@
             app:behavior_draggable="true"
             app:behavior_fitToContents="true"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-            tools:behavior_peekHeight="800dp">
+            tools:behavior_peekHeight="800dp"
+            tools:visibility="visible">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

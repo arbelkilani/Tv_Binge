@@ -1,12 +1,18 @@
 package com.arbelkilani.binge.tv.feature.details.presentation
 
+import android.animation.ValueAnimator
 import android.graphics.drawable.GradientDrawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.BounceInterpolator
+import android.view.animation.LinearInterpolator
+import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
+import androidx.datastore.preferences.protobuf.Value
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -30,6 +36,7 @@ import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
@@ -103,7 +110,22 @@ class TvDetailsFragment :
         val height = resources.displayMetrics.heightPixels
         val behavior: BottomSheetBehavior<NestedScrollView> =
             BottomSheetBehavior.from(binding.bottomSheetBehaviour)
-        behavior.peekHeight = (height * .7f).toInt()
+        ValueAnimator.ofFloat(0f, .7f).apply {
+            duration = 200
+            interpolator = LinearInterpolator()
+            addUpdateListener { animation ->
+                behavior.peekHeight = (height * animation.animatedValue as Float).toInt()
+            }
+            start()
+        }
+        ValueAnimator.ofFloat(0f, 1f).apply {
+            duration = 300
+            addUpdateListener { animation ->
+                val value = animation.animatedValue as Float
+                binding.ivBackdrop.alpha = value
+            }
+            start()
+        }
         behavior.addBottomSheetCallback(bottomSheetCallback())
     }
 

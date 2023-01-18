@@ -85,6 +85,7 @@
                 android:text="@{tv.firstAirDate}"
                 android:textColor="@color/anti_flash_white"
                 android:textSize="10sp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/tv_genres"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_genres"
