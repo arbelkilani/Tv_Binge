@@ -146,7 +146,8 @@
             app:layout_constraintTop_toBottomOf="@id/rv_genres"
             tools:itemCount="10"
             tools:listitem="@layout/item_person"
-            tools:paddingEnd="240dp" />
+            tools:paddingEnd="290dp"
+            tools:paddingHorizontal="@dimen/medium_padding" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/grp_documentaries"

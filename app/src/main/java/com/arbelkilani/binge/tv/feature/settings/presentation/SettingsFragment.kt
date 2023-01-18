@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.feature.settings
+package com.arbelkilani.binge.tv.feature.settings.presentation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

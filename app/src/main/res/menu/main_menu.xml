@@ -2,10 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_discover"
-        android:icon="@drawable/ic_tick_full"
-        android:title="@string/title_discover" />
+        android:icon="@drawable/ic_home"
+        android:title="@string/home_title_home" />
+
+    <item
+        android:id="@+id/navigation_search_filtered"
+        android:icon="@drawable/ic_search_filter"
+        android:title="@string/home_title_search" />
+
     <item
         android:id="@+id/navigation_settings"
-        android:icon="@drawable/ic_arrow_left"
-        android:title="@string/title_settings" />
+        android:icon="@drawable/ic_settings"
+        android:title="@string/home_title_settings" />
 </menu>

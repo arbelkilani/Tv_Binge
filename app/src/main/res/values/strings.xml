@@ -23,8 +23,9 @@
     <string name="on_boarding_genre_selection_description">Description : consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</string>
 
     <!-- Home -->
-    <string name="title_discover">Discover</string>
-    <string name="title_settings">Settings</string>
+    <string name="home_title_home">Discover</string>
+    <string name="home_title_search">Search</string>
+    <string name="home_title_settings">Settings</string>
 
     <!-- Discover -->
     <string name="discover_airing_today_label">Airing Today</string>

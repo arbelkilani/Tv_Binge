@@ -23,7 +23,7 @@ class HomeFragment :
     HomeContract.ViewCapabilities,
     BaseFragment<FragmentHomeBinding>() {
 
-    val viewModel: HomeViewModel by viewModels()
+    private val viewModel: HomeViewModel by viewModels()
 
     @Inject
     lateinit var navigator: HomeContract.ViewNavigation
@@ -36,12 +36,18 @@ class HomeFragment :
         super.onViewCreated(view, savedInstanceState)
 
         val appBarConfiguration =
-            AppBarConfiguration(setOf(R.id.navigation_discover, R.id.navigation_settings))
+            AppBarConfiguration(
+                setOf(
+                    R.id.navigation_discover,
+                    R.id.navigation_search_filtered,
+                    R.id.navigation_settings
+                )
+            )
         val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_home)
         navHostFragment?.findNavController()?.let {
             binding.navView.setupWithNavController(it)
             binding.toolbar.setupWithNavController(it, appBarConfiguration)
-            it.addOnDestinationChangedListener { current, destination, _ ->
+            it.addOnDestinationChangedListener { _, destination, _ ->
                 when (destination.id) {
                     R.id.tvDetailsFragment -> binding.navView.isVisible = false
                     else -> binding.navView.isVisible = true
