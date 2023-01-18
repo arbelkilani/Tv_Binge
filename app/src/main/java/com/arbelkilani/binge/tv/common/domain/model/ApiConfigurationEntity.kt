@@ -10,12 +10,13 @@ data class ApiConfigurationEntity(
     val url: String,
     val backdrop: Image,
     val logo: Image,
-    val poster: Image
+    val poster: Image,
+    val profile: Image
 )
 
 data class Image(
-    val original: String?,
-    val small: String?,
-    val medium: String?,
-    val large: String?
+    val original: String? = "",
+    val small: String? = "",
+    val medium: String? = "",
+    val large: String? = ""
 )

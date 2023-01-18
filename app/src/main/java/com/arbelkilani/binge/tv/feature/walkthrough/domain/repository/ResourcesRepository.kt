@@ -12,4 +12,5 @@ interface ResourcesRepository {
     suspend fun getFavoriteProviders(): Flow<List<WatchProviderEntity>?>
     suspend fun getFavoriteGenres(): Flow<List<GenreEntity>?>
     suspend fun getLogo(size: ImageSize): String
+    suspend fun getProfile(size: ImageSize): String
 }

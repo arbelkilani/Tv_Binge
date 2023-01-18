@@ -5,6 +5,7 @@ import com.arbelkilani.binge.tv.common.data.model.CertificationsResponse
 import com.arbelkilani.binge.tv.common.data.model.ConfigurationResponse
 import com.arbelkilani.binge.tv.common.data.model.GenreResponse
 import com.arbelkilani.binge.tv.common.data.model.ProvidersResponse
+import com.arbelkilani.binge.tv.feature.details.data.entities.CreditsRaw
 import com.arbelkilani.binge.tv.feature.details.data.entities.KeywordsRaw
 import com.arbelkilani.binge.tv.feature.details.data.entities.TvDetailsResponse
 import com.arbelkilani.binge.tv.feature.discover.data.entities.TvResponse
@@ -68,4 +69,10 @@ interface ApiService {
     suspend fun getKeywords(
         @Path("tv_id") id: Int
     ): KeywordsRaw
+
+    // Get Credits
+    @GET("tv/{tv_id}/credits")
+    suspend fun getCredits(
+        @Path("tv_id") id: Int
+    ): CreditsRaw
 }

@@ -127,6 +127,18 @@ class ResourcesRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getProfile(size: ImageSize): String {
+        return resourcesDao.getApiConfiguration()?.profile?.let { image ->
+            when (size) {
+                ImageSize.PROFILE_W92 -> image.small
+                ImageSize.PROFILE_W185 -> image.medium
+                else -> String()
+            }
+        } ?: run {
+            String()
+        }
+    }
+
     companion object {
         val knownPackages = mapOf(
             "com.google.android.videos" to "Google Play Movies",

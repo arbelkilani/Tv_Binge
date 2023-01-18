@@ -7,12 +7,13 @@ import com.arbelkilani.binge.tv.common.data.enum.ImageSize
 import javax.inject.Inject
 
 class ApiConfigurationMapper @Inject constructor() {
-    
+
     fun map(configuration: ConfigurationResponse): ApiConfigurationEntity {
         val url = configuration.imagesConfiguration.secureBaseUrl
         val backdrops = configuration.imagesConfiguration.backdropSize
         val logos = configuration.imagesConfiguration.logoSize
         val posters = configuration.imagesConfiguration.posterSize
+        val profiles = configuration.imagesConfiguration.profileSize
         return ApiConfigurationEntity(
             url = url,
             backdrop = Image(
@@ -32,6 +33,10 @@ class ApiConfigurationMapper @Inject constructor() {
                 small = url + posters.find { it == ImageSize.POSTER_W185.size },
                 medium = url + posters.find { it == ImageSize.POSTER_W342.size },
                 large = url + posters.find { it == ImageSize.POSTER_W780.size }
+            ),
+            profile = Image(
+                small = url + profiles.find { it == ImageSize.PROFILE_W92.size },
+                medium = url + profiles.find { it == ImageSize.PROFILE_W185.size }
             )
         )
     }

@@ -69,6 +69,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/bg_tv_details"
             android:fitsSystemWindows="true"
+            android:overScrollMode="never"
             app:behavior_draggable="true"
             app:behavior_fitToContents="true"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
@@ -398,6 +399,37 @@
                     tools:itemCount="2"
                     tools:layoutManager="LinearLayoutManager"
                     tools:listitem="@layout/item_keyword" />
+
+                <TextView
+                    android:id="@+id/tv_casts_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:layout_marginEnd="@dimen/small_margin"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:text="@string/tv_details_casts_label"
+                    android:textColor="@color/title_color"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_keywords" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_casts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:paddingHorizontal="@dimen/default_padding"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_casts_label"
+                    tools:itemCount="10"
+                    tools:listitem="@layout/item_cast" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
