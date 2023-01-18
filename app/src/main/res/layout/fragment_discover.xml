@@ -59,24 +59,6 @@
             tools:listitem="@layout/item_tv_show_backdrop"
             tools:paddingEnd="150dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_providers"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginVertical="@dimen/default_margin"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            android:overScrollMode="never"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintDimensionRatio="1:.18"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_upcoming"
-            tools:itemCount="10"
-            tools:listitem="@layout/item_square_provider"
-            tools:paddingEnd="300dp" />
-
         <androidx.constraintlayout.widget.Group
             android:id="@+id/grp_talk_shows"
             android:layout_width="wrap_content"
@@ -94,7 +76,7 @@
             android:textColor="@color/title_color"
             android:textSize="@dimen/category_title_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_providers" />
+            app:layout_constraintTop_toBottomOf="@id/rv_upcoming" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_talk_shows"
@@ -114,24 +96,6 @@
             tools:paddingEnd="300dp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_genres"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/default_margin"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            android:overScrollMode="never"
-            android:paddingHorizontal="@dimen/medium_padding"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_talk_shows"
-            tools:itemCount="10"
-            tools:listitem="@layout/item_genre_min"
-            tools:paddingEnd="300dp" />
-
-        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_persons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -143,7 +107,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_genres"
+            app:layout_constraintTop_toBottomOf="@id/rv_talk_shows"
             tools:itemCount="10"
             tools:listitem="@layout/item_person"
             tools:paddingEnd="290dp"
@@ -184,7 +148,6 @@
             tools:itemCount="10"
             tools:listitem="@layout/item_tv_show_backdrop"
             tools:paddingEnd="150dp" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

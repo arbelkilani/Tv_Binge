@@ -50,14 +50,6 @@ class DiscoverFragment :
         TalkShowsAdapter(this)
             .apply { submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerList)) }
     }
-    private val providersAdapter: ProvidersAdapter by lazy {
-        ProvidersAdapter(this)
-            .apply { submitList(shimmerListProviders) }
-    }
-    private val genresAdapter: GenresAdapter by lazy {
-        GenresAdapter(this)
-            .apply { submitList(shimmerListGenres) }
-    }
     private val documentariesAdapter: DocumentariesAdapter by lazy {
         DocumentariesAdapter(this)
             .apply { submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerList)) }
@@ -80,8 +72,6 @@ class DiscoverFragment :
                         collectTrendingTvShows()
                         collectUpcomingTvShows()
                         collectTalkShows()
-                        collectProviders()
-                        collectGenres()
                         collectDocumentaries()
                         collectPersons()
                     }
@@ -93,14 +83,14 @@ class DiscoverFragment :
     private suspend fun collectTrendingTvShows() {
         viewModel.trending
             .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
-            .onEach { showTrending(it) }
+            .onEach { showTrendingShows(it) }
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private suspend fun collectUpcomingTvShows() {
         viewModel.upcoming
             .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
-            .onEach { showUpcoming(it) }
+            .onEach { showUpcomingShows(it) }
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
@@ -108,20 +98,6 @@ class DiscoverFragment :
         viewModel.talkShows
             .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
             .onEach { showTalkShows(it) }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
-    }
-
-    private suspend fun collectProviders() {
-        viewModel.providers
-            .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
-            .onEach { showProviders(it) }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
-    }
-
-    private suspend fun collectGenres() {
-        viewModel.genres
-            .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
-            .onEach { showGenres(it) }
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
@@ -157,11 +133,6 @@ class DiscoverFragment :
             setPadding(0, 0, (width * .72f).toInt(), 0)
             adapter = talkShowsAdapter
         }
-        binding.rvProviders.apply {
-            setPadding(0, 0, (width * .82f).toInt(), 0)
-            adapter = providersAdapter
-        }
-        binding.rvGenres.adapter = genresAdapter
         binding.rvDocumentaries.apply {
             setPadding(0, 0, (width * .45f).toInt(), 0)
             adapter = documentariesAdapter
@@ -172,24 +143,16 @@ class DiscoverFragment :
         }
     }
 
-    override suspend fun showTrending(data: PagingData<Tv>) {
+    override suspend fun showTrendingShows(data: PagingData<Tv>) {
         trendingAdapter.submitData(lifecycle, data)
     }
 
-    override suspend fun showUpcoming(data: PagingData<Tv>) {
+    override suspend fun showUpcomingShows(data: PagingData<Tv>) {
         upcomingAdapter.submitData(lifecycle, data)
     }
 
     override suspend fun showTalkShows(data: PagingData<Tv>) {
         talkShowsAdapter.submitData(lifecycle, data)
-    }
-
-    override suspend fun showProviders(data: List<WatchProviderEntity>) {
-        providersAdapter.submitList(data)
-    }
-
-    override suspend fun showGenres(data: List<GenreEntity>) {
-        genresAdapter.submitList(data)
     }
 
     override suspend fun showDocumentaries(data: PagingData<Tv>) {
@@ -223,29 +186,6 @@ class DiscoverFragment :
             Tv(id = -1, "", null, null, emptyList(), 0f, ""),
             Tv(id = -1, "", null, null, emptyList(), 0f, ""),
             Tv(id = -1, "", null, null, emptyList(), 0f, "")
-        )
-
-        private val shimmerListProviders = listOf(
-            WatchProviderEntity(id = -1, "", "", 0, false),
-            WatchProviderEntity(id = -1, "", "", 0, false),
-            WatchProviderEntity(id = -1, "", "", 0, false),
-            WatchProviderEntity(id = -1, "", "", 0, false),
-            WatchProviderEntity(id = -1, "", "", 0, false),
-            WatchProviderEntity(id = -1, "", "", 0, false),
-            WatchProviderEntity(id = -1, "", "", 0, false),
-            WatchProviderEntity(id = -1, "", "", 0, false),
-            WatchProviderEntity(id = -1, "", "", 0, false),
-            WatchProviderEntity(id = -1, "", "", 0, false),
-        )
-
-        private val shimmerListGenres = listOf(
-            GenreEntity(id = -1, "", false),
-            GenreEntity(id = -1, "", false),
-            GenreEntity(id = -1, "", false),
-            GenreEntity(id = -1, "", false),
-            GenreEntity(id = -1, "", false),
-            GenreEntity(id = -1, "", false),
-            GenreEntity(id = -1, "", false),
         )
     }
 }
