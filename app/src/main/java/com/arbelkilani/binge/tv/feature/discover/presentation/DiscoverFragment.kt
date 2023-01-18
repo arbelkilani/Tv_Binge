@@ -167,7 +167,7 @@ class DiscoverFragment :
             adapter = documentariesAdapter
         }
         binding.rvPersons.apply {
-            setPadding(20, 0, (width * .75f).toInt(), 0)
+            setPadding(20, 0, (width * .78f).toInt(), 0)
             adapter = personAdapter
         }
     }
