@@ -17,7 +17,6 @@
             layout="@layout/layout_discover_trending"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/default_margin"
             app:layout_constraintDimensionRatio="1:.5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
