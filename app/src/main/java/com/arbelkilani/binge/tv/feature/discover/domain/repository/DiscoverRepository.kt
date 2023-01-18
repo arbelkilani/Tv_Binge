@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface DiscoverRepository {
     suspend fun getTrending(): Flow<PagingData<TvEntity>>
-    suspend fun getTrendingPerson() : Flow<PagingData<PersonEntity>>
+    suspend fun getTrendingPerson(): Flow<PagingData<PersonEntity>>
     suspend fun getFavoriteProviders(): Flow<List<WatchProviderEntity>?>
     suspend fun getFavoriteGenres(): Flow<List<GenreEntity>?>
     suspend fun getStartingThisMonth(): Flow<PagingData<TvEntity>>

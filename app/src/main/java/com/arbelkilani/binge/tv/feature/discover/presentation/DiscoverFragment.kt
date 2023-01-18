@@ -9,8 +9,6 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import com.arbelkilani.binge.tv.common.base.BaseFragment
-import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
-import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
 import com.arbelkilani.binge.tv.common.extension.removeOverScroll
 import com.arbelkilani.binge.tv.common.extension.scalePagerTransformer
 import com.arbelkilani.binge.tv.databinding.FragmentDiscoverBinding
@@ -169,14 +167,6 @@ class DiscoverFragment :
 
     override fun onTvClicked(tv: Tv?) {
         tv?.let { navigator.navigateToTvDetails(this, it) }
-    }
-
-    override fun onProviderClicked(watchProviderEntity: WatchProviderEntity) {
-        navigator.navigateToShowsFromProvider(this, watchProviderEntity)
-    }
-
-    override fun onGenreClicked(genreEntity: GenreEntity) {
-        navigator.navigateToShowsFromGenre(this, genreEntity)
     }
 
     companion object {

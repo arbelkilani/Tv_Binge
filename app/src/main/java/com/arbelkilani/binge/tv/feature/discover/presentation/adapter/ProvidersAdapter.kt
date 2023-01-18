@@ -10,12 +10,9 @@ import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
 import com.arbelkilani.binge.tv.databinding.ItemSquareProviderBinding
 import com.arbelkilani.binge.tv.databinding.ItemSquareProviderShimmerBinding
-import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import javax.inject.Inject
 
-class ProvidersAdapter @Inject constructor(
-    private val listener: DiscoverItemListener
-) : ListAdapter<WatchProviderEntity, RecyclerView.ViewHolder>(WatchProviderEntityComparator) {
+class ProvidersAdapter @Inject constructor() : ListAdapter<WatchProviderEntity, RecyclerView.ViewHolder>(WatchProviderEntityComparator) {
 
     class DataHolder(val binding: ItemSquareProviderBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -27,9 +24,6 @@ class ProvidersAdapter @Inject constructor(
         when (holder.itemViewType) {
             DATA_TYPE -> with((holder as DataHolder).binding) {
                 provider = getItem(position)
-                root.setOnClickListener {
-                    listener.onProviderClicked(getItem(position))
-                }
             }
         }
     }

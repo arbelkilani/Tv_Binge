@@ -10,12 +10,9 @@ import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
 import com.arbelkilani.binge.tv.databinding.ItemGenreMinBinding
 import com.arbelkilani.binge.tv.databinding.ItemTagShimmerBinding
-import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import javax.inject.Inject
 
-class GenresAdapter @Inject constructor(
-    private val listener: DiscoverItemListener
-) :
+class GenresAdapter @Inject constructor() :
     ListAdapter<GenreEntity, RecyclerView.ViewHolder>(GenreComparator) {
 
     class DataHolder(val binding: ItemGenreMinBinding) :
@@ -28,7 +25,6 @@ class GenresAdapter @Inject constructor(
         val item = getItem(position)
         when (holder.itemViewType) {
             DATA_TYPE -> with((holder as DataHolder).binding) {
-                root.setOnClickListener { listener.onGenreClicked(item) }
                 genre = item
             }
         }
