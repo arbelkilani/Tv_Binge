@@ -1,5 +1,6 @@
 package com.arbelkilani.binge.tv.common.ui
 
+import android.graphics.Paint
 import android.view.ContextThemeWrapper
 import android.view.View
 import android.widget.ImageView
@@ -37,4 +38,10 @@ fun genres(view: FlexboxLayout, list: List<String>?) {
 
     view.requestLayout()
     view.invalidate()
+}
+
+@BindingAdapter(value = ["app:underline"])
+fun underline(textView: TextView, value: Boolean) {
+    if (value)
+        textView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
 }
