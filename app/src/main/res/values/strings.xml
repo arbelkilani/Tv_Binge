@@ -45,4 +45,6 @@
     <string name="tv_details_tagline">\"%s\"</string>
     <string name="tv_details_created_by_label">Created by</string>
     <string name="tv_details_first_air_date_label">Since</string>
+    <string name="tv_details_companies_label">Production companies</string>
+    <string name="tv_details_keywords_label">Keywords</string>
 </resources>

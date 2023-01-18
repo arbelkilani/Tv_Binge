@@ -54,7 +54,7 @@
                 android:layout_height="0dp"
                 android:contentDescription="@{tv.name}"
                 android:foreground="@drawable/bg_gradient_mask"
-                android:scaleType="fitCenter"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_percent=".32"
                 app:layout_constraintStart_toStartOf="parent"
@@ -304,10 +304,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/medium_margin"
+                    android:fontFamily="@font/avenir_next_regular"
+                    android:textColor="@color/title_color"
+                    android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@id/tv_first_air_date_label"
                     app:layout_constraintTop_toBottomOf="@id/tv_first_air_date_label"
                     app:layout_constraintWidth_percent=".4"
-                    tools:text="2023-01-01" />
+                    tools:text="Janv. 2023" />
 
                 <TextView
                     android:id="@+id/tv_created_by_label"
@@ -328,11 +331,73 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/small_margin"
+                    android:fontFamily="@font/avenir_next_regular"
+                    android:textColor="@color/title_color"
+                    android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_created_by_label"
                     app:layout_constraintTop_toBottomOf="@id/tv_created_by_label"
                     app:layout_constraintWidth_percent=".5"
                     tools:text="@tools:sample/lorem" />
+
+                <TextView
+                    android:id="@+id/tv_companies_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:layout_marginEnd="@dimen/small_margin"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:text="@string/tv_details_companies_label"
+                    android:textColor="@color/title_color"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_created_by"
+                    app:layout_constraintWidth_percent=".4" />
+
+                <TextView
+                    android:id="@+id/tv_companies"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/small_margin"
+                    android:fontFamily="@font/avenir_next_regular"
+                    android:textColor="@color/title_color"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_companies_label"
+                    app:layout_constraintTop_toBottomOf="@id/tv_companies_label"
+                    app:layout_constraintWidth_percent=".4"
+                    tools:text="@tools:sample/lorem" />
+
+                <TextView
+                    android:id="@+id/tv_keywords_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:layout_marginEnd="@dimen/small_margin"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:text="@string/tv_details_keywords_label"
+                    android:textColor="@color/title_color"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_companies" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_keywords"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:paddingHorizontal="@dimen/default_padding"
+                    app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_keywords_label"
+                    tools:itemCount="2"
+                    tools:layoutManager="LinearLayoutManager"
+                    tools:listitem="@layout/item_keyword" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

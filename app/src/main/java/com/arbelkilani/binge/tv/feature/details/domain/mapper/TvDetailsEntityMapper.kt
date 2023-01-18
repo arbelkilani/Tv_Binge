@@ -26,6 +26,7 @@ class TvDetailsEntityMapper @Inject constructor() {
         episodeToAir = entity.episodeToAir?.let { episodeToAirEntityMapper.map(it) },
         tagline = entity.tagline,
         createdBy = entity.createdBy.joinToString(separator = ", "),
-        firstAirDate = entity.firstAirDate?.format(formatter)?.replaceFirstChar(Char::uppercase)
+        firstAirDate = entity.firstAirDate?.format(formatter)?.replaceFirstChar(Char::uppercase),
+        productionCompanies = entity.companies.joinToString(separator = ", ")
     )
 }

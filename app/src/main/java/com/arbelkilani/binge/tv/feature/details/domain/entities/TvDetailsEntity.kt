@@ -13,5 +13,6 @@ data class TvDetailsEntity(
     val episodeToAir: EpisodeToAirEntity?,
     val tagline: String,
     val createdBy: List<String>,
-    val firstAirDate: LocalDate?
+    val firstAirDate: LocalDate?,
+    val companies: List<String>
 )

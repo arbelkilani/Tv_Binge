@@ -17,6 +17,7 @@ import com.arbelkilani.binge.tv.common.base.BaseFragment
 import com.arbelkilani.binge.tv.databinding.FragmentTvDetailsBinding
 import com.arbelkilani.binge.tv.feature.details.TvDetailsContract
 import com.arbelkilani.binge.tv.feature.details.presentation.adapter.GenresAdapter
+import com.arbelkilani.binge.tv.feature.details.presentation.adapter.KeywordsAdapter
 import com.arbelkilani.binge.tv.feature.details.presentation.adapter.NetworksAdapter
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.Keywords
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.TvDetails
@@ -42,6 +43,7 @@ class TvDetailsFragment :
     private val tv: Tv by lazy(LazyThreadSafetyMode.NONE) { args.tv }
     private val networksAdapter: NetworksAdapter by lazy { NetworksAdapter() }
     private val genresAdapter: GenresAdapter by lazy { GenresAdapter() }
+    private val keywordsAdpter: KeywordsAdapter by lazy { KeywordsAdapter() }
 
     @Inject
     lateinit var navigator: TvDetailsContract.ViewNavigation
@@ -64,6 +66,14 @@ class TvDetailsFragment :
                 alignItems = AlignItems.FLEX_START
             }
             adapter = genresAdapter
+        }
+
+        binding.rvKeywords.apply {
+            (layoutManager as FlexboxLayoutManager).apply {
+                flexWrap = FlexWrap.WRAP
+                alignItems = AlignItems.FLEX_START
+            }
+            adapter = keywordsAdpter
         }
     }
 
@@ -111,6 +121,10 @@ class TvDetailsFragment :
         networksAdapter.submitList(data.networks)
         genresAdapter.submitList(tv.genres)
 
+        // Production companies
+        binding.tvCompaniesLabel.isVisible = data.productionCompanies.isNotEmpty()
+        binding.tvCompanies.text = data.productionCompanies
+
         // First air date
         binding.tvFirstAirDateLabel.isVisible = data.firstAirDate != null
         binding.tvFirstAirDate.text = data.firstAirDate
@@ -138,9 +152,7 @@ class TvDetailsFragment :
     }
 
     override suspend fun keywords(data: List<Keywords>) {
-        data.map {
-            Log.i("TAG**", "keyword : $it")
-        }
+        keywordsAdpter.submitList(data)
     }
 
     private fun bottomSheetCallback() = object : BottomSheetBehavior.BottomSheetCallback() {

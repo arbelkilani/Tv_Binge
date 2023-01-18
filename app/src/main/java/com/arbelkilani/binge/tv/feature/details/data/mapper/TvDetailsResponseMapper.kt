@@ -28,6 +28,7 @@ class TvDetailsResponseMapper @Inject constructor() {
         } catch (ex: Exception) {
             ex.printStackTrace()
             null
-        }
+        },
+        companies = response.productionCompanies.map { it.name }
     )
 }
