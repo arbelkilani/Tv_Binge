@@ -5,6 +5,7 @@ import com.arbelkilani.binge.tv.common.data.model.CertificationsResponse
 import com.arbelkilani.binge.tv.common.data.model.ConfigurationResponse
 import com.arbelkilani.binge.tv.common.data.model.GenreResponse
 import com.arbelkilani.binge.tv.common.data.model.ProvidersResponse
+import com.arbelkilani.binge.tv.feature.details.data.entities.KeywordsRaw
 import com.arbelkilani.binge.tv.feature.details.data.entities.TvDetailsResponse
 import com.arbelkilani.binge.tv.feature.discover.data.entities.TvResponse
 import retrofit2.http.GET
@@ -61,4 +62,10 @@ interface ApiService {
         @Path("tv_id") id: Int,
         @Query("append_to_response") appendToResponse: String
     ): TvDetailsResponse
+
+    // Get Keywords
+    @GET("tv/{tv_id}/keywords")
+    suspend fun getKeywords(
+        @Path("tv_id") id: Int
+    ): KeywordsRaw
 }

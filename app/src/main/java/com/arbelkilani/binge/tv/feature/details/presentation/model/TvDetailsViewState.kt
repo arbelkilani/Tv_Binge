@@ -6,5 +6,5 @@ sealed class TvDetailsViewState {
     object Start : TvDetailsViewState()
     object Loading : TvDetailsViewState()
     data class Error(val throwable: Throwable) : TvDetailsViewState()
-    data class Data(val data: TvDetails) : TvDetailsViewState()
+    object Loaded : TvDetailsViewState()
 }

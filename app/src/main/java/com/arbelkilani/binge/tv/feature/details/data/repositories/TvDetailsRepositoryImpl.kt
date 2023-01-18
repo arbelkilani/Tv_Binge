@@ -1,6 +1,7 @@
 package com.arbelkilani.binge.tv.feature.details.data.repositories
 
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
+import com.arbelkilani.binge.tv.feature.details.data.mapper.KeywordsResponseMapper
 import com.arbelkilani.binge.tv.feature.details.data.mapper.TvDetailsResponseMapper
 import com.arbelkilani.binge.tv.feature.details.domain.repositories.TvDetailsRepository
 import kotlinx.coroutines.flow.flow
@@ -13,7 +14,16 @@ class TvDetailsRepositoryImpl @Inject constructor(
     @Inject
     lateinit var mapper: TvDetailsResponseMapper
 
+    @Inject
+    lateinit var keywordsResponseMapper: KeywordsResponseMapper
+
     override suspend fun getTvDetails(id: Int) = flow {
         emit(mapper.map(service.getTvDetails(id, "videos,images")))
+    }
+
+    override suspend fun getKeywords(id: Int) = flow {
+        emit(service.getKeywords(id).results.map {
+            keywordsResponseMapper.map(it)
+        })
     }
 }

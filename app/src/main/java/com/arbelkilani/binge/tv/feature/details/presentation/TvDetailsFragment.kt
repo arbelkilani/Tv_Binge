@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.arbelkilani.binge.tv.R
@@ -16,6 +18,7 @@ import com.arbelkilani.binge.tv.databinding.FragmentTvDetailsBinding
 import com.arbelkilani.binge.tv.feature.details.TvDetailsContract
 import com.arbelkilani.binge.tv.feature.details.presentation.adapter.GenresAdapter
 import com.arbelkilani.binge.tv.feature.details.presentation.adapter.NetworksAdapter
+import com.arbelkilani.binge.tv.feature.details.presentation.entities.Keywords
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.TvDetails
 import com.arbelkilani.binge.tv.feature.details.presentation.model.TvDetailsViewState
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
@@ -26,6 +29,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -68,26 +72,51 @@ class TvDetailsFragment :
         viewModel.viewState.map { viewState ->
             when (viewState) {
                 TvDetailsViewState.Start -> viewModel.init(tv.id)
-                is TvDetailsViewState.Data -> {
-                    views(viewState.data)
-                    binding.tvDetails = viewState.data
+                is TvDetailsViewState.Loaded -> {
+                    collectDetails()
+                    collectKeywords()
                 }
                 else -> Unit
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
-    private fun views(tvDetails: TvDetails) {
-        binding.tvVote.isVisible = tvDetails.vote.isNotEmpty()
-        binding.tvStoryLabel.isVisible = tvDetails.story.isNotEmpty()
-        networksAdapter.submitList(tvDetails.networks)
+    private fun initDetailsView() {
+        val height = resources.displayMetrics.heightPixels
+        val behavior: BottomSheetBehavior<NestedScrollView> =
+            BottomSheetBehavior.from(binding.bottomSheetBehaviour)
+        behavior.peekHeight = (height * .7f).toInt()
+        behavior.addBottomSheetCallback(bottomSheetCallback())
+    }
+
+    private fun collectDetails() {
+        viewModel.details
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.CREATED)
+            .onEach { state -> state?.let { details(state) } }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private fun collectKeywords() {
+        viewModel.keywords
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.CREATED)
+            .onEach { state -> keywords(state) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    override suspend fun details(data: TvDetails) {
+        binding.tvDetails = data
+
+        binding.tvVote.isVisible = data.vote.isNotEmpty()
+        binding.tvStoryLabel.isVisible = data.story.isNotEmpty()
+        networksAdapter.submitList(data.networks)
         genresAdapter.submitList(tv.genres)
 
-        binding.tvTagline.text = getString(R.string.tv_details_tagline, tvDetails.tagline)
-        binding.tvTagline.isVisible = tvDetails.tagline.isNotEmpty()
+        // tagline
+        binding.tvTagline.text = getString(R.string.tv_details_tagline, data.tagline)
+        binding.tvTagline.isVisible = data.tagline.isNotEmpty()
 
         // next episode
-        tvDetails.episodeToAir?.let {
+        data.episodeToAir?.let {
             binding.layoutNextEpisode.isVisible = true
             binding.tvNextEpisode.text = getString(
                 R.string.tv_details_next_episode,
@@ -100,12 +129,10 @@ class TvDetailsFragment :
         }
     }
 
-    private fun initDetailsView() {
-        val height = resources.displayMetrics.heightPixels
-        val behavior: BottomSheetBehavior<NestedScrollView> =
-            BottomSheetBehavior.from(binding.bottomSheetBehaviour)
-        behavior.peekHeight = (height * .7f).toInt()
-        behavior.addBottomSheetCallback(bottomSheetCallback())
+    override suspend fun keywords(data: List<Keywords>) {
+        data.map {
+            Log.i("TAG**", "keyword : $it")
+        }
     }
 
     private fun bottomSheetCallback() = object : BottomSheetBehavior.BottomSheetCallback() {
