@@ -2,6 +2,7 @@ package com.arbelkilani.binge.tv.feature.details.data.mapper
 
 import com.arbelkilani.binge.tv.feature.details.data.entities.TvDetailsResponse
 import com.arbelkilani.binge.tv.feature.details.domain.entities.TvDetailsEntity
+import java.time.LocalDate
 import javax.inject.Inject
 
 class TvDetailsResponseMapper @Inject constructor() {
@@ -20,6 +21,13 @@ class TvDetailsResponseMapper @Inject constructor() {
         voteAverage = response.voteAverage,
         networks = response.networks.map { networkResponseMapper.map(it) },
         episodeToAir = response.nextEpisodeToAir?.let { episodeToAirResponseMapper.map(it) },
-        tagline = response.tagline
+        tagline = response.tagline,
+        createdBy = response.createdBy.map { it.name },
+        firstAirDate = try {
+            LocalDate.parse(response.firstAirDate)
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            null
+        }
     )
 }

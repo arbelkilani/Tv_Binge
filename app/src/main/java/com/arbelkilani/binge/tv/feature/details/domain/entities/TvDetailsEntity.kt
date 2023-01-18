@@ -1,6 +1,7 @@
 package com.arbelkilani.binge.tv.feature.details.domain.entities
 
 import com.arbelkilani.binge.tv.common.data.model.Genre
+import java.time.LocalDate
 
 data class TvDetailsEntity(
     val name: String,
@@ -10,5 +11,7 @@ data class TvDetailsEntity(
     val voteAverage: Float,
     val networks: List<NetworkEntity>,
     val episodeToAir: EpisodeToAirEntity?,
-    val tagline: String
+    val tagline: String,
+    val createdBy: List<String>,
+    val firstAirDate: LocalDate?
 )

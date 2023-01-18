@@ -12,5 +12,7 @@ data class TvDetails(
     val vote: String,
     val networks: List<Network>,
     val episodeToAir: EpisodeToAir?,
-    val tagline: String
+    val tagline: String,
+    val createdBy: String,
+    val firstAirDate: String?
 ) : Parcelable

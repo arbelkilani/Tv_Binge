@@ -111,6 +111,14 @@ class TvDetailsFragment :
         networksAdapter.submitList(data.networks)
         genresAdapter.submitList(tv.genres)
 
+        // First air date
+        binding.tvFirstAirDateLabel.isVisible = data.firstAirDate != null
+        binding.tvFirstAirDate.text = data.firstAirDate
+
+        // Created by
+        binding.tvCreatedByLabel.isVisible = data.createdBy.isNotEmpty()
+        binding.tvCreatedBy.text = data.createdBy
+
         // tagline
         binding.tvTagline.text = getString(R.string.tv_details_tagline, data.tagline)
         binding.tvTagline.isVisible = data.tagline.isNotEmpty()
