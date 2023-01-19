@@ -105,10 +105,10 @@ class DiscoverViewModel @Inject constructor(
         getNetworkReachabilityUseCase.invoke().observeForever { networkState ->
             current?.let { value ->
                 if (value != networkState) load(networkState)
-                current = networkState
             } ?: run {
                 load(networkState)
             }
+            current = networkState
         }
     }
 
