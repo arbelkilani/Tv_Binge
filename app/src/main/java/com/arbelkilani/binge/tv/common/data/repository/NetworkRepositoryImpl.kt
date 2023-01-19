@@ -26,13 +26,11 @@ class NetworkRepositoryImpl @Inject constructor(
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
             super.onAvailable(network)
-            Log.i("Network**", "onAvailable")
             _state.postValue(true)
         }
 
         override fun onLost(network: Network) {
             super.onLost(network)
-            Log.i("Network**", "onLost")
             _state.postValue(false)
         }
 
@@ -40,10 +38,6 @@ class NetworkRepositoryImpl @Inject constructor(
             network: Network,
             networkCapabilities: NetworkCapabilities
         ) {
-
-            Log.i("Network**", "onCapabilitiesChanged")
-
-
             val isInternet =
                 networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
             val isValidated =
@@ -64,13 +58,10 @@ class NetworkRepositoryImpl @Inject constructor(
     }
 
     override fun observeNetworkReachability(): LiveData<Boolean> {
-        Log.i("Network**", "observe network reachability")
         connectivityManager.registerNetworkCallback(
             NetworkRequest.Builder().build(),
             networkCallback
         )
-        Log.i("Network**", "observe network reachability _state : ${_state.value}")
-
         return _state
     }
 }
