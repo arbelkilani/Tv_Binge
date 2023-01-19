@@ -6,7 +6,6 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.arbelkilani.binge.tv.common.domain.repository.NetworkRepository
@@ -42,17 +41,6 @@ class NetworkRepositoryImpl @Inject constructor(
                 networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
             val isValidated =
                 networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
-            if (isValidated) {
-                Log.i(
-                    "Network**",
-                    "hasCapability: $network $networkCapabilities"
-                )
-            } else {
-                Log.i(
-                    "Network**",
-                    "Network has No Connection Capability: $network $networkCapabilities"
-                )
-            }
             _state.postValue(isInternet && isValidated)
         }
     }
