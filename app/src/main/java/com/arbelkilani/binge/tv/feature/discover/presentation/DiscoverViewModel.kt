@@ -1,6 +1,7 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation
 
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -42,10 +43,14 @@ class DiscoverViewModel @Inject constructor(
     private val _persons = MutableStateFlow(PagingData.empty<Person>())
     val persons: StateFlow<PagingData<Person>> = _persons
 
-    suspend fun init() {
+    private val _networkState = MutableLiveData(false)
+    val networkState: LiveData<Boolean> = _networkState
 
-        val test = getNetworkReachabilityUseCase.invoke()
-        Log.i("TAG**", "test = ${test.value}")
+    init {
+        observeNetwork()
+    }
+
+    suspend fun init() {
         free()
         trending()
         talkShows()
@@ -96,5 +101,11 @@ class DiscoverViewModel @Inject constructor(
                 updateState { DiscoverViewState.Loaded }
                 _persons.value = data
             }
+    }
+
+    private fun observeNetwork() {
+        getNetworkReachabilityUseCase.invoke().observeForever {
+            _networkState.postValue(it)
+        }
     }
 }

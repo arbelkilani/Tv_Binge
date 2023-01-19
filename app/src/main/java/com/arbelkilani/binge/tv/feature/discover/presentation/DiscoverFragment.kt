@@ -61,6 +61,20 @@ class DiscoverFragment :
     }
 
     override suspend fun initViewModelObservation() {
+        observeNetwork()
+        observeState()
+    }
+
+    private fun observeNetwork() {
+        viewModel.networkState.observe(viewLifecycleOwner) {
+            if (!it)
+                viewModel.viewState.value = DiscoverViewState.Error(Exception())
+            else
+                viewModel.viewState.value = DiscoverViewState.Start
+        }
+    }
+
+    private suspend fun observeState() {
         viewModel.viewState
             .collectLatest { viewState ->
                 when (viewState) {
