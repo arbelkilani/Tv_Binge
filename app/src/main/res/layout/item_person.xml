@@ -7,7 +7,7 @@
 
         <variable
             name="person"
-            type="com.arbelkilani.binge.tv.feature.discover.presentation.model.Person" />
+            type="com.arbelkilani.binge.tv.feature.discover.presentation.entities.Person" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

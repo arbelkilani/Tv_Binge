@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.feature.discover.presentation.model
+package com.arbelkilani.binge.tv.feature.discover.presentation.entities
 
 import android.os.Parcelable
 import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
@@ -13,4 +13,4 @@ data class Tv(
     val genres: List<GenreEntity>,
     val voteAverage: Float,
     val firstAirDate: String
-): Parcelable
+) : Parcelable

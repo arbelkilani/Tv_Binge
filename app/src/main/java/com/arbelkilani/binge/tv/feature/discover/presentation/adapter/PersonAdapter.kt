@@ -1,6 +1,5 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -10,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.databinding.ItemPersonBinding
 import com.arbelkilani.binge.tv.databinding.ItemTagShimmerBinding
-import com.arbelkilani.binge.tv.feature.discover.presentation.model.Person
+import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Person
 import javax.inject.Inject
 
 class PersonAdapter @Inject constructor() :

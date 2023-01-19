@@ -2,8 +2,8 @@ package com.arbelkilani.binge.tv.feature.discover
 
 import androidx.fragment.app.Fragment
 import androidx.paging.PagingData
-import com.arbelkilani.binge.tv.feature.discover.presentation.model.Person
-import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
+import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Person
+import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Tv
 
 class DiscoverContract {
 

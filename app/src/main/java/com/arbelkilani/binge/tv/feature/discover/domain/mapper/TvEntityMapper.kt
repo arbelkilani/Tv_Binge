@@ -1,12 +1,12 @@
 package com.arbelkilani.binge.tv.feature.discover.domain.mapper
 
 import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
-import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
+import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Tv
 import javax.inject.Inject
 
 class TvEntityMapper @Inject constructor() {
 
-    suspend fun map(response: TvEntity) = Tv(
+    fun map(response: TvEntity) = Tv(
         id = response.id,
         name = response.name,
         poster = response.poster,

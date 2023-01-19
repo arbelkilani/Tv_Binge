@@ -3,7 +3,7 @@ package com.arbelkilani.binge.tv.feature.discover
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.arbelkilani.binge.tv.feature.discover.presentation.DiscoverFragmentDirections
-import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
+import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Tv
 
 class DiscoverNavigator : DiscoverContract.ViewNavigation {
 

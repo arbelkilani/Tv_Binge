@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.feature.discover.presentation.model
+package com.arbelkilani.binge.tv.feature.discover.presentation.entities
 
 sealed class DiscoverViewState {
     object Start : DiscoverViewState()

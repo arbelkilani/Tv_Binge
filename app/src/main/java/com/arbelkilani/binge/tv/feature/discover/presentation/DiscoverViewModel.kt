@@ -1,13 +1,15 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.arbelkilani.binge.tv.common.base.BaseStateViewModel
+import com.arbelkilani.binge.tv.common.domain.usecase.ObserveNetworkReachabilityUseCase
 import com.arbelkilani.binge.tv.feature.discover.domain.usecase.*
-import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
-import com.arbelkilani.binge.tv.feature.discover.presentation.model.Person
-import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
+import com.arbelkilani.binge.tv.feature.discover.presentation.entities.DiscoverViewState
+import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Person
+import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Tv
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,6 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DiscoverViewModel @Inject constructor(
+    private val getNetworkReachabilityUseCase: ObserveNetworkReachabilityUseCase,
     private val getTrendingUseCase: GetTrendingUseCase,
     private val getUpcomingUseCase: GetUpcomingUseCase,
     private val getTalkShowsUseCase: GetTalkShowsUseCase,
@@ -40,6 +43,9 @@ class DiscoverViewModel @Inject constructor(
     val persons: StateFlow<PagingData<Person>> = _persons
 
     suspend fun init() {
+
+        val test = getNetworkReachabilityUseCase.invoke()
+        Log.i("TAG**", "test = ${test.value}")
         free()
         trending()
         talkShows()

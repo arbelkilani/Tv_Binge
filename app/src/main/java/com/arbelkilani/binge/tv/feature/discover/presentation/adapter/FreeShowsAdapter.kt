@@ -12,7 +12,7 @@ import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.databinding.ItemTvShowBackdropBinding
 import com.arbelkilani.binge.tv.databinding.ItemTvShowShimmerBinding
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
-import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
+import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Tv
 import javax.inject.Inject
 
 class FreeShowsAdapter @Inject constructor(

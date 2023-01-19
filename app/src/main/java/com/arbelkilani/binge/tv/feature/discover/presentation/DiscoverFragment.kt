@@ -14,10 +14,10 @@ import com.arbelkilani.binge.tv.common.extension.scalePagerTransformer
 import com.arbelkilani.binge.tv.databinding.FragmentDiscoverBinding
 import com.arbelkilani.binge.tv.feature.discover.DiscoverContract
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.*
+import com.arbelkilani.binge.tv.feature.discover.presentation.entities.DiscoverViewState
+import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Person
+import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Tv
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
-import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
-import com.arbelkilani.binge.tv.feature.discover.presentation.model.Person
-import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 import com.arbelkilani.binge.tv.feature.home.HomeContract
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -64,7 +64,9 @@ class DiscoverFragment :
         viewModel.viewState
             .collectLatest { viewState ->
                 when (viewState) {
-                    is DiscoverViewState.Start -> viewModel.init()
+                    is DiscoverViewState.Start -> {
+                        viewModel.init()
+                    }
                     is DiscoverViewState.Loaded -> {
                         delay(100)
                         collectTrendingTvShows()
