@@ -48,7 +48,7 @@ class DiscoverViewModel @Inject constructor(
         observeNetwork()
     }
 
-    suspend fun init() {
+    suspend fun start() {
         free()
         trending()
         talkShows()
@@ -104,15 +104,15 @@ class DiscoverViewModel @Inject constructor(
     private fun observeNetwork() {
         getNetworkReachabilityUseCase.invoke().observeForever { networkState ->
             current?.let { value ->
-                if (value != networkState) load(networkState)
+                if (value != networkState) retry(networkState)
             } ?: run {
-                load(networkState)
+                retry(networkState)
             }
             current = networkState
         }
     }
 
-    private fun load(networkState: Boolean) {
+    private fun retry(networkState: Boolean) {
         if (networkState) updateState { DiscoverViewState.Start }
         else updateState { DiscoverViewState.Error(IOException()) }
     }

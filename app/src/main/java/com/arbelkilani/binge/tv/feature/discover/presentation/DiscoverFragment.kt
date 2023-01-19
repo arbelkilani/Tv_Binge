@@ -70,7 +70,7 @@ class DiscoverFragment :
             .collectLatest { viewState ->
                 when (viewState) {
                     is DiscoverViewState.Start -> {
-                        viewModel.init()
+                        viewModel.start()
                     }
                     is DiscoverViewState.Loaded -> {
                         delay(100)
