@@ -1,7 +1,5 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -16,6 +14,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -43,8 +42,7 @@ class DiscoverViewModel @Inject constructor(
     private val _persons = MutableStateFlow(PagingData.empty<Person>())
     val persons: StateFlow<PagingData<Person>> = _persons
 
-    private val _networkState = MutableLiveData(false)
-    val networkState: LiveData<Boolean> = _networkState
+    private var current: Boolean? = null
 
     init {
         observeNetwork()
@@ -104,8 +102,18 @@ class DiscoverViewModel @Inject constructor(
     }
 
     private fun observeNetwork() {
-        getNetworkReachabilityUseCase.invoke().observeForever {
-            _networkState.postValue(it)
+        getNetworkReachabilityUseCase.invoke().observeForever { networkState ->
+            current?.let { value ->
+                if (value != networkState) load(networkState)
+                current = networkState
+            } ?: run {
+                load(networkState)
+            }
         }
+    }
+
+    private fun load(networkState: Boolean) {
+        if (networkState) updateState { DiscoverViewState.Start }
+        else updateState { DiscoverViewState.Error(IOException()) }
     }
 }

@@ -1,5 +1,6 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -61,17 +62,7 @@ class DiscoverFragment :
     }
 
     override suspend fun initViewModelObservation() {
-        observeNetwork()
         observeState()
-    }
-
-    private fun observeNetwork() {
-        viewModel.networkState.observe(viewLifecycleOwner) {
-            if (!it)
-                viewModel.viewState.value = DiscoverViewState.Error(Exception())
-            else
-                viewModel.viewState.value = DiscoverViewState.Start
-        }
     }
 
     private suspend fun observeState() {
@@ -89,7 +80,9 @@ class DiscoverFragment :
                         collectDocumentaries()
                         collectPersons()
                     }
-                    else -> Unit
+                    is DiscoverViewState.Error -> {
+                        Log.i("TAG**", "exception : ${viewState.exception}")
+                    }
                 }
             }
     }
