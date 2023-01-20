@@ -1,6 +1,6 @@
 package com.arbelkilani.binge.tv.feature.onboarding.domain.usecase
 
-import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entities.GenreEntity
 import com.arbelkilani.binge.tv.feature.onboarding.domain.repository.OnBoardingRepository
 import javax.inject.Inject
 

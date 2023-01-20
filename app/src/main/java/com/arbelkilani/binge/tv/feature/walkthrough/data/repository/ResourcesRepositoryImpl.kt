@@ -2,12 +2,12 @@ package com.arbelkilani.binge.tv.feature.walkthrough.data.repository
 
 import android.app.Application
 import com.arbelkilani.binge.tv.common.data.enum.ImageSize
-import com.arbelkilani.binge.tv.common.data.mapper.ApiConfigurationMapper
+import com.arbelkilani.binge.tv.common.data.mapper.ConfigurationResponseMapper
 import com.arbelkilani.binge.tv.common.data.mapper.CertificationMapper
 import com.arbelkilani.binge.tv.common.data.mapper.GenreMapper
 import com.arbelkilani.binge.tv.common.data.mapper.WatchProviderMapper
-import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
-import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.entities.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entities.WatchProviderEntity
 import com.arbelkilani.binge.tv.common.source.local.room.AppDatabase
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
 import com.arbelkilani.binge.tv.feature.walkthrough.domain.repository.ResourcesRepository
@@ -27,7 +27,7 @@ class ResourcesRepositoryImpl @Inject constructor(
     lateinit var watchProviderMapper: WatchProviderMapper
 
     @Inject
-    lateinit var apiConfigurationMapper: ApiConfigurationMapper
+    lateinit var configurationResponseMapper: ConfigurationResponseMapper
 
     @Inject
     lateinit var certificationMapper: CertificationMapper
@@ -58,9 +58,9 @@ class ResourcesRepositoryImpl @Inject constructor(
     }
 
     private suspend fun saveApiConfiguration() {
-        if (resourcesDao.getApiConfiguration() == null) {
-            resourcesDao.saveApiConfiguration(
-                apiConfigurationMapper.map(service.getConfiguration())
+        if (resourcesDao.getConfiguration() == null) {
+            resourcesDao.saveConfiguration(
+                configurationResponseMapper.map(service.getConfiguration())
             )
         }
     }
@@ -106,15 +106,15 @@ class ResourcesRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getBackdrop(): String? {
-        return resourcesDao.getApiConfiguration()?.backdrop?.large
+        return resourcesDao.getConfiguration()?.backdrop?.large
     }
 
     override suspend fun getPoster(): String? {
-        return resourcesDao.getApiConfiguration()?.poster?.large
+        return resourcesDao.getConfiguration()?.poster?.large
     }
 
     override suspend fun getLogo(size: ImageSize): String {
-        return resourcesDao.getApiConfiguration()?.logo?.let { image ->
+        return resourcesDao.getConfiguration()?.logo?.let { image ->
             when (size) {
                 ImageSize.LOGO_W154 -> image.small
                 ImageSize.LOGO_W185 -> image.medium
@@ -128,14 +128,12 @@ class ResourcesRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getProfile(size: ImageSize): String {
-        return resourcesDao.getApiConfiguration()?.profile?.let { image ->
-            when (size) {
-                ImageSize.PROFILE_W92 -> image.small
-                ImageSize.PROFILE_W185 -> image.medium
-                else -> String()
-            }
+        return resourcesDao.getConfiguration()?.let { local ->
+            local.url + size.size
         } ?: run {
-            String()
+            configurationResponseMapper.map(service.getConfiguration()).apply {
+                resourcesDao.saveConfiguration(this)
+            }.url + size.size
         }
     }
 

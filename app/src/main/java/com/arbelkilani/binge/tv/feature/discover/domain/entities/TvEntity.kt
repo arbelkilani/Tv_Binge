@@ -1,6 +1,6 @@
 package com.arbelkilani.binge.tv.feature.discover.domain.entities
 
-import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entities.GenreEntity
 
 data class TvEntity(
     val id: Int,

@@ -1,7 +1,7 @@
 package com.arbelkilani.binge.tv.common.data.mapper
 
-import com.arbelkilani.binge.tv.common.data.model.Genre
-import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
+import com.arbelkilani.binge.tv.common.data.response.Genre
+import com.arbelkilani.binge.tv.common.domain.entities.GenreEntity
 import javax.inject.Inject
 
 class GenreMapper @Inject constructor() {

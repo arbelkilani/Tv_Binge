@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import com.arbelkilani.binge.tv.common.base.BaseFragment
-import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.entities.WatchProviderEntity
 import com.arbelkilani.binge.tv.databinding.FragmentWatchProvidersSelectionBinding
 import com.arbelkilani.binge.tv.feature.onboarding.OnBoardingContract
 import com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.providerselection.adapter.ProvidersAdapter

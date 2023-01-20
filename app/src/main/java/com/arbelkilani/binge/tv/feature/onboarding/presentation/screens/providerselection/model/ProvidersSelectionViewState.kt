@@ -1,6 +1,6 @@
 package com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.providerselection.model
 
-import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.entities.WatchProviderEntity
 
 sealed class ProvidersSelectionViewState {
     object Start : ProvidersSelectionViewState()

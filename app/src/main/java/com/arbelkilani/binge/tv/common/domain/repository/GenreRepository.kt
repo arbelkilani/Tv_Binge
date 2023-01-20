@@ -1,6 +1,6 @@
 package com.arbelkilani.binge.tv.common.domain.repository
 
-import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entities.GenreEntity
 import kotlinx.coroutines.flow.Flow
 
 interface GenreRepository {

@@ -6,7 +6,7 @@
 
         <variable
             name="provider"
-            type="com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity" />
+            type="com.arbelkilani.binge.tv.common.domain.entities.WatchProviderEntity" />
     </data>
 
 

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
-import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.entities.WatchProviderEntity
 import com.arbelkilani.binge.tv.databinding.ItemProviderBinding
 import com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.providerselection.listener.ProviderSelectionListener
 import javax.inject.Inject

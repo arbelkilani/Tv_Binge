@@ -1,6 +1,6 @@
 package com.arbelkilani.binge.tv.feature.details.domain.entities
 
-import com.arbelkilani.binge.tv.common.data.model.Genre
+import com.arbelkilani.binge.tv.common.data.response.Genre
 import java.time.LocalDate
 
 data class TvDetailsEntity(

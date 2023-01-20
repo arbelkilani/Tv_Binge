@@ -3,8 +3,8 @@ package com.arbelkilani.binge.tv.feature.discover.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
-import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.entities.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entities.WatchProviderEntity
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
 import com.arbelkilani.binge.tv.common.source.remote.pagingsource.DiscoverPagingSource
 import com.arbelkilani.binge.tv.common.source.remote.pagingsource.TrendingPagingSource
@@ -163,10 +163,6 @@ class DiscoverRepositoryImpl @Inject constructor(
         return resourceRepository.getFavoriteGenres().single()
             ?.map { it.id }
             ?.joinToString(separator = "|")
-    }
-
-    private fun getGteAndLteDates(): Pair<String, String> {
-        return Pair("", "")
     }
 
     companion object {

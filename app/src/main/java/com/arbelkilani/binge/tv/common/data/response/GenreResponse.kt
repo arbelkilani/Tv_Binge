@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.common.data.model
+package com.arbelkilani.binge.tv.common.data.response
 
 import androidx.room.Entity
 import com.google.gson.annotations.SerializedName

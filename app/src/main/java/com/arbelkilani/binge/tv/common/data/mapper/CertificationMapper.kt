@@ -1,7 +1,7 @@
 package com.arbelkilani.binge.tv.common.data.mapper
 
-import com.arbelkilani.binge.tv.common.data.model.Certification
-import com.arbelkilani.binge.tv.common.domain.model.CertificationEntity
+import com.arbelkilani.binge.tv.common.data.response.Certification
+import com.arbelkilani.binge.tv.common.domain.entities.CertificationEntity
 import javax.inject.Inject
 
 class CertificationMapper @Inject constructor() {

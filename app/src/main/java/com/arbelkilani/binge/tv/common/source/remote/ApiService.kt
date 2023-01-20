@@ -1,10 +1,10 @@
 package com.arbelkilani.binge.tv.common.source.remote
 
 import com.arbelkilani.binge.tv.common.base.entities.ResponseWrapper
-import com.arbelkilani.binge.tv.common.data.model.CertificationsResponse
-import com.arbelkilani.binge.tv.common.data.model.ConfigurationResponse
-import com.arbelkilani.binge.tv.common.data.model.GenreResponse
-import com.arbelkilani.binge.tv.common.data.model.ProvidersResponse
+import com.arbelkilani.binge.tv.common.data.response.CertificationsResponse
+import com.arbelkilani.binge.tv.common.data.response.ConfigurationResponse
+import com.arbelkilani.binge.tv.common.data.response.GenreResponse
+import com.arbelkilani.binge.tv.common.data.response.ProvidersResponse
 import com.arbelkilani.binge.tv.feature.details.data.entities.CreditsRaw
 import com.arbelkilani.binge.tv.feature.details.data.entities.KeywordsRaw
 import com.arbelkilani.binge.tv.feature.details.data.entities.TvDetailsResponse

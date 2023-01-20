@@ -1,5 +1,6 @@
 package com.arbelkilani.binge.tv.feature.discover.domain.usecase
 
+import android.util.Log
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.arbelkilani.binge.tv.feature.discover.domain.mapper.PersonEntityMapper
@@ -21,6 +22,7 @@ class GetTrendingPersonUseCase @Inject constructor() {
 
     suspend fun invoke(): Flow<PagingData<Person>> = discoverRepository.getTrendingPerson()
         .map { pagingData -> pagingData.map { entity ->
+            Log.i("TAG**", "person entity : $entity")
             personEntityMapper.map(entity) } }
         .flowOn(Dispatchers.IO)
 }

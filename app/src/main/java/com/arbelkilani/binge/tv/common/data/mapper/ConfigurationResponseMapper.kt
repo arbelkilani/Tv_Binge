@@ -1,12 +1,12 @@
 package com.arbelkilani.binge.tv.common.data.mapper
 
-import com.arbelkilani.binge.tv.common.data.model.ConfigurationResponse
-import com.arbelkilani.binge.tv.common.domain.model.ApiConfigurationEntity
-import com.arbelkilani.binge.tv.common.domain.model.Image
+import com.arbelkilani.binge.tv.common.data.response.ConfigurationResponse
+import com.arbelkilani.binge.tv.common.domain.entities.ApiConfigurationEntity
+import com.arbelkilani.binge.tv.common.domain.entities.Image
 import com.arbelkilani.binge.tv.common.data.enum.ImageSize
 import javax.inject.Inject
 
-class ApiConfigurationMapper @Inject constructor() {
+class ConfigurationResponseMapper @Inject constructor() {
 
     fun map(configuration: ConfigurationResponse): ApiConfigurationEntity {
         val url = configuration.imagesConfiguration.secureBaseUrl

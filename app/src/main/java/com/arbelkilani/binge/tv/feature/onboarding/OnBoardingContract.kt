@@ -1,8 +1,8 @@
 package com.arbelkilani.binge.tv.feature.onboarding
 
 import androidx.fragment.app.Fragment
-import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
-import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.entities.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entities.WatchProviderEntity
 
 class OnBoardingContract {
 
@@ -18,6 +18,4 @@ class OnBoardingContract {
     interface ViewNavigation {
         fun navigateToHome(fragment: Fragment)
     }
-
-    interface ViewTag
 }

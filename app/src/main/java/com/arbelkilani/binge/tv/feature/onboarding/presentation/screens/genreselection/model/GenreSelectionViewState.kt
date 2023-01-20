@@ -1,6 +1,6 @@
 package com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.genreselection.model
 
-import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entities.GenreEntity
 
 sealed class GenreSelectionViewState {
     object Start : GenreSelectionViewState()

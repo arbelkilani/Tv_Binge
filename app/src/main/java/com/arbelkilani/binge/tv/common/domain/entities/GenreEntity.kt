@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.common.domain.model
+package com.arbelkilani.binge.tv.common.domain.entities
 
 import android.os.Parcelable
 import androidx.room.Entity

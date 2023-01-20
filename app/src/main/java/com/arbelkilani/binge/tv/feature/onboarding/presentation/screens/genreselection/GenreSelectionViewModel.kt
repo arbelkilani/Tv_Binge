@@ -2,7 +2,7 @@ package com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.genrese
 
 import androidx.lifecycle.viewModelScope
 import com.arbelkilani.binge.tv.common.base.BaseStateViewModel
-import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entities.GenreEntity
 import com.arbelkilani.binge.tv.feature.onboarding.domain.usecase.GetGenresUseCase
 import com.arbelkilani.binge.tv.feature.onboarding.domain.usecase.UpdateGenreUseCase
 import com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.genreselection.model.GenreSelectionViewState

@@ -4,10 +4,10 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.arbelkilani.binge.tv.common.domain.model.ApiConfigurationEntity
-import com.arbelkilani.binge.tv.common.domain.model.CertificationEntity
-import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
-import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.entities.ApiConfigurationEntity
+import com.arbelkilani.binge.tv.common.domain.entities.CertificationEntity
+import com.arbelkilani.binge.tv.common.domain.entities.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entities.WatchProviderEntity
 
 @Dao
 interface ResourcesDao {
@@ -27,10 +27,10 @@ interface ResourcesDao {
 
     // Api Configuration
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveApiConfiguration(entity: ApiConfigurationEntity)
+    suspend fun saveConfiguration(entity: ApiConfigurationEntity)
 
     @Query("SELECT * FROM configuration_table")
-    suspend fun getApiConfiguration(): ApiConfigurationEntity?
+    suspend fun getConfiguration(): ApiConfigurationEntity?
 
     // Certifications
     @Insert(onConflict = OnConflictStrategy.REPLACE)

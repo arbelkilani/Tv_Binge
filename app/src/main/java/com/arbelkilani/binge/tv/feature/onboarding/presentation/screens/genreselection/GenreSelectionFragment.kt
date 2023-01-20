@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.arbelkilani.binge.tv.common.base.BaseFragment
-import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entities.GenreEntity
 import com.arbelkilani.binge.tv.databinding.FragmentGenreSelectionBinding
 import com.arbelkilani.binge.tv.feature.onboarding.OnBoardingContract
 import com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.genreselection.adapter.GenreSelectionAdapter

@@ -1,7 +1,7 @@
 package com.arbelkilani.binge.tv.common.data.mapper
 
-import com.arbelkilani.binge.tv.common.data.model.Provider
-import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.data.response.Provider
+import com.arbelkilani.binge.tv.common.domain.entities.WatchProviderEntity
 import javax.inject.Inject
 
 class WatchProviderMapper @Inject constructor() {

@@ -1,6 +1,6 @@
 package com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.providerselection.listener
 
-import com.arbelkilani.binge.tv.common.domain.model.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.entities.WatchProviderEntity
 
 interface ProviderSelectionListener {
     fun removeFromFavorite(position: Int, provider: WatchProviderEntity)

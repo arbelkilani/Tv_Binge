@@ -1,6 +1,6 @@
 package com.arbelkilani.binge.tv.feature.details.data.entities
 
-import com.arbelkilani.binge.tv.common.data.model.Genre
+import com.arbelkilani.binge.tv.common.data.response.Genre
 import com.google.gson.annotations.SerializedName
 
 data class TvDetailsResponse(

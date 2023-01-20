@@ -6,7 +6,7 @@
 
         <variable
             name="genre"
-            type="com.arbelkilani.binge.tv.common.domain.model.GenreEntity" />
+            type="com.arbelkilani.binge.tv.common.domain.entities.GenreEntity" />
     </data>
 
     <TextView

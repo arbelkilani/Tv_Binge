@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
-import com.arbelkilani.binge.tv.common.domain.model.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entities.GenreEntity
 import com.arbelkilani.binge.tv.databinding.ItemGenreSolidBinding
 import com.arbelkilani.binge.tv.databinding.ItemSquareProviderShimmerBinding
 import javax.inject.Inject
