@@ -14,6 +14,6 @@ class PersonEntityMapper @Inject constructor() {
     suspend fun map(entity: PersonEntity) = Person(
         id = entity.id,
         name = entity.name,
-        image = getImageUseCase.invoke(endpoint = entity.image, size = ImageSize.PROFILE_W92)
+        image = getImageUseCase.invoke(endpoint = entity.image, size = ImageSize.PROFILE_W185)
     )
 }

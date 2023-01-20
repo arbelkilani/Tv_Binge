@@ -20,7 +20,7 @@ class TvResponseMapper @Inject constructor() {
         name = response.name,
         poster = getImageUseCase.invoke(endpoint = response.poster, size = ImageSize.POSTER_W154),
         backdrop = getImageUseCase.invoke(
-            endpoint = response.backdrop, size = ImageSize.BACKDROP_W300
+            endpoint = response.backdrop, size = ImageSize.BACKDROP_W780
         ),
         genres = getGenresByIdsUseCase.invoke(response.genres),
         voteAverage = response.voteAverage,
