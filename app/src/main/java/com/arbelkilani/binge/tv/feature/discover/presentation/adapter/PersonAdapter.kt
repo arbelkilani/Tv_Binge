@@ -8,23 +8,27 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.databinding.ItemPersonBinding
-import com.arbelkilani.binge.tv.databinding.ItemTagShimmerBinding
+import com.arbelkilani.binge.tv.databinding.ItemShimmerCircleBinding
 import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Person
+import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import javax.inject.Inject
 
-class PersonAdapter @Inject constructor() :
+class PersonAdapter @Inject constructor(
+    private val listener: DiscoverItemListener
+) :
     PagingDataAdapter<Person, RecyclerView.ViewHolder>(Comparator) {
 
     class DataHolder(val binding: ItemPersonBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    class ShimmerHolder(val binding: ItemTagShimmerBinding) :
+    class ShimmerHolder(val binding: ItemShimmerCircleBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
         when (holder.itemViewType) {
             DATA_TYPE -> with((holder as DataHolder).binding) {
+                root.setOnClickListener { listener.onPersonClicked(item) }
                 person = item
             }
         }
@@ -39,7 +43,7 @@ class PersonAdapter @Inject constructor() :
             )
             else -> ShimmerHolder(
                 DataBindingUtil.inflate(
-                    LayoutInflater.from(parent.context), R.layout.item_tag_shimmer, parent, false
+                    LayoutInflater.from(parent.context), R.layout.item_shimmer_circle, parent, false
                 )
             )
         }

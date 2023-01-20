@@ -122,7 +122,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/default_margin"
-                    android:fontFamily="@font/avenir_next_cyr_italic"
+                    android:fontFamily="@font/avenir_next_italic"
                     android:textColor="@color/title_color"
                     android:textSize="@dimen/small_text_size"
                     app:layout_constraintEnd_toStartOf="@id/tv_vote"

@@ -17,6 +17,7 @@
             layout="@layout/layout_discover_trending"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:visibility="gone"
             app:layout_constraintDimensionRatio="1:.5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,6 +27,7 @@
             android:id="@+id/grp_upcoming"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:constraint_referenced_ids="tv_upcoming,rv_upcoming" />
 
         <TextView
@@ -62,6 +64,7 @@
             android:id="@+id/grp_talk_shows"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:constraint_referenced_ids="tv_talk_shows,rv_talk_shows" />
 
         <TextView
@@ -94,11 +97,45 @@
             tools:listitem="@layout/item_tv_show_backdrop"
             tools:paddingEnd="300dp" />
 
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/grp_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="tv_persons, rv_persons" />
+
+        <TextView
+            android:id="@+id/tv_persons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:drawablePadding="@dimen/small_padding"
+            android:fontFamily="@font/avenir_next_demi_bold"
+            android:gravity="center"
+            android:text="@string/discover_title_trending_person"
+            android:textColor="@color/title_color"
+            android:textSize="@dimen/category_title_text_size"
+            app:drawableStartCompat="@drawable/ic_trending_up"
+            app:layout_constraintBottom_toBottomOf="@id/iv_persons"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_persons" />
+
+        <ImageView
+            android:id="@+id/iv_persons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:background="?attr/actionBarItemBackground"
+            android:contentDescription="@string/next"
+            android:padding="@dimen/small_padding"
+            android:src="@drawable/ic_navigate_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/grp_talk_shows" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_persons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/default_margin"
+            android:layout_marginTop="@dimen/medium_margin"
             android:clipChildren="false"
             android:clipToPadding="false"
             android:orientation="horizontal"
@@ -106,16 +143,17 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_talk_shows"
+            app:layout_constraintTop_toBottomOf="@id/iv_persons"
             tools:itemCount="10"
             tools:listitem="@layout/item_person"
-            tools:paddingEnd="290dp"
-            tools:paddingHorizontal="@dimen/medium_padding" />
+            tools:paddingEnd="300dp"
+            tools:paddingStart="20dp" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/grp_documentaries"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:constraint_referenced_ids="tv_documentaries, rv_documentaries" />
 
         <TextView

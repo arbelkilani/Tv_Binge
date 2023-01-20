@@ -12,14 +12,18 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/medium_margin">
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/medium_margin"
+        android:background="?attr/actionBarItemBackground">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:cardCornerRadius="200dp"
+            android:elevation="@dimen/default_card_elevation"
+            android:outlineProvider="background"
+            app:cardCornerRadius="300dp"
+            app:cardElevation="@dimen/default_card_elevation"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,13 +46,14 @@
             android:layout_marginTop="@dimen/small_margin"
             android:fontFamily="@font/avenir_next_regular"
             android:gravity="center_horizontal"
+            android:maxLines="2"
             android:text="@{person.name}"
             android:textColor="@color/title_color"
             android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/card_view"
-            tools:text="Actor name" />
+            tools:text="long actor name goes here" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

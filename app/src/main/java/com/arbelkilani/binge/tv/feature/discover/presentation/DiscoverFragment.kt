@@ -39,21 +39,26 @@ class DiscoverFragment :
     private val viewModel: DiscoverViewModel by viewModels()
     private val trendingAdapter: DiscoverAdapter by lazy {
         DiscoverAdapter(this)
-            .apply { submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerList)) }
+            .apply { submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerTv)) }
     }
     private val upcomingAdapter: UpcomingAdapter by lazy {
         UpcomingAdapter(this)
-            .apply { submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerList)) }
+            .apply { submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerTv)) }
     }
     private val talkShowsAdapter: TalkShowsAdapter by lazy {
         TalkShowsAdapter(this)
-            .apply { submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerList)) }
+            .apply { submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerTv)) }
     }
     private val documentariesAdapter: DocumentariesAdapter by lazy {
         DocumentariesAdapter(this)
-            .apply { submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerList)) }
+            .apply { submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerTv)) }
     }
-    private val personAdapter: PersonAdapter by lazy { PersonAdapter() }
+    private val personAdapter: PersonAdapter by lazy {
+        PersonAdapter(this)
+            .apply {
+                submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerPerson))
+            }
+    }
 
     override fun bindView(
         inflater: LayoutInflater, container: ViewGroup?
@@ -144,8 +149,14 @@ class DiscoverFragment :
             setPadding(0, 0, (width * .45f).toInt(), 0)
             adapter = documentariesAdapter
         }
+
+        listOf(binding.tvPersons, binding.ivPersons).map {
+            it.setOnClickListener {
+                Toast.makeText(context, "all persons", Toast.LENGTH_SHORT).show()
+            }
+        }
         binding.rvPersons.apply {
-            setPadding(20, 0, (width * .78f).toInt(), 0)
+            setPadding((width * .1f).toInt(), 0, (width * .68f).toInt(), 0)
             adapter = personAdapter
         }
     }
@@ -178,13 +189,24 @@ class DiscoverFragment :
         tv?.let { navigator.navigateToTvDetails(this, it) }
     }
 
+    override fun onPersonClicked(person: Person?) {
+        person?.let { Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show() }
+    }
+
     companion object {
-        private val shimmerList = listOf(
+        private val shimmerTv = listOf(
             Tv(id = -1, "", null, null, emptyList(), 0f, ""),
             Tv(id = -1, "", null, null, emptyList(), 0f, ""),
             Tv(id = -1, "", null, null, emptyList(), 0f, ""),
             Tv(id = -1, "", null, null, emptyList(), 0f, ""),
             Tv(id = -1, "", null, null, emptyList(), 0f, "")
+        )
+        private val shimmerPerson = listOf(
+            Person(id = -1, "", ""),
+            Person(id = -1, "", ""),
+            Person(id = -1, "", ""),
+            Person(id = -1, "", ""),
+            Person(id = -1, "", ""),
         )
     }
 }
