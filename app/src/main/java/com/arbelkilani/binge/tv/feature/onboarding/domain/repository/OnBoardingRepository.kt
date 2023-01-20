@@ -1,7 +1,7 @@
 package com.arbelkilani.binge.tv.feature.onboarding.domain.repository
 
-import com.arbelkilani.binge.tv.common.domain.entities.GenreEntity
-import com.arbelkilani.binge.tv.common.domain.entities.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entity.WatchProviderEntity
 import kotlinx.coroutines.flow.Flow
 
 interface OnBoardingRepository {

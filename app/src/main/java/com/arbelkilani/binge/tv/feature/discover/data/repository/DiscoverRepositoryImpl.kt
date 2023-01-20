@@ -3,8 +3,8 @@ package com.arbelkilani.binge.tv.feature.discover.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.arbelkilani.binge.tv.common.domain.entities.GenreEntity
-import com.arbelkilani.binge.tv.common.domain.entities.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entity.WatchProviderEntity
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
 import com.arbelkilani.binge.tv.common.source.remote.pagingsource.DiscoverPagingSource
 import com.arbelkilani.binge.tv.common.source.remote.pagingsource.TrendingPagingSource

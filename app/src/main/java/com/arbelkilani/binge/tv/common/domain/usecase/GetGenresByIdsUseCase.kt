@@ -1,6 +1,6 @@
 package com.arbelkilani.binge.tv.common.domain.usecase
 
-import com.arbelkilani.binge.tv.common.domain.entities.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
 import com.arbelkilani.binge.tv.common.domain.repository.GenreRepository
 import javax.inject.Inject
 

@@ -7,7 +7,7 @@
 
         <variable
             name="provider"
-            type="com.arbelkilani.binge.tv.common.domain.entities.WatchProviderEntity" />
+            type="com.arbelkilani.binge.tv.common.domain.entity.WatchProviderEntity" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

@@ -1,6 +1,6 @@
 package com.arbelkilani.binge.tv.feature.onboarding.domain.usecase
 
-import com.arbelkilani.binge.tv.common.domain.entities.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.entity.WatchProviderEntity
 import com.arbelkilani.binge.tv.feature.onboarding.domain.repository.OnBoardingRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

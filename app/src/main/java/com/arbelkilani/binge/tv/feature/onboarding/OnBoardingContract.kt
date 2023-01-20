@@ -1,8 +1,8 @@
 package com.arbelkilani.binge.tv.feature.onboarding
 
 import androidx.fragment.app.Fragment
-import com.arbelkilani.binge.tv.common.domain.entities.GenreEntity
-import com.arbelkilani.binge.tv.common.domain.entities.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entity.WatchProviderEntity
 
 class OnBoardingContract {
 

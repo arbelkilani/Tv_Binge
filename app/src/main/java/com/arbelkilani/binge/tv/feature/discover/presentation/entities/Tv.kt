@@ -1,7 +1,7 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation.entities
 
 import android.os.Parcelable
-import com.arbelkilani.binge.tv.common.domain.entities.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

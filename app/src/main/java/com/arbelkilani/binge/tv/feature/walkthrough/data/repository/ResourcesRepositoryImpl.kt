@@ -6,8 +6,8 @@ import com.arbelkilani.binge.tv.common.data.mapper.ConfigurationResponseMapper
 import com.arbelkilani.binge.tv.common.data.mapper.CertificationMapper
 import com.arbelkilani.binge.tv.common.data.mapper.GenreMapper
 import com.arbelkilani.binge.tv.common.data.mapper.WatchProviderMapper
-import com.arbelkilani.binge.tv.common.domain.entities.GenreEntity
-import com.arbelkilani.binge.tv.common.domain.entities.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entity.WatchProviderEntity
 import com.arbelkilani.binge.tv.common.source.local.room.AppDatabase
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
 import com.arbelkilani.binge.tv.feature.walkthrough.domain.repository.ResourcesRepository
@@ -105,29 +105,7 @@ class ResourcesRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getBackdrop(): String? {
-        return resourcesDao.getConfiguration()?.backdrop?.large
-    }
-
-    override suspend fun getPoster(): String? {
-        return resourcesDao.getConfiguration()?.poster?.large
-    }
-
-    override suspend fun getLogo(size: ImageSize): String {
-        return resourcesDao.getConfiguration()?.logo?.let { image ->
-            when (size) {
-                ImageSize.LOGO_W154 -> image.small
-                ImageSize.LOGO_W185 -> image.medium
-                ImageSize.LOGO_W500 -> image.large
-                ImageSize.ORIGINAL -> image.original
-                else -> String()
-            }
-        } ?: run {
-            String()
-        }
-    }
-
-    override suspend fun getProfile(size: ImageSize): String {
+    override suspend fun getBaseImage(size: ImageSize): String {
         return resourcesDao.getConfiguration()?.let { local ->
             local.url + size.size
         } ?: run {

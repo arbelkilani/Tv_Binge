@@ -1,7 +1,7 @@
 package com.arbelkilani.binge.tv.common.data.repository
 
 import com.arbelkilani.binge.tv.common.data.mapper.GenreMapper
-import com.arbelkilani.binge.tv.common.domain.entities.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
 import com.arbelkilani.binge.tv.common.domain.repository.GenreRepository
 import com.arbelkilani.binge.tv.common.source.local.room.AppDatabase
 import com.arbelkilani.binge.tv.common.source.remote.ApiService

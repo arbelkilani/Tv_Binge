@@ -4,10 +4,10 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.arbelkilani.binge.tv.common.domain.entities.ApiConfigurationEntity
-import com.arbelkilani.binge.tv.common.domain.entities.CertificationEntity
-import com.arbelkilani.binge.tv.common.domain.entities.GenreEntity
-import com.arbelkilani.binge.tv.common.domain.entities.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.entity.ConfigurationEntity
+import com.arbelkilani.binge.tv.common.domain.entity.CertificationEntity
+import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entity.WatchProviderEntity
 
 @Dao
 interface ResourcesDao {
@@ -25,12 +25,12 @@ interface ResourcesDao {
     @Query("SELECT * FROM watch_provider_table WHERE isFavorite=:state")
     suspend fun getFavoriteProviders(state: Boolean = true): List<WatchProviderEntity>?
 
-    // Api Configuration
+    // Configuration
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveConfiguration(entity: ApiConfigurationEntity)
+    suspend fun saveConfiguration(entity: ConfigurationEntity)
 
     @Query("SELECT * FROM configuration_table")
-    suspend fun getConfiguration(): ApiConfigurationEntity?
+    suspend fun getConfiguration(): ConfigurationEntity?
 
     // Certifications
     @Insert(onConflict = OnConflictStrategy.REPLACE)

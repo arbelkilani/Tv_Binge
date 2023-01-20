@@ -1,7 +1,7 @@
 package com.arbelkilani.binge.tv.feature.onboarding.data.repository
 
-import com.arbelkilani.binge.tv.common.domain.entities.GenreEntity
-import com.arbelkilani.binge.tv.common.domain.entities.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entity.WatchProviderEntity
 import com.arbelkilani.binge.tv.common.source.local.room.AppDatabase
 import com.arbelkilani.binge.tv.feature.onboarding.domain.repository.OnBoardingRepository
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +15,7 @@ class OnBoardingRepositoryImpl @Inject constructor(
     private val resourcesDao = database.resourcesDao()
 
     override suspend fun getProviders(): Flow<List<WatchProviderEntity>> {
-        val base = resourcesDao.getConfiguration()?.logo?.medium
+        val base = ""
         return flow {
             resourcesDao.getWatchLocalProviders()?.let { list ->
                 emit(list.map { entity -> entity.copy(logo = base + entity.logo) })

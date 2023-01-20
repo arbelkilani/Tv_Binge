@@ -4,12 +4,14 @@ import com.arbelkilani.binge.tv.common.data.enum.ImageSize
 import com.arbelkilani.binge.tv.feature.walkthrough.domain.repository.ResourcesRepository
 import javax.inject.Inject
 
-class GetProfileUseCase @Inject constructor() {
+class GetImageUseCase @Inject constructor() {
 
     @Inject
     lateinit var resourcesRepository: ResourcesRepository
 
-    suspend fun invoke(size: ImageSize): String {
-        return resourcesRepository.getProfile(size)
+    suspend fun invoke(endpoint: String?, size: ImageSize): String {
+        return endpoint?.let {
+            resourcesRepository.getBaseImage(size) + it
+        } ?: run { "" }
     }
 }

@@ -2,7 +2,7 @@ package com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.provide
 
 import androidx.lifecycle.viewModelScope
 import com.arbelkilani.binge.tv.common.base.BaseStateViewModel
-import com.arbelkilani.binge.tv.common.domain.entities.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.entity.WatchProviderEntity
 import com.arbelkilani.binge.tv.feature.onboarding.domain.usecase.GetProvidersUseCase
 import com.arbelkilani.binge.tv.feature.onboarding.domain.usecase.UpdateProviderUseCase
 import com.arbelkilani.binge.tv.feature.onboarding.presentation.screens.providerselection.model.ProvidersSelectionViewState

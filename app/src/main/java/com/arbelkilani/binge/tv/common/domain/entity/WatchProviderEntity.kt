@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.common.domain.entities
+package com.arbelkilani.binge.tv.common.domain.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
