@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_tv_details">
         <argument
             android:name="tv"
-            app:argType="com.arbelkilani.binge.tv.feature.discover.presentation.entities.Tv" />
+            app:argType="com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv" />
     </fragment>
 
     <fragment

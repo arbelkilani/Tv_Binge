@@ -4,7 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
 import com.arbelkilani.binge.tv.feature.discover.data.mapper.TvResponseMapper
-import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
+import com.arbelkilani.binge.tv.feature.discover.domain.entity.TvEntity
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject

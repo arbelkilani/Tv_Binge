@@ -3,7 +3,6 @@ package com.arbelkilani.binge.tv.feature.discover.presentation.adapter
 import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -12,7 +11,7 @@ import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.databinding.ItemTvShowBackdropBinding
 import com.arbelkilani.binge.tv.databinding.ItemTvShowShimmerBinding
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
-import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Tv
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 import javax.inject.Inject
 
 class FreeShowsAdapter @Inject constructor(
@@ -33,7 +32,6 @@ class FreeShowsAdapter @Inject constructor(
             with((holder as BackdropHolder).binding) {
                 root.setOnClickListener { listener.onTvClicked(item) }
                 tv = item
-                tvDate.isVisible = false
             }
         }
     }

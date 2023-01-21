@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.feature.discover.domain.entities
+package com.arbelkilani.binge.tv.feature.discover.domain.entity
 
 data class PersonEntity(
     val id: Int,

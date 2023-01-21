@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.feature.discover.data.entities
+package com.arbelkilani.binge.tv.feature.discover.data.response
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.feature.discover.presentation.entities
+package com.arbelkilani.binge.tv.feature.discover.presentation.model
 
 data class Person(
     val id: Int,

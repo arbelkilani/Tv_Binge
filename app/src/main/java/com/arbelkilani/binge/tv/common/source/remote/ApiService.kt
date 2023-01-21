@@ -8,8 +8,8 @@ import com.arbelkilani.binge.tv.common.data.response.ProvidersResponse
 import com.arbelkilani.binge.tv.feature.details.data.entities.CreditsRaw
 import com.arbelkilani.binge.tv.feature.details.data.entities.KeywordsRaw
 import com.arbelkilani.binge.tv.feature.details.data.entities.TvDetailsResponse
-import com.arbelkilani.binge.tv.feature.discover.data.entities.PersonResponse
-import com.arbelkilani.binge.tv.feature.discover.data.entities.TvResponse
+import com.arbelkilani.binge.tv.feature.discover.data.response.PersonResponse
+import com.arbelkilani.binge.tv.feature.discover.data.response.TvResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

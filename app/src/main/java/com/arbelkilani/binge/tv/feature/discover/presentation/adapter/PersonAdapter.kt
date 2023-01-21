@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.databinding.ItemPersonBinding
 import com.arbelkilani.binge.tv.databinding.ItemShimmerCircleBinding
-import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Person
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.Person
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import javax.inject.Inject
 

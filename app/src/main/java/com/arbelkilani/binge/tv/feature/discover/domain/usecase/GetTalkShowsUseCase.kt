@@ -4,7 +4,7 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import com.arbelkilani.binge.tv.feature.discover.domain.mapper.TvEntityMapper
 import com.arbelkilani.binge.tv.feature.discover.domain.repository.DiscoverRepository
-import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Tv
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn

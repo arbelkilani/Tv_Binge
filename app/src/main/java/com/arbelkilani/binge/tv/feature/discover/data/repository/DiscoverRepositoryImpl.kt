@@ -9,15 +9,16 @@ import com.arbelkilani.binge.tv.common.source.remote.ApiService
 import com.arbelkilani.binge.tv.common.source.remote.pagingsource.DiscoverPagingSource
 import com.arbelkilani.binge.tv.common.source.remote.pagingsource.TrendingPagingSource
 import com.arbelkilani.binge.tv.common.source.remote.pagingsource.TrendingPersonPagingSource
-import com.arbelkilani.binge.tv.feature.discover.data.entities.DiscoverQuery
 import com.arbelkilani.binge.tv.feature.discover.data.mapper.PersonResponseMapper
 import com.arbelkilani.binge.tv.feature.discover.data.mapper.TvResponseMapper
-import com.arbelkilani.binge.tv.feature.discover.domain.entities.PersonEntity
-import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
+import com.arbelkilani.binge.tv.feature.discover.data.request.DiscoverQuery
+import com.arbelkilani.binge.tv.feature.discover.domain.entity.PersonEntity
+import com.arbelkilani.binge.tv.feature.discover.domain.entity.TvEntity
 import com.arbelkilani.binge.tv.feature.discover.domain.repository.DiscoverRepository
 import com.arbelkilani.binge.tv.feature.walkthrough.domain.repository.ResourcesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.single
+import java.time.LocalDate
 import java.util.*
 import javax.inject.Inject
 
@@ -27,6 +28,7 @@ class DiscoverRepositoryImpl @Inject constructor(
 
     private val country = Locale.getDefault().country
     private val timezone = TimeZone.getDefault().id
+    private val today = LocalDate.now().toString()
 
     @Inject
     lateinit var mapper: TvResponseMapper
@@ -54,7 +56,7 @@ class DiscoverRepositoryImpl @Inject constructor(
     override suspend fun getUpcoming(): Flow<PagingData<TvEntity>> {
         val discoverQuery = DiscoverQuery.Builder()
             .timezone(timezone)
-            .airDateGte("2023-01-16")
+            .airDateGte(today)
             .watchRegion(country).build()
 
         return Pager(

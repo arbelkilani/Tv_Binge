@@ -1,7 +1,7 @@
 package com.arbelkilani.binge.tv.feature.discover.data.mapper
 
-import com.arbelkilani.binge.tv.feature.discover.data.entities.PersonResponse
-import com.arbelkilani.binge.tv.feature.discover.domain.entities.PersonEntity
+import com.arbelkilani.binge.tv.feature.discover.data.response.PersonResponse
+import com.arbelkilani.binge.tv.feature.discover.domain.entity.PersonEntity
 import javax.inject.Inject
 
 class PersonResponseMapper @Inject constructor() {

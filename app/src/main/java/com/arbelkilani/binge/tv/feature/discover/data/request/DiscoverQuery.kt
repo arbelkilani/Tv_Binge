@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.feature.discover.data.entities
+package com.arbelkilani.binge.tv.feature.discover.data.request
 
 class DiscoverQuery {
     data class Builder(

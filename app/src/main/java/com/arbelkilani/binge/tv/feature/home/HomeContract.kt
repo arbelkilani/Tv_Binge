@@ -3,7 +3,7 @@ package com.arbelkilani.binge.tv.feature.home
 import androidx.fragment.app.Fragment
 import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
 import com.arbelkilani.binge.tv.common.domain.entity.WatchProviderEntity
-import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Tv
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 
 interface HomeContract {
 

@@ -2,8 +2,8 @@ package com.arbelkilani.binge.tv.feature.discover.domain.mapper
 
 import com.arbelkilani.binge.tv.common.data.enum.ImageSize
 import com.arbelkilani.binge.tv.common.domain.usecase.GetImageUseCase
-import com.arbelkilani.binge.tv.feature.discover.domain.entities.PersonEntity
-import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Person
+import com.arbelkilani.binge.tv.feature.discover.domain.entity.PersonEntity
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.Person
 import javax.inject.Inject
 
 class PersonEntityMapper @Inject constructor() {

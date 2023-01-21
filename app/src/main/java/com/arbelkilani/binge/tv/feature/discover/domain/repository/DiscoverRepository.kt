@@ -3,8 +3,8 @@ package com.arbelkilani.binge.tv.feature.discover.domain.repository
 import androidx.paging.PagingData
 import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
 import com.arbelkilani.binge.tv.common.domain.entity.WatchProviderEntity
-import com.arbelkilani.binge.tv.feature.discover.domain.entities.PersonEntity
-import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
+import com.arbelkilani.binge.tv.feature.discover.domain.entity.PersonEntity
+import com.arbelkilani.binge.tv.feature.discover.domain.entity.TvEntity
 import kotlinx.coroutines.flow.Flow
 
 interface DiscoverRepository {

@@ -1,7 +1,7 @@
 package com.arbelkilani.binge.tv.feature.discover.domain.mapper
 
-import com.arbelkilani.binge.tv.feature.discover.domain.entities.TvEntity
-import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Tv
+import com.arbelkilani.binge.tv.feature.discover.domain.entity.TvEntity
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 import javax.inject.Inject
 
 class TvEntityMapper @Inject constructor() {

@@ -5,7 +5,7 @@ import androidx.navigation.Navigation
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
 import com.arbelkilani.binge.tv.common.domain.entity.WatchProviderEntity
-import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Tv
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 import com.arbelkilani.binge.tv.feature.home.presentation.HomeFragmentDirections
 import javax.inject.Inject
 

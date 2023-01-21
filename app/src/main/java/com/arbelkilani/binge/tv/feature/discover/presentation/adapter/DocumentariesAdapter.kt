@@ -10,9 +10,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.databinding.ItemTvShowBackdropBinding
+import com.arbelkilani.binge.tv.databinding.ItemTvShowPosterBinding
 import com.arbelkilani.binge.tv.databinding.ItemTvShowShimmerBinding
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
-import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Tv
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 import javax.inject.Inject
 
 class DocumentariesAdapter @Inject constructor(
@@ -29,13 +30,11 @@ class DocumentariesAdapter @Inject constructor(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
-        val genres = item?.genres?.joinToString(separator = DOT_SYMBOL) { it.name }
         if (holder.itemViewType == DATA_TYPE) {
             with((holder as DataHolder).binding) {
                 root.setOnClickListener { listener.onTvClicked(item) }
-                tv = item
-                tvDate.visibility = View.GONE
                 tvGenres.visibility = View.GONE
+                tv = item
             }
         }
     }

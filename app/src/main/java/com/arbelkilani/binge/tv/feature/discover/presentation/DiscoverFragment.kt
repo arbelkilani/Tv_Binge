@@ -15,10 +15,10 @@ import com.arbelkilani.binge.tv.common.extension.scalePagerTransformer
 import com.arbelkilani.binge.tv.databinding.FragmentDiscoverBinding
 import com.arbelkilani.binge.tv.feature.discover.DiscoverContract
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.*
-import com.arbelkilani.binge.tv.feature.discover.presentation.entities.DiscoverViewState
-import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Person
-import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Tv
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.Person
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 import com.arbelkilani.binge.tv.feature.home.HomeContract
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -130,6 +130,8 @@ class DiscoverFragment :
     override fun initViews() {
         super.initViews()
         val width = resources.displayMetrics.widthPixels
+
+        // Trending tv shows
         with(binding.layoutTrending) {
             vpTrending.apply {
                 adapter = trendingAdapter
@@ -137,27 +139,33 @@ class DiscoverFragment :
                 scalePagerTransformer()
             }
         }
+
+        // Upcoming shows
+        binding.ivUpcoming.setOnClickListener { }
         binding.rvUpcoming.apply {
-            setPadding(0, 0, (width * .45f).toInt(), 0)
+            setPadding((width * .03f).toInt(), 0, (width * .3f).toInt(), 0)
             adapter = upcomingAdapter
         }
-        binding.rvTalkShows.apply {
-            setPadding(0, 0, (width * .72f).toInt(), 0)
-            adapter = talkShowsAdapter
-        }
-        binding.rvDocumentaries.apply {
-            setPadding(0, 0, (width * .45f).toInt(), 0)
-            adapter = documentariesAdapter
+
+        // Trending persons
+        binding.ivPersons.setOnClickListener { }
+        binding.rvPersons.apply {
+            setPadding((width * .03f).toInt(), 0, (width * .76f).toInt(), 0)
+            adapter = personAdapter
         }
 
-        listOf(binding.tvPersons, binding.ivPersons).map {
-            it.setOnClickListener {
-                Toast.makeText(context, "all persons", Toast.LENGTH_SHORT).show()
-            }
+        // Talk shows
+        binding.ivTalkShows.setOnClickListener { }
+        binding.rvTalkShows.apply {
+            setPadding((width * .03f).toInt(), 0, (width * .72f).toInt(), 0)
+            adapter = talkShowsAdapter
         }
-        binding.rvPersons.apply {
-            setPadding((width * .1f).toInt(), 0, (width * .68f).toInt(), 0)
-            adapter = personAdapter
+
+        // Documentaries
+        binding.ivDocumentaries.setOnClickListener { }
+        binding.rvDocumentaries.apply {
+            setPadding((width * .03f).toInt(), 0, (width * .55f).toInt(), 0)
+            adapter = documentariesAdapter
         }
     }
 

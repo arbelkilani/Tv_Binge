@@ -1,7 +1,7 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation.listener
 
-import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Person
-import com.arbelkilani.binge.tv.feature.discover.presentation.entities.Tv
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.Person
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 
 interface DiscoverItemListener {
     fun onTvClicked(tv: Tv?)

@@ -7,7 +7,7 @@
 
         <variable
             name="tv"
-            type="com.arbelkilani.binge.tv.feature.discover.presentation.entities.Tv" />
+            type="com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv" />
 
         <variable
             name="tvEntity"

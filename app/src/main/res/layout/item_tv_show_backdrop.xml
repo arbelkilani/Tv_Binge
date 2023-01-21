@@ -7,9 +7,8 @@
 
         <variable
             name="tv"
-            type="com.arbelkilani.binge.tv.feature.discover.presentation.entities.Tv" />
+            type="com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv" />
     </data>
-
 
     <com.arbelkilani.binge.tv.common.ui.CustomCardView
         android:layout_width="match_parent"
@@ -28,7 +27,7 @@
                 android:id="@+id/grp_data"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:constraint_referenced_ids="tv_date,tv_genres,tv_title" />
+                app:constraint_referenced_ids="tv_genres,tv_title" />
 
             <ImageView
                 android:layout_width="match_parent"
@@ -51,7 +50,6 @@
                 android:layout_marginBottom="5dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/avenir_next_demi_bold"
-                android:maxLines="1"
                 android:text="@{tv.name}"
                 android:textColor="@color/anti_flash_white"
                 android:textSize="13sp"
@@ -67,30 +65,13 @@
                 android:layout_marginHorizontal="@dimen/medium_margin"
                 android:layout_marginBottom="@dimen/medium_margin"
                 android:fontFamily="@font/avenir_next_regular"
-                android:maxLines="1"
                 android:textColor="@color/anti_flash_white"
-                android:textSize="10sp"
+                android:textSize="9sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/tv_date"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:ignore="SmallSp"
                 tools:text="Animation - Horror - Comedy" />
-
-            <TextView
-                android:id="@+id/tv_date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/medium_margin"
-                android:fontFamily="@font/avenir_next_regular"
-                android:text="@{tv.firstAirDate}"
-                android:textColor="@color/anti_flash_white"
-                android:textSize="10sp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@id/tv_genres"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_genres"
-                tools:ignore="SmallSp"
-                tools:text="2023-01-01" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

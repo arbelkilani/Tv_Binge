@@ -7,17 +7,18 @@
 
         <variable
             name="tv"
-            type="com.arbelkilani.binge.tv.feature.discover.presentation.entities.Tv" />
+            type="com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/medium_margin"
         android:outlineProvider="background"
         app:cardCornerRadius="@dimen/medium_corner_radius"
         app:cardElevation="@dimen/default_card_elevation"
-        app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true">
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="false">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

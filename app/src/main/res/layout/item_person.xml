@@ -7,14 +7,13 @@
 
         <variable
             name="person"
-            type="com.arbelkilani.binge.tv.feature.discover.presentation.entities.Person" />
+            type="com.arbelkilani.binge.tv.feature.discover.presentation.model.Person" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginEnd="@dimen/medium_margin"
-        android:background="?attr/actionBarItemBackground">
+        android:layout_marginEnd="@dimen/medium_margin">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_view"
@@ -35,6 +34,7 @@
                 android:contentDescription="@{person.name}"
                 android:scaleType="centerCrop"
                 app:src="@{person.image}"
+                android:background="?attr/actionBarItemBackground"
                 tools:src="@drawable/ic_launcher_background" />
 
         </com.google.android.material.card.MaterialCardView>
