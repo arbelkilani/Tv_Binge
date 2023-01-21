@@ -28,10 +28,12 @@ class FreeShowsAdapter @Inject constructor(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
+        val genres = item?.genres?.joinToString(separator = DOT_SYMBOL) { it.name }
         if (holder.itemViewType == DATA_TYPE) {
             with((holder as BackdropHolder).binding) {
                 root.setOnClickListener { listener.onTvClicked(item) }
                 tv = item
+                tvGenres.text = genres
             }
         }
     }

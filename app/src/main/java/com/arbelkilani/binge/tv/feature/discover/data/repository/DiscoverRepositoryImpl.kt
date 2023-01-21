@@ -97,6 +97,7 @@ class DiscoverRepositoryImpl @Inject constructor(
 
     override suspend fun getFree(): Flow<PagingData<TvEntity>> {
         val discoverQuery = DiscoverQuery.Builder()
+            .type(DiscoverQuery.Type.SCRIPTED)
             .monetizationType(DiscoverQuery.MonetizationType.FREE)
             .watchRegion(country).build()
 

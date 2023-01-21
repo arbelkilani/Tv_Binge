@@ -185,7 +185,7 @@ class DiscoverFragment :
         // Free shows
         binding.ivFree.setOnClickListener { }
         binding.rvFree.apply {
-            setPadding(0, 0, (width * .6f).toInt(), 0)
+            setPadding(0, 0, (width * .35f).toInt(), 0)
             adapter = freeAdapter
         }
     }
