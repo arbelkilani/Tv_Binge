@@ -143,28 +143,28 @@ class DiscoverFragment :
         // Upcoming shows
         binding.ivUpcoming.setOnClickListener { }
         binding.rvUpcoming.apply {
-            setPadding((width * .03f).toInt(), 0, (width * .35f).toInt(), 0)
+            setPadding(0, 0, (width * .35f).toInt(), 0)
             adapter = upcomingAdapter
         }
 
         // Trending persons
         binding.ivPersons.setOnClickListener { }
         binding.rvPersons.apply {
-            setPadding((width * .03f).toInt(), 0, (width * .76f).toInt(), 0)
+            setPadding((width * .015f).toInt(), 0, (width * .76f).toInt(), 0)
             adapter = personAdapter
         }
 
         // Talk shows
         binding.ivTalkShows.setOnClickListener { }
         binding.rvTalkShows.apply {
-            setPadding((width * .03f).toInt(), 0, (width * .7f).toInt(), 0)
+            setPadding(0, 0, (width * .7f).toInt(), 0)
             adapter = talkShowsAdapter
         }
 
         // Documentaries
         binding.ivDocumentaries.setOnClickListener { }
         binding.rvDocumentaries.apply {
-            setPadding((width * .03f).toInt(), 0, (width * .51f).toInt(), 0)
+            setPadding(0, 0, (width * .51f).toInt(), 0)
             adapter = documentariesAdapter
         }
     }

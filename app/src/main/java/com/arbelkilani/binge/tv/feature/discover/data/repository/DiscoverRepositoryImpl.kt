@@ -31,7 +31,7 @@ class DiscoverRepositoryImpl @Inject constructor(
     private val today = LocalDate.now().toString()
 
     @Inject
-    lateinit var mapper: TvResponseMapper
+    lateinit var tvResponseMapper: TvResponseMapper
 
     @Inject
     lateinit var personResponseMapper: PersonResponseMapper
@@ -49,7 +49,7 @@ class DiscoverRepositoryImpl @Inject constructor(
     override suspend fun getTrending(): Flow<PagingData<TvEntity>> {
         return Pager(
             config = PagingConfig(OFFSET),
-            pagingSourceFactory = { TrendingPagingSource(service, mapper) }
+            pagingSourceFactory = { TrendingPagingSource(service, tvResponseMapper) }
         ).flow
     }
 
@@ -63,7 +63,7 @@ class DiscoverRepositoryImpl @Inject constructor(
         return Pager(
             config = PagingConfig(OFFSET),
             pagingSourceFactory = {
-                DiscoverPagingSource(service, mapper, discoverQuery)
+                DiscoverPagingSource(service, tvResponseMapper, discoverQuery)
             }).flow
     }
 
@@ -78,7 +78,7 @@ class DiscoverRepositoryImpl @Inject constructor(
         return Pager(
             config = PagingConfig(OFFSET),
             pagingSourceFactory = {
-                DiscoverPagingSource(service, mapper, discoverQuery)
+                DiscoverPagingSource(service, tvResponseMapper, discoverQuery)
             }).flow
     }
 
@@ -91,7 +91,7 @@ class DiscoverRepositoryImpl @Inject constructor(
         return Pager(
             config = PagingConfig(OFFSET),
             pagingSourceFactory = {
-                DiscoverPagingSource(service, mapper, discoverQuery)
+                DiscoverPagingSource(service, tvResponseMapper, discoverQuery)
             }).flow
     }
 
@@ -103,7 +103,7 @@ class DiscoverRepositoryImpl @Inject constructor(
         return Pager(
             config = PagingConfig(OFFSET),
             pagingSourceFactory = {
-                DiscoverPagingSource(service, mapper, discoverQuery)
+                DiscoverPagingSource(service, tvResponseMapper, discoverQuery)
             }).flow
     }
 
@@ -116,7 +116,7 @@ class DiscoverRepositoryImpl @Inject constructor(
         return Pager(
             config = PagingConfig(OFFSET),
             pagingSourceFactory = {
-                DiscoverPagingSource(service, mapper, discoverQuery)
+                DiscoverPagingSource(service, tvResponseMapper, discoverQuery)
             }).flow
     }
 
@@ -129,7 +129,7 @@ class DiscoverRepositoryImpl @Inject constructor(
         return Pager(
             config = PagingConfig(OFFSET),
             pagingSourceFactory = {
-                DiscoverPagingSource(service, mapper, discoverQuery)
+                DiscoverPagingSource(service, tvResponseMapper, discoverQuery)
             }
         ).flow
     }
@@ -143,7 +143,7 @@ class DiscoverRepositoryImpl @Inject constructor(
         return Pager(
             config = PagingConfig(OFFSET),
             pagingSourceFactory = {
-                DiscoverPagingSource(service, mapper, discoverQuery)
+                DiscoverPagingSource(service, tvResponseMapper, discoverQuery)
             }
         ).flow
     }
