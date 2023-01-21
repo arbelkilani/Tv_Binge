@@ -57,6 +57,7 @@ class DiscoverRepositoryImpl @Inject constructor(
         val discoverQuery = DiscoverQuery.Builder()
             .timezone(timezone)
             .airDateGte(today)
+            .type(DiscoverQuery.Type.SCRIPTED)
             .watchRegion(country).build()
 
         return Pager(

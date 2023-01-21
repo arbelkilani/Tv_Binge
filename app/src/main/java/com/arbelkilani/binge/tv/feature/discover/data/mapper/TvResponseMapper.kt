@@ -18,7 +18,7 @@ class TvResponseMapper @Inject constructor() {
     suspend fun map(response: TvResponse) = TvEntity(
         id = response.id,
         name = response.name,
-        poster = getImageUseCase.invoke(endpoint = response.poster, size = ImageSize.POSTER_W154),
+        poster = getImageUseCase.invoke(endpoint = response.poster, size = ImageSize.POSTER_W185),
         backdrop = getImageUseCase.invoke(
             endpoint = response.backdrop, size = ImageSize.BACKDROP_W780
         ),
