@@ -59,6 +59,12 @@ class DiscoverFragment :
                 submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerPerson))
             }
     }
+    private val freeAdapter: FreeShowsAdapter by lazy {
+        FreeShowsAdapter(this)
+            .apply {
+                submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerTv))
+            }
+    }
 
     override fun bindView(
         inflater: LayoutInflater, container: ViewGroup?
@@ -84,6 +90,7 @@ class DiscoverFragment :
                         collectTalkShows()
                         collectDocumentaries()
                         collectPersons()
+                        collectFree()
                     }
                     is DiscoverViewState.Error -> {
                         Log.i("TAG**", "exception : ${viewState.exception}")
@@ -127,6 +134,13 @@ class DiscoverFragment :
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
+    private suspend fun collectFree() {
+        viewModel.free
+            .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
+            .onEach { showFreeShows(it) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
     override fun initViews() {
         super.initViews()
         val width = resources.displayMetrics.widthPixels
@@ -167,6 +181,13 @@ class DiscoverFragment :
             setPadding(0, 0, (width * .51f).toInt(), 0)
             adapter = documentariesAdapter
         }
+
+        // Free shows
+        binding.ivFree.setOnClickListener { }
+        binding.rvFree.apply {
+            setPadding(0, 0, (width * .35f).toInt(), 0)
+            adapter = freeAdapter
+        }
     }
 
     override suspend fun showTrendingShows(data: PagingData<Tv>) {
@@ -187,6 +208,10 @@ class DiscoverFragment :
 
     override suspend fun showTrendingPersons(data: PagingData<Person>) {
         personAdapter.submitData(lifecycle, data)
+    }
+
+    override suspend fun showFreeShows(data: PagingData<Tv>) {
+        freeAdapter.submitData(lifecycle, data)
     }
 
     override fun showError(exception: Exception) {

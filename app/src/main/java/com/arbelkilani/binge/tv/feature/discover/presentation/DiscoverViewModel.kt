@@ -24,7 +24,8 @@ class DiscoverViewModel @Inject constructor(
     private val getUpcomingUseCase: GetUpcomingUseCase,
     private val getTalkShowsUseCase: GetTalkShowsUseCase,
     private val getDocumentariesUseCase: GetDocumentariesUseCase,
-    private val getTrendingPersonUseCase: GetTrendingPersonUseCase
+    private val getTrendingPersonUseCase: GetTrendingPersonUseCase,
+    private val getFreeUseCase: GetFreeUseCase
 ) : BaseStateViewModel<DiscoverViewState>(initialState = DiscoverViewState.Start) {
 
     private val _trending = MutableStateFlow(PagingData.empty<Tv>())
@@ -42,6 +43,9 @@ class DiscoverViewModel @Inject constructor(
     private val _persons = MutableStateFlow(PagingData.empty<Person>())
     val persons: StateFlow<PagingData<Person>> = _persons
 
+    private val _free = MutableStateFlow(PagingData.empty<Tv>())
+    val free: StateFlow<PagingData<Tv>> = _free
+
     private var current: Boolean? = null
 
     init {
@@ -49,11 +53,12 @@ class DiscoverViewModel @Inject constructor(
     }
 
     suspend fun start() {
-        free()
+        upcoming()
         trending()
         talkShows()
         documentaries()
         persons()
+        free()
     }
 
     private fun trending() = viewModelScope.launch {
@@ -65,12 +70,21 @@ class DiscoverViewModel @Inject constructor(
             }
     }
 
-    private suspend fun free() = viewModelScope.launch {
+    private suspend fun upcoming() = viewModelScope.launch {
         getUpcomingUseCase.invoke()
             .cachedIn(viewModelScope)
             .collectLatest { data ->
                 updateState { DiscoverViewState.Loaded }
                 _upcoming.value = data
+            }
+    }
+
+    private suspend fun free() = viewModelScope.launch {
+        getFreeUseCase.invoke()
+            .cachedIn(viewModelScope)
+            .collectLatest { data ->
+                updateState { DiscoverViewState.Loaded }
+                _free.value = data
             }
     }
 
