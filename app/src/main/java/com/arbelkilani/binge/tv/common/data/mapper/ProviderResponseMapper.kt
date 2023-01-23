@@ -22,10 +22,11 @@ class ProviderResponseMapper @Inject constructor() {
         return result.flatMap { map ->
             map.value.map { response ->
                 ProviderEntity(
-                    response.providerId,
-                    response.providerName,
-                    getImageUseCase.invoke(response.logo, ImageSize.LOGO_W154),
-                    map.key
+                    id = response.providerId,
+                    name = response.providerName,
+                    logo = getImageUseCase.invoke(response.logo, ImageSize.LOGO_W154),
+                    type = map.key,
+                    link = providerResponse.link
                 )
             }
         }

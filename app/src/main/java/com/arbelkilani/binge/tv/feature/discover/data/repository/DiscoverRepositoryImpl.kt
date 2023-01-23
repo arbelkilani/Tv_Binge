@@ -25,6 +25,7 @@ import kotlinx.coroutines.flow.single
 import java.time.LocalDate
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.HashMap
 
 class DiscoverRepositoryImpl @Inject constructor(
     private val service: ApiService
@@ -67,15 +68,7 @@ class DiscoverRepositoryImpl @Inject constructor(
             .type(DiscoverQuery.Type.SCRIPTED)
             .watchRegion(country).build()
 
-        return Pager(
-            config = PagingConfig(OFFSET),
-            pagingSourceFactory = {
-                DiscoverPagingSource(service, tvResponseMapper, discoverQuery)
-            }).flow.map { pagingData ->
-            pagingData.map { tvEntity ->
-                tvEntity.copy(providers = getTvProviders(tvEntity.id))
-            }
-        }
+        return flowPagingAdapter(discoverQuery)
     }
 
     override suspend fun getStartingThisMonth(): Flow<PagingData<TvEntity>> {
@@ -86,14 +79,8 @@ class DiscoverRepositoryImpl @Inject constructor(
             .firstAirDateLte("2023-01-31")
             .watchRegion(country).build()
 
-        return Pager(
-            config = PagingConfig(OFFSET),
-            pagingSourceFactory = {
-                DiscoverPagingSource(service, tvResponseMapper, discoverQuery)
-            }).flow.map {
+        return flowPagingAdapter(discoverQuery)
 
-            it
-        }
     }
 
     override suspend fun getBasedOnProviders(): Flow<PagingData<TvEntity>> {
@@ -102,11 +89,7 @@ class DiscoverRepositoryImpl @Inject constructor(
             .watchProviders(getProvidersString())
             .watchRegion(country).build()
 
-        return Pager(
-            config = PagingConfig(OFFSET),
-            pagingSourceFactory = {
-                DiscoverPagingSource(service, tvResponseMapper, discoverQuery)
-            }).flow
+        return flowPagingAdapter(discoverQuery)
     }
 
     override suspend fun getFree(): Flow<PagingData<TvEntity>> {
@@ -115,11 +98,7 @@ class DiscoverRepositoryImpl @Inject constructor(
             .monetizationType(DiscoverQuery.MonetizationType.FREE)
             .watchRegion(country).build()
 
-        return Pager(
-            config = PagingConfig(OFFSET),
-            pagingSourceFactory = {
-                DiscoverPagingSource(service, tvResponseMapper, discoverQuery)
-            }).flow
+        return flowPagingAdapter(discoverQuery)
     }
 
     override suspend fun getBasedOnGenres(): Flow<PagingData<TvEntity>> {
@@ -128,11 +107,7 @@ class DiscoverRepositoryImpl @Inject constructor(
             .genres(getGenresString())
             .watchRegion(country).build()
 
-        return Pager(
-            config = PagingConfig(OFFSET),
-            pagingSourceFactory = {
-                DiscoverPagingSource(service, tvResponseMapper, discoverQuery)
-            }).flow
+        return flowPagingAdapter(discoverQuery)
     }
 
     override suspend fun getTalkShows(): Flow<PagingData<TvEntity>> {
@@ -141,12 +116,7 @@ class DiscoverRepositoryImpl @Inject constructor(
             .type(DiscoverQuery.Type.TALK_SHOW)
             .watchRegion(country).build()
 
-        return Pager(
-            config = PagingConfig(OFFSET),
-            pagingSourceFactory = {
-                DiscoverPagingSource(service, tvResponseMapper, discoverQuery)
-            }
-        ).flow
+        return flowPagingAdapter(discoverQuery)
     }
 
     override suspend fun getDocumentaries(): Flow<PagingData<TvEntity>> {
@@ -155,12 +125,19 @@ class DiscoverRepositoryImpl @Inject constructor(
             .type(DiscoverQuery.Type.DOCUMENTARY)
             .watchRegion(country).build()
 
+        return flowPagingAdapter(discoverQuery)
+    }
+
+    private fun flowPagingAdapter(discoverQuery: HashMap<String, String>): Flow<PagingData<TvEntity>> {
         return Pager(
             config = PagingConfig(OFFSET),
             pagingSourceFactory = {
                 DiscoverPagingSource(service, tvResponseMapper, discoverQuery)
+            }).flow.map { pagingData ->
+            pagingData.map { tvEntity ->
+                tvEntity.copy(providers = getTvProviders(tvEntity.id))
             }
-        ).flow
+        }
     }
 
     override suspend fun getFavoriteProviders(): Flow<List<WatchProviderEntity>?> {

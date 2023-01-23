@@ -9,6 +9,7 @@ class ProviderEntityMapper @Inject constructor() {
         id = providerEntity.id,
         name = providerEntity.name,
         type = providerEntity.type,
-        logo = providerEntity.logo
+        logo = providerEntity.logo,
+        link = providerEntity.link
     )
 }
