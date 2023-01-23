@@ -30,7 +30,9 @@ open class DiscoverPagingSource @Inject constructor(
                 }.filterNot {
                     it.voteAverage < 5f
                 }
-                .map { tvResponseMapper.map(it) }
+                .map {
+                    tvResponseMapper.map(it)
+                }
 
             LoadResult.Page(
                 data = tvShows,

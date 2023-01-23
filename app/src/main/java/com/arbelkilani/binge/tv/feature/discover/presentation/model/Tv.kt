@@ -12,5 +12,6 @@ data class Tv(
     val backdrop: String?,
     val genres: List<GenreEntity>,
     val voteAverage: Float,
-    val firstAirDate: String
+    val firstAirDate: String,
+    val providers: List<Provider>
 ) : Parcelable

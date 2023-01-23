@@ -1,6 +1,7 @@
 package com.arbelkilani.binge.tv.feature.discover.domain.entity
 
 import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entity.ProviderEntity
 
 data class TvEntity(
     val id: Int,
@@ -9,5 +10,6 @@ data class TvEntity(
     val backdrop: String?,
     val genres: List<GenreEntity>,
     val voteAverage: Float,
-    val firstAirDate: String
+    val firstAirDate: String,
+    val providers: List<ProviderEntity>? = emptyList()
 )

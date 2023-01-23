@@ -3,7 +3,10 @@ package com.arbelkilani.binge.tv.feature.discover.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.map
+import com.arbelkilani.binge.tv.common.data.mapper.ProviderResponseMapper
 import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
+import com.arbelkilani.binge.tv.common.domain.entity.ProviderEntity
 import com.arbelkilani.binge.tv.common.domain.entity.WatchProviderEntity
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
 import com.arbelkilani.binge.tv.common.source.remote.pagingsource.DiscoverPagingSource
@@ -17,6 +20,7 @@ import com.arbelkilani.binge.tv.feature.discover.domain.entity.TvEntity
 import com.arbelkilani.binge.tv.feature.discover.domain.repository.DiscoverRepository
 import com.arbelkilani.binge.tv.feature.walkthrough.domain.repository.ResourcesRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.single
 import java.time.LocalDate
 import java.util.*
@@ -35,6 +39,9 @@ class DiscoverRepositoryImpl @Inject constructor(
 
     @Inject
     lateinit var personResponseMapper: PersonResponseMapper
+
+    @Inject
+    lateinit var providerResponseMapper: ProviderResponseMapper
 
     @Inject
     lateinit var resourceRepository: ResourcesRepository
@@ -64,7 +71,11 @@ class DiscoverRepositoryImpl @Inject constructor(
             config = PagingConfig(OFFSET),
             pagingSourceFactory = {
                 DiscoverPagingSource(service, tvResponseMapper, discoverQuery)
-            }).flow
+            }).flow.map { pagingData ->
+            pagingData.map { tvEntity ->
+                tvEntity.copy(providers = getTvProviders(tvEntity.id))
+            }
+        }
     }
 
     override suspend fun getStartingThisMonth(): Flow<PagingData<TvEntity>> {
@@ -79,7 +90,10 @@ class DiscoverRepositoryImpl @Inject constructor(
             config = PagingConfig(OFFSET),
             pagingSourceFactory = {
                 DiscoverPagingSource(service, tvResponseMapper, discoverQuery)
-            }).flow
+            }).flow.map {
+
+            it
+        }
     }
 
     override suspend fun getBasedOnProviders(): Flow<PagingData<TvEntity>> {
@@ -168,6 +182,16 @@ class DiscoverRepositoryImpl @Inject constructor(
             ?.map { it.id }
             ?.joinToString(separator = "|")
     }
+
+    private suspend fun getTvProviders(id: Int): List<ProviderEntity>? {
+        val result = service.getTvWatchProviders(id).result.filterKeys { key ->
+            key == country
+        }.map { map ->
+            map.value
+        }.firstOrNull()
+        return result?.let { providerResponseMapper.map(it) }
+    }
+
 
     companion object {
         private const val OFFSET = 20

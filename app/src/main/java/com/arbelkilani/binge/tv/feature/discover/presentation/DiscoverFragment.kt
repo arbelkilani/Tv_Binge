@@ -228,11 +228,11 @@ class DiscoverFragment :
 
     companion object {
         private val shimmerTv = listOf(
-            Tv(id = -1, "", null, null, emptyList(), 0f, ""),
-            Tv(id = -1, "", null, null, emptyList(), 0f, ""),
-            Tv(id = -1, "", null, null, emptyList(), 0f, ""),
-            Tv(id = -1, "", null, null, emptyList(), 0f, ""),
-            Tv(id = -1, "", null, null, emptyList(), 0f, "")
+            Tv(id = -1, "", null, null, emptyList(), 0f, "", emptyList()),
+            Tv(id = -1, "", null, null, emptyList(), 0f, "", emptyList()),
+            Tv(id = -1, "", null, null, emptyList(), 0f, "", emptyList()),
+            Tv(id = -1, "", null, null, emptyList(), 0f, "", emptyList()),
+            Tv(id = -1, "", null, null, emptyList(), 0f, "", emptyList())
         )
         private val shimmerPerson = listOf(
             Person(id = -1, "", ""),

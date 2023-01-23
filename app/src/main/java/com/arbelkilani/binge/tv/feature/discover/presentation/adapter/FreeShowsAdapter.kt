@@ -1,6 +1,7 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation.adapter
 
 import android.content.res.Resources
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -28,6 +29,7 @@ class FreeShowsAdapter @Inject constructor(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
+        Log.i("TAG**", "item : $item")
         val genres = item?.genres?.joinToString(separator = DOT_SYMBOL) { it.name }
         if (holder.itemViewType == DATA_TYPE) {
             with((holder as BackdropHolder).binding) {

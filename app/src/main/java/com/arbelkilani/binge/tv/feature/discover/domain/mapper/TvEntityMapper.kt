@@ -6,6 +6,9 @@ import javax.inject.Inject
 
 class TvEntityMapper @Inject constructor() {
 
+    @Inject
+    lateinit var providerEntityMapper: ProviderEntityMapper
+
     fun map(response: TvEntity) = Tv(
         id = response.id,
         name = response.name,
@@ -13,6 +16,7 @@ class TvEntityMapper @Inject constructor() {
         backdrop = response.backdrop,
         genres = response.genres,
         voteAverage = response.voteAverage,
-        firstAirDate = response.firstAirDate
+        firstAirDate = response.firstAirDate,
+        providers = response.providers?.map { providerEntityMapper.map(it) } ?: emptyList()
     )
 }
