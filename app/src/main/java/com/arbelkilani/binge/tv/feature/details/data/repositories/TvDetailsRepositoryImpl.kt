@@ -13,7 +13,7 @@ class TvDetailsRepositoryImpl @Inject constructor(
 ) : TvDetailsRepository {
 
     @Inject
-    lateinit var mapper: TvDetailsResponseMapper
+    lateinit var tvDetailsResponseMapper: TvDetailsResponseMapper
 
     @Inject
     lateinit var keywordsResponseMapper: KeywordsResponseMapper
@@ -22,7 +22,7 @@ class TvDetailsRepositoryImpl @Inject constructor(
     lateinit var castResponseMapper: CastResponseMapper
 
     override suspend fun getTvDetails(id: Int) = flow {
-        emit(mapper.map(service.getTvDetails(id, "videos,images")))
+        emit(tvDetailsResponseMapper.map(service.getTvDetails(id, "videos,images")))
     }
 
     override suspend fun getKeywords(id: Int) = flow {
