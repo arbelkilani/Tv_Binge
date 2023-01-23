@@ -19,40 +19,35 @@
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@{tv.name}"
+            android:foreground="@drawable/bg_gradient_mask"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:src="@{tv.backdrop}"
+            tools:src="@drawable/ic_launcher_background" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/grp_data"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:constraint_referenced_ids="tv_genres,tv_title" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@{tv.name}"
-                android:foreground="@drawable/bg_gradient_mask"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:src="@{tv.backdrop}"
-                tools:src="@drawable/ic_launcher_background" />
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/small_padding">
 
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/medium_margin"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="@dimen/small_margin"
                 android:ellipsize="end"
                 android:fontFamily="@font/avenir_next_demi_bold"
                 android:text="@{tv.name}"
                 android:textColor="@color/anti_flash_white"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@id/tv_genres"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintWidth_percent=".8"
@@ -63,7 +58,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/medium_margin"
-                android:layout_marginBottom="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/small_margin"
                 android:fontFamily="@font/avenir_next_regular"
                 android:textColor="@color/anti_flash_white"
                 android:textSize="9sp"
@@ -71,7 +66,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:ignore="SmallSp"
-                tools:text="Animation - Horror - Comedy" />
+                tools:text="Animation - Horror - Comedy"
+                tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

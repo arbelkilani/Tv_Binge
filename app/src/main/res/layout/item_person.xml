@@ -31,10 +31,10 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="?attr/actionBarItemBackground"
                 android:contentDescription="@{person.name}"
                 android:scaleType="centerCrop"
                 app:src="@{person.image}"
-                android:background="?attr/actionBarItemBackground"
                 tools:src="@drawable/ic_launcher_background" />
 
         </com.google.android.material.card.MaterialCardView>
