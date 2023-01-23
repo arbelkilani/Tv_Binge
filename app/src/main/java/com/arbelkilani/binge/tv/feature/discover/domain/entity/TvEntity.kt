@@ -11,5 +11,5 @@ data class TvEntity(
     val genres: List<GenreEntity>,
     val voteAverage: Float,
     val firstAirDate: String,
-    val providers: List<ProviderEntity>? = emptyList()
+    val providers: List<ProviderEntity>
 )

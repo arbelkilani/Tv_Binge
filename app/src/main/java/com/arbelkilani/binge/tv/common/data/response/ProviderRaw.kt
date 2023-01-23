@@ -12,7 +12,8 @@ data class ProviderMap(
     @SerializedName("flatrate") val flatrate: List<ProviderResponse>?,
     @SerializedName("buy") val buy: List<ProviderResponse>?,
     @SerializedName("rent") val rent: List<ProviderResponse>?,
-    @SerializedName("free") val free: List<ProviderResponse>?
+    @SerializedName("free") val free: List<ProviderResponse>?,
+    @SerializedName("ads") val ads: List<ProviderResponse>?
 )
 
 data class ProviderResponse(

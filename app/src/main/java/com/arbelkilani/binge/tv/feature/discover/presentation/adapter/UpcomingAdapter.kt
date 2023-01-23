@@ -8,7 +8,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
-import com.arbelkilani.binge.tv.databinding.ItemTvShowBackdropBinding
+import com.arbelkilani.binge.tv.databinding.ItemTvBackdropBinding
 import com.arbelkilani.binge.tv.databinding.ItemTvShowShimmerBinding
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
@@ -20,7 +20,7 @@ class UpcomingAdapter @Inject constructor(
 
     val width = Resources.getSystem().displayMetrics.widthPixels
 
-    class DataHolder(val binding: ItemTvShowBackdropBinding) :
+    class DataHolder(val binding: ItemTvBackdropBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     class ShimmerHolder(val binding: ItemTvShowShimmerBinding) :
@@ -51,7 +51,7 @@ class UpcomingAdapter @Inject constructor(
             else -> DataHolder(
                 DataBindingUtil.inflate(
                     LayoutInflater.from(parent.context),
-                    R.layout.item_tv_show_backdrop,
+                    R.layout.item_tv_backdrop,
                     parent,
                     false
                 )

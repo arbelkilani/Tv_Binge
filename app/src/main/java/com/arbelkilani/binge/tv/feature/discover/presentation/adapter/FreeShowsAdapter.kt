@@ -9,7 +9,9 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
-import com.arbelkilani.binge.tv.databinding.ItemTvShowBackdropBinding
+import com.arbelkilani.binge.tv.databinding.ItemTvBackdropBinding
+import com.arbelkilani.binge.tv.databinding.ItemTvProviderBinding
+import com.arbelkilani.binge.tv.databinding.ItemTvProviderShimmerBinding
 import com.arbelkilani.binge.tv.databinding.ItemTvShowShimmerBinding
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
@@ -21,21 +23,21 @@ class FreeShowsAdapter @Inject constructor(
 
     val width = Resources.getSystem().displayMetrics.widthPixels
 
-    class BackdropHolder(val binding: ItemTvShowBackdropBinding) :
+    class BackdropHolder(val binding: ItemTvProviderBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    class ShimmerHolder(val binding: ItemTvShowShimmerBinding) :
+    class ShimmerHolder(val binding: ItemTvProviderShimmerBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
-        Log.i("TAG**", "item : $item")
         val genres = item?.genres?.joinToString(separator = DOT_SYMBOL) { it.name }
         if (holder.itemViewType == DATA_TYPE) {
             with((holder as BackdropHolder).binding) {
                 root.setOnClickListener { listener.onTvClicked(item) }
                 tv = item
-                tvGenres.text = genres
+                provider = item?.providers?.firstOrNull { it.type == "free" }
+                //tvGenres.text = genres
             }
         }
     }
@@ -45,7 +47,7 @@ class FreeShowsAdapter @Inject constructor(
             SHIMMER_TYPE -> ShimmerHolder(
                 DataBindingUtil.inflate(
                     LayoutInflater.from(parent.context),
-                    R.layout.item_tv_show_shimmer,
+                    R.layout.item_tv_provider_shimmer,
                     parent,
                     false
                 )
@@ -53,7 +55,7 @@ class FreeShowsAdapter @Inject constructor(
             else -> BackdropHolder(
                 DataBindingUtil.inflate(
                     LayoutInflater.from(parent.context),
-                    R.layout.item_tv_show_backdrop,
+                    R.layout.item_tv_provider,
                     parent,
                     false
                 )

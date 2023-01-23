@@ -1,10 +1,12 @@
 package com.arbelkilani.binge.tv.common.data.mapper
 
+import android.util.Log
 import com.arbelkilani.binge.tv.common.data.enum.ImageSize
 import com.arbelkilani.binge.tv.common.data.response.ProviderMap
 import com.arbelkilani.binge.tv.common.data.response.ProviderResponse
 import com.arbelkilani.binge.tv.common.domain.entity.ProviderEntity
 import com.arbelkilani.binge.tv.common.domain.usecase.GetImageUseCase
+import com.arbelkilani.binge.tv.feature.discover.data.request.DiscoverQuery
 import javax.inject.Inject
 
 class ProviderResponseMapper @Inject constructor() {
@@ -14,10 +16,22 @@ class ProviderResponseMapper @Inject constructor() {
 
     suspend fun map(providerResponse: ProviderMap): List<ProviderEntity> {
         val result = mutableMapOf<String, List<ProviderResponse>>()
-        providerResponse.flatrate?.let { result.put("flatrate", it) }
-        providerResponse.buy?.let { result.put("buy", it) }
-        providerResponse.rent?.let { result.put("rent", it) }
-        providerResponse.free?.let { result.put("free", it) }
+        providerResponse.flatrate?.let {
+            result.put(
+                DiscoverQuery.MonetizationType.FLAT_RATE.value,
+                it
+            )
+        }
+        providerResponse.buy?.let { result.put(DiscoverQuery.MonetizationType.BUY.value, it) }
+        providerResponse.rent?.let { result.put(DiscoverQuery.MonetizationType.RENT.value, it) }
+        /*val free =
+            providerResponse.free?.filterNot { providerResponse.flatrate?.contains(it) == true }
+        free?.map {
+            Log.i("TAG**", "free : $it")
+        }*/
+        providerResponse.free?.let { result.put(DiscoverQuery.MonetizationType.FREE.value, it) }
+        providerResponse.ads?.let { result.put(DiscoverQuery.MonetizationType.ADS.value, it) }
+
 
         return result.flatMap { map ->
             map.value.map { response ->

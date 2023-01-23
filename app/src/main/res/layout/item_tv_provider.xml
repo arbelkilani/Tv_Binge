@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="tv"
+            type="com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv" />
+
+        <variable
+            name="provider"
+            type="com.arbelkilani.binge.tv.feature.discover.presentation.model.Provider" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_height="300dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/layout_backdrop"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:cardCornerRadius="@dimen/default_corner_radius"
+            app:cardElevation="@dimen/default_card_elevation"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintBottom_toTopOf="@id/layout_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_backdrop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@{tv.name}"
+                android:scaleType="centerCrop"
+                app:src="@{tv.backdrop}"
+                tools:src="@drawable/ic_launcher_background" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/layout_logo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="4dp"
+            app:cardCornerRadius="@dimen/min_corner_radius"
+            app:cardElevation="@dimen/default_card_elevation"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent=".21">
+
+            <ImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@{provider.name}"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:src="@{provider.logo}"
+                tools:src="@drawable/ic_launcher_background" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/small_margin"
+            android:layout_marginVertical="8dp"
+            android:fontFamily="@font/avenir_next_demi_bold"
+            android:gravity="start"
+            android:text="@{tv.name}"
+            android:textColor="@color/title_color"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/layout_logo"
+            app:layout_constraintTop_toTopOf="@id/layout_logo"
+            tools:text="The Last of Us" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

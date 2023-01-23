@@ -19,7 +19,7 @@
             layout="@layout/layout_discover_trending"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="1:.47"
+            app:layout_constraintDimensionRatio="1:.49"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -69,12 +69,12 @@
             android:orientation="horizontal"
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintDimensionRatio="1:.34"
+            app:layout_constraintDimensionRatio="1:.36"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_upcoming"
             tools:itemCount="10"
-            tools:listitem="@layout/item_tv_show_backdrop"
+            tools:listitem="@layout/item_tv_backdrop"
             tools:paddingEnd="150dp"
             tools:paddingStart="10dp" />
 
@@ -122,12 +122,12 @@
             android:orientation="horizontal"
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintDimensionRatio="1:.34"
+            app:layout_constraintDimensionRatio="1:.5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_free"
             tools:itemCount="10"
-            tools:listitem="@layout/item_tv_show_backdrop"
+            tools:listitem="@layout/item_tv_provider"
             tools:paddingEnd="150dp"
             tools:paddingStart="10dp" />
 
@@ -234,7 +234,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_talk_shows"
             tools:itemCount="10"
-            tools:listitem="@layout/item_tv_show_backdrop"
+            tools:listitem="@layout/item_tv_backdrop"
             tools:paddingEnd="270dp"
             tools:paddingStart="10dp" />
 
@@ -288,7 +288,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_documentaries"
             app:spanCount="2"
             tools:itemCount="10"
-            tools:listitem="@layout/item_tv_show_backdrop"
+            tools:listitem="@layout/item_tv_backdrop"
             tools:paddingEnd="210dp"
             tools:paddingStart="10dp" />
 

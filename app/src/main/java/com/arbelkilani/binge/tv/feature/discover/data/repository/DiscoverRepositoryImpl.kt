@@ -1,9 +1,6 @@
 package com.arbelkilani.binge.tv.feature.discover.data.repository
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.map
+import androidx.paging.*
 import com.arbelkilani.binge.tv.common.data.mapper.ProviderResponseMapper
 import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
 import com.arbelkilani.binge.tv.common.domain.entity.ProviderEntity
@@ -94,12 +91,27 @@ class DiscoverRepositoryImpl @Inject constructor(
 
     override suspend fun getFree(): Flow<PagingData<TvEntity>> {
         val discoverQuery = DiscoverQuery.Builder()
-            .type(DiscoverQuery.Type.SCRIPTED)
+            .timezone(timezone)
             .monetizationType(DiscoverQuery.MonetizationType.FREE)
             .watchRegion(country).build()
 
-        return flowPagingAdapter(discoverQuery)
+        return Pager(
+            config = PagingConfig(OFFSET),
+            pagingSourceFactory = {
+                DiscoverPagingSource(service, tvResponseMapper, discoverQuery)
+            }).flow
     }
+
+
+    /**
+     * .map { pagingData ->
+    pagingData.map { tvEntity ->
+    tvEntity.copy(providers = getTvProviders(tvEntity.id))
+    }.filter { tvEntity ->
+    !tvEntity.providers?.filter { it.type == DiscoverQuery.MonetizationType.FREE.value }
+    .isNullOrEmpty()
+    }
+     */
 
     override suspend fun getBasedOnGenres(): Flow<PagingData<TvEntity>> {
         val discoverQuery = DiscoverQuery.Builder()
@@ -133,11 +145,7 @@ class DiscoverRepositoryImpl @Inject constructor(
             config = PagingConfig(OFFSET),
             pagingSourceFactory = {
                 DiscoverPagingSource(service, tvResponseMapper, discoverQuery)
-            }).flow.map { pagingData ->
-            pagingData.map { tvEntity ->
-                tvEntity.copy(providers = getTvProviders(tvEntity.id))
-            }
-        }
+            }).flow
     }
 
     override suspend fun getFavoriteProviders(): Flow<List<WatchProviderEntity>?> {

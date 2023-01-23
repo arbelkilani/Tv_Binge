@@ -3,9 +3,11 @@ package com.arbelkilani.binge.tv.common.di
 import com.arbelkilani.binge.tv.common.data.repository.ConfigurationRepositoryImpl
 import com.arbelkilani.binge.tv.common.data.repository.GenreRepositoryImpl
 import com.arbelkilani.binge.tv.common.data.repository.NetworkRepositoryImpl
+import com.arbelkilani.binge.tv.common.data.repository.ProviderRepositoryImpl
 import com.arbelkilani.binge.tv.common.domain.repository.ConfigurationRepository
 import com.arbelkilani.binge.tv.common.domain.repository.GenreRepository
 import com.arbelkilani.binge.tv.common.domain.repository.NetworkRepository
+import com.arbelkilani.binge.tv.common.domain.repository.ProviderRepository
 import com.arbelkilani.binge.tv.feature.walkthrough.data.repository.ResourcesRepositoryImpl
 import com.arbelkilani.binge.tv.feature.walkthrough.domain.repository.ResourcesRepository
 import dagger.Binds
@@ -33,4 +35,9 @@ abstract class RepositoryModule {
     abstract fun bindNetworkRepository(
         repositoryImpl: NetworkRepositoryImpl
     ): NetworkRepository
+
+    @Binds
+    abstract fun binProvidersRepository(
+        repositoryImpl: ProviderRepositoryImpl
+    ): ProviderRepository
 }

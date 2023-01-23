@@ -2,6 +2,7 @@ package com.arbelkilani.binge.tv.common.source.remote.pagingsource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.arbelkilani.binge.tv.common.domain.entity.ProviderEntity
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
 import com.arbelkilani.binge.tv.feature.discover.data.mapper.TvResponseMapper
 import com.arbelkilani.binge.tv.feature.discover.domain.entity.TvEntity
@@ -26,9 +27,9 @@ open class DiscoverPagingSource @Inject constructor(
             val response = service.discover(page = position, options = queryMap)
             val tvShows = response.results
                 .filterNot {
-                    it.backdrop.isNullOrEmpty()
+                    it.backdrop.isNullOrEmpty() && it.poster.isNullOrEmpty()
                 }.filterNot {
-                    it.voteAverage < 5f
+                    it.voteCount == 0
                 }
                 .map {
                     tvResponseMapper.map(it)
@@ -54,4 +55,14 @@ open class DiscoverPagingSource @Inject constructor(
                 ?: state.closestPageToPosition(it)?.nextKey?.minus(OFFSET)
         }
     }
+
+    /*private suspend fun getTvProviders(id: Int): List<ProviderEntity>? {
+        val result = service.getTvWatchProviders(id).result.filterKeys { key ->
+            key == country
+        }.map { map ->
+            map.value
+        }.firstOrNull()
+        return result?.let { providerResponseMapper.map(it) }
+    }*/
+
 }
