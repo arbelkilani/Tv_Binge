@@ -18,6 +18,7 @@ import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.*
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Person
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.Provider
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 import com.arbelkilani.binge.tv.feature.home.HomeContract
 import dagger.hilt.android.AndroidEntryPoint
@@ -224,6 +225,10 @@ class DiscoverFragment :
 
     override fun onPersonClicked(person: Person?) {
         person?.let { Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show() }
+    }
+
+    override fun onLinkToProviderClicked(provider: Provider?) {
+        provider?.let { Toast.makeText(context, provider.link, Toast.LENGTH_SHORT).show() }
     }
 
     companion object {

@@ -1,7 +1,6 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation.adapter
 
 import android.content.res.Resources
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -9,10 +8,8 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
-import com.arbelkilani.binge.tv.databinding.ItemTvBackdropBinding
 import com.arbelkilani.binge.tv.databinding.ItemTvProviderBinding
 import com.arbelkilani.binge.tv.databinding.ItemTvProviderShimmerBinding
-import com.arbelkilani.binge.tv.databinding.ItemTvShowShimmerBinding
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 import javax.inject.Inject
@@ -34,10 +31,11 @@ class FreeShowsAdapter @Inject constructor(
         val genres = item?.genres?.joinToString(separator = DOT_SYMBOL) { it.name }
         if (holder.itemViewType == DATA_TYPE) {
             with((holder as BackdropHolder).binding) {
-                root.setOnClickListener { listener.onTvClicked(item) }
                 tv = item
                 provider = item?.providers?.firstOrNull { it.type == "free" }
-                //tvGenres.text = genres
+                tvGenres.text = genres
+                layoutBackdrop.setOnClickListener { listener.onTvClicked(item) }
+                layoutLogo.setOnClickListener { listener.onLinkToProviderClicked(item?.providers?.firstOrNull { it.type == "free" }) }
             }
         }
     }
