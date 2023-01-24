@@ -15,14 +15,14 @@ class GetKeywordsUseCase @Inject constructor() {
     lateinit var tvDetailsRepository: TvDetailsRepository
 
     @Inject
-    lateinit var mapper: KeywordsEntityMapper
+    lateinit var keywordsEntityMapper: KeywordsEntityMapper
 
     suspend fun invoke(id: Int): Flow<List<Keywords>> {
         return tvDetailsRepository.getKeywords(id)
             .flowOn(Dispatchers.IO)
             .map { list ->
                 list.map { entity ->
-                    mapper.map(entity)
+                    keywordsEntityMapper.map(entity)
                 }
             }
     }

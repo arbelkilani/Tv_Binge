@@ -14,7 +14,7 @@ class TvDetailsEntityMapper @Inject constructor() {
     @Inject
     lateinit var episodeToAirEntityMapper: EpisodeToAirEntityMapper
 
-    val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MMM yyyy")
+    private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MMM yyyy")
 
     suspend fun map(entity: TvDetailsEntity) = TvDetails(
         name = entity.name,
