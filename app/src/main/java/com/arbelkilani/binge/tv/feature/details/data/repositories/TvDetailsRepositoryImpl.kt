@@ -2,6 +2,7 @@ package com.arbelkilani.binge.tv.feature.details.data.repositories
 
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
 import com.arbelkilani.binge.tv.feature.details.data.mapper.CastResponseMapper
+import com.arbelkilani.binge.tv.feature.details.data.mapper.ExternalIdResponseMapper
 import com.arbelkilani.binge.tv.feature.details.data.mapper.KeywordsResponseMapper
 import com.arbelkilani.binge.tv.feature.details.data.mapper.TvDetailsResponseMapper
 import com.arbelkilani.binge.tv.feature.details.domain.repositories.TvDetailsRepository
@@ -21,6 +22,9 @@ class TvDetailsRepositoryImpl @Inject constructor(
     @Inject
     lateinit var castResponseMapper: CastResponseMapper
 
+    @Inject
+    lateinit var externalIdResponseMapper: ExternalIdResponseMapper
+
     override suspend fun getTvDetails(id: Int) = flow {
         emit(tvDetailsResponseMapper.map(service.getTvDetails(id, "videos,images")))
     }
@@ -35,5 +39,9 @@ class TvDetailsRepositoryImpl @Inject constructor(
         emit(service.getCredits(id).cast.map {
             castResponseMapper.map(it)
         })
+    }
+
+    override suspend fun getExternalId(id: Int) = flow {
+        emit(externalIdResponseMapper.map(service.getExternalId(id)))
     }
 }

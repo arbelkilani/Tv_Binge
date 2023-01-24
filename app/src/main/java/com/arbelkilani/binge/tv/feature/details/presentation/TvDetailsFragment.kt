@@ -26,6 +26,7 @@ import com.arbelkilani.binge.tv.feature.details.TvDetailsContract
 import com.arbelkilani.binge.tv.feature.details.presentation.adapter.GenresAdapter
 import com.arbelkilani.binge.tv.feature.details.presentation.adapter.KeywordsAdapter
 import com.arbelkilani.binge.tv.feature.details.presentation.adapter.NetworksAdapter
+import com.arbelkilani.binge.tv.feature.details.presentation.entities.ExternalId
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.Keywords
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.TvDetails
 import com.arbelkilani.binge.tv.feature.details.presentation.model.TvDetailsViewState
@@ -111,6 +112,7 @@ class TvDetailsFragment :
                     collectDetails()
                     collectKeywords()
                     collectCasts()
+                    collectExternalId()
                 }
                 else -> Unit
             }
@@ -161,6 +163,13 @@ class TvDetailsFragment :
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
+    private fun collectExternalId() {
+        viewModel.externalId
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.CREATED)
+            .onEach { state -> state?.let { showExternalId(it) } }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
     override suspend fun details(data: TvDetails) {
         binding.tvDetails = data
 
@@ -205,6 +214,10 @@ class TvDetailsFragment :
 
     override suspend fun casts(data: List<Person>) {
         personAdapter.submitData(viewLifecycleOwner.lifecycle, PagingData.from(data))
+    }
+
+    override suspend fun showExternalId(data: ExternalId) {
+        Log.i("TAG**", "external id : $data")
     }
 
     override fun onPersonClicked(person: Person?) {

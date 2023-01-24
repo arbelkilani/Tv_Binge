@@ -52,4 +52,5 @@
     <string name="tv_details_casts_label">Casts</string>
     <string name="next">next</string>
     <string name="discover_title_free">Free to watch</string>
+    <string name="tv_details_action_external_id">check external ids</string>
 </resources>

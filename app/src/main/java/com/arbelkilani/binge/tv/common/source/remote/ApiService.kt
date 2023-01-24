@@ -9,6 +9,7 @@ import com.arbelkilani.binge.tv.feature.details.data.entities.CreditsRaw
 import com.arbelkilani.binge.tv.feature.details.data.entities.KeywordsRaw
 import com.arbelkilani.binge.tv.feature.details.data.entities.TvDetailsResponse
 import com.arbelkilani.binge.tv.common.data.response.ProviderRaw
+import com.arbelkilani.binge.tv.feature.details.data.entities.ExternalIdResponse
 import com.arbelkilani.binge.tv.feature.discover.data.response.PersonResponse
 import com.arbelkilani.binge.tv.feature.discover.data.response.TvResponse
 import retrofit2.http.GET
@@ -49,7 +50,7 @@ interface ApiService {
     @GET("trending/person/{time_window}")
     suspend fun getTrendingPerson(
         @Path("time_window") timeWindow: String
-    ) : ResponseWrapper<PersonResponse>
+    ): ResponseWrapper<PersonResponse>
 
     // Get TV Airing Today
     @GET("tv/airing_today")
@@ -89,4 +90,10 @@ interface ApiService {
     suspend fun getTvWatchProviders(
         @Path("tv_id") id: Int
     ): ProviderRaw
+
+    // Get External IDs
+    @GET("tv/{tv_id}/external_ids")
+    suspend fun getExternalId(
+        @Path("tv_id") id: Int
+    ): ExternalIdResponse
 }

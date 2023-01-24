@@ -62,7 +62,22 @@
                 app:layout_constraintHeight_percent=".32"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:src="@{tv.backdrop}" />
+                app:src="@{tv.backdrop}"
+                tools:alpha="1"
+                tools:src="@drawable/ic_launcher_background" />
+
+            <ImageView
+                android:id="@+id/iv_external"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:background="@drawable/bg_action_circle"
+                android:contentDescription="@string/tv_details_action_external_id"
+                android:padding="@dimen/medium_padding"
+                android:src="@drawable/ic_external_id"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -76,7 +91,7 @@
             app:behavior_draggable="true"
             app:behavior_fitToContents="true"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-            tools:behavior_peekHeight="800dp"
+            tools:behavior_peekHeight="600dp"
             tools:visibility="visible">
 
             <androidx.constraintlayout.widget.ConstraintLayout
