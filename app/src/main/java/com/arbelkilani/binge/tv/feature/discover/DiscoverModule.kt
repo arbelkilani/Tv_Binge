@@ -2,7 +2,6 @@ package com.arbelkilani.binge.tv.feature.discover
 
 import com.arbelkilani.binge.tv.feature.discover.data.repository.DiscoverRepositoryImpl
 import com.arbelkilani.binge.tv.feature.discover.domain.repository.DiscoverRepository
-import com.arbelkilani.binge.tv.feature.onboarding.BindModule
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

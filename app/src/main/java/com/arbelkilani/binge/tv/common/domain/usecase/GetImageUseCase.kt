@@ -1,7 +1,7 @@
 package com.arbelkilani.binge.tv.common.domain.usecase
 
 import com.arbelkilani.binge.tv.common.data.enum.ImageSize
-import com.arbelkilani.binge.tv.feature.walkthrough.domain.repository.ResourcesRepository
+import com.arbelkilani.binge.tv.common.domain.repository.ResourcesRepository
 import javax.inject.Inject
 
 class GetImageUseCase @Inject constructor() {

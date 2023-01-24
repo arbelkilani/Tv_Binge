@@ -1,10 +1,13 @@
 package com.arbelkilani.binge.tv.feature.discover.data.repository
 
-import androidx.paging.*
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.arbelkilani.binge.tv.common.data.mapper.ProviderResponseMapper
 import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
 import com.arbelkilani.binge.tv.common.domain.entity.ProviderEntity
 import com.arbelkilani.binge.tv.common.domain.entity.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.repository.ResourcesRepository
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
 import com.arbelkilani.binge.tv.common.source.remote.pagingsource.DiscoverPagingSource
 import com.arbelkilani.binge.tv.common.source.remote.pagingsource.TrendingPagingSource
@@ -15,14 +18,11 @@ import com.arbelkilani.binge.tv.feature.discover.data.request.DiscoverQuery
 import com.arbelkilani.binge.tv.feature.discover.domain.entity.PersonEntity
 import com.arbelkilani.binge.tv.feature.discover.domain.entity.TvEntity
 import com.arbelkilani.binge.tv.feature.discover.domain.repository.DiscoverRepository
-import com.arbelkilani.binge.tv.feature.walkthrough.domain.repository.ResourcesRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.single
 import java.time.LocalDate
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.HashMap
 
 class DiscoverRepositoryImpl @Inject constructor(
     private val service: ApiService

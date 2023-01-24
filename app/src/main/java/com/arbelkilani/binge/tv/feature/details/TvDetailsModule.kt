@@ -2,7 +2,6 @@ package com.arbelkilani.binge.tv.feature.details
 
 import com.arbelkilani.binge.tv.feature.details.data.repositories.TvDetailsRepositoryImpl
 import com.arbelkilani.binge.tv.feature.details.domain.repositories.TvDetailsRepository
-import com.arbelkilani.binge.tv.feature.onboarding.BindModule
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

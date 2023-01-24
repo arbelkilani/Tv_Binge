@@ -1,16 +1,16 @@
-package com.arbelkilani.binge.tv.feature.walkthrough.data.repository
+package com.arbelkilani.binge.tv.common.data.repository
 
 import android.app.Application
 import com.arbelkilani.binge.tv.common.data.enum.ImageSize
-import com.arbelkilani.binge.tv.common.data.mapper.ConfigurationResponseMapper
 import com.arbelkilani.binge.tv.common.data.mapper.CertificationMapper
+import com.arbelkilani.binge.tv.common.data.mapper.ConfigurationResponseMapper
 import com.arbelkilani.binge.tv.common.data.mapper.GenreMapper
 import com.arbelkilani.binge.tv.common.data.mapper.WatchProviderMapper
 import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
 import com.arbelkilani.binge.tv.common.domain.entity.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.repository.ResourcesRepository
 import com.arbelkilani.binge.tv.common.source.local.room.AppDatabase
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
-import com.arbelkilani.binge.tv.feature.walkthrough.domain.repository.ResourcesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.util.*

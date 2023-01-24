@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.feature.walkthrough.domain.repository
+package com.arbelkilani.binge.tv.common.domain.repository
 
 import com.arbelkilani.binge.tv.common.data.enum.ImageSize
 import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
