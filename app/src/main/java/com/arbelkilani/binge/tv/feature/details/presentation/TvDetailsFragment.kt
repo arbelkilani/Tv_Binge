@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
@@ -14,15 +15,17 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import androidx.paging.PagingData
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.base.BaseFragment
+import com.arbelkilani.binge.tv.common.presentation.CommonListener
+import com.arbelkilani.binge.tv.common.presentation.adapter.PersonAdapter
+import com.arbelkilani.binge.tv.common.presentation.model.Person
 import com.arbelkilani.binge.tv.databinding.FragmentTvDetailsBinding
 import com.arbelkilani.binge.tv.feature.details.TvDetailsContract
-import com.arbelkilani.binge.tv.feature.details.presentation.adapter.CastsAdapter
 import com.arbelkilani.binge.tv.feature.details.presentation.adapter.GenresAdapter
 import com.arbelkilani.binge.tv.feature.details.presentation.adapter.KeywordsAdapter
 import com.arbelkilani.binge.tv.feature.details.presentation.adapter.NetworksAdapter
-import com.arbelkilani.binge.tv.feature.details.presentation.entities.Cast
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.Keywords
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.TvDetails
 import com.arbelkilani.binge.tv.feature.details.presentation.model.TvDetailsViewState
@@ -40,7 +43,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class TvDetailsFragment :
     BaseFragment<FragmentTvDetailsBinding>(),
-    TvDetailsContract.ViewCapabilities {
+    TvDetailsContract.ViewCapabilities,
+    CommonListener {
 
     private val viewModel: TvDetailsViewModel by viewModels()
     private val args by navArgs<TvDetailsFragmentArgs>()
@@ -48,7 +52,16 @@ class TvDetailsFragment :
     private val networksAdapter: NetworksAdapter by lazy { NetworksAdapter() }
     private val genresAdapter: GenresAdapter by lazy { GenresAdapter() }
     private val keywordsAdapter: KeywordsAdapter by lazy { KeywordsAdapter() }
-    private val castAdapter: CastsAdapter by lazy { CastsAdapter() }
+
+    private val personAdapter: PersonAdapter by lazy {
+        PersonAdapter(this)
+            .apply {
+                submitData(
+                    viewLifecycleOwner.lifecycle,
+                    PagingData.from(shimmerPerson)
+                )
+            }
+    }
 
     @Inject
     lateinit var navigator: TvDetailsContract.ViewNavigation
@@ -62,6 +75,8 @@ class TvDetailsFragment :
 
     override fun initViews() {
         super.initViews()
+        val width = resources.displayMetrics.widthPixels
+
         binding.tv = tv
         initDetailsView()
         binding.rvNetworks.adapter = networksAdapter
@@ -81,8 +96,9 @@ class TvDetailsFragment :
             adapter = keywordsAdapter
         }
 
-        binding.rvCasts.apply {
-            adapter = castAdapter
+        binding.rvPersons.apply {
+            setPadding((width * .038f).toInt(), 0, (width * .74f).toInt(), 0)
+            adapter = personAdapter
         }
     }
 
@@ -106,7 +122,7 @@ class TvDetailsFragment :
         val behavior: BottomSheetBehavior<NestedScrollView> =
             BottomSheetBehavior.from(binding.bottomSheetBehaviour)
         ValueAnimator.ofFloat(0f, .7f).apply {
-            duration = 200
+            duration = 300
             interpolator = LinearInterpolator()
             addUpdateListener { animation ->
                 behavior.peekHeight = (height * animation.animatedValue as Float).toInt()
@@ -114,7 +130,7 @@ class TvDetailsFragment :
             start()
         }
         ValueAnimator.ofFloat(0f, 1f).apply {
-            duration = 300
+            duration = 400
             addUpdateListener { animation ->
                 val value = animation.animatedValue as Float
                 binding.ivBackdrop.alpha = value
@@ -187,8 +203,14 @@ class TvDetailsFragment :
         keywordsAdapter.submitList(data)
     }
 
-    override suspend fun casts(data: List<Cast>) {
-        castAdapter.submitList(data)
+    override suspend fun casts(data: List<Person>) {
+        personAdapter.submitData(viewLifecycleOwner.lifecycle, PagingData.from(data))
+    }
+
+    override fun onPersonClicked(person: Person?) {
+        person?.let {
+            Toast.makeText(context, person.name, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun bottomSheetCallback() = object : BottomSheetBehavior.BottomSheetCallback() {
@@ -202,5 +224,15 @@ class TvDetailsFragment :
         override fun onStateChanged(bottomSheet: View, newState: Int) {
             Log.i(TvDetailsFragment::class.simpleName, "onStateChanged: $newState")
         }
+    }
+
+    companion object {
+        private val shimmerPerson = listOf(
+            Person(id = -1, "", ""),
+            Person(id = -1, "", ""),
+            Person(id = -1, "", ""),
+            Person(id = -1, "", ""),
+            Person(id = -1, "", ""),
+        )
     }
 }

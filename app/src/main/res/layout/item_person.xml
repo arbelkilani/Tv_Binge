@@ -7,12 +7,12 @@
 
         <variable
             name="person"
-            type="com.arbelkilani.binge.tv.feature.discover.presentation.model.Person" />
+            type="com.arbelkilani.binge.tv.common.presentation.model.Person" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/medium_margin">
 
         <com.google.android.material.card.MaterialCardView

@@ -5,9 +5,9 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.arbelkilani.binge.tv.common.base.BaseStateViewModel
 import com.arbelkilani.binge.tv.common.domain.usecase.ObserveNetworkReachabilityUseCase
+import com.arbelkilani.binge.tv.common.presentation.model.Person
 import com.arbelkilani.binge.tv.feature.discover.domain.usecase.*
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
-import com.arbelkilani.binge.tv.feature.discover.presentation.model.Person
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

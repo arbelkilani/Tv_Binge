@@ -12,12 +12,14 @@ import androidx.paging.PagingData
 import com.arbelkilani.binge.tv.common.base.BaseFragment
 import com.arbelkilani.binge.tv.common.extension.removeOverScroll
 import com.arbelkilani.binge.tv.common.extension.scalePagerTransformer
+import com.arbelkilani.binge.tv.common.presentation.CommonListener
+import com.arbelkilani.binge.tv.common.presentation.adapter.PersonAdapter
+import com.arbelkilani.binge.tv.common.presentation.model.Person
 import com.arbelkilani.binge.tv.databinding.FragmentDiscoverBinding
 import com.arbelkilani.binge.tv.feature.discover.DiscoverContract
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.*
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
-import com.arbelkilani.binge.tv.feature.discover.presentation.model.Person
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Provider
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 import com.arbelkilani.binge.tv.feature.home.HomeContract
@@ -32,7 +34,8 @@ import javax.inject.Inject
 class DiscoverFragment :
     BaseFragment<FragmentDiscoverBinding>(),
     DiscoverContract.ViewCapabilities,
-    DiscoverItemListener {
+    DiscoverItemListener,
+    CommonListener {
 
     @Inject
     lateinit var navigator: HomeContract.ViewNavigation

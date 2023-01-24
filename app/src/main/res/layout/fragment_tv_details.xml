@@ -419,7 +419,7 @@
                     app:layout_constraintTop_toBottomOf="@id/rv_keywords" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_casts"
+                    android:id="@+id/rv_persons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium_margin"
@@ -427,13 +427,14 @@
                     android:clipToPadding="false"
                     android:orientation="horizontal"
                     android:overScrollMode="never"
-                    android:paddingHorizontal="@dimen/default_padding"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_casts_label"
                     tools:itemCount="10"
-                    tools:listitem="@layout/item_cast" />
+                    tools:listitem="@layout/item_person"
+                    tools:paddingEnd="300dp"
+                    tools:paddingStart="15dp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

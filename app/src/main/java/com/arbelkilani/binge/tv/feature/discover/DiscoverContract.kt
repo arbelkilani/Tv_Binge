@@ -2,7 +2,7 @@ package com.arbelkilani.binge.tv.feature.discover
 
 import androidx.fragment.app.Fragment
 import androidx.paging.PagingData
-import com.arbelkilani.binge.tv.feature.discover.presentation.model.Person
+import com.arbelkilani.binge.tv.common.presentation.model.Person
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
 
 class DiscoverContract {

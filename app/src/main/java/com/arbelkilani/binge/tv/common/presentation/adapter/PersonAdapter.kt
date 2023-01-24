@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.feature.discover.presentation.adapter
+package com.arbelkilani.binge.tv.common.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,14 +7,14 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
+import com.arbelkilani.binge.tv.common.presentation.CommonListener
+import com.arbelkilani.binge.tv.common.presentation.model.Person
 import com.arbelkilani.binge.tv.databinding.ItemPersonBinding
 import com.arbelkilani.binge.tv.databinding.ItemShimmerCircleBinding
-import com.arbelkilani.binge.tv.feature.discover.presentation.model.Person
-import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverItemListener
 import javax.inject.Inject
 
 class PersonAdapter @Inject constructor(
-    private val listener: DiscoverItemListener
+    private val listener: CommonListener
 ) :
     PagingDataAdapter<Person, RecyclerView.ViewHolder>(Comparator) {
 

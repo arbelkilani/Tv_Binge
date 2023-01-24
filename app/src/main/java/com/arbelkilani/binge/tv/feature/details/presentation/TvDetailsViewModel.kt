@@ -2,15 +2,17 @@ package com.arbelkilani.binge.tv.feature.details.presentation
 
 import androidx.lifecycle.viewModelScope
 import com.arbelkilani.binge.tv.common.base.BaseStateViewModel
+import com.arbelkilani.binge.tv.common.presentation.model.Person
 import com.arbelkilani.binge.tv.feature.details.domain.usecase.GetCastsUseCase
 import com.arbelkilani.binge.tv.feature.details.domain.usecase.GetKeywordsUseCase
 import com.arbelkilani.binge.tv.feature.details.domain.usecase.GetTvDetailsDataUseCase
-import com.arbelkilani.binge.tv.feature.details.presentation.entities.Cast
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.Keywords
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.TvDetails
 import com.arbelkilani.binge.tv.feature.details.presentation.model.TvDetailsViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,8 +30,8 @@ class TvDetailsViewModel @Inject constructor(
     private val _keywords = MutableStateFlow(emptyList<Keywords>())
     val keywords: StateFlow<List<Keywords>> = _keywords
 
-    private val _casts = MutableStateFlow(emptyList<Cast>())
-    val casts: StateFlow<List<Cast>> = _casts
+    private val _casts = MutableStateFlow(emptyList<Person>())
+    val casts: StateFlow<List<Person>> = _casts
 
     suspend fun init(id: Int) {
         getDetails(id)
