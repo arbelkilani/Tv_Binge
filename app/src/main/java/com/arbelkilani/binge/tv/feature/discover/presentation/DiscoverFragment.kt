@@ -158,7 +158,7 @@ class DiscoverFragment :
         // Upcoming shows
         binding.ivUpcoming.setOnClickListener { }
         binding.rvUpcoming.apply {
-            setPadding(0, 0, (width * .35f).toInt(), 0)
+            setPadding(0, 0, (width * .3f).toInt(), 0)
             adapter = upcomingAdapter
         }
 
@@ -186,7 +186,7 @@ class DiscoverFragment :
         // Free shows
         binding.ivFree.setOnClickListener { }
         binding.rvFree.apply {
-            setPadding(0, 0, (width * .35f).toInt(), 0)
+            setPadding(0, 0, (width * .3f).toInt(), 0)
             adapter = freeAdapter
         }
     }
