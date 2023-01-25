@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
-import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
+import com.arbelkilani.binge.tv.common.presentation.model.Genre
 import com.arbelkilani.binge.tv.databinding.ItemGenreSolidBinding
 import com.arbelkilani.binge.tv.databinding.ItemSquareProviderShimmerBinding
 import javax.inject.Inject
 
 class GenresAdapter @Inject constructor() :
-    ListAdapter<GenreEntity, RecyclerView.ViewHolder>(Comparator) {
+    ListAdapter<Genre, RecyclerView.ViewHolder>(Comparator) {
 
     class DataHolder(val binding: ItemGenreSolidBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -58,17 +58,17 @@ class GenresAdapter @Inject constructor() :
 
     companion object {
         private val Comparator =
-            object : DiffUtil.ItemCallback<GenreEntity>() {
+            object : DiffUtil.ItemCallback<Genre>() {
                 override fun areItemsTheSame(
-                    oldItem: GenreEntity,
-                    newItem: GenreEntity
+                    oldItem: Genre,
+                    newItem: Genre
                 ): Boolean {
                     return oldItem.id == newItem.id
                 }
 
                 override fun areContentsTheSame(
-                    oldItem: GenreEntity,
-                    newItem: GenreEntity
+                    oldItem: Genre,
+                    newItem: Genre
                 ): Boolean {
                     return oldItem == newItem
                 }
