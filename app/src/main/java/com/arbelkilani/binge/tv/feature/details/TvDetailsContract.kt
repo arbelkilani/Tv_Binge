@@ -1,6 +1,7 @@
 package com.arbelkilani.binge.tv.feature.details
 
 import com.arbelkilani.binge.tv.common.presentation.model.Person
+import com.arbelkilani.binge.tv.feature.details.presentation.entities.ContentRating
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.ExternalId
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.Keywords
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.TvDetails
@@ -11,6 +12,7 @@ class TvDetailsContract {
         suspend fun keywords(data: List<Keywords>)
         suspend fun casts(data: List<Person>)
         suspend fun showExternalId(data: ExternalId)
+        suspend fun showContentRating(data: ContentRating)
     }
 
     interface ViewNavigation {

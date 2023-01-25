@@ -1,17 +1,17 @@
 package com.arbelkilani.binge.tv.feature.details.data.repositories
 
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
-import com.arbelkilani.binge.tv.feature.details.data.mapper.CastResponseMapper
-import com.arbelkilani.binge.tv.feature.details.data.mapper.ExternalIdResponseMapper
-import com.arbelkilani.binge.tv.feature.details.data.mapper.KeywordsResponseMapper
-import com.arbelkilani.binge.tv.feature.details.data.mapper.TvDetailsResponseMapper
+import com.arbelkilani.binge.tv.feature.details.data.mapper.*
 import com.arbelkilani.binge.tv.feature.details.domain.repositories.TvDetailsRepository
 import kotlinx.coroutines.flow.flow
+import java.util.*
 import javax.inject.Inject
 
 class TvDetailsRepositoryImpl @Inject constructor(
     private val service: ApiService
 ) : TvDetailsRepository {
+
+    private val country = Locale.getDefault().country
 
     @Inject
     lateinit var tvDetailsResponseMapper: TvDetailsResponseMapper
@@ -24,6 +24,9 @@ class TvDetailsRepositoryImpl @Inject constructor(
 
     @Inject
     lateinit var externalIdResponseMapper: ExternalIdResponseMapper
+
+    @Inject
+    lateinit var contentRatingsResponseMapper: ContentRatingsResponseMapper
 
     override suspend fun getTvDetails(id: Int) = flow {
         emit(tvDetailsResponseMapper.map(service.getTvDetails(id, "videos,images")))
@@ -43,5 +46,11 @@ class TvDetailsRepositoryImpl @Inject constructor(
 
     override suspend fun getExternalId(id: Int) = flow {
         emit(externalIdResponseMapper.map(service.getExternalId(id)))
+    }
+
+    override suspend fun getContentRatings(id: Int) = flow {
+        emit(service.getContentRatings(id).results.firstOrNull {
+            it.isoCode == country
+        }?.let { contentRatingsResponseMapper.map(it) })
     }
 }

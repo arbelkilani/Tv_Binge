@@ -5,11 +5,8 @@ import com.arbelkilani.binge.tv.common.data.response.CertificationsResponse
 import com.arbelkilani.binge.tv.common.data.response.ConfigurationResponse
 import com.arbelkilani.binge.tv.common.data.response.GenreResponse
 import com.arbelkilani.binge.tv.common.data.response.ProvidersResponse
-import com.arbelkilani.binge.tv.feature.details.data.entities.CreditsRaw
-import com.arbelkilani.binge.tv.feature.details.data.entities.KeywordsRaw
-import com.arbelkilani.binge.tv.feature.details.data.entities.TvDetailsResponse
 import com.arbelkilani.binge.tv.common.data.response.ProviderRaw
-import com.arbelkilani.binge.tv.feature.details.data.entities.ExternalIdResponse
+import com.arbelkilani.binge.tv.feature.details.data.entities.*
 import com.arbelkilani.binge.tv.feature.discover.data.response.PersonResponse
 import com.arbelkilani.binge.tv.feature.discover.data.response.TvResponse
 import retrofit2.http.GET
@@ -96,4 +93,10 @@ interface ApiService {
     suspend fun getExternalId(
         @Path("tv_id") id: Int
     ): ExternalIdResponse
+
+    // Get Content Ratings
+    @GET("tv/{tv_id}/content_ratings")
+    suspend fun getContentRatings(
+        @Path("tv_id") id: Int
+    ): ContentRatingsRaw
 }
