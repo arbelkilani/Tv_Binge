@@ -1,7 +1,7 @@
 package com.arbelkilani.binge.tv.feature.details.presentation
 
 import androidx.lifecycle.viewModelScope
-import com.arbelkilani.binge.tv.common.base.BaseStateViewModel
+import com.arbelkilani.binge.tv.common.base.viewmodel.BaseStateViewModel
 import com.arbelkilani.binge.tv.common.presentation.model.Person
 import com.arbelkilani.binge.tv.feature.details.domain.usecase.*
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.ContentRating

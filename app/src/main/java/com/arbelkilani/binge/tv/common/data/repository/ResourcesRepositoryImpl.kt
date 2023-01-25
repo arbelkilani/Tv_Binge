@@ -4,7 +4,7 @@ import android.app.Application
 import com.arbelkilani.binge.tv.common.data.enum.ImageSize
 import com.arbelkilani.binge.tv.common.data.mapper.CertificationMapper
 import com.arbelkilani.binge.tv.common.data.mapper.ConfigurationResponseMapper
-import com.arbelkilani.binge.tv.common.data.mapper.GenreMapper
+import com.arbelkilani.binge.tv.common.data.mapper.GenreResponseMapper
 import com.arbelkilani.binge.tv.common.data.mapper.WatchProviderMapper
 import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
 import com.arbelkilani.binge.tv.common.domain.entity.WatchProviderEntity
@@ -33,7 +33,7 @@ class ResourcesRepositoryImpl @Inject constructor(
     lateinit var certificationMapper: CertificationMapper
 
     @Inject
-    lateinit var genreMapper: GenreMapper
+    lateinit var genreResponseMapper: GenreResponseMapper
 
     private val resourcesDao = database.resourcesDao()
     private val country = Locale.getDefault().country
@@ -76,7 +76,7 @@ class ResourcesRepositoryImpl @Inject constructor(
     private suspend fun saveGenres() {
         if (resourcesDao.getGenres().isNullOrEmpty()) {
             service.getGenres().list.map {
-                resourcesDao.saveGenre(genreMapper.map(it, false))
+                resourcesDao.saveGenre(genreResponseMapper.map(it, false))
             }
         }
     }

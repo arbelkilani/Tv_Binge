@@ -16,7 +16,7 @@ class TvDetailsResponseMapper @Inject constructor() {
     fun map(response: TvDetailsResponse) = TvDetailsEntity(
         name = response.name,
         overview = response.overview,
-        genres = response.genres,
+        genreResponses = response.genreResponses,
         status = response.status,
         voteAverage = response.voteAverage,
         networks = response.networks.map { networkResponseMapper.map(it) },

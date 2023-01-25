@@ -1,6 +1,6 @@
 package com.arbelkilani.binge.tv.feature.details.data.entities
 
-import com.arbelkilani.binge.tv.common.data.response.Genre
+import com.arbelkilani.binge.tv.common.data.response.GenreResponse
 import com.google.gson.annotations.SerializedName
 
 data class TvDetailsResponse(
@@ -9,7 +9,7 @@ data class TvDetailsResponse(
     @SerializedName("created_by") val createdBy: List<CreatedBy>,
     @SerializedName("episode_run_time") val episodeRunTime: List<Int>,
     @SerializedName("first_air_date") val firstAirDate: String,
-    @SerializedName("genres") val genres: List<Genre>,
+    @SerializedName("genres") val genreResponses: List<GenreResponse>,
     @SerializedName("homepage") val homepage: String,
     @SerializedName("id") val id: Int,
     @SerializedName("in_production") val inProduction: Boolean,

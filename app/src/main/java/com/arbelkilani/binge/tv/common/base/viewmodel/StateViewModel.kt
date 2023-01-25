@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.common.base
+package com.arbelkilani.binge.tv.common.base.viewmodel
 
 import kotlinx.coroutines.flow.StateFlow
 
