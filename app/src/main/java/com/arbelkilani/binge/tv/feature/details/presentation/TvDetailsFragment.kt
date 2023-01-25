@@ -215,7 +215,7 @@ class TvDetailsFragment :
         behavior.addBottomSheetCallback(bottomSheetCallback())
 
         binding.ivBack.setOnClickListener {
-
+            navigator.onBackPressed(this)
         }
     }
 
