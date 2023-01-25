@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
@@ -65,9 +66,14 @@ class TvDetailsFragment :
             }
     }
 
+    private lateinit var behavior: BottomSheetBehavior<NestedScrollView>
+
     @Inject
     lateinit var navigator: TvDetailsContract.ViewNavigation
 
+    /**
+     *  Overridden methods
+     */
     override fun bindView(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -78,6 +84,7 @@ class TvDetailsFragment :
     override fun initViews() {
         super.initViews()
         val width = resources.displayMetrics.widthPixels
+        onBackPressed()
 
         binding.tv = tv
         initDetailsView()
@@ -119,64 +126,6 @@ class TvDetailsFragment :
                 else -> Unit
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
-    }
-
-    private fun initDetailsView() {
-        val height = resources.displayMetrics.heightPixels
-        val behavior: BottomSheetBehavior<NestedScrollView> =
-            BottomSheetBehavior.from(binding.bottomSheetBehaviour)
-        ValueAnimator.ofFloat(0f, .7f).apply {
-            duration = 300
-            interpolator = LinearInterpolator()
-            addUpdateListener { animation ->
-                behavior.peekHeight = (height * animation.animatedValue as Float).toInt()
-            }
-            start()
-        }
-        ValueAnimator.ofFloat(0f, 1f).apply {
-            duration = 400
-            addUpdateListener { animation ->
-                val value = animation.animatedValue as Float
-                binding.ivBackdrop.alpha = value
-            }
-            start()
-        }
-        behavior.addBottomSheetCallback(bottomSheetCallback())
-    }
-
-    private fun collectDetails() {
-        viewModel.details
-            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.CREATED)
-            .onEach { state -> state?.let { details(state) } }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
-    }
-
-    private fun collectKeywords() {
-        viewModel.keywords
-            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.CREATED)
-            .onEach { state -> keywords(state) }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
-    }
-
-    private fun collectCasts() {
-        viewModel.casts
-            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.CREATED)
-            .onEach { state -> casts(state) }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
-    }
-
-    private fun collectExternalId() {
-        viewModel.externalId
-            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.CREATED)
-            .onEach { state -> state?.let { showExternalId(it) } }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
-    }
-
-    private fun collectContentRating() {
-        viewModel.contentRating
-            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.CREATED)
-            .onEach { state -> state?.let { showContentRating(it) } }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     override suspend fun details(data: TvDetails) {
@@ -239,6 +188,72 @@ class TvDetailsFragment :
         }
     }
 
+    /**
+     *  Private methods
+     */
+    private fun initDetailsView() {
+        val height = resources.displayMetrics.heightPixels
+        behavior = BottomSheetBehavior.from(binding.bottomSheetBehaviour)
+
+        ValueAnimator.ofFloat(0f, .65f).apply {
+            duration = 250
+            interpolator = LinearInterpolator()
+            addUpdateListener { animation ->
+                behavior.peekHeight = (height * animation.animatedValue as Float).toInt()
+            }
+            start()
+        }
+
+        ValueAnimator.ofFloat(0f, 1f).apply {
+            duration = 300
+            addUpdateListener { animation ->
+                val value = animation.animatedValue as Float
+                binding.ivBackdrop.alpha = value
+            }
+            start()
+        }
+        behavior.addBottomSheetCallback(bottomSheetCallback())
+
+        binding.ivBack.setOnClickListener {
+
+        }
+    }
+
+    private fun collectDetails() {
+        viewModel.details
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.CREATED)
+            .onEach { state -> state?.let { details(state) } }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private fun collectKeywords() {
+        viewModel.keywords
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.CREATED)
+            .onEach { state -> keywords(state) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private fun collectCasts() {
+        viewModel.casts
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.CREATED)
+            .onEach { state -> casts(state) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private fun collectExternalId() {
+        viewModel.externalId
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.CREATED)
+            .onEach { state -> state?.let { showExternalId(it) } }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private fun collectContentRating() {
+        viewModel.contentRating
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.CREATED)
+            .onEach { state -> state?.let { showContentRating(it) } }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
     private fun bottomSheetCallback() = object : BottomSheetBehavior.BottomSheetCallback() {
         override fun onSlide(bottomSheet: View, slideOffset: Float) {
             val drawable = bottomSheet.background.mutate() as GradientDrawable
@@ -250,6 +265,21 @@ class TvDetailsFragment :
         override fun onStateChanged(bottomSheet: View, newState: Int) {
             Log.i(TvDetailsFragment::class.simpleName, "onStateChanged: $newState")
         }
+    }
+
+    private fun onBackPressed() {
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    when (behavior.state) {
+                        BottomSheetBehavior.STATE_EXPANDED -> {
+                            binding.bottomSheetBehaviour.smoothScrollTo(0, 0)
+                            behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                        }
+                        else -> navigator.onBackPressed(this@TvDetailsFragment)
+                    }
+                }
+            })
     }
 
     companion object {

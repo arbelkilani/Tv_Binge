@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="60dp">
+        android:paddingBottom="?attr/actionBarSize">
 
         <include
             android:id="@+id/layout_trending"
@@ -127,6 +127,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_free"
             tools:itemCount="10"
+            tools:layout_height="wrap_content"
             tools:listitem="@layout/item_tv_provider"
             tools:paddingEnd="150dp"
             tools:paddingStart="10dp" />

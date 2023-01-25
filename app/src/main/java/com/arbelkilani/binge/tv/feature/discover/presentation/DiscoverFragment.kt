@@ -22,7 +22,6 @@ import com.arbelkilani.binge.tv.feature.discover.presentation.listener.DiscoverI
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Provider
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
-import com.arbelkilani.binge.tv.feature.home.HomeContract
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -38,7 +37,7 @@ class DiscoverFragment :
     CommonListener {
 
     @Inject
-    lateinit var navigator: HomeContract.ViewNavigation
+    lateinit var navigator: DiscoverContract.ViewNavigation
 
     private val viewModel: DiscoverViewModel by viewModels()
     private val trendingAdapter: DiscoverAdapter by lazy {

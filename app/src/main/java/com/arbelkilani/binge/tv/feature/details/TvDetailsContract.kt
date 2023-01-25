@@ -1,6 +1,7 @@
 package com.arbelkilani.binge.tv.feature.details
 
 import com.arbelkilani.binge.tv.common.presentation.model.Person
+import com.arbelkilani.binge.tv.feature.details.presentation.TvDetailsFragment
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.ContentRating
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.ExternalId
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.Keywords
@@ -16,6 +17,6 @@ class TvDetailsContract {
     }
 
     interface ViewNavigation {
-
+        fun onBackPressed(fragment: TvDetailsFragment)
     }
 }
