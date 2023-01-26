@@ -1,12 +1,10 @@
 package com.arbelkilani.binge.tv.feature.search.presentation
 
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
 import com.arbelkilani.binge.tv.common.base.viewmodel.BaseStateViewModel
+import com.arbelkilani.binge.tv.common.domain.usecase.GetGenresUseCase
 import com.arbelkilani.binge.tv.common.domain.usecase.ObserveNetworkReachabilityUseCase
 import com.arbelkilani.binge.tv.common.presentation.model.Genre
-import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
-import com.arbelkilani.binge.tv.feature.search.domain.usecase.GetGenresUseCase
 import com.arbelkilani.binge.tv.feature.search.presentation.model.SearchViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

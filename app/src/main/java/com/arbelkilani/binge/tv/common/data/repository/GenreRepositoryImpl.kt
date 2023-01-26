@@ -28,4 +28,17 @@ class GenreRepositoryImpl @Inject constructor(
             local.filter { it.id.toString() in ids }
         }
     }
+    
+    override suspend fun getGenres(): List<GenreEntity> {
+        val local = resourcesDao.getGenres()
+        return if (local.isNullOrEmpty()) {
+            service.getGenres().list.map { response ->
+                val entity = genreResponseMapper.map(response = response, isFavorite = false)
+                resourcesDao.saveGenre(entity)
+                entity
+            }
+        } else {
+            local
+        }
+    }
 }

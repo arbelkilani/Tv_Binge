@@ -73,10 +73,6 @@ class SearchFragment :
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
-    /**
-     *
-     */
-
     override suspend fun showGenres(data: List<Genre>) {
         genresAdapter.submitList(data)
     }
