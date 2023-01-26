@@ -166,7 +166,6 @@ class HomeRepositoryImpl @Inject constructor(
         return result?.let { providerResponseMapper.map(it) }
     }
 
-
     companion object {
         private const val OFFSET = 20
     }

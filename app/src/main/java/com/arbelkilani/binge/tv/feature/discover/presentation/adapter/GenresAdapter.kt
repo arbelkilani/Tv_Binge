@@ -27,6 +27,7 @@ class GenresAdapter @Inject constructor(
         val item = getItem(position)
         when (holder.itemViewType) {
             DATA_TYPE -> with((holder as DataHolder).binding) {
+                root.setOnClickListener { listener.onGenreSelected(item) }
                 genre = item
             }
         }

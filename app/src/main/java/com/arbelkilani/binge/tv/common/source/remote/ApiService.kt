@@ -99,4 +99,8 @@ interface ApiService {
     suspend fun getContentRatings(
         @Path("tv_id") id: Int
     ): ContentRatingsRaw
+
+    // Get Top Rated
+    @GET("tv/top_rated")
+    suspend fun getTopRated(): ResponseWrapper<TvResponse>
 }

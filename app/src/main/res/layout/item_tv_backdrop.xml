@@ -20,6 +20,7 @@
         app:cardUseCompatPadding="true">
 
         <ImageView
+            android:id="@+id/iv_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@{tv.name}"
@@ -29,7 +30,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:src="@{tv.backdrop}"
             tools:src="@drawable/ic_launcher_background" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,7 +45,6 @@
                 android:layout_marginBottom="@dimen/small_margin"
                 android:ellipsize="end"
                 android:fontFamily="@font/avenir_next_demi_bold"
-                android:text="@{tv.name}"
                 android:textColor="@color/anti_flash_white"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@id/tv_genres"

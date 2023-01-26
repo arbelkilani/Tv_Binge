@@ -89,6 +89,25 @@
             tools:paddingEnd="325dp"
             tools:paddingStart="16dp" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_shows"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintDimensionRatio="1:.43"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_providers"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_tv_backdrop"
+            tools:paddingEnd="280dp"
+            tools:paddingStart="16dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

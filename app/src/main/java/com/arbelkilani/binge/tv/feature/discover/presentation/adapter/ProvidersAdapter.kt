@@ -10,9 +10,12 @@ import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.presentation.model.Provider
 import com.arbelkilani.binge.tv.databinding.ItemSquareProviderBinding
 import com.arbelkilani.binge.tv.databinding.ItemSquareProviderShimmerBinding
+import com.arbelkilani.binge.tv.feature.discover.presentation.listener.SearchListener
 import javax.inject.Inject
 
-class ProvidersAdapter @Inject constructor() :
+class ProvidersAdapter @Inject constructor(
+    private val listener: SearchListener
+) :
     ListAdapter<Provider, RecyclerView.ViewHolder>(Comparator) {
 
     class DataHolder(val binding: ItemSquareProviderBinding) :
@@ -22,9 +25,11 @@ class ProvidersAdapter @Inject constructor() :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val item = getItem(position)
         when (holder.itemViewType) {
             DATA_TYPE -> with((holder as DataHolder).binding) {
-                provider = getItem(position)
+                root.setOnClickListener { listener.onProviderSelected(item) }
+                provider = item
             }
         }
     }
