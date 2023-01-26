@@ -14,7 +14,7 @@ class TvEntityMapper @Inject constructor() {
     @Inject
     lateinit var genreEntityMapper: GenreEntityMapper
 
-    fun map(response: TvEntity) = Tv(
+    suspend fun map(response: TvEntity) = Tv(
         id = response.id,
         name = response.name,
         poster = response.poster,

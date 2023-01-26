@@ -8,12 +8,15 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.arbelkilani.binge.tv.common.base.BaseFragment
 import com.arbelkilani.binge.tv.common.presentation.model.Genre
+import com.arbelkilani.binge.tv.common.presentation.model.Provider
 import com.arbelkilani.binge.tv.databinding.FragmentDiscoverBinding
 import com.arbelkilani.binge.tv.feature.discover.DiscoverContract
 import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.GenresAdapter
 import com.arbelkilani.binge.tv.feature.discover.presentation.listener.SearchListener
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
+import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.ProvidersAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -30,6 +33,7 @@ class DiscoverFragment :
     private val viewModel: DiscoverViewModel by viewModels()
 
     private val genresAdapter: GenresAdapter by lazy { GenresAdapter(this) }
+    private val providersAdapter: ProvidersAdapter by lazy { ProvidersAdapter() }
 
     override fun bindView(
         inflater: LayoutInflater,
@@ -50,7 +54,9 @@ class DiscoverFragment :
                         viewModel.start()
                     }
                     is DiscoverViewState.Loaded -> {
+                        delay(100)
                         collectGenres()
+                        collectProviders()
                     }
                     else -> Unit
                 }
@@ -63,7 +69,10 @@ class DiscoverFragment :
         binding.rvGenres.apply {
             adapter = genresAdapter
         }
-
+        binding.rvProviders.apply {
+            setPadding((width * .025f).toInt(), 0, (width * .83f).toInt(), 0)
+            adapter = providersAdapter
+        }
     }
 
     private suspend fun collectGenres() {
@@ -73,7 +82,18 @@ class DiscoverFragment :
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
+    private suspend fun collectProviders() {
+        viewModel.providers
+            .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
+            .onEach { showProviders(it) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
     override suspend fun showGenres(data: List<Genre>) {
         genresAdapter.submitList(data)
+    }
+
+    override suspend fun showProviders(data: List<Provider>) {
+        providersAdapter.submitList(data)
     }
 }

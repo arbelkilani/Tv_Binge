@@ -3,8 +3,10 @@ package com.arbelkilani.binge.tv.feature.discover.presentation
 import androidx.lifecycle.viewModelScope
 import com.arbelkilani.binge.tv.common.base.viewmodel.BaseStateViewModel
 import com.arbelkilani.binge.tv.common.domain.usecase.GetGenresUseCase
+import com.arbelkilani.binge.tv.common.domain.usecase.GetProvidersUseCase
 import com.arbelkilani.binge.tv.common.domain.usecase.ObserveNetworkReachabilityUseCase
 import com.arbelkilani.binge.tv.common.presentation.model.Genre
+import com.arbelkilani.binge.tv.common.presentation.model.Provider
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,12 +19,16 @@ import javax.inject.Inject
 @HiltViewModel
 class DiscoverViewModel @Inject constructor(
     private val getNetworkReachabilityUseCase: ObserveNetworkReachabilityUseCase,
-    private val getGenreUseCase: GetGenresUseCase
+    private val getGenreUseCase: GetGenresUseCase,
+    private val getProvidersUseCase: GetProvidersUseCase
 ) :
     BaseStateViewModel<DiscoverViewState>(initialState = DiscoverViewState.Start) {
 
     private val _genres = MutableStateFlow(emptyList<Genre>())
     val genres: StateFlow<List<Genre>> = _genres
+
+    private val _providers = MutableStateFlow(emptyList<Provider>())
+    val providers: StateFlow<List<Provider>> = _providers
 
     private var current: Boolean? = null
 
@@ -30,8 +36,9 @@ class DiscoverViewModel @Inject constructor(
         observeNetwork()
     }
 
-    suspend fun start() {
+    fun start() {
         genres()
+        providers()
     }
 
     private fun genres() = viewModelScope.launch {
@@ -42,7 +49,15 @@ class DiscoverViewModel @Inject constructor(
             }
     }
 
-    private fun observeNetwork() {
+    private fun providers() = viewModelScope.launch {
+        getProvidersUseCase.invoke()
+            .collectLatest { data ->
+                updateState { DiscoverViewState.Loaded }
+                _providers.value = data
+            }
+    }
+
+    fun observeNetwork() {
         getNetworkReachabilityUseCase.invoke().observeForever { networkState ->
             current?.let { value ->
                 if (value != networkState) retry(networkState)
