@@ -4,10 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.arbelkilani.binge.tv.common.domain.entity.ConfigurationEntity
-import com.arbelkilani.binge.tv.common.domain.entity.CertificationEntity
-import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
-import com.arbelkilani.binge.tv.common.domain.entity.WatchProviderEntity
+import com.arbelkilani.binge.tv.common.domain.entity.*
 
 @Dao
 interface ResourcesDao {
@@ -17,7 +14,7 @@ interface ResourcesDao {
     suspend fun saveWatchProvider(entity: WatchProviderEntity)
 
     @Query("SELECT * FROM watch_provider_table")
-    suspend fun getWatchLocalProviders(): List<WatchProviderEntity>?
+    suspend fun getProviders(): List<ProviderEntity>?
 
     @Query("UPDATE watch_provider_table SET isFavorite=:state WHERE id=:id")
     suspend fun updateProviderState(id: Int, state: Boolean)

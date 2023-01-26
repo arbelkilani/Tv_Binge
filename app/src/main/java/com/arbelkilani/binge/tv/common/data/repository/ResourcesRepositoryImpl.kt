@@ -5,7 +5,7 @@ import com.arbelkilani.binge.tv.common.data.enum.ImageSize
 import com.arbelkilani.binge.tv.common.data.mapper.CertificationMapper
 import com.arbelkilani.binge.tv.common.data.mapper.ConfigurationResponseMapper
 import com.arbelkilani.binge.tv.common.data.mapper.GenreResponseMapper
-import com.arbelkilani.binge.tv.common.data.mapper.WatchProviderMapper
+import com.arbelkilani.binge.tv.common.data.mapper.WatchProviderResponseMapper
 import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
 import com.arbelkilani.binge.tv.common.domain.entity.WatchProviderEntity
 import com.arbelkilani.binge.tv.common.domain.repository.ResourcesRepository
@@ -24,7 +24,7 @@ class ResourcesRepositoryImpl @Inject constructor(
     lateinit var application: Application
 
     @Inject
-    lateinit var watchProviderMapper: WatchProviderMapper
+    lateinit var watchProviderResponseMapper: WatchProviderResponseMapper
 
     @Inject
     lateinit var configurationResponseMapper: ConfigurationResponseMapper
@@ -46,15 +46,15 @@ class ResourcesRepositoryImpl @Inject constructor(
     }
 
     private suspend fun saveWatchProviders() {
-        if (resourcesDao.getWatchLocalProviders().isNullOrEmpty()) {
-            service.getProviders(country).providers.map { provider ->
+        /*if (resourcesDao.getWatchLocalProviders().isNullOrEmpty()) {
+            service.getProviders(country).results.map { provider ->
                 resourcesDao.saveWatchProvider(
-                    watchProviderMapper.map(
+                    watchProviderResponseMapper.map(
                         provider, getInstalledPackages().contains(provider.providerName)
                     )
                 )
             }
-        }
+        }*/
     }
 
     private suspend fun saveApiConfiguration() {

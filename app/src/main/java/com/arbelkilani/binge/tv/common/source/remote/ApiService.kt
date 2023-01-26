@@ -4,7 +4,7 @@ import com.arbelkilani.binge.tv.common.base.entities.ResponseWrapper
 import com.arbelkilani.binge.tv.common.data.response.CertificationsResponse
 import com.arbelkilani.binge.tv.common.data.response.ConfigurationResponse
 import com.arbelkilani.binge.tv.common.data.response.GenreRaw
-import com.arbelkilani.binge.tv.common.data.response.ProvidersResponse
+import com.arbelkilani.binge.tv.common.data.response.WatchProviderRaw
 import com.arbelkilani.binge.tv.common.data.response.ProviderRaw
 import com.arbelkilani.binge.tv.feature.details.data.entities.*
 import com.arbelkilani.binge.tv.feature.discover.data.response.PersonResponse
@@ -26,7 +26,7 @@ interface ApiService {
 
     // Get Tv Providers
     @GET("watch/providers/tv")
-    suspend fun getProviders(@Query(WATCH_REGION) watchRegion: String): ProvidersResponse
+    suspend fun getProviders(@Query(WATCH_REGION) watchRegion: String): WatchProviderRaw
 
     // Get Tv Certifications
     @GET("certification/tv/list")

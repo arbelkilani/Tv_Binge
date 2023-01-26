@@ -53,4 +53,8 @@
     <string name="next">next</string>
     <string name="discover_title_free">Free to watch</string>
     <string name="tv_details_action_external_id">check external ids</string>
+
+    <!-- discover -->
+    <string name="discover_title_by_genre">By Genres</string>
+    <string name="discover_title_by_provider">By Providers</string>
 </resources>

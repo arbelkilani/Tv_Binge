@@ -3,13 +3,13 @@ package com.arbelkilani.binge.tv.feature.details.presentation
 import androidx.lifecycle.viewModelScope
 import com.arbelkilani.binge.tv.common.base.viewmodel.BaseStateViewModel
 import com.arbelkilani.binge.tv.common.presentation.model.Person
+import com.arbelkilani.binge.tv.common.presentation.model.Provider
 import com.arbelkilani.binge.tv.feature.details.domain.usecase.*
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.ContentRating
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.ExternalId
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.Keywords
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.TvDetails
 import com.arbelkilani.binge.tv.feature.details.presentation.model.TvDetailsViewState
-import com.arbelkilani.binge.tv.feature.discover.presentation.model.Provider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

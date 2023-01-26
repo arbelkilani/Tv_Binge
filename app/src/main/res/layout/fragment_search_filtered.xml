@@ -13,7 +13,7 @@
         android:layout_marginStart="@dimen/default_margin"
         android:layout_marginTop="@dimen/default_margin"
         android:fontFamily="@font/avenir_next_demi_bold"
-        android:text="@string/discover_title_upcoming"
+        android:text="@string/discover_based_on_genres"
         android:textColor="@color/title_color"
         android:textSize="@dimen/category_title_text_size"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,5 +35,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_genres"
         tools:listitem="@layout/item_genre_min" />
+
+    <TextView
+        android:id="@+id/tv_providers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="@dimen/default_margin"
+        android:fontFamily="@font/avenir_next_demi_bold"
+        android:text="@string/discover_title_by_provider"
+        android:textColor="@color/title_color"
+        android:textSize="@dimen/category_title_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_genres" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_providers"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:overScrollMode="never"
+        android:paddingStart="@dimen/default_padding"
+        android:paddingEnd="@dimen/small_padding"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintDimensionRatio="1:.3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_providers"
+        app:spanCount="3"
+        tools:listitem="@layout/item_square_provider"
+        tools:paddingEnd="340dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

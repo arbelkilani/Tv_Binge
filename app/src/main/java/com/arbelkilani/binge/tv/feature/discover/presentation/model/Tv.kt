@@ -2,6 +2,7 @@ package com.arbelkilani.binge.tv.feature.discover.presentation.model
 
 import android.os.Parcelable
 import com.arbelkilani.binge.tv.common.presentation.model.Genre
+import com.arbelkilani.binge.tv.common.presentation.model.Provider
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
