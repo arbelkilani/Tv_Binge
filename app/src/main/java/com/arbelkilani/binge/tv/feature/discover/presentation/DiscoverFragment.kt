@@ -1,7 +1,9 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -72,6 +74,10 @@ class DiscoverFragment :
         binding.rvProviders.apply {
             setPadding((width * .025f).toInt(), 0, (width * .83f).toInt(), 0)
             adapter = providersAdapter
+        }
+
+        binding.etProviders.doOnTextChanged { text, start, before, count ->
+            text?.let { viewModel.filterProviders(it) }
         }
     }
 

@@ -84,7 +84,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_providers"
-            app:spanCount="3"
+            app:spanCount="2"
             tools:listitem="@layout/item_square_provider"
             tools:paddingEnd="325dp"
             tools:paddingStart="16dp" />
