@@ -110,7 +110,11 @@ class DiscoverViewModel @Inject constructor(
     }
 
     fun setGenres(genre: Genre) {
-        selectedGenres.add(genre)
+        if (genre.isSelected) selectedGenres.add(genre) else selectedGenres.remove(
+            genre.copy(
+                isSelected = true
+            )
+        )
         filter(selectedGenres, selectedProviders)
     }
 

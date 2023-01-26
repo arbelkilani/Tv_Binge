@@ -7,5 +7,6 @@ import kotlinx.parcelize.Parcelize
 data class Genre(
     val id: Int,
     val name: String,
-    val isFavorite: Boolean
+    val isFavorite: Boolean,
+    val isSelected: Boolean = false
 ) : Parcelable

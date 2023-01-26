@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:background="@color/anti_flash_white">
 
@@ -10,16 +11,19 @@
             type="com.arbelkilani.binge.tv.common.presentation.model.Genre" />
     </data>
 
-    <TextView
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="@dimen/medium_margin"
         android:background="@drawable/tag_background"
-        android:elevation="2dp"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="5dp"
-        android:text="@{genre.name}"
-        android:textColor="@color/selector_tag_text_color"
+        android:fontFamily="@font/avenir_next_regular"
+        android:textColor="@color/outer_space"
+        android:textSize="16sp"
+        app:checkedIcon="@drawable/ic_check_circle"
+        app:checkedIconEnabled="true"
+        app:checkedIconTint="@color/outer_space"
+        app:chipBackgroundColor="#D8EDF5"
         tools:text="Animation" />
 
 </layout>
