@@ -50,6 +50,7 @@
         android:background="@drawable/drawable_bg_color"
         app:itemIconTint="@color/selector_item_icon"
         app:itemTextColor="@color/selector_item_icon"
+        app:labelVisibilityMode="labeled"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         app:menu="@menu/main_menu" />
 
