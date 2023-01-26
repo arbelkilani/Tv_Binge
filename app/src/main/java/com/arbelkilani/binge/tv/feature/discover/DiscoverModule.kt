@@ -1,7 +1,7 @@
-package com.arbelkilani.binge.tv.feature.search
+package com.arbelkilani.binge.tv.feature.discover
 
-import com.arbelkilani.binge.tv.feature.search.data.repository.SearchRepositoryImpl
-import com.arbelkilani.binge.tv.feature.search.domain.repository.SearchRepository
+import com.arbelkilani.binge.tv.feature.discover.data.repository.DiscoverRepositoryImpl
+import com.arbelkilani.binge.tv.feature.discover.domain.repository.DiscoverRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -16,8 +16,8 @@ object SearchFilteredModule {
 
     @Singleton
     @Provides
-    fun provideNavigator(): SearchContract.ViewNavigation {
-        return SearchNavigator()
+    fun provideNavigator(): DiscoverContract.ViewNavigation {
+        return DiscoverNavigator()
     }
 }
 
@@ -26,6 +26,6 @@ object SearchFilteredModule {
 abstract class BindModule {
     @Binds
     abstract fun bindRepository(
-        searchRepository: SearchRepositoryImpl
-    ): SearchRepository
+        discoverRepository: DiscoverRepositoryImpl
+    ): DiscoverRepository
 }

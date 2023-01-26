@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.feature.search.presentation.adapter
+package com.arbelkilani.binge.tv.feature.discover.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,7 +10,7 @@ import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.presentation.model.Genre
 import com.arbelkilani.binge.tv.databinding.ItemGenreMinBinding
 import com.arbelkilani.binge.tv.databinding.ItemTagShimmerBinding
-import com.arbelkilani.binge.tv.feature.search.presentation.listener.SearchListener
+import com.arbelkilani.binge.tv.feature.discover.presentation.listener.SearchListener
 import javax.inject.Inject
 
 class GenresAdapter @Inject constructor(

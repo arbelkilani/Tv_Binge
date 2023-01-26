@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.feature.search.presentation
+package com.arbelkilani.binge.tv.feature.discover.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,11 +8,11 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.arbelkilani.binge.tv.common.base.BaseFragment
 import com.arbelkilani.binge.tv.common.presentation.model.Genre
-import com.arbelkilani.binge.tv.databinding.FragmentSearchFilteredBinding
-import com.arbelkilani.binge.tv.feature.search.SearchContract
-import com.arbelkilani.binge.tv.feature.search.presentation.adapter.GenresAdapter
-import com.arbelkilani.binge.tv.feature.search.presentation.listener.SearchListener
-import com.arbelkilani.binge.tv.feature.search.presentation.model.SearchViewState
+import com.arbelkilani.binge.tv.databinding.FragmentDiscoverBinding
+import com.arbelkilani.binge.tv.feature.discover.DiscoverContract
+import com.arbelkilani.binge.tv.feature.discover.presentation.adapter.GenresAdapter
+import com.arbelkilani.binge.tv.feature.discover.presentation.listener.SearchListener
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
@@ -20,22 +20,22 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SearchFragment :
+class DiscoverFragment :
     SearchListener,
-    SearchContract.ViewCapabilities,
-    BaseFragment<FragmentSearchFilteredBinding>() {
+    DiscoverContract.ViewCapabilities,
+    BaseFragment<FragmentDiscoverBinding>() {
 
     @Inject
-    lateinit var navigator: SearchContract.ViewNavigation
-    private val viewModel: SearchViewModel by viewModels()
+    lateinit var navigator: DiscoverContract.ViewNavigation
+    private val viewModel: DiscoverViewModel by viewModels()
 
     private val genresAdapter: GenresAdapter by lazy { GenresAdapter(this) }
 
     override fun bindView(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentSearchFilteredBinding {
-        return FragmentSearchFilteredBinding.inflate(inflater, container, false)
+    ): FragmentDiscoverBinding {
+        return FragmentDiscoverBinding.inflate(inflater, container, false)
     }
 
     override suspend fun initViewModelObservation() {
@@ -46,10 +46,10 @@ class SearchFragment :
         viewModel.viewState
             .collectLatest { viewState ->
                 when (viewState) {
-                    is SearchViewState.Start -> {
+                    is DiscoverViewState.Start -> {
                         viewModel.start()
                     }
-                    is SearchViewState.Loaded -> {
+                    is DiscoverViewState.Loaded -> {
                         collectGenres()
                     }
                     else -> Unit

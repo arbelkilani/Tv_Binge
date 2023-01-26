@@ -1,8 +1,8 @@
-package com.arbelkilani.binge.tv.feature.search
+package com.arbelkilani.binge.tv.feature.discover
 
 import com.arbelkilani.binge.tv.common.presentation.model.Genre
 
-class SearchContract {
+class DiscoverContract {
     interface ViewCapabilities {
         suspend fun showGenres(data: List<Genre>)
     }

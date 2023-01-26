@@ -24,7 +24,8 @@
 
     <!-- Common -->
     <string name="home_title_home">Home</string>
-    <string name="home_title_search">Search</string>
+    <string name="home_title_discover">Discover</string>
+    <string name="home_title_watchlist">Watchlist</string>
     <string name="home_title_settings">Settings</string>
 
     <!-- Home -->

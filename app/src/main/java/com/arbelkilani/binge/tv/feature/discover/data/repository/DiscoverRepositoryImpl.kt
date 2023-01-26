@@ -1,19 +1,18 @@
-package com.arbelkilani.binge.tv.feature.search.data.repository
+package com.arbelkilani.binge.tv.feature.discover.data.repository
 
 import com.arbelkilani.binge.tv.common.data.mapper.GenreResponseMapper
 import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
-import com.arbelkilani.binge.tv.common.presentation.model.Genre
 import com.arbelkilani.binge.tv.common.source.local.room.AppDatabase
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
-import com.arbelkilani.binge.tv.feature.search.domain.repository.SearchRepository
+import com.arbelkilani.binge.tv.feature.discover.domain.repository.DiscoverRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class SearchRepositoryImpl @Inject constructor(
+class DiscoverRepositoryImpl @Inject constructor(
     private val service: ApiService,
     database: AppDatabase
-) : SearchRepository {
+) : DiscoverRepository {
 
     @Inject
     lateinit var genreResponseMapper: GenreResponseMapper

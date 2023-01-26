@@ -1,8 +1,8 @@
-package com.arbelkilani.binge.tv.feature.search.domain.repository
+package com.arbelkilani.binge.tv.feature.discover.domain.repository
 
 import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
 import kotlinx.coroutines.flow.Flow
 
-interface SearchRepository {
+interface DiscoverRepository {
     suspend fun getGenres(): Flow<List<GenreEntity>>
 }

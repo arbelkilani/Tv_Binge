@@ -1,11 +1,11 @@
-package com.arbelkilani.binge.tv.feature.search.presentation
+package com.arbelkilani.binge.tv.feature.discover.presentation
 
 import androidx.lifecycle.viewModelScope
 import com.arbelkilani.binge.tv.common.base.viewmodel.BaseStateViewModel
 import com.arbelkilani.binge.tv.common.domain.usecase.GetGenresUseCase
 import com.arbelkilani.binge.tv.common.domain.usecase.ObserveNetworkReachabilityUseCase
 import com.arbelkilani.binge.tv.common.presentation.model.Genre
-import com.arbelkilani.binge.tv.feature.search.presentation.model.SearchViewState
+import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,11 +15,11 @@ import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(
+class DiscoverViewModel @Inject constructor(
     private val getNetworkReachabilityUseCase: ObserveNetworkReachabilityUseCase,
     private val getGenreUseCase: GetGenresUseCase
 ) :
-    BaseStateViewModel<SearchViewState>(initialState = SearchViewState.Start) {
+    BaseStateViewModel<DiscoverViewState>(initialState = DiscoverViewState.Start) {
 
     private val _genres = MutableStateFlow(emptyList<Genre>())
     val genres: StateFlow<List<Genre>> = _genres
@@ -37,7 +37,7 @@ class SearchViewModel @Inject constructor(
     private fun genres() = viewModelScope.launch {
         getGenreUseCase.invoke()
             .collectLatest { data ->
-                updateState { SearchViewState.Loaded }
+                updateState { DiscoverViewState.Loaded }
                 _genres.value = data
             }
     }
@@ -54,7 +54,7 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun retry(networkState: Boolean) {
-        if (networkState) updateState { SearchViewState.Start }
-        else updateState { SearchViewState.Error(IOException()) }
+        if (networkState) updateState { DiscoverViewState.Start }
+        else updateState { DiscoverViewState.Error(IOException()) }
     }
 }
