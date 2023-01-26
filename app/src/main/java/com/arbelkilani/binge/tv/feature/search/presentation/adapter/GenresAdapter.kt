@@ -1,4 +1,4 @@
-package com.arbelkilani.binge.tv.feature.discover.presentation.adapter
+package com.arbelkilani.binge.tv.feature.search.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,13 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
-import com.arbelkilani.binge.tv.common.domain.entity.GenreEntity
+import com.arbelkilani.binge.tv.common.presentation.model.Genre
 import com.arbelkilani.binge.tv.databinding.ItemGenreMinBinding
 import com.arbelkilani.binge.tv.databinding.ItemTagShimmerBinding
+import com.arbelkilani.binge.tv.feature.search.presentation.listener.SearchListener
 import javax.inject.Inject
 
-class GenresAdapter @Inject constructor() :
-    ListAdapter<GenreEntity, RecyclerView.ViewHolder>(GenreComparator) {
+class GenresAdapter @Inject constructor(
+    private val listener: SearchListener
+) : ListAdapter<Genre, RecyclerView.ViewHolder>(GenreComparator) {
 
     class DataHolder(val binding: ItemGenreMinBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -52,17 +54,17 @@ class GenresAdapter @Inject constructor() :
 
     companion object {
         private val GenreComparator =
-            object : DiffUtil.ItemCallback<GenreEntity>() {
+            object : DiffUtil.ItemCallback<Genre>() {
                 override fun areItemsTheSame(
-                    oldItem: GenreEntity,
-                    newItem: GenreEntity
+                    oldItem: Genre,
+                    newItem: Genre
                 ): Boolean {
                     return oldItem.id == newItem.id
                 }
 
                 override fun areContentsTheSame(
-                    oldItem: GenreEntity,
-                    newItem: GenreEntity
+                    oldItem: Genre,
+                    newItem: Genre
                 ): Boolean {
                     return oldItem == newItem
                 }

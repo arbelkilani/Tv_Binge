@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/navigation_search_filtered"
-        android:name="com.arbelkilani.binge.tv.feature.search.presentation.SearchFilteredFragment"
+        android:name="com.arbelkilani.binge.tv.feature.search.presentation.SearchFragment"
         android:label="@string/home_title_search"
         tools:layout="@layout/fragment_search_filtered" />
 
