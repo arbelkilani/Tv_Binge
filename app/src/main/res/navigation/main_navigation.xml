@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_navigation"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.arbelkilani.binge.tv.feature.home.presentation.HomeFragment"
+        android:label="@string/home_title_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_tvDetailsFragment"
+            app:destination="@id/tvDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tvDetailsFragment"
+        android:name="com.arbelkilani.binge.tv.feature.details.presentation.TvDetailsFragment"
+        android:label="@string/tv_details_fragment_label"
+        tools:layout="@layout/fragment_tv_details">
+        <argument
+            android:name="tv"
+            app:argType="com.arbelkilani.binge.tv.feature.home.presentation.model.Tv" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.arbelkilani.binge.tv.feature.settings.presentation.SettingsFragment"
+        android:label="@string/home_title_settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/navigation_search_filtered"
+        android:name="com.arbelkilani.binge.tv.feature.search.presentation.SearchFragment"
+        android:label="@string/home_title_search"
+        tools:layout="@layout/fragment_search_filtered" />
+
+</navigation>

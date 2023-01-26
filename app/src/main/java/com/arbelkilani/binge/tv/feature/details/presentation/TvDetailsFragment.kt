@@ -32,7 +32,7 @@ import com.arbelkilani.binge.tv.feature.details.presentation.entities.ExternalId
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.Keywords
 import com.arbelkilani.binge.tv.feature.details.presentation.entities.TvDetails
 import com.arbelkilani.binge.tv.feature.details.presentation.model.TvDetailsViewState
-import com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv
+import com.arbelkilani.binge.tv.feature.home.presentation.model.Tv
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager

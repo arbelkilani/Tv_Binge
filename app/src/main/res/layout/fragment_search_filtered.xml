@@ -13,7 +13,7 @@
         android:layout_marginStart="@dimen/default_margin"
         android:layout_marginTop="@dimen/default_margin"
         android:fontFamily="@font/avenir_next_demi_bold"
-        android:text="@string/discover_based_on_genres"
+        android:text="@string/discover_title_by_genre"
         android:textColor="@color/title_color"
         android:textSize="@dimen/category_title_text_size"
         app:layout_constraintStart_toStartOf="parent"

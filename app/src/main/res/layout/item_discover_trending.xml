@@ -7,7 +7,7 @@
 
         <variable
             name="tv"
-            type="com.arbelkilani.binge.tv.feature.discover.presentation.model.Tv" />
+            type="com.arbelkilani.binge.tv.feature.home.presentation.model.Tv" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

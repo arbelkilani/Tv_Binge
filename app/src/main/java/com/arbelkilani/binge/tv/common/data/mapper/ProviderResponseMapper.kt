@@ -1,12 +1,11 @@
 package com.arbelkilani.binge.tv.common.data.mapper
 
-import android.util.Log
 import com.arbelkilani.binge.tv.common.data.enum.ImageSize
 import com.arbelkilani.binge.tv.common.data.response.ProviderMap
 import com.arbelkilani.binge.tv.common.data.response.ProviderResponse
 import com.arbelkilani.binge.tv.common.domain.entity.ProviderEntity
 import com.arbelkilani.binge.tv.common.domain.usecase.GetImageUseCase
-import com.arbelkilani.binge.tv.feature.discover.data.request.DiscoverQuery
+import com.arbelkilani.binge.tv.feature.home.data.request.DiscoverQuery
 import javax.inject.Inject
 
 class ProviderResponseMapper @Inject constructor() {

@@ -3,8 +3,8 @@ package com.arbelkilani.binge.tv.common.source.remote.pagingsource
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
-import com.arbelkilani.binge.tv.feature.discover.data.mapper.PersonResponseMapper
-import com.arbelkilani.binge.tv.feature.discover.domain.entity.PersonEntity
+import com.arbelkilani.binge.tv.feature.home.data.mapper.PersonResponseMapper
+import com.arbelkilani.binge.tv.feature.home.domain.entity.PersonEntity
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject

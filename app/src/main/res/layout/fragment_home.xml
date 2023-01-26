@@ -1,57 +1,298 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/drawable_bg_color"
+    android:fitsSystemWindows="true"
+    android:overScrollMode="never"
     tools:context=".feature.home.presentation.HomeFragment">
 
-    <include layout="@layout/layout_circle_shape" />
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/transparent"
-        android:elevation="0dp"
-        app:elevation="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:liftOnScroll="true">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:titleTextAppearance="@style/Toolbar.TextAppearance"
-            app:titleTextColor="@color/toolbar_title_color"
-            tools:title="Title" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <fragment
-        android:id="@+id/nav_host_home"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:navGraph="@navigation/home_navigation" />
+        android:paddingBottom="?attr/actionBarSize">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view"
-        style="@style/BottomNavigationView.Style"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@drawable/drawable_bg_color"
-        app:itemIconTint="@color/selector_item_icon"
-        app:itemTextColor="@color/selector_item_icon"
-        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
-        app:menu="@menu/main_menu" />
+        <include
+            android:id="@+id/layout_trending"
+            layout="@layout/layout_discover_trending"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:.5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/grp_upcoming"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="tv_upcoming,rv_upcoming, iv_upcoming" />
+
+        <TextView
+            android:id="@+id/tv_upcoming"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:drawablePadding="@dimen/small_padding"
+            android:fontFamily="@font/avenir_next_demi_bold"
+            android:text="@string/home_title_upcoming"
+            android:textColor="@color/title_color"
+            android:textSize="@dimen/category_title_text_size"
+            app:drawableStartCompat="@drawable/ic_upcoming"
+            app:layout_constraintBottom_toBottomOf="@id/iv_upcoming"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_trending"
+            app:layout_constraintTop_toTopOf="@id/iv_upcoming" />
+
+        <ImageView
+            android:id="@+id/iv_upcoming"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:background="?attr/actionBarItemBackground"
+            android:contentDescription="@string/next"
+            android:padding="@dimen/small_padding"
+            android:src="@drawable/ic_navigate_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_trending" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_upcoming"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintDimensionRatio="1:.38"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_upcoming"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_tv_backdrop"
+            tools:paddingEnd="150dp"
+            tools:paddingStart="10dp" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/grp_free"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="tv_free,rv_free, iv_free" />
+
+        <TextView
+            android:id="@+id/tv_free"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:drawablePadding="@dimen/small_padding"
+            android:fontFamily="@font/avenir_next_demi_bold"
+            android:text="@string/discover_title_free"
+            android:textColor="@color/title_color"
+            android:textSize="@dimen/category_title_text_size"
+            app:drawableStartCompat="@drawable/ic_free"
+            app:layout_constraintBottom_toBottomOf="@id/iv_free"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_free" />
+
+        <ImageView
+            android:id="@+id/iv_free"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:background="?attr/actionBarItemBackground"
+            android:contentDescription="@string/next"
+            android:padding="@dimen/small_padding"
+            android:src="@drawable/ic_navigate_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_upcoming" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_free"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintDimensionRatio="1:.5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_free"
+            tools:itemCount="10"
+            tools:layout_height="wrap_content"
+            tools:listitem="@layout/item_tv_provider"
+            tools:paddingEnd="150dp"
+            tools:paddingStart="10dp" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/grp_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="tv_persons, rv_persons, iv_persons" />
+
+        <TextView
+            android:id="@+id/tv_persons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:drawablePadding="@dimen/small_padding"
+            android:fontFamily="@font/avenir_next_demi_bold"
+            android:gravity="center"
+            android:text="@string/home_title_trending_person"
+            android:textColor="@color/title_color"
+            android:textSize="@dimen/category_title_text_size"
+            app:drawableStartCompat="@drawable/ic_trending_up"
+            app:layout_constraintBottom_toBottomOf="@id/iv_persons"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_persons" />
+
+        <ImageView
+            android:id="@+id/iv_persons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:background="?attr/actionBarItemBackground"
+            android:contentDescription="@string/next"
+            android:padding="@dimen/small_padding"
+            android:src="@drawable/ic_navigate_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_free" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_persons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_persons"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_person"
+            tools:paddingEnd="300dp"
+            tools:paddingStart="15dp" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/grp_talk_shows"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="tv_talk_shows,rv_talk_shows, iv_talk_shows" />
+
+        <TextView
+            android:id="@+id/tv_talk_shows"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:drawablePadding="@dimen/small_padding"
+            android:fontFamily="@font/avenir_next_demi_bold"
+            android:gravity="center_vertical"
+            android:text="@string/home_title_talk_shows"
+            android:textColor="@color/title_color"
+            android:textSize="@dimen/category_title_text_size"
+            app:drawableStartCompat="@drawable/ic_talk_show"
+            app:layout_constraintBottom_toBottomOf="@id/iv_talk_shows"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_talk_shows" />
+
+        <ImageView
+            android:id="@+id/iv_talk_shows"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:background="?attr/actionBarItemBackground"
+            android:contentDescription="@string/next"
+            android:padding="@dimen/small_padding"
+            android:src="@drawable/ic_navigate_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_persons" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_talk_shows"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintDimensionRatio="1:.43"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_talk_shows"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_tv_backdrop"
+            tools:paddingEnd="270dp"
+            tools:paddingStart="10dp" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/grp_documentaries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="tv_documentaries,rv_documentaries, iv_documentaries" />
+
+        <TextView
+            android:id="@+id/tv_documentaries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:drawablePadding="@dimen/small_padding"
+            android:fontFamily="@font/avenir_next_demi_bold"
+            android:gravity="center_vertical"
+            android:text="@string/home_title_documentaries"
+            android:textColor="@color/title_color"
+            android:textSize="@dimen/category_title_text_size"
+            app:drawableStartCompat="@drawable/ic_documentary"
+            app:layout_constraintBottom_toBottomOf="@id/iv_documentaries"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_documentaries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:background="?attr/actionBarItemBackground"
+            android:contentDescription="@string/next"
+            android:padding="@dimen/small_padding"
+            android:src="@drawable/ic_navigate_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_talk_shows" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_documentaries"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintDimensionRatio="1:.6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_documentaries"
+            app:spanCount="2"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_tv_backdrop"
+            tools:paddingEnd="210dp"
+            tools:paddingStart="10dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

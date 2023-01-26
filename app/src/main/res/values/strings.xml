@@ -22,21 +22,17 @@
     <string name="on_boarding_genre_selection_title">Title</string>
     <string name="on_boarding_genre_selection_description">Description : consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</string>
 
-    <!-- Home -->
-    <string name="home_title_home">Discover</string>
+    <!-- Common -->
+    <string name="home_title_home">Home</string>
     <string name="home_title_search">Search</string>
     <string name="home_title_settings">Settings</string>
 
-    <!-- Discover -->
-    <string name="discover_airing_today_label">Airing Today</string>
-    <string name="discover_new_in_this_month">Starting this month</string>
-    <string name="discover_based_on_providers">From favorite Providers</string>
-    <string name="discover_free_to_watch">Free to watch</string>
-    <string name="discover_based_on_genres">From favorite Genres</string>
-    <string name="discover_title_upcoming">Upcoming</string>
-    <string name="discover_title_talk_shows">Talk Shows</string>
-    <string name="discover_title_documentaries">Documentaries</string>
-    <string name="discover_title_trending_person">Trending actors</string>
+    <!-- Home -->
+    <string name="home_title_upcoming">Upcoming</string>
+    <string name="home_free_to_watch">Free to watch</string>
+    <string name="home_title_trending_person">Trending actors</string>
+    <string name="home_title_talk_shows">Talk Shows</string>
+    <string name="home_title_documentaries">Documentaries</string>
 
     <!-- Tv Details -->
     <string name="tv_details_fragment_label">Tv Details</string>

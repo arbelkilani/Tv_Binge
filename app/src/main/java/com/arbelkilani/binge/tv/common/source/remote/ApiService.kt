@@ -7,8 +7,8 @@ import com.arbelkilani.binge.tv.common.data.response.GenreRaw
 import com.arbelkilani.binge.tv.common.data.response.WatchProviderRaw
 import com.arbelkilani.binge.tv.common.data.response.ProviderRaw
 import com.arbelkilani.binge.tv.feature.details.data.entities.*
-import com.arbelkilani.binge.tv.feature.discover.data.response.PersonResponse
-import com.arbelkilani.binge.tv.feature.discover.data.response.TvResponse
+import com.arbelkilani.binge.tv.feature.home.data.response.PersonResponse
+import com.arbelkilani.binge.tv.feature.home.data.response.TvResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
