@@ -35,16 +35,8 @@ class DiscoverFragment : SearchListener, DiscoverContract.ViewCapabilities,
     private val viewModel: DiscoverViewModel by viewModels()
 
     private val genresAdapter: GenresAdapter by lazy { GenresAdapter(this) }
-    private val providersAdapter: ProvidersAdapter by lazy {
-        ProvidersAdapter(this).apply {
-            submitList(shimmerProvider)
-        }
-    }
-    private val showsAdapter: TvResultAdapter by lazy {
-        TvResultAdapter().apply {
-            submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerTv))
-        }
-    }
+    private val providersAdapter: ProvidersAdapter by lazy { ProvidersAdapter(this) }
+    private val showsAdapter: TvResultAdapter by lazy { TvResultAdapter() }
 
     override fun bindView(
         inflater: LayoutInflater, container: ViewGroup?
@@ -67,9 +59,6 @@ class DiscoverFragment : SearchListener, DiscoverContract.ViewCapabilities,
                     collectGenres()
                     collectProviders()
                     collectShows()
-                }
-                is DiscoverViewState.Loading -> {
-                    showsAdapter.submitData(PagingData.from(shimmerTv))
                 }
                 else -> Unit
             }
@@ -128,23 +117,5 @@ class DiscoverFragment : SearchListener, DiscoverContract.ViewCapabilities,
 
     override fun onProviderSelected(provider: Provider?) {
         provider?.let { viewModel.setProvider(provider) }
-    }
-
-    companion object {
-        private val shimmerTv = listOf(
-            Tv(id = -1, "", null, null, emptyList(), 0f, "", emptyList()),
-            Tv(id = -1, "", null, null, emptyList(), 0f, "", emptyList()),
-            Tv(id = -1, "", null, null, emptyList(), 0f, "", emptyList()),
-            Tv(id = -1, "", null, null, emptyList(), 0f, "", emptyList()),
-            Tv(id = -1, "", null, null, emptyList(), 0f, "", emptyList())
-        )
-        private val shimmerProvider = listOf(
-            Provider(-1, "", "", "", "", false),
-            Provider(-1, "", "", "", "", false),
-            Provider(-1, "", "", "", "", false),
-            Provider(-1, "", "", "", "", false),
-            Provider(-1, "", "", "", "", false),
-            Provider(-1, "", "", "", "", false),
-        )
     }
 }

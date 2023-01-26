@@ -110,13 +110,11 @@ class DiscoverViewModel @Inject constructor(
     }
 
     fun setGenres(genre: Genre) {
-        updateState { DiscoverViewState.Loading }
         selectedGenres.add(genre)
         filter(selectedGenres, selectedProviders)
     }
 
     fun setProvider(provider: Provider) {
-        updateState { DiscoverViewState.Loading }
         selectedProviders.add(provider)
         filter(selectedGenres, selectedProviders)
     }
