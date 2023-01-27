@@ -38,6 +38,14 @@ class GenresAdapter @Inject constructor(
             )
         )
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
     companion object {
         private val Comparator =
             object : DiffUtil.ItemCallback<Genre>() {

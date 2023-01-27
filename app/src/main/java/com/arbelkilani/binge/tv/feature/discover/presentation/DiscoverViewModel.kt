@@ -14,7 +14,9 @@ import com.arbelkilani.binge.tv.feature.discover.domain.usecase.GetShowsUseCase
 import com.arbelkilani.binge.tv.feature.discover.presentation.model.DiscoverViewState
 import com.arbelkilani.binge.tv.feature.home.presentation.model.Tv
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.io.IOException
 import javax.inject.Inject
@@ -110,11 +112,13 @@ class DiscoverViewModel @Inject constructor(
     }
 
     fun setGenres(genre: Genre) {
-        if (genre.isSelected) selectedGenres.add(genre) else selectedGenres.remove(
-            genre.copy(
-                isSelected = true
-            )
-        )
+        _genres.value = _genres.value.map {
+            if (it.id == genre.id)
+                it.copy(isSelected = genre.isSelected)
+            else
+                it
+        }
+        if (genre.isSelected) selectedGenres.add(genre) else selectedGenres.removeIf { it.id == genre.id }
         filter(selectedGenres, selectedProviders)
     }
 

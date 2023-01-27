@@ -19,7 +19,7 @@
         android:background="@drawable/tag_background"
         android:fontFamily="@font/avenir_next_regular"
         android:textColor="@color/outer_space"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:checkedIcon="@drawable/ic_check_circle"
         app:checkedIconEnabled="true"
         app:checkedIconTint="@color/outer_space"

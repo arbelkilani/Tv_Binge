@@ -2,9 +2,9 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_discover"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/scroll_discover"
     tools:context=".feature.discover.presentation.DiscoverFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,10 +35,11 @@
             android:overScrollMode="never"
             android:paddingStart="@dimen/default_padding"
             android:paddingEnd="@dimen/small_padding"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_genres"
+            app:spanCount="2"
             tools:listitem="@layout/item_genre_min" />
 
         <TextView
@@ -85,7 +86,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_providers"
-            app:spanCount="2"
+            app:spanCount="1"
             tools:listitem="@layout/item_square_provider"
             tools:paddingEnd="325dp"
             tools:paddingStart="16dp" />
