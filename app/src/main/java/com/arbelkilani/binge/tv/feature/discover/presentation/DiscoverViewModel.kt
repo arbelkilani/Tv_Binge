@@ -3,6 +3,7 @@ package com.arbelkilani.binge.tv.feature.discover.presentation
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.filter
 import com.arbelkilani.binge.tv.common.base.viewmodel.BaseStateViewModel
 import com.arbelkilani.binge.tv.common.domain.usecase.GetGenresUseCase
 import com.arbelkilani.binge.tv.common.domain.usecase.GetProvidersUseCase
@@ -28,14 +29,13 @@ class DiscoverViewModel @Inject constructor(
     private val getProvidersUseCase: GetProvidersUseCase,
     private val getShowsUseCase: GetShowsUseCase,
     private val getFilteredShowsUseCase: GetFilteredShowsUseCase
-) :
-    BaseStateViewModel<DiscoverViewState>(initialState = DiscoverViewState.Start) {
+) : BaseStateViewModel<DiscoverViewState>(initialState = DiscoverViewState.Start) {
 
-    private val _genres = MutableStateFlow(emptyList<Genre>())
-    val genres: StateFlow<List<Genre>> = _genres
+    private val _genres = MutableStateFlow(PagingData.empty<Genre>())
+    val genres: StateFlow<PagingData<Genre>> = _genres
 
-    private val _providers = MutableStateFlow(emptyList<Provider>())
-    val providers: StateFlow<List<Provider>> = _providers
+    private val _providers = MutableStateFlow(PagingData.empty<Provider>())
+    val providers: StateFlow<PagingData<Provider>> = _providers
 
     private val _shows = MutableStateFlow(PagingData.empty<Tv>())
     val shows: StateFlow<PagingData<Tv>> = _shows
@@ -55,36 +55,30 @@ class DiscoverViewModel @Inject constructor(
     }
 
     private fun genres() = viewModelScope.launch {
-        getGenreUseCase.invoke()
-            .collectLatest { data ->
-                updateState { DiscoverViewState.Loaded }
-                _genres.value = data
-            }
+        getGenreUseCase.invoke().cachedIn(viewModelScope).collectLatest { data ->
+            updateState { DiscoverViewState.Loaded }
+            _genres.value = data
+        }
     }
 
     private fun providers(filter: CharSequence = "") = viewModelScope.launch {
-        getProvidersUseCase.invoke()
-            .collectLatest { data ->
-                updateState { DiscoverViewState.Loaded }
-                _providers.value = data.filter { it.name.contains(filter, ignoreCase = true) }
-            }
+        getProvidersUseCase.invoke().cachedIn(viewModelScope).collectLatest { data ->
+            updateState { DiscoverViewState.Loaded }
+            _providers.value = data.filter { it.name.contains(filter, ignoreCase = true) }
+        }
     }
 
     private fun shows() = viewModelScope.launch {
-        getShowsUseCase.invoke()
-            .cachedIn(viewModelScope)
-            .collectLatest { data ->
-                updateState { DiscoverViewState.Loaded }
-                _shows.value = data
-            }
+        getShowsUseCase.invoke().cachedIn(viewModelScope).collectLatest { data ->
+            updateState { DiscoverViewState.Loaded }
+            _shows.value = data
+        }
     }
 
     private fun filter(
-        genres: MutableList<Genre>,
-        providers: MutableList<Provider>
+        genres: MutableList<Genre>, providers: MutableList<Provider>
     ) = viewModelScope.launch {
-        getFilteredShowsUseCase.invoke(genres, providers)
-            .cachedIn(viewModelScope)
+        getFilteredShowsUseCase.invoke(genres, providers).cachedIn(viewModelScope)
             .collectLatest { data ->
                 updateState { DiscoverViewState.Loaded }
                 _shows.value = data
@@ -112,18 +106,12 @@ class DiscoverViewModel @Inject constructor(
     }
 
     fun setGenres(genre: Genre) {
-        _genres.value = _genres.value.map {
-            if (it.id == genre.id)
-                it.copy(isSelected = genre.isSelected)
-            else
-                it
-        }
         if (genre.isSelected) selectedGenres.add(genre) else selectedGenres.removeIf { it.id == genre.id }
         filter(selectedGenres, selectedProviders)
     }
 
     fun setProvider(provider: Provider) {
-        selectedProviders.add(provider)
+        if (provider.isSelected) selectedProviders.add(provider) else selectedProviders.removeIf { it.id == provider.id }
         filter(selectedGenres, selectedProviders)
     }
 }

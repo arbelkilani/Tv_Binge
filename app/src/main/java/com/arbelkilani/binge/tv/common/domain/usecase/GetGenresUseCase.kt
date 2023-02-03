@@ -1,5 +1,6 @@
 package com.arbelkilani.binge.tv.common.domain.usecase
 
+import androidx.paging.PagingData
 import com.arbelkilani.binge.tv.common.domain.mapper.GenreEntityMapper
 import com.arbelkilani.binge.tv.common.domain.repository.GenreRepository
 import kotlinx.coroutines.flow.flow
@@ -14,8 +15,8 @@ class GetGenresUseCase @Inject constructor() {
     lateinit var genreEntityMapper: GenreEntityMapper
 
     suspend fun invoke() = flow {
-        emit(genreRepository.getGenres().map { entity ->
+        emit(PagingData.from(genreRepository.getGenres().map { entity ->
             genreEntityMapper.map(entity)
-        })
+        }))
     }
 }

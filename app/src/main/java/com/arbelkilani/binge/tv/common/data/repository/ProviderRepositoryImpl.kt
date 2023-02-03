@@ -6,7 +6,6 @@ import com.arbelkilani.binge.tv.common.domain.entity.ProviderEntity
 import com.arbelkilani.binge.tv.common.domain.repository.ProviderRepository
 import com.arbelkilani.binge.tv.common.source.local.room.AppDatabase
 import com.arbelkilani.binge.tv.common.source.remote.ApiService
-import kotlinx.coroutines.flow.flow
 import java.util.*
 import javax.inject.Inject
 
@@ -33,12 +32,12 @@ class ProviderRepositoryImpl @Inject constructor(
         return result?.let { providerResponseMapper.map(it) } ?: emptyList()
     }
 
-    override suspend fun getProviders() = flow {
+    override suspend fun getProviders(): List<ProviderEntity> {
         val local = resourcesDao.getProviders()
-        if (local.isNullOrEmpty()) {
-            emit(service.getProviders(country).results.map { response ->
+        return if (local.isNullOrEmpty()) {
+            service.getProviders(country).results.map { response ->
                 watchProviderResponseMapper.map(response, isFavorite = false)
-            })
-        } else emit(local)
+            }
+        } else local
     }
 }

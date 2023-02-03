@@ -10,5 +10,6 @@ data class Provider(
     val logo: String,
     val type: String?,
     val link: String?,
-    val isFavorite: Boolean?
+    val isFavorite: Boolean?,
+    val isSelected: Boolean = false
 ) : Parcelable

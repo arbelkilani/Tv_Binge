@@ -29,6 +29,6 @@ class TvResponseMapper @Inject constructor() {
         genres = getGenresByIdsUseCase.invoke(response.genres),
         voteAverage = response.voteAverage,
         firstAirDate = response.firstAirDate,
-        providers = getProvidersByIdsUseCase.invoke(response.id)
+        providers = emptyList() // TODO: re-check with a flag 
     )
 }

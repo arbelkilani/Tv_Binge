@@ -7,8 +7,8 @@ import com.arbelkilani.binge.tv.feature.home.presentation.model.Tv
 
 class DiscoverContract {
     interface ViewCapabilities {
-        suspend fun showGenres(data: List<Genre>)
-        suspend fun showProviders(data: List<Provider>)
+        suspend fun showGenres(data: PagingData<Genre>)
+        suspend fun showProviders(data: PagingData<Provider>)
         suspend fun shows(data: PagingData<Tv>)
     }
 

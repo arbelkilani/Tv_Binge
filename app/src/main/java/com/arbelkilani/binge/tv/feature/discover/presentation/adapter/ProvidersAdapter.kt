@@ -3,8 +3,8 @@ package com.arbelkilani.binge.tv.feature.discover.presentation.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.presentation.model.Provider
@@ -15,8 +15,7 @@ import javax.inject.Inject
 
 class ProvidersAdapter @Inject constructor(
     private val listener: SearchListener
-) :
-    ListAdapter<Provider, RecyclerView.ViewHolder>(Comparator) {
+) : PagingDataAdapter<Provider, RecyclerView.ViewHolder>(Comparator) {
 
     class DataHolder(val binding: ItemSquareProviderBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -28,8 +27,12 @@ class ProvidersAdapter @Inject constructor(
         val item = getItem(position)
         when (holder.itemViewType) {
             DATA_TYPE -> with((holder as DataHolder).binding) {
-                root.setOnClickListener { listener.onProviderSelected(item) }
                 provider = item
+                rbSelect.isChecked = item?.isSelected == true
+                root.setOnClickListener {
+                    rbSelect.isChecked = !rbSelect.isChecked
+                    listener.onProviderSelected(item?.copy(isSelected = rbSelect.isSelected))
+                }
             }
         }
     }

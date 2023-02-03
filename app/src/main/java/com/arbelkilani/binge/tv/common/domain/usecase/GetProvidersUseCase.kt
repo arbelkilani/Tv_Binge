@@ -1,10 +1,9 @@
 package com.arbelkilani.binge.tv.common.domain.usecase
 
+import androidx.paging.PagingData
 import com.arbelkilani.binge.tv.common.domain.mapper.ProviderEntityMapper
 import com.arbelkilani.binge.tv.common.domain.repository.ProviderRepository
-import com.arbelkilani.binge.tv.common.presentation.model.Provider
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class GetProvidersUseCase @Inject constructor() {
@@ -15,11 +14,9 @@ class GetProvidersUseCase @Inject constructor() {
     @Inject
     lateinit var providerEntityMapper: ProviderEntityMapper
 
-    suspend fun invoke(): Flow<List<Provider>> {
-        return providerRepository.getProviders().map { list ->
-            list.map { entity ->
-                providerEntityMapper.map(entity)
-            }
-        }
+    suspend fun invoke() = flow {
+        emit(PagingData.from(providerRepository.getProviders().map { entity ->
+            providerEntityMapper.map(entity)
+        }))
     }
 }

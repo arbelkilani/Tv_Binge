@@ -3,8 +3,8 @@ package com.arbelkilani.binge.tv.feature.discover.presentation.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.arbelkilani.binge.tv.R
 import com.arbelkilani.binge.tv.common.presentation.model.Genre
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class GenresAdapter @Inject constructor(
     private val listener: SearchListener
-) : ListAdapter<Genre, GenresAdapter.DataHolder>(Comparator) {
+) : PagingDataAdapter<Genre, GenresAdapter.DataHolder>(Comparator) {
 
     class DataHolder(val binding: ItemGenreMinBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -23,10 +23,10 @@ class GenresAdapter @Inject constructor(
         val item = getItem(position)
         with(holder.binding.chip) {
             isCheckable = true
-            text = item.name
-            isChecked = item.isSelected
+            text = item?.name
+            isChecked = item?.isSelected == true
             setOnCheckedChangeListener { _, boolean ->
-                listener.onGenreSelected(item.copy(isSelected = boolean))
+                listener.onGenreSelected(item?.copy(isSelected = boolean))
             }
         }
     }
@@ -37,14 +37,6 @@ class GenresAdapter @Inject constructor(
                 LayoutInflater.from(parent.context), R.layout.item_genre_min, parent, false
             )
         )
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return position
-    }
 
     companion object {
         private val Comparator =

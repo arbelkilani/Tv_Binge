@@ -24,13 +24,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@{tv.name}"
-            android:foreground="@drawable/bg_gradient_mask"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_launcher_background" />
+
+        <View
+            android:id="@+id/v_mask"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_gradient_mask" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

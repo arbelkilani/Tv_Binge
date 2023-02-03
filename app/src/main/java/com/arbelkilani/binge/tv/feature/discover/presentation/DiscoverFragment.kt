@@ -99,12 +99,12 @@ class DiscoverFragment : SearchListener, DiscoverContract.ViewCapabilities,
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
-    override suspend fun showGenres(data: List<Genre>) {
-        genresAdapter.submitList(data)
+    override suspend fun showGenres(data: PagingData<Genre>) {
+        genresAdapter.submitData(lifecycle, data)
     }
 
-    override suspend fun showProviders(data: List<Provider>) {
-        providersAdapter.submitList(data)
+    override suspend fun showProviders(data: PagingData<Provider>) {
+        providersAdapter.submitData(lifecycle, data)
     }
 
     override suspend fun shows(data: PagingData<Tv>) {

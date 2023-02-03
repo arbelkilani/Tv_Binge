@@ -4,6 +4,7 @@ import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -31,7 +32,8 @@ class TvResultAdapter @Inject constructor() :
         if (holder.itemViewType == DATA_TYPE) {
             with((holder as DataHolder).binding) {
                 tvGenres.visibility = View.GONE
-                tvTitle.text = item?.name
+                tvTitle.isVisible = false
+                vMask.isVisible = false
                 Glide.with(root.context)
                     .load(item?.poster)
                     .into(ivImage)
