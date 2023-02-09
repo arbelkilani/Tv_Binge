@@ -13,7 +13,6 @@ class HomeContract {
         suspend fun showTalkShows(data: PagingData<Tv>)
         suspend fun showDocumentaries(data: PagingData<Tv>)
         suspend fun showTrendingPersons(data: PagingData<Person>)
-        suspend fun showFreeShows(data: PagingData<Tv>)
         fun showError(exception: Exception)
     }
 

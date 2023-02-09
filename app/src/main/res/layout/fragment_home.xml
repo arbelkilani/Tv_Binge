@@ -79,60 +79,6 @@
             tools:paddingStart="10dp" />
 
         <androidx.constraintlayout.widget.Group
-            android:id="@+id/grp_free"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:constraint_referenced_ids="tv_free,rv_free, iv_free" />
-
-        <TextView
-            android:id="@+id/tv_free"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_margin"
-            android:drawablePadding="@dimen/small_padding"
-            android:fontFamily="@font/avenir_next_demi_bold"
-            android:text="@string/discover_title_free"
-            android:textColor="@color/title_color"
-            android:textSize="@dimen/category_title_text_size"
-            app:drawableStartCompat="@drawable/ic_free"
-            app:layout_constraintBottom_toBottomOf="@id/iv_free"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_free" />
-
-        <ImageView
-            android:id="@+id/iv_free"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/default_margin"
-            android:layout_marginEnd="@dimen/default_margin"
-            android:background="?attr/actionBarItemBackground"
-            android:contentDescription="@string/next"
-            android:padding="@dimen/small_padding"
-            android:src="@drawable/ic_navigate_next"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_upcoming" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_free"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/medium_margin"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            android:overScrollMode="never"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintDimensionRatio="1:.5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_free"
-            tools:itemCount="10"
-            tools:layout_height="wrap_content"
-            tools:listitem="@layout/item_tv_provider"
-            tools:paddingEnd="150dp"
-            tools:paddingStart="10dp" />
-
-        <androidx.constraintlayout.widget.Group
             android:id="@+id/grp_person"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -165,7 +111,7 @@
             android:padding="@dimen/small_padding"
             android:src="@drawable/ic_navigate_next"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_free" />
+            app:layout_constraintTop_toBottomOf="@id/rv_upcoming" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_persons"

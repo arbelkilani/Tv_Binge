@@ -25,7 +25,6 @@ class HomeViewModel @Inject constructor(
     private val getTalkShowsUseCase: GetTalkShowsUseCase,
     private val getDocumentariesUseCase: GetDocumentariesUseCase,
     private val getTrendingPersonUseCase: GetTrendingPersonUseCase,
-    private val getFreeUseCase: GetFreeUseCase
 ) : BaseStateViewModel<HomeViewState>(initialState = HomeViewState.Start) {
 
     private val _trending = MutableStateFlow(PagingData.empty<Tv>())
@@ -43,9 +42,6 @@ class HomeViewModel @Inject constructor(
     private val _persons = MutableStateFlow(PagingData.empty<Person>())
     val persons: StateFlow<PagingData<Person>> = _persons
 
-    private val _free = MutableStateFlow(PagingData.empty<Tv>())
-    val free: StateFlow<PagingData<Tv>> = _free
-
     private var current: Boolean? = null
 
     init {
@@ -58,7 +54,6 @@ class HomeViewModel @Inject constructor(
         talkShows()
         documentaries()
         persons()
-        free()
     }
 
     private fun trending() = viewModelScope.launch {
@@ -76,15 +71,6 @@ class HomeViewModel @Inject constructor(
             .collectLatest { data ->
                 updateState { HomeViewState.Loaded }
                 _upcoming.value = data
-            }
-    }
-
-    private suspend fun free() = viewModelScope.launch {
-        getFreeUseCase.invoke()
-            .cachedIn(viewModelScope)
-            .collectLatest { data ->
-                updateState { HomeViewState.Loaded }
-                _free.value = data
             }
     }
 
