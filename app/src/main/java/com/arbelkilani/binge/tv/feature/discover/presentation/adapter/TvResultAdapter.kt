@@ -1,6 +1,7 @@
 package com.arbelkilani.binge.tv.feature.discover.presentation.adapter
 
 import android.content.res.Resources
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,13 +30,14 @@ class TvResultAdapter @Inject constructor() :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
+        Log.i("TAG**", "onBindViewHolder in TvResultAdapter : $item")
         if (holder.itemViewType == DATA_TYPE) {
             with((holder as DataHolder).binding) {
                 tvGenres.visibility = View.GONE
                 tvTitle.isVisible = false
                 vMask.isVisible = false
                 Glide.with(root.context)
-                    .load(item?.poster)
+                    .load(item?.backdrop)
                     .into(ivImage)
             }
         }

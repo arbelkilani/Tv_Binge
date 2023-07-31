@@ -62,7 +62,7 @@ class HomeFragment :
                 submitData(viewLifecycleOwner.lifecycle, PagingData.from(shimmerPerson))
             }
     }
-    
+
     override fun bindView(
         inflater: LayoutInflater, container: ViewGroup?
     ): FragmentHomeBinding {
@@ -80,6 +80,7 @@ class HomeFragment :
                     is HomeViewState.Start -> {
                         viewModel.start()
                     }
+
                     is HomeViewState.Loaded -> {
                         delay(100)
                         collectTrendingTvShows()
@@ -88,6 +89,7 @@ class HomeFragment :
                         collectDocumentaries()
                         collectPersons()
                     }
+
                     is HomeViewState.Error -> {
                         Log.i("TAG**", "exception : ${viewState.exception}")
                     }

@@ -195,7 +195,7 @@ class TvDetailsFragment :
         val height = resources.displayMetrics.heightPixels
         behavior = BottomSheetBehavior.from(binding.bottomSheetBehaviour)
 
-        ValueAnimator.ofFloat(0f, .65f).apply {
+        ValueAnimator.ofFloat(0f, .68f).apply {
             duration = 250
             interpolator = LinearInterpolator()
             addUpdateListener { animation ->

@@ -25,6 +25,7 @@
             android:layout_height="match_parent"
             android:contentDescription="@{tv.name}"
             android:scaleType="centerCrop"
+            app:src="@{tv.backdrop}"
             tools:src="@drawable/ic_launcher_background" />
 
         <View
