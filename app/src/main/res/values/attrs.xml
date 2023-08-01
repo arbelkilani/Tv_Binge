@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WalkthroughMask">
+        <attr name="circle" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="FrameLayoutWithHole">
+        <attr name="exampleString" format="string"/>
+        <attr name="exampleColor" format="color"/>
+        <attr name="exampleDimension" format="dimension"/>
+        <attr name="exampleDrawable" format="reference"/>
+    </declare-styleable>
+</resources>

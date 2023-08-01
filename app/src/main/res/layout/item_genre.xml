@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:background="@color/on_boarding_background_color">
+
+    <data>
+
+        <variable
+            name="genre"
+            type="com.arbelkilani.binge.tv.common.domain.entity.GenreEntity" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:activated="@{genre.favorite}"
+        app:cardBackgroundColor="@color/selector_background_item1"
+        app:cardCornerRadius="12dp"
+        app:cardUseCompatPadding="true"
+        app:strokeColor="@color/item1_border_color"
+        app:strokeWidth="1dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="7dp"
+            android:text="@{genre.name}"
+            android:textColor="@color/selector_text_color_item2"
+            tools:text="Animation" />
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

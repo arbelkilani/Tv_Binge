@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="network"
+            type="com.arbelkilani.binge.tv.feature.details.presentation.entities.Network" />
+    </data>
+
+    <TextView
+        style="@style/Tag.Stroke"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/small_margin"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:text="@{network.name}"
+        tools:text="Animation" />
+
+</layout>

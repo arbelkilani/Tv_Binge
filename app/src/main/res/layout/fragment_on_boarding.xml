@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/on_boarding_background_color"
+    tools:context=".feature.onboarding.presentation.OnBoardingFragment">
+
+    <include layout="@layout/layout_circle_shape" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/ib_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/walkthrough_edge_mid_margin"
+        android:layout_marginBottom="@dimen/walkthrough_edge_mid_margin"
+        android:background="?attr/actionBarItemBackground"
+        android:contentDescription="@string/label_action_next"
+        android:padding="@dimen/on_boarding_action_padding"
+        android:rotation="180"
+        android:src="@drawable/ic_arrow_left"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/arrow_tint_color" />
+
+    <ImageView
+        android:id="@+id/ib_previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/walkthrough_edge_mid_margin"
+        android:layout_marginBottom="@dimen/walkthrough_edge_mid_margin"
+        android:background="?attr/actionBarItemBackground"
+        android:contentDescription="@string/label_action_previous"
+        android:padding="@dimen/on_boarding_action_padding"
+        android:src="@drawable/ic_arrow_left"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tint="@color/arrow_tint_color" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

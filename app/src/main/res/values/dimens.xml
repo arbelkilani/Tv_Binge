@@ -2,4 +2,39 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="default_margin">16dp</dimen>
+    <dimen name="small_padding">5dp</dimen>
+    <dimen name="default_padding">16dp</dimen>
+    <dimen name="small_margin">7dp</dimen>
+    <dimen name="medium_padding">10dp</dimen>
+    <dimen name="medium_margin">10dp</dimen>
+    <dimen name="medium_corner_radius">12dp</dimen>
+    <dimen name="min_corner_radius">8dp</dimen>
+    <dimen name="default_corner_radius">16dp</dimen>
+    <dimen name="default_card_elevation">2dp</dimen>
+    <dimen name="small_text_size">12sp</dimen>
+
+
+    <!-- Splash Screen -->
+    <dimen name="bottom_padding_ic_branding">60dp</dimen>
+
+    <!-- Walkthrough -->
+    <dimen name="walkthrough_title_text_size">24sp</dimen>
+    <dimen name="walkthrough_description_text_size">16sp</dimen>
+    <dimen name="walkthrough_edge_mid_margin">20dp</dimen>
+    <dimen name="walkthrough_separator_large_margin">40dp</dimen>
+
+    <!-- On boarding -->
+    <dimen name="on_boarding_title_text_size">20sp</dimen>
+    <dimen name="on_boarding_description_text_size">14sp</dimen>
+    <dimen name="on_boarding_edge_small_padding">10dp</dimen>
+    <dimen name="on_boarding_edge_mid_margin">20dp</dimen>
+    <dimen name="on_boarding_edge_large_margin">40dp</dimen>
+    <dimen name="on_boarding_action_padding">10dp</dimen>
+
+    <!-- Home -->
+    <dimen name="toolbar_title_text_size">18sp</dimen>
+    <dimen name="bottom_navigation_view_text_size">13sp</dimen>
+    <dimen name="category_title_text_size">16sp</dimen>
+
 </resources>

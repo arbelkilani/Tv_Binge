@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@color/on_boarding_background_color"
+    tools:context=".feature.onboarding.presentation.screens.providerselection.ProvidersSelectionFragment">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/on_boarding_edge_mid_margin"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:fontFamily="@font/avenir_next_demi_bold"
+        android:text="@string/on_boarding_genre_selection_title"
+        android:textColor="@color/title_color"
+        android:textSize="@dimen/on_boarding_title_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/on_boarding_edge_mid_margin"
+        android:fontFamily="@font/avenir_next_regular"
+        android:text="@string/on_boarding_genre_selection_description"
+        android:textColor="@color/description_color"
+        android:textSize="@dimen/on_boarding_description_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_selected_providers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/on_boarding_edge_large_margin"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/on_boarding_edge_small_padding"
+        android:paddingEnd="0dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_description"
+        app:spanCount="1"
+        tools:listitem="@layout/item_provider" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_watch_providers"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/on_boarding_edge_mid_margin"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:overScrollMode="never"
+        android:paddingStart="@dimen/on_boarding_edge_small_padding"
+        android:paddingEnd="0dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_selected_providers"
+        app:spanCount="5"
+        tools:itemCount="15"
+        tools:listitem="@layout/item_provider" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

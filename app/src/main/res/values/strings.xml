@@ -1,6 +1,57 @@
 <resources>
     <string name="app_name">Binge Tv</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_walkthrough">Walkthrough</string>
+    <string name="title_on_boarding">On Boarding</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- common -->
+    <string name="label_action_next">next</string>
+    <string name="label_action_previous">previous</string>
+
+    <!-- Walkthrough -->
+    <string name="walkthrough_title_1">Title</string>
+    <string name="walkthrough_description_1">Description : consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</string>
+    <string name="walkthrough_title_2">Title</string>
+    <string name="walkthrough_description_2">Description : consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="walkthrough_start">Start</string>
+
+    <!-- On boarding -->
+    <string name="on_boarding_provider_selection_title">Title</string>
+    <string name="on_boarding_provider_selection_description">Description : consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</string>
+    <string name="on_boarding_genre_selection_title">Title</string>
+    <string name="on_boarding_genre_selection_description">Description : consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</string>
+
+    <!-- Common -->
+    <string name="home_title_home">Home</string>
+    <string name="home_title_discover">Discover</string>
+    <string name="home_title_watchlist">Watchlist</string>
+    <string name="home_title_settings">Settings</string>
+
+    <!-- Home -->
+    <string name="home_title_upcoming">Upcoming</string>
+    <string name="home_free_to_watch">Free to watch</string>
+    <string name="home_title_trending_person">Trending actors</string>
+    <string name="home_title_talk_shows">Talk Shows</string>
+    <string name="home_title_documentaries">Documentaries</string>
+
+    <!-- Tv Details -->
+    <string name="tv_details_fragment_label">Tv Details</string>
+    <string name="tv_details_story_label">Story</string>
+    <string name="tv_details_network_label">Network</string>
+    <string name="tv_details_next_episode_label">Next Episode</string>
+    <string name="tv_details_next_episode">"S%dxE%d, <b>%s</b>"</string>
+    <string name="tv_details_tagline">\"%s\"</string>
+    <string name="tv_details_created_by_label">Created by</string>
+    <string name="tv_details_first_air_date_label">Since</string>
+    <string name="tv_details_companies_label">Production companies</string>
+    <string name="tv_details_keywords_label">Keywords</string>
+    <string name="tv_details_casts_label">Casts</string>
+    <string name="next">next</string>
+    <string name="discover_title_free">Free to watch</string>
+    <string name="tv_details_action_external_id">check external ids</string>
+
+    <!-- discover -->
+    <string name="discover_title_by_genre">By Genres</string>
+    <string name="discover_title_by_provider">By Providers</string>
 </resources>

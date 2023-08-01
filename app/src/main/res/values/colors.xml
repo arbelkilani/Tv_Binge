@@ -6,10 +6,80 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#FEFEFE</color>
+    <color name="transparent">@android:color/transparent</color>
 
     <color name="anti_flash_white">#F0F6F7</color>
+    <color name="pale_cornflower_blue">#A9C8F6</color>
     <color name="vista_blue">#778BD9</color>
     <color name="space_cadet">#1F3354</color>
     <color name="yankees_blue">#122038</color>
+    <color name="chinese_silver">#CCCCCC</color>
+    <color name="independence">#525965</color>
+    <color name="outer_space">#444444</color>
+    <color name="spanish_gray">#979797</color>
+
+    <color name="background_color_splash">@color/vista_blue</color>
+    <color name="background_start_color">@color/anti_flash_white</color>
+    <color name="background_end_color">@color/white</color>
+
+    <!-- On Boarding -->
+    <color name="indicator_enabled_color">@color/anti_flash_white</color>
+    <color name="indicator_disabled_color">@color/chinese_silver</color>
+
+    <color name="button_background_color">@color/anti_flash_white</color>
+    <color name="button_text_color">@color/vista_blue</color>
+
+    <color name="details_network_text_color">#444444</color>
+    <color name="details_network_border_color">#778bd9</color>
+
+    <!-- on boarding -->
+    <color name="on_boarding_background_color">@color/anti_flash_white</color>
+    <color name="description_color">#5C5C5C</color>
+
+    <!-- item 1 -->
+    <color name="item1_border_color">@color/vista_blue</color>
+    <color name="item1_background_color">@color/anti_flash_white</color>
+    <color name="item1_background_color_selected">@color/vista_blue</color>
+    <color name="item1_text_color">#5C5C5C</color>
+    <color name="item1_text_color_selected">@color/anti_flash_white</color>
+    <color name="arrow_tint_color">#444444</color>
+    <color name="tag_stroke_color">@color/vista_blue</color>
+
+    <color name="item_discover_name_background">#8Ccccccc</color>
+
+    <!-- home -->
+    <color name="bottom_navigation_view_background_color">@color/anti_flash_white</color>
+    <color name="bottom_navigation_view_icon_color_active">@color/vista_blue</color>
+    <color name="bottom_navigation_view_icon_color_inactive">#8Ccccccc</color>
+    <color name="bottom_navigation_view_text_color">@color/vista_blue</color>
+    <color name="category_title_text_color">@color/outer_space</color>
+
+    <!-- tag -->
+    <color name="tag_stroke_color_selected">@color/vista_blue</color>
+    <color name="tag_stroke_color_unselected">@color/pale_cornflower_blue</color>
+    <color name="tag_text_color_selected">@color/outer_space</color>
+    <color name="tag_text_color_unselected">@color/pale_cornflower_blue</color>
+
+    <!-- background -->
+    <color name="start_background_color">@color/white</color>
+    <color name="end_background_color">@color/white</color>
+
+    <!-- toolbar -->
+    <color name="toolbar_background_color">@color/anti_flash_white</color>
+    <color name="toolbar_title_color">@color/outer_space</color>
+
+    <!-- status bar -->
+    <color name="status_bar_color">@color/vista_blue</color>
+
+    <!-- bottom navigation bar -->
+    <color name="bottom_bar_item_color_selected">@color/vista_blue</color>
+    <color name="bottom_bar_item_color_unselected">@color/spanish_gray</color>
+
+    <!-- title color -->
+    <color name="title_color">@color/outer_space</color>
+
+    <!-- details -->
+    <color name="star_color">@color/vista_blue</color>
+    <color name="card_background_color">@color/anti_flash_white</color>
 </resources>

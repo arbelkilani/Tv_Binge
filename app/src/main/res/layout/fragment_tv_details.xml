@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="tv"
+            type="com.arbelkilani.binge.tv.feature.home.presentation.model.Tv" />
+
+        <variable
+            name="tvDetails"
+            type="com.arbelkilani.binge.tv.feature.details.presentation.entities.TvDetails" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/drawable_bg_color"
+        tools:context=".feature.details.presentation.TvDetailsFragment">
+
+        <include layout="@layout/layout_circle_shape" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/iv_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_backdrop"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:adjustViewBounds="true"
+                android:alpha="0"
+                android:contentDescription="@{tv.name}"
+                android:foreground="@drawable/bg_gradient_mask"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent=".35"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:src="@{tv.backdrop}"
+                tools:alpha="1"
+                tools:src="@drawable/ic_launcher_background" />
+
+            <ImageView
+                android:id="@+id/iv_external"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:background="@drawable/bg_action_circle"
+                android:contentDescription="@string/tv_details_action_external_id"
+                android:padding="@dimen/medium_padding"
+                android:src="@drawable/ic_external_id"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_margin"
+                android:background="@drawable/bg_action_circle"
+                android:contentDescription="@string/tv_details_action_external_id"
+                android:padding="@dimen/medium_padding"
+                android:src="@drawable/ic_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/bottom_sheet_behaviour"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_tv_details"
+            android:fitsSystemWindows="true"
+            android:overScrollMode="never"
+            app:behavior_draggable="true"
+            app:behavior_fitToContents="true"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            tools:behavior_peekHeight="600dp"
+            tools:visibility="visible">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_genres"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:paddingHorizontal="@dimen/default_padding"
+                    app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:itemCount="2"
+                    tools:layoutManager="LinearLayoutManager"
+                    tools:listitem="@layout/item_genre_solid"
+                    tools:paddingEnd="310dp" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:text="@{tv.name}"
+                    android:textColor="@color/title_color"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toStartOf="@id/tv_vote"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_genres"
+                    tools:text="Bleach" />
+
+                <TextView
+                    android:id="@+id/tv_tagline"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/default_margin"
+                    android:fontFamily="@font/avenir_next_italic"
+                    android:textColor="@color/title_color"
+                    android:textSize="@dimen/small_text_size"
+                    app:layout_constraintEnd_toStartOf="@id/tv_vote"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name"
+                    tools:text="@tools:sample/lorem" />
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:fontFamily="@font/avenir_next_regular"
+                    android:text="@{tvDetails.status}"
+                    android:textColor="@color/title_color"
+                    android:textSize="@dimen/small_text_size"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="@id/tv_name"
+                    app:layout_constraintTop_toBottomOf="@id/tv_tagline"
+                    tools:text="Returning series" />
+
+                <TextView
+                    android:id="@+id/tv_vote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="@dimen/default_margin"
+                    android:fontFamily="@font/avenir_next_regular"
+                    android:gravity="center"
+                    android:text="@{tvDetails.vote}"
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp"
+                    app:drawableTopCompat="@drawable/ic_star"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_name"
+                    tools:ignore="SmallSp"
+                    tools:text="9.9" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/layout_next_episode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/default_margin"
+                    android:visibility="gone"
+                    app:cardBackgroundColor="@color/card_background_color"
+                    app:cardCornerRadius="@dimen/default_corner_radius"
+                    app:cardElevation="@dimen/default_card_elevation"
+                    app:contentPadding="@dimen/default_padding"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_status"
+                    tools:visibility="visible">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tv_next_episode_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/avenir_next_demi_bold"
+                            android:text="@string/tv_details_next_episode_label"
+                            android:textColor="@color/title_color"
+                            android:textSize="13sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_next_episode"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/medium_margin"
+                            android:fontFamily="@font/avenir_next_regular"
+                            android:textColor="@color/title_color"
+                            android:textSize="11sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/tv_next_episode_label"
+                            app:layout_constraintTop_toBottomOf="@id/tv_next_episode_label"
+                            tools:text="@tools:sample/lorem" />
+
+                        <TextView
+                            android:id="@+id/tv_next_episode_story_label"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:fontFamily="@font/avenir_next_demi_bold"
+                            android:text="@string/tv_details_story_label"
+                            android:textColor="@color/title_color"
+                            android:textSize="13sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_next_episode" />
+
+                        <TextView
+                            android:id="@+id/tv_next_episode_story"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/medium_margin"
+                            android:fontFamily="@font/avenir_next_regular"
+                            android:text="@{tvDetails.episodeToAir.story}"
+                            android:textColor="@color/title_color"
+                            android:textSize="11sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/tv_next_episode_story_label"
+                            app:layout_constraintTop_toBottomOf="@id/tv_next_episode_story_label"
+                            tools:text="@tools:sample/lorem" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/tv_story_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:text="@string/tv_details_story_label"
+                    android:textColor="@color/title_color"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_name"
+                    app:layout_constraintTop_toBottomOf="@id/layout_next_episode" />
+
+                <TextView
+                    android:id="@+id/tv_story"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    android:layout_marginEnd="@dimen/default_margin"
+                    android:fontFamily="@font/avenir_next_regular"
+                    android:text="@{tvDetails.story}"
+                    android:textColor="@color/title_color"
+                    android:textSize="@dimen/small_text_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tv_story_label"
+                    app:layout_constraintTop_toBottomOf="@id/tv_story_label"
+                    tools:text="@tools:sample/lorem" />
+
+                <TextView
+                    android:id="@+id/tv_network_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:text="@string/tv_details_network_label"
+                    android:textColor="@color/title_color"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_name"
+                    app:layout_constraintTop_toBottomOf="@id/tv_story" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_networks"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:paddingHorizontal="@dimen/default_padding"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_network_label"
+                    tools:itemCount="10"
+                    tools:listitem="@layout/item_network_stroke" />
+
+                <TextView
+                    android:id="@+id/tv_first_air_date_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:layout_marginEnd="@dimen/small_margin"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:text="@string/tv_details_first_air_date_label"
+                    android:textColor="@color/title_color"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_networks"
+                    app:layout_constraintWidth_percent=".4" />
+
+                <TextView
+                    android:id="@+id/tv_first_air_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/medium_margin"
+                    android:fontFamily="@font/avenir_next_regular"
+                    android:textColor="@color/title_color"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_first_air_date_label"
+                    app:layout_constraintTop_toBottomOf="@id/tv_first_air_date_label"
+                    app:layout_constraintWidth_percent=".4"
+                    tools:text="Janv. 2023" />
+
+                <TextView
+                    android:id="@+id/tv_created_by_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:text="@string/tv_details_created_by_label"
+                    android:textColor="@color/title_color"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_networks"
+                    app:layout_constraintWidth_percent=".5" />
+
+                <TextView
+                    android:id="@+id/tv_created_by"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/medium_margin"
+                    android:fontFamily="@font/avenir_next_regular"
+                    android:textColor="@color/title_color"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tv_created_by_label"
+                    app:layout_constraintTop_toBottomOf="@id/tv_created_by_label"
+                    tools:text="@tools:sample/lorem" />
+
+                <TextView
+                    android:id="@+id/tv_companies_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:layout_marginEnd="@dimen/small_margin"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:text="@string/tv_details_companies_label"
+                    android:textColor="@color/title_color"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_first_air_date"
+                    app:layout_constraintWidth_percent=".4" />
+
+                <TextView
+                    android:id="@+id/tv_companies"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:layout_marginEnd="@dimen/medium_margin"
+                    android:fontFamily="@font/avenir_next_regular"
+                    android:textColor="@color/title_color"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tv_companies_label"
+                    app:layout_constraintTop_toBottomOf="@id/tv_companies_label"
+                    tools:text="@tools:sample/lorem" />
+
+                <TextView
+                    android:id="@+id/tv_keywords_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:layout_marginEnd="@dimen/small_margin"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:text="@string/tv_details_keywords_label"
+                    android:textColor="@color/title_color"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_companies" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_keywords"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:paddingHorizontal="@dimen/default_padding"
+                    app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_keywords_label"
+                    tools:itemCount="2"
+                    tools:layoutManager="LinearLayoutManager"
+                    tools:listitem="@layout/item_stroke" />
+
+                <TextView
+                    android:id="@+id/tv_casts_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:layout_marginEnd="@dimen/small_margin"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:text="@string/tv_details_casts_label"
+                    android:textColor="@color/title_color"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_keywords" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_persons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_casts_label"
+                    tools:itemCount="10"
+                    tools:listitem="@layout/item_person"
+                    tools:paddingEnd="300dp"
+                    tools:paddingStart="15dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
